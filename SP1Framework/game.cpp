@@ -6,12 +6,14 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <string>
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
 // Game specific variables here
+extern SMapData g_mapData;
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
@@ -210,6 +212,7 @@ void renderSplashScreen()  // renders the splash screen
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 9;
     g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);
+	readMap(1);
 }
 
 void renderGame()
@@ -227,12 +230,22 @@ void renderMap()
     };
 
     COORD c;
-    for (int i = 0; i < 12; ++i)
+	std::string MapDataString;
+
+    for (int i = 0; i < 50; ++i)
     {
-        c.X = 5 * i;
+		c.X = 0;
         c.Y = i + 1;
-        colour(colors[i]);
-        g_Console.writeToBuffer(c, " °±²Û", colors[i]);
+		MapDataString = g_mapData.mapGrid[i];
+
+		if (MapDataString.size() == 0)
+		{
+			break;
+		}
+		if (MapDataString[i] != '\0')
+		{
+			g_Console.writeToBuffer(c, MapDataString, colors[2]);
+		}
     }
 }
 
