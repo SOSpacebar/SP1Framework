@@ -1,7 +1,7 @@
-SP1 Framework
+SP# Framework
 ============
 
-This framework is to help students on the SP1 module to get started quickly on their projects. This framework only works on the Windows environment as it uses Windows API in some of its features. 
+This framework is to help students on the SP# module to get started quickly on their projects. This framework only works on the Windows environment as it uses Windows API in some of its features. 
 
 Main Features
 -------------
@@ -15,7 +15,7 @@ Main Features
 What to do
 ----------
 
-1. Team leader should fork this project into their own repository
+#. Team leader should fork this project into their own repository
 2. Add your team mates as collaborators
 3. Read and understand the code
 4. Team leader should add this repository as a upstream remote repository if you want to get the latest bug fix or improvements. [Configuring a remote for a fork](https://help.github.com/articles/configuring-a-remote-for-a-fork)
@@ -59,14 +59,14 @@ Go to a specific location on the screen and writes to the std output from there.
 ##### void colour(WORD attrib);
 Sets a specific colour to be used in the next call to std::cout.
 
-##### void cls( HANDLE hConsole = 0);
+##### void cls( HANDLE hConsole =  );
 Clears the screen with the last colour attribute set.
 
 #### Console object
 You will only need to create one console object, and use this one true object in your code for all the console output. 
 
-##### Console(COORD consoleSize, LPCSTR lpConsoleTitle = 0);
-##### Console(unsigned short consoleWidth, unsigned short consoleHeight, LPCSTR lpConsoleTitle = 0);
+##### Console(COORD consoleSize, LPCSTR lpConsoleTitle =  );
+##### Console(unsigned short consoleWidth, unsigned short consoleHeight, LPCSTR lpConsoleTitle =  );
 Inits the console size, and give it a title, pass in a C-Style string
 
 ##### COORD getConsoleSize();  
@@ -78,15 +78,15 @@ Sets the console title
 ##### void setConsoleFont(SHORT width, SHORT height, LPCWSTR lpcwFontName); 
 Sets the console font. You can set the width and height of the raster fonts. If you are using a TrueType font, you can use the height as the font size. 
 
-##### void clearBuffer(WORD attribute = 0x0F);
+##### void clearBuffer(WORD attribute =  x F);
 Clears the data buffer, hence "clearing the screen", preparing for new data.
 
-##### void writeToBuffer(COORD c, LPCSTR str, WORD attribute = 0x0F);
-##### void writeToBuffer(COORD c, std::string& s, WORD attribute = 0x0F);
-##### void writeToBuffer(COORD c, char ch, WORD attribute = 0x0F);
-##### void writeToBuffer(SHORT x, SHORT y, LPCSTR str, WORD attribute = 0x0F);
-##### void writeToBuffer(SHORT x, SHORT y, std::string& s, WORD attribute = 0x0F);
-##### void writeToBuffer(SHORT x, SHORT y, char ch, WORD attribute = 0x0F);  
+##### void writeToBuffer(COORD c, LPCSTR str, WORD attribute =  x F);
+##### void writeToBuffer(COORD c, std::string& s, WORD attribute =  x F);
+##### void writeToBuffer(COORD c, char ch, WORD attribute =  x F);
+##### void writeToBuffer(SHORT x, SHORT y, LPCSTR str, WORD attribute =  x F);
+##### void writeToBuffer(SHORT x, SHORT y, std::string& s, WORD attribute =  x F);
+##### void writeToBuffer(SHORT x, SHORT y, char ch, WORD attribute =  x F);  
 The origin of the screen is on the top left.
 These 6 functions writes to the buffer at that coordinate, you can use C-Style strings, C++ string class or a char. The attribute is a optional parameter. The last 3 functions are overloaded versions of the first 3 functions.
 
@@ -113,7 +113,7 @@ Tips
 - Each functionality should be in its own file, this will make it easier for you to merge changes later.  
 - Pass in the data you need into your function, do not use global variables unnecessarily.  
 - Talk to your teammates, keep them updated, and informed, especially if you have difficulties.  
-- Try not to have more than 1 person working on the same file, or even worse, same function.  
+- Try not to have more than # person working on the same file, or even worse, same function.  
 - One commit for one functionality  
 - Mega commits are frowned upon. It might kill your project.  - 
 - Commit often, commit early  

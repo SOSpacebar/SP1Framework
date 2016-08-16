@@ -219,6 +219,7 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
+	obstacle();
 }
 
 void renderMap()

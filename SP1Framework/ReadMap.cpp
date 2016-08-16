@@ -19,7 +19,7 @@ void readMap(int mapLevel)
 	switch (mapLevel)
 	{
 	case 1:
-		//blah levelData.open("Map1.txt");
+		//blah levelData.open("Map#.txt");
 		levelData.open("Map.txt");
 		if (!levelData.is_open()){
 			std::cout << "Doesn't work" << std::endl;
@@ -38,10 +38,10 @@ void readMap(int mapLevel)
 	
 
 	string levelInfo;
-	int TilesHeight = 50;
-	int TilesWide = 50;
+	int TilesHeight = 50 ;
+	int TilesWide = 50 ;
 
-	for (int row = 0; row < TilesHeight; row++)
+	for (int row = 0 ; row < TilesHeight; row++)
 	{
 		if (levelData.eof()) 
 			break;
@@ -49,7 +49,7 @@ void readMap(int mapLevel)
 		string loopedString;
 		getline(levelData, loopedString);
 
-		for (int col = 0; col < TilesWide; col++)
+		for (int col = 0 ; col < TilesWide; col++)
 		{
 			if (loopedString[col] == '\0')
 			{
