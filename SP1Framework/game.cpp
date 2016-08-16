@@ -12,6 +12,8 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
+int a; // A interger to keep the of Start Game there 
+
 // Game specific variables here
 extern SMapData g_mapData;
 SGameChar   g_sChar;
@@ -104,6 +106,8 @@ void update(double dt)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
+		case S_MainMenu : renderMainMenu();
+			break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
     }
@@ -123,6 +127,8 @@ void render()
     {
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
+		case S_MainMenu: renderMainMenu();
+			break;
         case S_GAME: renderGame();
             break;
     }
@@ -133,9 +139,53 @@ void render()
 void splashScreenWait()    // waits for time to pass in splash screen
 {
     if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
-        g_eGameState = S_GAME;
+        g_eGameState = S_MainMenu;
 }
+void renderMainMenu()
+{
+	string Menu[2] = { "Start Game", "Exit" };//Array of Start Game and Exit
 
+	COORD c = g_Console.getConsoleSize();
+	c.Y /= 3;
+	c.X = c.X / 2 - 5;
+	g_Console.writeToBuffer(c, "Main Menu", 0x02);
+	c.Y += 1;
+	c.X = g_Console.getConsoleSize().X / 2 - 8;
+	//From Pressing Up will make the user go to the Start Game
+	if (g_abKeyPressed[K_UP])
+	{
+		a = 0;
+	}
+	//From Pressing Down Player will go to the Exit Menu
+	else if (g_abKeyPressed[K_DOWN])
+	{
+		a = 1;
+	}
+
+	switch (a)
+	{
+	case 0:
+		g_Console.writeToBuffer(c, Menu[0], 0x04);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[1], 0x03);
+		//Press Space in Start Menu will go to start game
+		if (g_abKeyPressed[K_SPACE])
+		{
+			g_eGameState = S_GAME;
+		}
+		break;
+	case 1:
+		g_Console.writeToBuffer(c, Menu[0], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[1], 0x04);
+		//Press Space in Exit Menu will quit the game
+		if (g_abKeyPressed[K_SPACE])
+		{
+			g_bQuitGame = true;
+		}
+		break;
+	}
+}
 void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
