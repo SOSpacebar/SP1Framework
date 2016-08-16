@@ -7,6 +7,7 @@
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
 
+using namespace std;
 // Enumeration to store the control keys that your game will have
 enum EKEYS
 {
@@ -23,6 +24,7 @@ enum EKEYS
 enum EGAMESTATES
 {
     S_SPLASHSCREEN,
+	S_MainMenu,
     S_GAME,
     S_COUNT
 };
@@ -59,5 +61,7 @@ void renderToScreen();      // dump the contents of the buffer to the screen, on
 
 void readMap(int mapLevel); // draw map
 void draw_map_string(std::string resultMap); // draw map
+
+void renderMainMenu();// Main Menu
 
 #endif // _GAME_H
