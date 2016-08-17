@@ -81,8 +81,8 @@
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="obstacle.cpp" />
     <ClCompile Include="ReadMap.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="TileMap.cpp" />
@@ -93,6 +93,7 @@
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="gameObject.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="ReadMap.h" />
     <ClInclude Include="stats.h" />
