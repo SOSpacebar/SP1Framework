@@ -41,7 +41,7 @@ void init( void )
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
 
-	readAnimation();
+	//readAnimation();
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
@@ -291,11 +291,9 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-<<<<<<< HEAD
 	updateProjectile(); 
 	WALKLA();
-=======
-<<<<<<< HEAD
+
 	//updateProjectile();
 
 	//if (abc <= 20)
@@ -312,11 +310,8 @@ void renderGame()
 	//}
 
 	//abc++;
-=======
 	updateProjectile();
 	SpikeBall();
->>>>>>> 289413e09294fc0afbd574d0a295beb020c597a3
->>>>>>> 7df9e8516bab4d2a4902e546823d34d11338cc90
 }
 
 void renderMap()
