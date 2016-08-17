@@ -5,9 +5,13 @@ using namespace std;
 SMapData g_mapData;
 
 
+
 void readMap(int mapLevel)
 {
+
 	ifstream levelData;
+	string levelInfo;
+	string loopedString;
 
 	switch (mapLevel)
 	{
@@ -27,9 +31,6 @@ void readMap(int mapLevel)
 		break;
 	}
 
-	
-
-	string levelInfo;
 	int TilesHeight = 150 ;
 	int TilesWide = 150 ;
 
@@ -38,7 +39,6 @@ void readMap(int mapLevel)
 		if (levelData.eof()) 
 			break;
 
-		string loopedString;
 		getline(levelData, loopedString);
 
 		for (int col = 0 ; col < TilesWide; col++)
@@ -55,8 +55,7 @@ void readMap(int mapLevel)
 			{
 				g_mapData.mapGrid[row][col] = loopedString.at(col);
 			}
-			
-
 		}
 	}
+	levelData.close();
 }
