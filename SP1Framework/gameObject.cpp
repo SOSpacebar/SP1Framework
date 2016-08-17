@@ -6,48 +6,86 @@ extern Console g_Console;
 
 double currTime;
 COORD x;
-string ObstacleString = ">";
+char ProjectileString = 175;
 
-bool reversing = false;
+bool reset = false;
 int offsetTime = 0;
 
 void updateProjectile(void)
 {
-	
 	currTime = g_dElapsedTime;
 
+<<<<<<< HEAD
 	bool bSomethingHappened = false;
 
+=======
+>>>>>>> 7df9e8516bab4d2a4902e546823d34d11338cc90
 	x.Y = 5;
 	offsetTime++;
 
-	if (currTime == g_dElapsedTime && reversing == false && offsetTime == 20)
+	if (currTime == g_dElapsedTime && reset == false && offsetTime % 3 == 0)
 	{
-		ObstacleString = ">";
-		//bSomethingHappened = true;
 		x.X++;
 		x.Y = 5;
-		offsetTime = 0;
-		g_Console.writeToBuffer(x, ObstacleString, 0xF6);
+		g_Console.writeToBuffer(x, ProjectileString, 0xF6);
 	}
 
-	if (x.X >= 10)
+	if (x.X >= 40)
+	{
+		reset = true;
+	}
+
+	if (reset)
+	{
+		x.X = 2;
+		reset = false;
+	}
+
+	g_Console.writeToBuffer(x, ProjectileString, 0xF6);
+}
+
+
+double currTime2;
+COORD z;
+string SpikeBallString = { (char)178 };
+
+bool reversing = false;
+int offsetTime2 = 0;
+
+void SpikeBall(void)
+{
+	currTime2 = g_dElapsedTime;
+
+	bool bSomethingHappened = false;
+
+	z.Y = 11;
+	offsetTime2++;
+
+	if (currTime2 == g_dElapsedTime && reversing == false && offsetTime2 % 15 == 0)
+	{
+		z.X++;
+		g_Console.writeToBuffer(z, SpikeBallString, 0xF6);
+	}
+
+	if (z.X >= 7)
 	{
 		reversing = true;
 	}
 
-	if (reversing && offsetTime == 20)
+	if (reversing && offsetTime2 % 1 == 0)
 	{
-		ObstacleString = "<";
-		x.X--;
-		x.Y = 5;
-		offsetTime = 0;
-		g_Console.writeToBuffer(x, ObstacleString, 0xF6);
-		if (x.X == 1)
+		z.X--;
+		g_Console.writeToBuffer(z, SpikeBallString, 0xF6);
+
+		if (z.X == 2)
 		{
 			reversing = false;
 		}
 	}
+<<<<<<< HEAD
 	g_Console.writeToBuffer(x, ObstacleString, 0xF6);
 	
+=======
+	g_Console.writeToBuffer(z, SpikeBallString, 0xF6);
+>>>>>>> 7df9e8516bab4d2a4902e546823d34d11338cc90
 }

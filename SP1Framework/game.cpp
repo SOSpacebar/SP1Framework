@@ -2,6 +2,7 @@
 //
 //
 #include "game.h"
+#include "AnimationManager.h"
 #include "Framework\console.h"
 #include "collisionManager.h"
 #include "enemyProperties.h"
@@ -13,6 +14,8 @@
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
+
+int abc = 0;
 
 int a; // A interger to keep the of Start Game there 
 
@@ -37,6 +40,8 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
+
+	readAnimation();
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
@@ -142,7 +147,7 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
+    if (g_dElapsedTime > 1.0) // wait for 1 seconds to switch to game mode, else do nothing
         g_eGameState = S_MainMenu;
 }
 void renderMainMenu()
@@ -194,8 +199,8 @@ void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
-	
    // sound can be played here too.
+
 }
 
 void moveCharacter()
@@ -272,7 +277,7 @@ void renderSplashScreen()  // renders the splash screen
     COORD c = g_Console.getConsoleSize();
     c.Y /= 3;
     c.X = c.X / 2 - 9;
-    g_Console.writeToBuffer(c, "A game in 3 seconds", 0x03);
+    g_Console.writeToBuffer(c, "A game in a seconds", 0x03);
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 20;
     g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
@@ -286,8 +291,32 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
+<<<<<<< HEAD
 	updateProjectile(); 
 	WALKLA();
+=======
+<<<<<<< HEAD
+	//updateProjectile();
+
+	//if (abc <= 20)
+	//{
+	//	drawAnimation(0);
+	//}
+	//else if (abc > 20)
+	//{
+	//	drawAnimation(1);
+	//}
+	//if (abc >= 40)
+	//{
+	//	abc = 0;
+	//}
+
+	//abc++;
+=======
+	updateProjectile();
+	SpikeBall();
+>>>>>>> 289413e09294fc0afbd574d0a295beb020c597a3
+>>>>>>> 7df9e8516bab4d2a4902e546823d34d11338cc90
 }
 
 void renderMap()
@@ -314,7 +343,7 @@ void renderMap()
 		}
 		if (MapDataString[i] != '\0')
 		{
-			g_Console.writeToBuffer(c, MapDataString, colors[2]);
+			g_Console.writeToBuffer(c, MapDataString, colors[3]);
 		}
     }
 }

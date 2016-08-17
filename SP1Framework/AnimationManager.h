@@ -1,9 +1,12 @@
 #ifndef _ANIMATIONMANAGER_H
 #define _ANIMATIONMANAGER_H
 
+#include <string>
+#include <fstream>
+
 struct FrameData
 {
-	char Frame[150][150];
+	char frameToLoad[50][150][150];
 
 	int height;
 
@@ -13,5 +16,7 @@ struct FrameData
 };
 
 void readAnimation(void);
+void drawAnimation(int keyFrame);
+void setAnimation();
 
 #endif 

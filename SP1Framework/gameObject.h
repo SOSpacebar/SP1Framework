@@ -8,6 +8,6 @@
 using namespace std;
 
 void updateProjectile(void);
-
+void SpikeBall(void);
 
 #endif
