@@ -3,6 +3,7 @@
 //
 #include "game.h"
 #include "Framework\console.h"
+#include "collisionManager.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -39,8 +40,8 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 
-    g_sChar.m_cLocation.X = g_Console.getConsoleSize().X / 2;
-    g_sChar.m_cLocation.Y = g_Console.getConsoleSize().Y / 2;
+	g_sChar.m_cLocation.X = 5;// g_Console.getConsoleSize().X / 2;
+	g_sChar.m_cLocation.Y = 5;// g_Console.getConsoleSize().Y / 2;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
@@ -201,30 +202,42 @@ void moveCharacter()
 
     // Updating the location of the character based on the key press
     // providing a beep sound whenver we shift the character
-    if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
-    {
-        //Beep(1440, 30);
-        g_sChar.m_cLocation.Y--;
-        bSomethingHappened = true;
-    }
-    if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
-    {
-        //Beep(1440, 30);
-        g_sChar.m_cLocation.X--;
-        bSomethingHappened = true;
-    }
-    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
-    {
-        //Beep(1440, 30);
-        g_sChar.m_cLocation.Y++;
-        bSomethingHappened = true;
-    }
-    if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
-    {
-        //Beep(1440, 30);
-        g_sChar.m_cLocation.X++;
-        bSomethingHappened = true;
-    }
+	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
+	{
+		if (checkCollision(g_sChar, g_mapData, K_UP) == true)
+		{
+			g_sChar.m_cLocation.Y--;
+			bSomethingHappened = true;
+		}
+	}
+	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
+	{
+		if (checkCollision(g_sChar, g_mapData, K_LEFT) == true)
+		{
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.X--;
+			bSomethingHappened = true;
+		}
+	}
+	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
+	{
+		if (checkCollision(g_sChar, g_mapData, K_DOWN) == true)
+		{
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.Y++;
+			bSomethingHappened = true;
+		}
+	}
+	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
+	{
+		if (checkCollision(g_sChar, g_mapData, K_RIGHT) == true)
+		{
+			//Beep(1440, 30);
+			g_sChar.m_cLocation.X++;
+			bSomethingHappened = true;
+		}
+
+	}
     if (g_abKeyPressed[K_SPACE])
     {
         g_sChar.m_bActive = !g_sChar.m_bActive;
@@ -269,7 +282,7 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	obstacle();
+	//obstacle();
 }
 
 void renderMap()
