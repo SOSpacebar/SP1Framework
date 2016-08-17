@@ -1,11 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <cctype>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <limits>
-#include "game.h"
+#include "ReadMap.h"
 
 using namespace std;
 
@@ -22,7 +15,6 @@ void readMap(int mapLevel)
 		//blah levelData.open("Map#.txt");
 		levelData.open("Map.txt");
 		if (!levelData.is_open()){
-			std::cout << "Doesn't work" << std::endl;
 			return;
 		}
 		break;
@@ -38,8 +30,8 @@ void readMap(int mapLevel)
 	
 
 	string levelInfo;
-	int TilesHeight = 50 ;
-	int TilesWide = 50 ;
+	int TilesHeight = 150 ;
+	int TilesWide = 150 ;
 
 	for (int row = 0 ; row < TilesHeight; row++)
 	{
@@ -55,7 +47,15 @@ void readMap(int mapLevel)
 			{
 				break;
 			}
-			g_mapData.mapGrid[row][col] = loopedString.at(col);
+			if (loopedString.at(col) == '#')
+			{
+				g_mapData.mapGrid[row][col] = (char)219;
+			}
+			else
+			{
+				g_mapData.mapGrid[row][col] = loopedString.at(col);
+			}
+			
 
 		}
 	}

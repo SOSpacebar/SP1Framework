@@ -4,10 +4,7 @@
 #include "game.h"
 #include "Framework\console.h"
 #include "collisionManager.h"
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <string>
+#include "ReadMap.h"
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -22,7 +19,7 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
-Console g_Console(80, 25, "SP1 Framework");
+Console g_Console(120, 40, "INSERT GAME NAME HERE");
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
