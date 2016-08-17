@@ -6,7 +6,7 @@ extern Console g_Console;
 
 double currTime;
 COORD x;
-string ProjectileString;
+char ProjectileString = 175;
 
 bool reset = false;
 int offsetTime = 0;
@@ -20,7 +20,6 @@ void updateProjectile(void)
 
 	if (currTime == g_dElapsedTime && reset == false && offsetTime % 3 == 0)
 	{
-		ProjectileString = ">";
 		x.X++;
 		x.Y = 5;
 		g_Console.writeToBuffer(x, ProjectileString, 0xF6);
@@ -43,7 +42,7 @@ void updateProjectile(void)
 
 double currTime2;
 COORD z;
-string SpikeBallString = "[x]";
+string SpikeBallString = { (char)178 };
 
 bool reversing = false;
 int offsetTime2 = 0;
