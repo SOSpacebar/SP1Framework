@@ -17,9 +17,6 @@ void updateProjectile(void)
 	currTime = g_dElapsedTime;
 
 	bool bSomethingHappened = false;
-	
-	// Updating the location of the character based on the key press
-	// providing a beep sound whenver we shift the character
 
 	x.Y = 5;
 	offsetTime++;
@@ -52,4 +49,5 @@ void updateProjectile(void)
 		}
 	}
 	g_Console.writeToBuffer(x, ObstacleString, 0xF6);
+	
 }

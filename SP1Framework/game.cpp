@@ -4,6 +4,7 @@
 #include "game.h"
 #include "Framework\console.h"
 #include "collisionManager.h"
+#include "enemyProperties.h"
 #include "ReadMap.h"
 #include <iostream>
 #include <sstream>
@@ -45,6 +46,8 @@ void init( void )
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
+
+	init_enemy(1);
 }
 
 //--------------------------------------------------------------
@@ -283,7 +286,8 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	updateProjectile();
+	updateProjectile(); 
+	WALKLA();
 }
 
 void renderMap()
