@@ -5,6 +5,9 @@
 #include "Framework\console.h"
 #include "collisionManager.h"
 #include "ReadMap.h"
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -293,7 +296,7 @@ void renderMap()
     COORD c;
 	std::string MapDataString;
 
-    for (int i = 0; i < 50; ++i)
+    for (int i = 0; i < 150; ++i)
     {
 		c.X = 0;
         c.Y = i + 1;
