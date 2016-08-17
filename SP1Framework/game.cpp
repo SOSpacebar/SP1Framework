@@ -2,6 +2,7 @@
 //
 //
 #include "game.h"
+#include "AnimationManager.h"
 #include "Framework\console.h"
 #include "collisionManager.h"
 #include "ReadMap.h"
@@ -12,6 +13,8 @@
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
+
+int abc = 0;
 
 int a; // A interger to keep the of Start Game there 
 
@@ -36,6 +39,8 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
+
+	readAnimation();
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
@@ -191,8 +196,8 @@ void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
-	
    // sound can be played here too.
+
 }
 
 void moveCharacter()
@@ -283,7 +288,22 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	updateProjectile();
+	//updateProjectile();
+
+	//if (abc <= 20)
+	//{
+	//	drawAnimation(0);
+	//}
+	//else if (abc > 20)
+	//{
+	//	drawAnimation(1);
+	//}
+	//if (abc >= 40)
+	//{
+	//	abc = 0;
+	//}
+
+	//abc++;
 }
 
 void renderMap()
