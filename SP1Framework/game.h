@@ -16,6 +16,7 @@ enum EKEYS
     K_DOWN,
     K_LEFT,
     K_RIGHT,
+	K_ENTER,
     K_ESCAPE,
     K_SPACE,
     K_COUNT
@@ -26,8 +27,10 @@ enum EGAMESTATES
 {
     S_SPLASHSCREEN,
 	S_MainMenu,
+	S_LevelSelect,
     S_GAME,
-    S_COUNT
+    S_COUNT,
+	S_COMBATSCREEN
 };
 
 // struct for the game character
@@ -56,5 +59,8 @@ void renderFramerate();     // renders debug information, frame rate, elapsed ti
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 
 void renderMainMenu();// Main Menu
+void LevelSelect();//Selecting Level
+
+void renderCombatScreen();
 
 #endif // _GAME_H

@@ -58,7 +58,7 @@ void drawAnimation(int keyFrame)
 			{
 				break;
 			}
-			g_Console.writeToBuffer(animationCoord, AnimationArray[keyFrame][animationCoord.Y - 5][animationCoord.X - 5], 0x0A);
+			g_Console.writeToBuffer(animationCoord, AnimationArray[keyFrame][animationCoord.Y - 5][animationCoord.X - 5], 0x0D);
 
 		}
 	}
