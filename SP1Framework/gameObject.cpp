@@ -15,6 +15,8 @@ void updateProjectile(void)
 {
 	currTime = g_dElapsedTime;
 
+	bool bSomethingHappened = false;
+
 	x.Y = 5;
 	offsetTime++;
 
@@ -77,5 +79,7 @@ void SpikeBall(void)
 			reversing = false;
 		}
 	}
+
+	//g_Console.writeToBuffer(x, ObstacleString, 0xF6);
 	g_Console.writeToBuffer(z, SpikeBallString, 0xF6);
 }

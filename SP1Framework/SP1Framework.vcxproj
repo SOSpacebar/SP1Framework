@@ -78,10 +78,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="collisionManager.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="handleEnemyMovement.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ReadMap.cpp" />
     <ClCompile Include="stats.cpp" />
@@ -90,6 +92,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="collisionManager.h" />
+    <ClInclude Include="enemyProperties.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />

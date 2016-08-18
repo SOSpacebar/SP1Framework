@@ -8,3 +8,8 @@ struct enemyStruct
 	short e_speed;
 	bool e_alive;
 };
+
+void init_enemy(short level);
+void WALKLA();
+//void handleMovement(COORD pos, short speed);
+
