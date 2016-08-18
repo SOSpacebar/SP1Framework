@@ -124,7 +124,7 @@ void update(double dt)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
-		case S_MainMenu : renderMainMenu();
+		case S_MAINMENU: renderMainMenu();
 			break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
@@ -145,9 +145,9 @@ void render()
     {
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
-		case S_MainMenu: renderMainMenu();
+		case S_MAINMENU: renderMainMenu();
 			break;
-		case S_LevelSelect: LevelSelect();
+		case S_LEVELSELECT: LevelSelect();
 			break;
 		//case S_COMBATSCREEN: renderCombatScreen();
 		//	break;
@@ -161,7 +161,7 @@ void render()
 void splashScreenWait()    // waits for time to pass in splash screen
 {
     if (g_dElapsedTime > 1.0) // wait for 1 seconds to switch to game mode, else do nothing
-        g_eGameState = S_MainMenu;
+		g_eGameState = S_MAINMENU;
 }
 void renderMainMenu()
 {
@@ -223,7 +223,7 @@ void LevelSelect()
 
 	if (g_abKeyPressed[K_ESCAPE])
 	{
-		g_eGameState = S_MainMenu;
+		g_eGameState = S_MAINMENU;
 	}
 	//Switching case of Level 1,2,3
 	switch (SetLevel)
