@@ -3,6 +3,7 @@
 
 #include <string>
 #include <fstream>
+#include "game.h"
 
 struct FrameData
 {
@@ -16,7 +17,8 @@ struct FrameData
 };
 
 void readAnimation(void);
-void drawAnimation(int keyFrame);
+void drawAnimation(int keyFrame, COORD animationCoord);
 void setAnimation();
+void drawHpCurr(int keyFrame, COORD currCoord);
 
 #endif 
