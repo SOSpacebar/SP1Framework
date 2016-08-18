@@ -18,24 +18,14 @@ bool    g_abKeyPressed[K_COUNT];
 
 int AnimationOffset = 0;
 
-<<<<<<< HEAD
 //Shooting Variables
 EKEYS lastDirection = K_RIGHT;
 
-
-
-=======
-<<<<<<< HEAD
->>>>>>> e2653832c5e675fcda2b6bd2aeab793143ff6deb
 int MenuSelect = 0; // A interger to keep the of Start Game there 
 int SetLevel = 0;
 int hp = 98;
-<<<<<<< HEAD
-=======
-=======
+
 int a; // A interger to keep the of Start Game there 
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
->>>>>>> 62cc7494cc1d79e7a5462e53da25be307e207ca1
 
 // Game specific variables here
 extern SMapData g_mapData;
@@ -157,16 +147,10 @@ void render()
             break;
 		case S_MainMenu: renderMainMenu();
 			break;
-<<<<<<< HEAD
 		case S_LevelSelect: LevelSelect();
 			break;
-		case S_COMBATSCREEN: renderCombatScreen();
-			break;
-<<<<<<< HEAD
-=======
-=======
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
->>>>>>> 62cc7494cc1d79e7a5462e53da25be307e207ca1
+		//case S_COMBATSCREEN: renderCombatScreen();
+		//	break;
         case S_GAME: renderGame();
             break;
     }
@@ -224,7 +208,6 @@ void renderMainMenu()
 		break;
 	}
 }
-<<<<<<< HEAD
 
 void LevelSelect()
 {
@@ -264,7 +247,7 @@ void LevelSelect()
 		{
 			bSomethingHappened = true;
 			SetLevel = 1;
-			g_eGameState = S_COMBATSCREEN;
+			//g_eGameState = S_COMBATSCREEN;
 		}
 		//Pressing ENTER will go into the game
 		if (g_abKeyPressed[K_ENTER])
@@ -333,8 +316,6 @@ void LevelSelect()
 	}
 }
 
-=======
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
 void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
@@ -440,65 +421,18 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-<<<<<<< HEAD
 
 	handleBulletProjectile(); //renders the bullet.
 
-
-	updateProjectile(); 
-	WALKLA();
-	SpikeBall();
-=======
-<<<<<<< HEAD
-	//updateProjectile();
-	//if (abc <= 5)
-<<<<<<< HEAD
-=======
-=======
-
 	WALKLA();
 
-
-	//if (abc <= 20)
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
->>>>>>> 62cc7494cc1d79e7a5462e53da25be307e207ca1
-	//{
-	//	drawAnimation(0);
-	//}
-	//else if (abc > 5)
-	//{
-	//	drawAnimation(1);
-	//}
-	//if (abc >= 10)
-	//{
-	//	abc = 0;
-	//}
-
-	//abc++;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 62cc7494cc1d79e7a5462e53da25be307e207ca1
 	//renderCombatScreen();
-
-	updateProjectile();
-	SpikeBall();
-
-	updateProjectile(); 
-	WALKLA();
-
-	updateProjectile();
-	SpikeBall();
-=======
 	update_GameObject();
 	//TryCircle();
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
->>>>>>> e2653832c5e675fcda2b6bd2aeab793143ff6deb
 }
 
 void renderMap()
 {
-
     // Set up sample colours, and output shadings
     const WORD colors[] = {
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
@@ -559,7 +493,6 @@ void renderToScreen()
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
 }
-<<<<<<< HEAD
 
 void renderCombatScreen()
 {
@@ -594,7 +527,6 @@ void renderCombatScreen()
 
 	x.X = 10;
 	x.Y = 25;
-<<<<<<< HEAD
 
 	drawAnimation(3, x);
 
@@ -613,8 +545,6 @@ void renderCombatScreen()
 		g_dBounceTime = g_dElapsedTime;
 	}
 
-=======
-
 	drawAnimation(3, x);
 
 	if (g_abKeyPressed[K_SPACE] && g_dElapsedTime >= g_dBounceTime)
@@ -631,9 +561,5 @@ void renderCombatScreen()
 	{
 		g_dBounceTime = g_dElapsedTime;
 	}
-
->>>>>>> 62cc7494cc1d79e7a5462e53da25be307e207ca1
 	drawHpCurr(3, x);
 }
-=======
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
