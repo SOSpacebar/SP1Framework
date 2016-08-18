@@ -17,9 +17,13 @@ bool    g_abKeyPressed[K_COUNT];
 
 int AnimationOffset = 0;
 
+<<<<<<< HEAD
 int MenuSelect = 0; // A interger to keep the of Start Game there 
 int SetLevel = 0;
 int hp = 98;
+=======
+int a; // A interger to keep the of Start Game there 
+>>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
 
 // Game specific variables here
 extern SMapData g_mapData;
@@ -43,7 +47,7 @@ void init( void )
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
 
-	readAnimation();
+	//readAnimation();
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
@@ -55,6 +59,7 @@ void init( void )
     g_Console.setConsoleFont(0, 16, L"Arial");
 
 	init_enemy(1);
+	init_object(1);
 }
 
 //--------------------------------------------------------------
@@ -89,7 +94,6 @@ void getInput( void )
     g_abKeyPressed[K_DOWN]   = isKeyPressed(VK_DOWN);
     g_abKeyPressed[K_LEFT]   = isKeyPressed(VK_LEFT);
     g_abKeyPressed[K_RIGHT]  = isKeyPressed(VK_RIGHT);
-	g_abKeyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 }
@@ -120,8 +124,6 @@ void update(double dt)
             break;
 		case S_MainMenu : renderMainMenu();
 			break;
-		case S_LevelSelect: LevelSelect();
-			break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
     }
@@ -143,10 +145,13 @@ void render()
             break;
 		case S_MainMenu: renderMainMenu();
 			break;
+<<<<<<< HEAD
 		case S_LevelSelect: LevelSelect();
 			break;
 		case S_COMBATSCREEN: renderCombatScreen();
 			break;
+=======
+>>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
         case S_GAME: renderGame();
             break;
     }
@@ -159,10 +164,8 @@ void splashScreenWait()    // waits for time to pass in splash screen
     if (g_dElapsedTime > 1.0) // wait for 1 seconds to switch to game mode, else do nothing
         g_eGameState = S_MainMenu;
 }
-
 void renderMainMenu()
 {
-	bool bSomethingHappened = false;
 	string Menu[2] = { "Start Game", "Exit" };//Array of Start Game and Exit
 
 	COORD c = g_Console.getConsoleSize();
@@ -174,51 +177,39 @@ void renderMainMenu()
 	//From Pressing Up will make the user go to the Start Game
 	if (g_abKeyPressed[K_UP])
 	{
-		bSomethingHappened = true;
-		MenuSelect = 0;
+		a = 0;
 	}
 	//From Pressing Down Player will go to the Exit Menu
 	else if (g_abKeyPressed[K_DOWN])
 	{
-		bSomethingHappened = true;
-		MenuSelect = 1;
+		a = 1;
 	}
-	switch (MenuSelect)
+
+	switch (a)
 	{
 	case 0:
 		g_Console.writeToBuffer(c, Menu[0], 0x04);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[1], 0x03);
-		if (g_dBounceTime > g_dElapsedTime)
-			return;
 		//Press Space in Start Menu will go to start game
-		if (g_abKeyPressed[K_ENTER])
+		if (g_abKeyPressed[K_SPACE])
 		{
-			g_eGameState = S_LevelSelect;
-			bSomethingHappened = true;
-			MenuSelect = 1;
+			g_eGameState = S_GAME;
 		}
 		break;
 	case 1:
 		g_Console.writeToBuffer(c, Menu[0], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[1], 0x04);
-		if (g_dBounceTime > g_dElapsedTime)
-			return;
 		//Press Space in Exit Menu will quit the game
-		if (g_abKeyPressed[K_ENTER])
+		if (g_abKeyPressed[K_SPACE])
 		{
-			bSomethingHappened = true;
 			g_bQuitGame = true;
 		}
 		break;
 	}
-	if (bSomethingHappened)
-	{
-		// set the bounce time to some time in the future to prevent accidental triggers
-		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-	}
 }
+<<<<<<< HEAD
 
 void LevelSelect()
 {
@@ -327,6 +318,8 @@ void LevelSelect()
 	}
 }
 
+=======
+>>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
 void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
@@ -391,7 +384,6 @@ void moveCharacter()
         g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
     }
 }
-
 void processUserInput()
 {
     // quits the game if player hits the escape key
@@ -424,8 +416,16 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
+<<<<<<< HEAD
 	//updateProjectile();
 	//if (abc <= 5)
+=======
+
+	WALKLA();
+
+
+	//if (abc <= 20)
+>>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
 	//{
 	//	drawAnimation(0);
 	//}
@@ -439,6 +439,7 @@ void renderGame()
 	//}
 
 	//abc++;
+<<<<<<< HEAD
 	//renderCombatScreen();
 
 	updateProjectile();
@@ -449,6 +450,10 @@ void renderGame()
 
 	updateProjectile();
 	SpikeBall();
+=======
+	update_GameObject();
+	//TryCircle();
+>>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
 }
 
 void renderMap()
@@ -514,6 +519,7 @@ void renderToScreen()
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
 }
+<<<<<<< HEAD
 
 void renderCombatScreen()
 {
@@ -568,3 +574,5 @@ void renderCombatScreen()
 
 	drawHpCurr(3, x);
 }
+=======
+>>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
