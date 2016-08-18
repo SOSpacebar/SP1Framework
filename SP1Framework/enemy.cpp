@@ -7,14 +7,14 @@ void init_enemy(short level) //Preload the data of the enemy into memory.
 	if (level == 1)
 	{
 		short num = 3;
-		short x[3] = { 5, 10, 15 };
-		short y[3] = { 5, 10, 15 };
+		short xPos[3] = { 5, 10, 15 };
+		short yPos[3] = { 5, 10, 15 };
 
 		for (short i = 0; i < num; i++)
 		{
 			COORD pos;
-			pos.X = x[i];
-			pos.Y = y[i];
+			pos.X = xPos[i];
+			pos.Y = yPos[i];
 
 			_enemy[i].e_location = pos;
 			_enemy[i].e_speed = 5;

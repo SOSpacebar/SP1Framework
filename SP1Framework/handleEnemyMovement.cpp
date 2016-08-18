@@ -21,12 +21,12 @@ void WALKLA()
 		_enemy[0].e_location.X++;
 		_enemy[1].e_location.X++;
 		_enemy[2].e_location.X++;
-		g_Console.writeToBuffer(_enemy[0].e_location, 'M', 0xF6);
-		g_Console.writeToBuffer(_enemy[1].e_location, 'M', 0xF6);
-		g_Console.writeToBuffer(_enemy[2].e_location, 'M', 0xF6);
+		g_Console.writeToBuffer(_enemy[0].e_location, 'M', 0x4D);
+		g_Console.writeToBuffer(_enemy[1].e_location, 'M', 0x4D);
+		g_Console.writeToBuffer(_enemy[2].e_location, 'M', 0x4D);
 	}
 
-	g_Console.writeToBuffer(_enemy[0].e_location, 'M', 0xF6); 
-	g_Console.writeToBuffer(_enemy[1].e_location, 'M', 0xF6);
-	g_Console.writeToBuffer(_enemy[2].e_location, 'M', 0xF6);
+	g_Console.writeToBuffer(_enemy[0].e_location, 'M', 0x4D);
+	g_Console.writeToBuffer(_enemy[1].e_location, 'M', 0x4D);
+	g_Console.writeToBuffer(_enemy[2].e_location, 'M', 0x4D);
 }

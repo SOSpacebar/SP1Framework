@@ -443,7 +443,26 @@ void renderGame()
 	updateProjectile(); 
 	WALKLA();
 
+<<<<<<< HEAD
 	updateProjectile();
+=======
+	//updateProjectile();
+
+	//if (abc <= 20)
+	//{
+	//	drawAnimation(0);
+	//}
+	//else if (abc > 20)
+	//{
+	//	drawAnimation(1);
+	//}
+	//if (abc >= 40)
+	//{
+	//	abc = 0;
+	//}
+
+	//abc++;
+>>>>>>> 5b26d118f23346c325fab10c99ab1f1269bc616b
 	SpikeBall();
 }
 
