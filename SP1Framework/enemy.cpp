@@ -7,13 +7,8 @@ void init_enemy(short level) //Preload the data of the enemy into memory.
 	if (level == 1)
 	{
 		short num = 3;
-<<<<<<< HEAD
-		short x[3] = { 4, 4, 4 };
-		short y[3] = { 6, 10, 15 };
-=======
-		short xPos[3] = { 5, 10, 15 };
-		short yPos[3] = { 5, 10, 15 };
->>>>>>> 12653161599109674a6ada67a31604c78021d209
+		short xPos[3] = { 4, 4, 4 };
+		short yPos[3] = { 6, 10, 15 };
 
 		for (short i = 0; i < num; i++)
 		{

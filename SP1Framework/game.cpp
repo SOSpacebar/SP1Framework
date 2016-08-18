@@ -17,13 +17,11 @@ bool    g_abKeyPressed[K_COUNT];
 
 int AnimationOffset = 0;
 
-<<<<<<< HEAD
 int MenuSelect = 0; // A interger to keep the of Start Game there 
 int SetLevel = 0;
 int hp = 98;
-=======
+
 int a; // A interger to keep the of Start Game there 
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
 
 // Game specific variables here
 extern SMapData g_mapData;
@@ -145,13 +143,10 @@ void render()
             break;
 		case S_MainMenu: renderMainMenu();
 			break;
-<<<<<<< HEAD
 		case S_LevelSelect: LevelSelect();
 			break;
 		case S_COMBATSCREEN: renderCombatScreen();
 			break;
-=======
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
         case S_GAME: renderGame();
             break;
     }
@@ -209,7 +204,6 @@ void renderMainMenu()
 		break;
 	}
 }
-<<<<<<< HEAD
 
 void LevelSelect()
 {
@@ -318,13 +312,11 @@ void LevelSelect()
 	}
 }
 
-=======
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
 void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter();    // moves the character, collision detection, physics, etc
-   // sound can be played here too.
+						 // sound can be played here too.
 
 }
 
@@ -414,48 +406,14 @@ void renderSplashScreen()  // renders the splash screen
 
 void renderGame()
 {
-    renderMap();        // renders the map to the buffer first
-    renderCharacter();  // renders the character into the buffer
-<<<<<<< HEAD
-	//updateProjectile();
-	//if (abc <= 5)
-=======
+	renderMap();        // renders the map to the buffer first
+	renderCharacter();  // renders the character into the buffer
 
 	WALKLA();
 
 
-	//if (abc <= 20)
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
-	//{
-	//	drawAnimation(0);
-	//}
-	//else if (abc > 5)
-	//{
-	//	drawAnimation(1);
-	//}
-	//if (abc >= 10)
-	//{
-	//	abc = 0;
-	//}
-
-	//abc++;
-<<<<<<< HEAD
-	//renderCombatScreen();
-
-	updateProjectile();
-	SpikeBall();
-
-	updateProjectile(); 
-	WALKLA();
-
-	updateProjectile();
-	SpikeBall();
-=======
 	update_GameObject();
-	//TryCircle();
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
 }
-
 void renderMap()
 {
 
@@ -519,7 +477,6 @@ void renderToScreen()
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
 }
-<<<<<<< HEAD
 
 void renderCombatScreen()
 {
@@ -574,5 +531,3 @@ void renderCombatScreen()
 
 	drawHpCurr(3, x);
 }
-=======
->>>>>>> cb72d792f5329c3bd938d37dc909c54519925ac7
