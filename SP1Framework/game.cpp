@@ -53,6 +53,7 @@ void init( void )
     g_Console.setConsoleFont(0, 16, L"Consolas");
 
 	init_enemy(1);
+	init_object(1);
 }
 
 //--------------------------------------------------------------
@@ -291,10 +292,9 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	updateProjectile(); 
+
 	WALKLA();
 
-	//updateProjectile();
 
 	//if (abc <= 20)
 	//{
@@ -310,8 +310,8 @@ void renderGame()
 	//}
 
 	//abc++;
-	updateProjectile();
-	SpikeBall();
+	update_GameObject();
+	//TryCircle();
 }
 
 void renderMap()
