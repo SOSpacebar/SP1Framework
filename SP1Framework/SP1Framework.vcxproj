@@ -85,6 +85,7 @@
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="handleEnemyMovement.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ReadAnimation.cpp" />
     <ClCompile Include="ReadMap.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="TileMap.cpp" />
