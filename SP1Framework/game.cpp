@@ -18,7 +18,11 @@ bool    g_abKeyPressed[K_COUNT];
 int abc = 0;
 
 int MenuSelect = 0; // A interger to keep the of Start Game there 
-int SetLevel = 0;
+int SetLevel = 0; // Setting Array of Levels
+int SplashRow = 0;
+int SplashCol = 0;
+//string Frameloading[50];
+string AnimationString;
 
 // Game specific variables here
 extern SMapData g_mapData;
@@ -28,6 +32,8 @@ double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger k
 
 // Console object
 Console g_Console(120, 40, "INSERT GAME NAME HERE");
+COORD l;
+
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -42,6 +48,8 @@ void init( void )
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
 
+	l.X = 0;
+	l.Y = 0;
 	readAnimation();
 
     // sets the initial state for the game
@@ -117,12 +125,16 @@ void update(double dt)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
-		case S_MainMenu : renderMainMenu();
+		case S_MAINMENU : renderMainMenu();
 			break;
-		case S_LevelSelect: LevelSelect();
+		case S_CREDITS: Credits();
+			break;
+		case S_LEVELSELECT: LevelSelect();
 			break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
+		case S_GAMEOVER: GameOver(); // gameplay logic when we are in the game
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -140,12 +152,16 @@ void render()
     {
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
-		case S_MainMenu: renderMainMenu();
+		case S_MAINMENU: renderMainMenu();
 			break;
-		case S_LevelSelect: LevelSelect();
+		case S_CREDITS: Credits();
+			break;
+		case S_LEVELSELECT: LevelSelect();
 			break;
         case S_GAME: renderGame();
             break;
+		case S_GAMEOVER: GameOver(); // gameplay logic when we are in the game
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -153,14 +169,16 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
+	//SetAnimationSplashScreen();
     if (g_dElapsedTime > 1.0) // wait for 1 seconds to switch to game mode, else do nothing
-        g_eGameState = S_MainMenu;
+        g_eGameState = S_MAINMENU;
 }
 
 void renderMainMenu()
 {
 	bool bSomethingHappened = false;
-	string Menu[2] = { "Start Game", "Exit" };//Array of Start Game and Exit
+
+	string Menu[3] = { "Start Game", "Credits", "Exit" };//Array of Start Game and Exit
 
 	COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
@@ -168,30 +186,33 @@ void renderMainMenu()
 	g_Console.writeToBuffer(c, "Main Menu", 0x02);
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 8;
-	//From Pressing Up will make the user go to the Start Game
-	if (g_abKeyPressed[K_UP])
-	{
-		bSomethingHappened = true;
-		MenuSelect = 0;
-	}
-	//From Pressing Down Player will go to the Exit Menu
-	else if (g_abKeyPressed[K_DOWN])
-	{
-		bSomethingHappened = true;
-		MenuSelect = 1;
-	}
+
 	switch (MenuSelect)
 	{
 	case 0:
 		g_Console.writeToBuffer(c, Menu[0], 0x04);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[1], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[2], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 		//Press Space in Start Menu will go to start game
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 0;
+		}
+		//From Pressing Down Player will go to the Exit Menu
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 1;
+		}
+
 		if (g_abKeyPressed[K_ENTER])
 		{
-			g_eGameState = S_LevelSelect;
+			g_eGameState = S_LEVELSELECT;
 			bSomethingHappened = true;
 			MenuSelect = 1;
 		}
@@ -200,8 +221,46 @@ void renderMainMenu()
 		g_Console.writeToBuffer(c, Menu[0], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[1], 0x04);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[2], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 0;
+		}
+		//From Pressing Down Player will go to the Exit Menu
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 2;
+		}
+		if (g_abKeyPressed[K_ENTER])
+		{
+			bSomethingHappened = true;
+			g_eGameState = S_CREDITS;
+		}
+		break;
+	case 2:
+		g_Console.writeToBuffer(c, Menu[0], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[1], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[2], 0x04);
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 1;
+		}
+		//From Pressing Down Player will go to the Exit Menu
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 2;
+		}
 		//Press Space in Exit Menu will quit the game
 		if (g_abKeyPressed[K_ENTER])
 		{
@@ -231,7 +290,7 @@ void LevelSelect()
 
 	if (g_abKeyPressed[K_ESCAPE])
 	{
-		g_eGameState = S_MainMenu;
+		g_eGameState = S_MAINMENU;
 	}
 	//Switching case of Level 1,2,3
 	switch (SetLevel)
@@ -422,30 +481,31 @@ void renderGame()
     renderCharacter();  // renders the character into the buffer
 	//updateProjectile();
 
-	if (abc <= 5)
-	{
-		drawAnimation(0);
-	}
-	else if (abc > 5)
-	{
-		drawAnimation(1);
-	}
-	if (abc >= 10)
-	{
-		abc = 0;
-	}
+	//if (abc <= 5)
+	//{
+	//	drawAnimation(0);
+	//}
+	//else if (abc > 5)
+	//{
+	//	drawAnimation(1);
+	//}
+	//if (abc >= 10)
+	//{
+	//	abc = 0;
+	//}
 
-	abc++;
+	//abc++;
 
-	updateProjectile();
-	SpikeBall();
+	//updateProjectile();
+	//SpikeBall();
 
-	updateProjectile(); 
-	WALKLA();
+	//updateProjectile(); 
+	//WALKLA();
 
-<<<<<<< HEAD
-	updateProjectile();
-=======
+	//DrawAnimationSplashScreen();
+//<<<<<<< HEAD
+	//updateProjectile();
+//=======
 	//updateProjectile();
 
 	//if (abc <= 20)
@@ -462,13 +522,12 @@ void renderGame()
 	//}
 
 	//abc++;
->>>>>>> 5b26d118f23346c325fab10c99ab1f1269bc616b
+//>>>>>>> 5b26d118f23346c325fab10c99ab1f1269bc616b
 	SpikeBall();
 }
 
 void renderMap()
 {
-
     // Set up sample colours, and output shadings
     const WORD colors[] = {
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
@@ -524,6 +583,7 @@ void renderFramerate()
     c.Y = 0;
     g_Console.writeToBuffer(c, ss.str(), 0x59);
 }
+
 void renderToScreen()
 {
     // Writes the buffer to the console, hence you will see what you have written
@@ -532,6 +592,57 @@ void renderToScreen()
 
 void renderCombatScreen()
 {
-	COORD x;
+//	COORD x;
 
+}
+
+/*
+void SetAnimationSplashScreen()
+{
+	if (SplashCol < 388)
+	{
+		for (int i = 0; i < 10; i++)
+		AnimationString.push_back((char)219);
+	}
+	if (SplashCol > 388)
+	{
+		g_eGameState = S_MAINMENU;
+	}
+}
+
+void DrawAnimationSplashScreen()
+{
+	SetAnimationSplashScreen();
+	g_Console.writeToBuffer(l, AnimationString, 0x4B);
+	SplashCol ++;
+}
+*/
+
+void GameOver()
+{
+	
+}
+
+void Credits()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y /= 3;
+	c.X = c.X / 2 - 5;
+	g_Console.writeToBuffer(c, "ESC to Return", 0x02);
+	c.Y += 4;
+	g_Console.writeToBuffer(c, "Done By,", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Ng JingJie <>", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Lim Zhi Sheng <>", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Lim Pei Sheng", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Lim Yi Chun <UI>", 0x02);
+	c.Y += 1;
+
+	if (g_abKeyPressed[K_ESCAPE])
+	{
+		g_eGameState = S_MAINMENU;
+	}
 }
