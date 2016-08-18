@@ -6,6 +6,7 @@
 #include "Framework\console.h"
 #include "collisionManager.h"
 #include "enemyProperties.h"
+#include "portalGun.h"
 #include "ReadMap.h"
 #include <iostream>
 #include <sstream>
@@ -16,6 +17,11 @@ double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
 int abc = 0;
+
+//Shooting Variables
+EKEYS lastDirection = K_RIGHT;
+
+
 
 int MenuSelect = 0; // A interger to keep the of Start Game there 
 int SetLevel = 0;
@@ -327,7 +333,8 @@ void gameplay()            // gameplay logic
 
 void moveCharacter()
 {
-    bool bSomethingHappened = false;
+	bool bSomethingHappened = false;
+
     if (g_dBounceTime > g_dElapsedTime)
         return;
 
@@ -337,6 +344,7 @@ void moveCharacter()
 	{
 		if (checkCollision(g_sChar, g_mapData, K_UP) == true)
 		{
+			lastDirection = K_UP;
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
 		}
@@ -346,6 +354,7 @@ void moveCharacter()
 		if (checkCollision(g_sChar, g_mapData, K_LEFT) == true)
 		{
 			//Beep(1440, 30);
+			lastDirection = K_LEFT;
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
 		}
@@ -355,6 +364,7 @@ void moveCharacter()
 		if (checkCollision(g_sChar, g_mapData, K_DOWN) == true)
 		{
 			//Beep(1440, 30);
+			lastDirection = K_DOWN;
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
 		}
@@ -364,6 +374,7 @@ void moveCharacter()
 		if (checkCollision(g_sChar, g_mapData, K_RIGHT) == true)
 		{
 			//Beep(1440, 30);
+			lastDirection = K_RIGHT;
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
 		}
@@ -371,8 +382,12 @@ void moveCharacter()
 	}
     if (g_abKeyPressed[K_SPACE])
     {
-        g_sChar.m_bActive = !g_sChar.m_bActive;
-        bSomethingHappened = true;
+		g_sChar.m_bActive = !g_sChar.m_bActive;
+
+		if (fireGun(g_sChar, g_mapData, K_SPACE, lastDirection) == true)
+		{
+			bSomethingHappened = true;
+		}
     }
 
     if (bSomethingHappened)
@@ -414,50 +429,13 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-<<<<<<< HEAD
 
-	//updateProjectile();
+	handleBulletProjectile(); //renders the bullet.
 
-	if (abc <= 20)
-	{
-		drawAnimation(0);
-	}
-	else if (abc > 20)
-	{
-		drawAnimation(1);
-	}
-	if (abc >= 40)
-	{
-		abc = 0;
-	}
 
-	abc++;
-
-	updateProjectile();
-	SpikeBall();
-
-=======
 	updateProjectile(); 
 	WALKLA();
-
-	//updateProjectile();
-
-	//if (abc <= 20)
-	//{
-	//	drawAnimation(0);
-	//}
-	//else if (abc > 20)
-	//{
-	//	drawAnimation(1);
-	//}
-	//if (abc >= 40)
-	//{
-	//	abc = 0;
-	//}
-
-	//abc++;
 	SpikeBall();
->>>>>>> 8bfb86c2b4be426ca5ab88b5107f5f4d419211ac
 }
 
 void renderMap()
