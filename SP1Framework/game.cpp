@@ -288,27 +288,27 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-<<<<<<< HEAD
+
 	//updateProjectile();
 
-	//if (abc <= 20)
-	//{
-	//	drawAnimation(0);
-	//}
-	//else if (abc > 20)
-	//{
-	//	drawAnimation(1);
-	//}
-	//if (abc >= 40)
-	//{
-	//	abc = 0;
-	//}
+	if (abc <= 20)
+	{
+		drawAnimation(0);
+	}
+	else if (abc > 20)
+	{
+		drawAnimation(1);
+	}
+	if (abc >= 40)
+	{
+		abc = 0;
+	}
 
-	//abc++;
-=======
+	abc++;
+
 	updateProjectile();
 	SpikeBall();
->>>>>>> 289413e09294fc0afbd574d0a295beb020c597a3
+
 }
 
 void renderMap()
