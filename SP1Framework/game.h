@@ -25,10 +25,12 @@ enum EKEYS
 // Enumeration for the different screen states
 enum EGAMESTATES
 {
-    S_SPLASHSCREEN,
-	S_MainMenu,
-	S_LevelSelect,
-    S_GAME,
+	S_SPLASHSCREEN,
+	S_MAINMENU,
+	S_LEVELSELECT,
+	S_GAME,
+	S_GAMEOVER,
+	S_CREDITS,
     S_COUNT,
 	S_COMBATSCREEN
 };
@@ -59,7 +61,11 @@ void renderFramerate();     // renders debug information, frame rate, elapsed ti
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 
 void renderMainMenu();// Main Menu
-void LevelSelect();//Selecting Level
+void LevelSelect();// Selecting Level
+void SetAnimationSplashScreen(); // Showing Animation
+void DrawAnimationSplashScreen(); // Draw the SplashScreen in
+void GameOver();
+void Credits();
 
 void renderCombatScreen();
 
