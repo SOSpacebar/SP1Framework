@@ -15,10 +15,11 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
-int abc = 0;
+int AnimationOffset = 0;
 
 int MenuSelect = 0; // A interger to keep the of Start Game there 
 int SetLevel = 0;
+int hp = 98;
 
 // Game specific variables here
 extern SMapData g_mapData;
@@ -51,7 +52,7 @@ void init( void )
 	g_sChar.m_cLocation.Y = 5;// g_Console.getConsoleSize().Y / 2;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
-    g_Console.setConsoleFont(0, 16, L"Consolas");
+    g_Console.setConsoleFont(0, 16, L"Arial");
 
 	init_enemy(1);
 }
@@ -143,6 +144,8 @@ void render()
 		case S_MainMenu: renderMainMenu();
 			break;
 		case S_LevelSelect: LevelSelect();
+			break;
+		case S_COMBATSCREEN: renderCombatScreen();
 			break;
         case S_GAME: renderGame();
             break;
@@ -255,6 +258,7 @@ void LevelSelect()
 		{
 			bSomethingHappened = true;
 			SetLevel = 1;
+			g_eGameState = S_COMBATSCREEN;
 		}
 		//Pressing ENTER will go into the game
 		if (g_abKeyPressed[K_ENTER])
@@ -421,21 +425,21 @@ void renderGame()
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
 	//updateProjectile();
+	//if (abc <= 5)
+	//{
+	//	drawAnimation(0);
+	//}
+	//else if (abc > 5)
+	//{
+	//	drawAnimation(1);
+	//}
+	//if (abc >= 10)
+	//{
+	//	abc = 0;
+	//}
 
-	if (abc <= 5)
-	{
-		drawAnimation(0);
-	}
-	else if (abc > 5)
-	{
-		drawAnimation(1);
-	}
-	if (abc >= 10)
-	{
-		abc = 0;
-	}
-
-	abc++;
+	//abc++;
+	//renderCombatScreen();
 
 	updateProjectile();
 	SpikeBall();
@@ -443,26 +447,7 @@ void renderGame()
 	updateProjectile(); 
 	WALKLA();
 
-<<<<<<< HEAD
 	updateProjectile();
-=======
-	//updateProjectile();
-
-	//if (abc <= 20)
-	//{
-	//	drawAnimation(0);
-	//}
-	//else if (abc > 20)
-	//{
-	//	drawAnimation(1);
-	//}
-	//if (abc >= 40)
-	//{
-	//	abc = 0;
-	//}
-
-	//abc++;
->>>>>>> 5b26d118f23346c325fab10c99ab1f1269bc616b
 	SpikeBall();
 }
 
@@ -532,6 +517,54 @@ void renderToScreen()
 
 void renderCombatScreen()
 {
-	COORD x;
+	//set screen black
+	string fillScreen;
 
+	for (; fillScreen.size() < 4800;)
+	{
+		fillScreen.push_back(' ');
+	}
+
+	g_Console.writeToBuffer(0, 0, fillScreen, 0x0D);
+
+	COORD x;
+	x.X = 42;
+	x.Y = 5;
+	if (AnimationOffset <= 20)
+	{
+		drawAnimation(0 , x);
+	}
+	else if (AnimationOffset > 20)
+	{
+		drawAnimation(1, x);
+	}
+
+	if (AnimationOffset >= 40)
+	{
+		AnimationOffset = 0;
+	}
+
+	AnimationOffset++;
+
+	x.X = 10;
+	x.Y = 25;
+
+	drawAnimation(3, x);
+
+	if (g_abKeyPressed[K_SPACE] && g_dElapsedTime >= g_dBounceTime)
+	{
+		hp -= 2;
+		g_dBounceTime = g_dElapsedTime + 1.125; // 125ms should be enough
+	}
+
+	if (GetAsyncKeyState(VK_SPACE) < 0)
+	{
+		
+	}
+	else
+	{
+		g_dBounceTime = g_dElapsedTime;
+	}
+
+	drawHpCurr(3, x);
 }
