@@ -160,8 +160,6 @@ void splashScreenWait()    // waits for time to pass in splash screen
 void renderMainMenu()
 {
 	bool bSomethingHappened = false;
-	if (g_dBounceTime > g_dElapsedTime)
-		return;
 	string Menu[2] = { "Start Game", "Exit" };//Array of Start Game and Exit
 
 	COORD c = g_Console.getConsoleSize();
@@ -188,6 +186,8 @@ void renderMainMenu()
 		g_Console.writeToBuffer(c, Menu[0], 0x04);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[1], 0x03);
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
 		//Press Space in Start Menu will go to start game
 		if (g_abKeyPressed[K_ENTER])
 		{
@@ -200,6 +200,8 @@ void renderMainMenu()
 		g_Console.writeToBuffer(c, Menu[0], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[1], 0x04);
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
 		//Press Space in Exit Menu will quit the game
 		if (g_abKeyPressed[K_ENTER])
 		{
@@ -218,8 +220,6 @@ void renderMainMenu()
 void LevelSelect()
 {
 	bool bSomethingHappened = false;
-	if (g_dBounceTime > g_dElapsedTime)
-		return;
 	string Level[3] {"Level_1", "Level_2", "Level_3"};//creating a simple level selection.
 
 	COORD c = g_Console.getConsoleSize();
@@ -242,6 +242,8 @@ void LevelSelect()
 		g_Console.writeToBuffer(c, Level[1], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Level[2], 0x03);
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
 		//Going up will not move change
 		if (g_abKeyPressed[K_UP])
 		{
@@ -267,6 +269,8 @@ void LevelSelect()
 		g_Console.writeToBuffer(c, Level[1], 0x04);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Level[2], 0x03);
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
 		//Pressing up will move back to case 0
 		if (g_abKeyPressed[K_UP])
 		{
@@ -291,6 +295,8 @@ void LevelSelect()
 		g_Console.writeToBuffer(c, Level[1], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Level[2], 0x04);
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
 		//Goes back to case 1
 		if (g_abKeyPressed[K_UP])
 		{
@@ -414,19 +420,17 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-<<<<<<< HEAD
-
 	//updateProjectile();
 
-	if (abc <= 20)
+	if (abc <= 5)
 	{
 		drawAnimation(0);
 	}
-	else if (abc > 20)
+	else if (abc > 5)
 	{
 		drawAnimation(1);
 	}
-	if (abc >= 40)
+	if (abc >= 10)
 	{
 		abc = 0;
 	}
@@ -436,29 +440,11 @@ void renderGame()
 	updateProjectile();
 	SpikeBall();
 
-=======
 	updateProjectile(); 
 	WALKLA();
 
-	//updateProjectile();
-
-	//if (abc <= 20)
-	//{
-	//	drawAnimation(0);
-	//}
-	//else if (abc > 20)
-	//{
-	//	drawAnimation(1);
-	//}
-	//if (abc >= 40)
-	//{
-	//	abc = 0;
-	//}
-
-	//abc++;
 	updateProjectile();
 	SpikeBall();
->>>>>>> 8bfb86c2b4be426ca5ab88b5107f5f4d419211ac
 }
 
 void renderMap()
@@ -523,4 +509,10 @@ void renderToScreen()
 {
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
+}
+
+void renderCombatScreen()
+{
+	COORD x;
+
 }

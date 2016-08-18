@@ -29,7 +29,8 @@ enum EGAMESTATES
 	S_MainMenu,
 	S_LevelSelect,
     S_GAME,
-    S_COUNT
+    S_COUNT,
+	S_COMBATSCREEN
 };
 
 // struct for the game character
@@ -59,5 +60,7 @@ void renderToScreen();      // dump the contents of the buffer to the screen, on
 
 void renderMainMenu();// Main Menu
 void LevelSelect();//Selecting Level
+
+void renderCombatScreen();
 
 #endif // _GAME_H
