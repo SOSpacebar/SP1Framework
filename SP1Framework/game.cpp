@@ -24,15 +24,9 @@ bool bulletType = 0;
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
-int MenuSelect = 0; // A interger to keep the of Start Game there 
-int SetLevel = 0;
 int hp = 98;
 
-int a; // A interger to keep the of Start Game there 
-
-int SplashCol = 0;
-string AnimationString;
-COORD l;
+bool dialogend = false;
 
 // Game specific variables here
 extern SMapData g_mapData;
@@ -139,6 +133,8 @@ void update(double dt)
 			break;
 		case S_LEVELSELECT: LevelSelect();
 			break;
+		case S_GAMEOVER: GameOver();
+			break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
     }
@@ -166,6 +162,8 @@ void render()
 			break;
 		case S_COMBATSCREEN: renderCombatScreen();
 			break;
+		case S_GAMEOVER: GameOver();
+			break;
         case S_GAME: renderGame();
             break;
     }
@@ -179,219 +177,15 @@ void splashScreenWait()    // waits for time to pass in splash screen
 		g_eGameState = S_MAINMENU;
 }
 
-void renderMainMenu()
-{
-	bool bSomethingHappened = false;
-
-	string Menu[3] = { "Start Game", "Credits", "Exit" };//Array of Start Game and Exit
-
-	COORD c = g_Console.getConsoleSize();
-	c.Y /= 3;
-	c.X = c.X / 2 - 5;
-	g_Console.writeToBuffer(c, "Main Menu", 0x02);
-	c.Y += 1;
-	c.X = g_Console.getConsoleSize().X / 2 - 8;
-
-	switch (MenuSelect)
-	{
-	case 0:
-		g_Console.writeToBuffer(c, Menu[0], 0x04);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[1], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[2], 0x03);
-		if (g_dBounceTime > g_dElapsedTime)
-			return;
-
-		if (g_abKeyPressed[K_UP])
-		{
-			bSomethingHappened = true;
-			MenuSelect = 0;
-		}
-		//From Pressing Down Player will go to the Exit Menu
-		if (g_abKeyPressed[K_DOWN])
-		{
-			bSomethingHappened = true;
-			MenuSelect = 1;
-		}
-
-		if (g_abKeyPressed[K_ENTER])
-		{
-			g_eGameState = S_LEVELSELECT;
-			bSomethingHappened = true;
-			MenuSelect = 1;
-		}
-		break;
-	case 1:
-		g_Console.writeToBuffer(c, Menu[0], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[1], 0x04);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[2], 0x03);
-		if (g_dBounceTime > g_dElapsedTime)
-			return;
-		if (g_abKeyPressed[K_UP])
-		{
-			bSomethingHappened = true;
-			MenuSelect = 0;
-		}
-		//From Pressing Down Player will go to the Exit Menu
-		if (g_abKeyPressed[K_DOWN])
-		{
-			bSomethingHappened = true;
-			MenuSelect = 2;
-		}
-		if (g_abKeyPressed[K_ENTER])
-		{
-			bSomethingHappened = true;
-			g_eGameState = S_CREDITS;
-		}
-		break;
-	case 2:
-		g_Console.writeToBuffer(c, Menu[0], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[1], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[2], 0x04);
-		if (g_dBounceTime > g_dElapsedTime)
-			return;
-		if (g_abKeyPressed[K_UP])
-		{
-			bSomethingHappened = true;
-			MenuSelect = 1;
-		}
-		//From Pressing Down Player will go to the Exit Menu
-		if (g_abKeyPressed[K_DOWN])
-		{
-			bSomethingHappened = true;
-			MenuSelect = 2;
-		}
-		//Press Space in Exit Menu will quit the game
-		if (g_abKeyPressed[K_ENTER])
-		{
-			bSomethingHappened = true;
-			g_bQuitGame = true;
-		}
-		break;
-	}
-	if (bSomethingHappened)
-	{
-		// set the bounce time to some time in the future to prevent accidental triggers
-		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-	}
-}
-
-void LevelSelect()
-{
-	bool bSomethingHappened = false;
-	string Level[3] {"Level_1", "Level_2", "Level_3"};//creating a simple level selection.
-
-	COORD c = g_Console.getConsoleSize();
-	c.Y /= 3;
-	c.X = c.X / 2 - 5;
-	g_Console.writeToBuffer(c, "Level Selection", 0x02);
-	c.Y += 1;
-	c.X = g_Console.getConsoleSize().X / 2 - 8;
-
-	if (g_abKeyPressed[K_ESCAPE])
-	{
-		g_eGameState = S_MAINMENU;
-	}
-	//Switching case of Level 1,2,3
-	switch (SetLevel)
-	{
-	case 0:
-		g_Console.writeToBuffer(c, Level[0], 0x04);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Level[1], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Level[2], 0x03);
-		if (g_dBounceTime > g_dElapsedTime)
-			return;
-		//Going up will not move change
-		if (g_abKeyPressed[K_UP])
-		{
-			bSomethingHappened = true;
-			SetLevel = 0;
-		}
-		//Pressing Down will move to 1st case
-		if (g_abKeyPressed[K_DOWN])
-		{
-			bSomethingHappened = true;
-			SetLevel = 1;
-			g_eGameState = S_COMBATSCREEN;
-		}
-		//Pressing ENTER will go into the game
-		if (g_abKeyPressed[K_ENTER])
-		{
-			bSomethingHappened = true;
-			g_eGameState = S_GAME;
-		}
-		break;
-	case 1:
-		g_Console.writeToBuffer(c, Level[0], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Level[1], 0x04);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Level[2], 0x03);
-		if (g_dBounceTime > g_dElapsedTime)
-			return;
-		//Pressing up will move back to case 0
-		if (g_abKeyPressed[K_UP])
-		{
-			bSomethingHappened = true;
-			SetLevel = 0;
-		}
-		//Pressing Down will move to 2nd case
-		if (g_abKeyPressed[K_DOWN])
-		{
-			bSomethingHappened = true;
-			SetLevel = 2;
-		}
-		if (g_abKeyPressed[K_ENTER])
-		{
-			bSomethingHappened = true;
-			g_eGameState = S_GAME;
-		}
-		break;
-	case 2:
-		g_Console.writeToBuffer(c, Level[0], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Level[1], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Level[2], 0x04);
-		if (g_dBounceTime > g_dElapsedTime)
-			return;
-		//Goes back to case 1
-		if (g_abKeyPressed[K_UP])
-		{
-			bSomethingHappened = true;
-			SetLevel = 1;
-		}
-		//Remain at case 2
-		if (g_abKeyPressed[K_DOWN])
-		{
-			bSomethingHappened = true;
-			SetLevel = 2;
-		}
-		if (g_abKeyPressed[K_ENTER])
-		{
-			bSomethingHappened = true;
-			g_eGameState = S_GAME;
-		}
-		break;
-	}
-	if (bSomethingHappened)
-	{
-		// set the bounce time to some time in the future to prevent accidental triggers
-		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-	}
-}
-
 void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
-    moveCharacter();    // moves the character, collision detection, physics, etc
+
+	if (dialogend)
+	{
+		moveCharacter();    // moves the character, collision detection, physics, etc
+	}
+   
    // sound can be played here too.
 
 }
@@ -504,13 +298,22 @@ void renderGame()
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
 
+
+	if (dialogend)
+	{
+		//handleBulletProjectile(); //renders the bullet.
+
+		WALKLA();
+
 	handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData); //renders the bullet.
 
-	WALKLA();
 
-	//renderCombatScreen();
-	update_GameObject();
-	//TryCircle();
+		//renderCombatScreen();
+		update_GameObject();
+		//TryCircle();
+	}
+	
+
 }
 
 void renderMap()
@@ -522,23 +325,46 @@ void renderMap()
     };
 
     COORD c;
-	std::string MapDataString;
 
-    for (int i = 0; i < 150; ++i)
+	c.X = 0;
+	c.Y = 1;
+	int tempValue = c.X;
+
+    for (int row = 0; row < 150; row++)
     {
-		c.X = 0;
-        c.Y = i + 1;
-		MapDataString = g_mapData.mapGrid[i];
+		for (int col = 0; col < 150; col++)
+		{
+			if ((g_mapData.mapGrid[row][col] == '\0') || (g_mapData.mapGrid[row][col] == '\n'))
+			{
+				break;
+			}
 
-		if (MapDataString.size() == 0)
-		{
-			break;
+			if ((g_mapData.mapGrid[row][col] == (char)187) || (g_mapData.mapGrid[row][col] == (char)188) || (g_mapData.mapGrid[row][col] == (char)200) || (g_mapData.mapGrid[row][col] == (char)201))
+			{
+				g_Console.writeToBuffer(c, g_mapData.mapGrid[row][col], 0x0A);
+			}
+			else
+			{
+				g_Console.writeToBuffer(c, g_mapData.mapGrid[row][col], 0x0D);
+			}
+			
+
+			c.X++;
 		}
-		if (MapDataString[i] != '\0')
-		{
-			g_Console.writeToBuffer(c, MapDataString, colors[3]);
-		}
+		c.X = tempValue;
+		c.Y ++;		
     }
+
+	if (dialogend == false)
+	{
+		drawDialogBox(4, c);
+		
+		if (g_abKeyPressed[K_SPACE])
+		{
+			dialogend = true;
+		}
+	}
+
 }
 
 void renderCharacter()
@@ -645,54 +471,4 @@ void renderCombatScreen()
 		g_dBounceTime = g_dElapsedTime;
 	}
 	drawHpCurr(3, x);
-}
-
-void SetAnimationSplashScreen()
-{
-	if (SplashCol < 388)
-	{
-		for (int i = 0; i < 10; i++)
-			AnimationString.push_back((char)219);
-	}
-	if (SplashCol > 388)
-	{
-		g_eGameState = S_MAINMENU;
-	}
-}
-
-void DrawAnimationSplashScreen()
-{
-	SetAnimationSplashScreen();
-	g_Console.writeToBuffer(l, AnimationString, 0x4B);
-	SplashCol++;
-}
-
-
-void GameOver()
-{
-
-}
-
-void Credits()
-{
-	COORD c = g_Console.getConsoleSize();
-	c.Y /= 3;
-	c.X = c.X / 2 - 5;
-	g_Console.writeToBuffer(c, "ESC to Return", 0x02);
-	c.Y += 4;
-	g_Console.writeToBuffer(c, "Done By,", 0x02);
-	c.Y += 1;
-	g_Console.writeToBuffer(c, "Ng JingJie <>", 0x02);
-	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Zhi Sheng <>", 0x02);
-	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Pei Sheng", 0x02);
-	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Yi Chun <UI>", 0x02);
-	c.Y += 1;
-
-	if (g_abKeyPressed[K_ESCAPE])
-	{
-		g_eGameState = S_MAINMENU;
-	}
 }

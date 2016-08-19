@@ -12,7 +12,6 @@ bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction)
 		return false;
 	}
 	
-	
 	if (direction == K_RIGHT && map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)219) //Check is anything to the right player.
 	{
 		return false;
