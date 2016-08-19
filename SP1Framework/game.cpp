@@ -20,6 +20,7 @@ bool    g_abKeyPressed[K_COUNT];
 int AnimationOffset = 0;
 
 //Shooting Variables
+Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
 int MenuSelect = 0; // A interger to keep the of Start Game there 
@@ -452,7 +453,7 @@ void moveCharacter()
     {
 		g_sChar.m_bActive = !g_sChar.m_bActive;
 
-		if (fireGun(g_sChar, g_mapData, K_SPACE, lastDirection) == true)
+		if (fireGun(g_sChar, g_mapData, K_SPACE, lastDirection, _bullet) == true)
 		{
 			bSomethingHappened = true;
 		}
@@ -498,11 +499,15 @@ void renderGame()
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
 
+<<<<<<< HEAD
 	if (dialogend)
 	{
 		handleBulletProjectile(); //renders the bullet.
 
 		WALKLA();
+=======
+	handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData); //renders the bullet.
+>>>>>>> 868ea8d22e9ca801be17ac152ef8f6de245cfd77
 
 		//renderCombatScreen();
 		update_GameObject();

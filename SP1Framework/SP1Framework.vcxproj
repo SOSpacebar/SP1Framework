@@ -77,7 +77,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="checkBulletCollision.cpp" />
     <ClCompile Include="collisionManager.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="createBullet.cpp" />
+    <ClCompile Include="DrawAnimation.cpp" />
+>>>>>>> 868ea8d22e9ca801be17ac152ef8f6de245cfd77
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fireGun.cpp" />
     <ClCompile Include="Framework\console.cpp" />
