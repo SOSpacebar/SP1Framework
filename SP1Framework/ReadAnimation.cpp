@@ -98,32 +98,6 @@ void drawAnimation(int keyFrame, COORD animationCoord)
 		animationCoord.X = tempValue;
 		animationCoord.Y++;
 	}
-
-//damagetaken:
-//	if (hp <= 9)
-//	{
-//		temphp = (hp / temphp)*10;
-//
-//		for (animationCoord2.Y = 0; animationCoord2.Y < 150; animationCoord2.Y++)
-//		{
-//			for (animationCoord2.X = 0; animationCoord2.X < temphp; animationCoord2.X++)
-//			{
-//				if ((AnimationArray[3][animationCoord2.Y][animationCoord2.X] == '\0') || (AnimationArray[3][animationCoord2.Y][animationCoord2.X] == '\n'))
-//				{
-//					break;
-//				}
-//				else
-//				{
-//					g_Console.writeToBuffer(animationCoord, AnimationArray[3][animationCoord2.Y][animationCoord2.X], 0x4A);
-//				}
-//
-//				animationCoord.X++;
-//
-//			}
-//			animationCoord.X = tempValue;
-//			animationCoord.Y++;
-//		}
-//	}
 }
 
 void drawHpCurr(int keyFrame, COORD currCoord)

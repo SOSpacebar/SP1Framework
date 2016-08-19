@@ -1,6 +1,6 @@
 #include "collisionManager.h"
 
-bool checkCollision(SGameChar player, SMapData map, EKEYS direction)
+bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction)
 {
 	if (direction == K_UP && map.mapGrid[player.m_cLocation.Y - 2][player.m_cLocation.X] == (char)219) //Check is anything above the player.
 	{
