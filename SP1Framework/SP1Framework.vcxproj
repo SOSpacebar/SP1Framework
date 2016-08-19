@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -77,7 +77,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="checkBulletCollision.cpp" />
     <ClCompile Include="collisionManager.cpp" />
+    <ClCompile Include="createBullet.cpp" />
     <ClCompile Include="DrawAnimation.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fireGun.cpp" />
@@ -88,8 +90,12 @@
     <ClCompile Include="handleBulletProjectile.cpp" />
     <ClCompile Include="handleEnemyMovement.cpp" />
     <ClCompile Include="main.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="MenuSections.cpp" />
     <ClCompile Include="ReadAnimation.cpp" />
+=======
+    <ClCompile Include="FramesManager.cpp" />
+>>>>>>> 57adf5abfeeb50f51e5d61862b420cc70a5ef836
     <ClCompile Include="ReadMap.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="TileMap.cpp" />

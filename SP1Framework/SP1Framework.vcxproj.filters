@@ -54,16 +54,19 @@
     <ClCompile Include="handleEnemyMovement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DrawAnimation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="handleBulletProjectile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ReadAnimation.cpp">
+    <ClCompile Include="fireGun.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fireGun.cpp">
+    <ClCompile Include="FramesManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="createBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="checkBulletCollision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MenuSections.cpp">

@@ -1,10 +1,10 @@
 #include "ReadMap.h"
-
+#include "game.h"
 using namespace std;
 
 SMapData g_mapData;
 
-
+extern SGameChar g_sChar;
 
 void readMap(int mapLevel)
 {
@@ -17,7 +17,7 @@ void readMap(int mapLevel)
 	{
 	case 1:
 		//blah levelData.open("Map#.txt");
-		levelData.open("Map.txt");
+		levelData.open("MapData/Map.txt");
 		if (!levelData.is_open()){
 			return;
 		}
@@ -50,6 +50,28 @@ void readMap(int mapLevel)
 			if (loopedString.at(col) == '#')
 			{
 				g_mapData.mapGrid[row][col] = (char)219;
+			}
+			else if (loopedString.at(col) == 'S')
+			{
+				g_sChar.m_cLocation.X = col;
+				g_sChar.m_cLocation.Y = row+1;
+				g_mapData.mapGrid[row][col] = loopedString.at(col);
+			}
+			else if (loopedString.at(col) == '^')
+			{
+				g_mapData.mapGrid[row][col] = (char)187;
+			}
+			else if (loopedString.at(col) == '%')
+			{
+				g_mapData.mapGrid[row][col] = (char)188;
+			}
+			else if (loopedString.at(col) == '(')
+			{
+				g_mapData.mapGrid[row][col] = (char)200;
+			}
+			else if (loopedString.at(col) == '$')
+			{
+				g_mapData.mapGrid[row][col] = (char)201;
 			}
 			else
 			{
