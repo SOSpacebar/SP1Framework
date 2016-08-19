@@ -20,6 +20,7 @@ bool    g_abKeyPressed[K_COUNT];
 int AnimationOffset = 0;
 
 //Shooting Variables
+bool bulletType = 0;
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
@@ -105,6 +106,7 @@ void getInput( void )
 	g_abKeyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+	g_abKeyPressed[K_SWITCH] = isKeyPressed(0x53);
 }
 
 //--------------------------------------------------------------
@@ -445,13 +447,22 @@ void moveCharacter()
 	}
     if (g_abKeyPressed[K_SPACE])
     {
-		g_sChar.m_bActive = !g_sChar.m_bActive;
-
-		if (fireGun(g_sChar, g_mapData, K_SPACE, lastDirection, _bullet) == true)
+		if (fireGun(g_sChar, g_mapData, K_SPACE, lastDirection, _bullet, bulletType) == true && _bullet.b_isActive == true)
 		{
 			bSomethingHappened = true;
 		}
     }
+
+	if (g_abKeyPressed[K_SWITCH])
+	{
+		g_sChar.m_bActive = !g_sChar.m_bActive;
+		bSomethingHappened = true;
+
+		if (bulletType == 0)
+			bulletType = 1;
+		else
+			bulletType = 0;
+	}
 
     if (bSomethingHappened)
     {

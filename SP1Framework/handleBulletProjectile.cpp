@@ -13,19 +13,19 @@ void handleBulletProjectile(Bullet &_bullet, double &g_dElapsedTime, Console &g_
 		travelTime = 0;
 		if (checkBulletCollision(_bullet, map, g_Console) == false)
 		{
-			if (_bullet.direction == K_UP)
+			if (_bullet.b_direction == K_UP)
 			{
 				_bullet.b_pos.Y--;
 			}
-			if (_bullet.direction == K_DOWN)
+			if (_bullet.b_direction == K_DOWN)
 			{
 				_bullet.b_pos.Y++;
 			}
-			if (_bullet.direction == K_LEFT)
+			if (_bullet.b_direction == K_LEFT)
 			{
 				_bullet.b_pos.X--;
 			}
-			if (_bullet.direction == K_RIGHT)
+			if (_bullet.b_direction == K_RIGHT)
 			{
 				_bullet.b_pos.X++;
 			}
@@ -33,5 +33,10 @@ void handleBulletProjectile(Bullet &_bullet, double &g_dElapsedTime, Console &g_
 	}
 	
 	if (checkBulletCollision(_bullet, map, g_Console) == false)
-	g_Console.writeToBuffer(_bullet.b_pos, 'o', 0x6D);
+	{
+		if (_bullet.b_type == 1)
+			g_Console.writeToBuffer(_bullet.b_pos, 'o', 0x6D);
+		else
+			g_Console.writeToBuffer(_bullet.b_pos, 'x', 0x6D);
+	}
 }
