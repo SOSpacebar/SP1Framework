@@ -101,11 +101,7 @@ void getInput( void )
     g_abKeyPressed[K_DOWN]   = isKeyPressed(VK_DOWN);
     g_abKeyPressed[K_LEFT]   = isKeyPressed(VK_LEFT);
     g_abKeyPressed[K_RIGHT]  = isKeyPressed(VK_RIGHT);
-<<<<<<< HEAD
 	g_abKeyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
-=======
-	g_abKeyPressed[K_ENTER]  = isKeyPressed(VK_RETURN);
->>>>>>> 0fca91e2b665a2b3344b622185c668befa0a6f3a
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 }
@@ -203,13 +199,7 @@ void renderMainMenu()
 		g_Console.writeToBuffer(c, Menu[2], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
-		//Press Space in Start Menu will go to start game
-<<<<<<< HEAD
-		if (g_abKeyPressed[K_ENTER])
-		{
-			g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-			g_eGameState = S_LEVELSELECT;
-=======
+
 		if (g_abKeyPressed[K_UP])
 		{
 			bSomethingHappened = true;
@@ -227,7 +217,6 @@ void renderMainMenu()
 			g_eGameState = S_LEVELSELECT;
 			bSomethingHappened = true;
 			MenuSelect = 1;
->>>>>>> 0fca91e2b665a2b3344b622185c668befa0a6f3a
 		}
 		break;
 	case 1:
@@ -327,10 +316,7 @@ void LevelSelect()
 		{
 			bSomethingHappened = true;
 			SetLevel = 1;
-<<<<<<< HEAD
 			g_eGameState = S_COMBATSCREEN;
-=======
->>>>>>> 0fca91e2b665a2b3344b622185c668befa0a6f3a
 		}
 		//Pressing ENTER will go into the game
 		if (g_abKeyPressed[K_ENTER])
