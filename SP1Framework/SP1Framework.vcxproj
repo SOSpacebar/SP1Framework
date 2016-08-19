@@ -78,7 +78,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="collisionManager.cpp" />
-    <ClCompile Include="DrawAnimation.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fireGun.cpp" />
     <ClCompile Include="Framework\console.cpp" />
@@ -88,7 +87,7 @@
     <ClCompile Include="handleBulletProjectile.cpp" />
     <ClCompile Include="handleEnemyMovement.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ReadAnimation.cpp" />
+    <ClCompile Include="FramesManager.cpp" />
     <ClCompile Include="ReadMap.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="TileMap.cpp" />

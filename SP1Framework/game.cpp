@@ -31,6 +31,7 @@ int a; // A interger to keep the of Start Game there
 int SplashCol = 0;
 string AnimationString;
 COORD l;
+bool dialogend = false;
 
 // Game specific variables here
 extern SMapData g_mapData;
@@ -388,7 +389,12 @@ void LevelSelect()
 void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
-    moveCharacter();    // moves the character, collision detection, physics, etc
+
+	if (dialogend)
+	{
+		moveCharacter();    // moves the character, collision detection, physics, etc
+	}
+   
    // sound can be played here too.
 
 }
@@ -492,13 +498,18 @@ void renderGame()
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
 
-	handleBulletProjectile(); //renders the bullet.
+	if (dialogend)
+	{
+		handleBulletProjectile(); //renders the bullet.
 
-	WALKLA();
+		WALKLA();
 
-	//renderCombatScreen();
-	update_GameObject();
-	//TryCircle();
+		//renderCombatScreen();
+		update_GameObject();
+		//TryCircle();
+	}
+	
+
 }
 
 void renderMap()
@@ -510,23 +521,46 @@ void renderMap()
     };
 
     COORD c;
-	std::string MapDataString;
 
-    for (int i = 0; i < 150; ++i)
+	c.X = 0;
+	c.Y = 1;
+	int tempValue = c.X;
+
+    for (int row = 0; row < 150; row++)
     {
-		c.X = 0;
-        c.Y = i + 1;
-		MapDataString = g_mapData.mapGrid[i];
+		for (int col = 0; col < 150; col++)
+		{
+			if ((g_mapData.mapGrid[row][col] == '\0') || (g_mapData.mapGrid[row][col] == '\n'))
+			{
+				break;
+			}
 
-		if (MapDataString.size() == 0)
-		{
-			break;
+			if ((g_mapData.mapGrid[row][col] == (char)187) || (g_mapData.mapGrid[row][col] == (char)188) || (g_mapData.mapGrid[row][col] == (char)200) || (g_mapData.mapGrid[row][col] == (char)201))
+			{
+				g_Console.writeToBuffer(c, g_mapData.mapGrid[row][col], 0x0A);
+			}
+			else
+			{
+				g_Console.writeToBuffer(c, g_mapData.mapGrid[row][col], 0x0D);
+			}
+			
+
+			c.X++;
 		}
-		if (MapDataString[i] != '\0')
-		{
-			g_Console.writeToBuffer(c, MapDataString, colors[3]);
-		}
+		c.X = tempValue;
+		c.Y ++;		
     }
+
+	if (dialogend == false)
+	{
+		drawDialogBox(4, c);
+		
+		if (g_abKeyPressed[K_SPACE])
+		{
+			dialogend = true;
+		}
+	}
+
 }
 
 void renderCharacter()

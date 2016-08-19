@@ -28,18 +28,18 @@ void readAnimation(void)
 	chooseFrameToLoad[1] = "animation/mushroom1.txt";
 	chooseFrameToLoad[2] = "animation/shroom2.txt";
 	chooseFrameToLoad[3] = "animation/hp.txt";
+	chooseFrameToLoad[4] = "animation/dialog1.txt";
 
-	for (int d = 0; d < 4; d++)
+	for (int d = 0; d < 5; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 
 		while (fin >> noskipws >> StringToLoad)
 		{
 			indexChar = StringToLoad;
-			if (d == 3 && indexChar == '#')
+			if ((d ==  3 || d == 4) && indexChar == '#')
 			{
 				AnimationArray[d][row][col] = (char)219;
-				//AnimationArray[4][row][col] = (char)219;
 			}
 			else
 			{
@@ -131,5 +131,29 @@ void drawHpCurr(int keyFrame, COORD currCoord)
 			currCoord.Y++;
 		}
 	}
-	
+}
+
+void drawDialogBox(int keyFrame, COORD boxCoord)
+{
+	COORD currCoord2;
+	boxCoord.X = 0;
+	boxCoord.Y = 25;
+	int tempValue = boxCoord.X;
+
+	for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
+	{
+		for (currCoord2.X = 0; currCoord2.X < 150; currCoord2.X++)
+		{
+			if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
+			{
+				break;
+			}
+
+			g_Console.writeToBuffer(boxCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0A);
+
+			boxCoord.X++;
+		}
+		boxCoord.X = tempValue;
+		boxCoord.Y++;
+	}
 }
