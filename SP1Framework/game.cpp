@@ -6,6 +6,7 @@
 #include "Framework\console.h"
 #include "collisionManager.h"
 #include "enemyProperties.h"
+#include "gameObject.h"
 #include "portalGun.h"
 #include "ReadMap.h"
 #include <iostream>

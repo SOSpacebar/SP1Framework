@@ -2,7 +2,6 @@
 #define _GAMEOBJECT_H
 
 #include "Framework\timer.h"
-#include "game.h"
 #include <iostream>
 #include <string>
 

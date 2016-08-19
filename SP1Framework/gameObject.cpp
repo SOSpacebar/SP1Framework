@@ -33,7 +33,7 @@ void init_object(short level) //Preload the data of the enemy into memory.
 	}
 }
 
-//================ Update game objects =====================
+//================ Check game objects =====================
 
 void update_GameObject(void)
 {
@@ -99,8 +99,6 @@ void updateLR_Projectile(COORD &xy, short &dist)
 	{
 		xy.X++;
 		counter_1++;
-
-		g_Console.writeToBuffer(xy, LR_PString, 0xF6);
 	}
 
 	if (xy.X == dist)
@@ -129,7 +127,6 @@ void updateRL_Projectile(COORD &xy, short &dist)
 	{
 		xy.X--;
 		counter_2++;
-		g_Console.writeToBuffer(xy, RL_PString, 0xF6);
 	}
 
 	if (xy.X == dist)
@@ -158,7 +155,6 @@ void updateUD_Projectile(COORD &xy, short &dist)
 	{
 		xy.Y--;
 		counter_3++;
-		g_Console.writeToBuffer(xy, UD_PString, 0xF6);
 	}
 
 	if (xy.Y == dist)
@@ -187,7 +183,6 @@ void updateDU_Projectile(COORD &xy, short &dist)
 	{
 		xy.Y++;
 		counter_4++;
-		g_Console.writeToBuffer(xy, UD_PString, 0xF6);
 	}
 
 	if (xy.Y == dist)
@@ -217,7 +212,6 @@ void updateDiagonal_LR_UD_Projectile(COORD &xy, short &dist)
 		xy.X++;
 		xy.Y--;
 		counter_5++;
-		g_Console.writeToBuffer(xy, LRUD_PString, 0xF6);
 	}
 
 	if (xy.X == dist)
@@ -248,7 +242,6 @@ void updateDiagonal_LR_DU_Projectile(COORD &xy, short &dist)
 		xy.X--;
 		counter_6++;
 		xy.Y++;
-		g_Console.writeToBuffer(xy, LRDU_PString, 0xF6);
 	}
 
 	if (xy.X == dist)
@@ -279,7 +272,6 @@ void updateDiagonal_RL_UD_Projectile(COORD &xy, short &dist)
 		xy.X--;
 		xy.Y--;
 		counter_7++;
-		g_Console.writeToBuffer(xy, RLUD_PString, 0xF6);
 	}
 
 	if (xy.X == dist)
@@ -310,7 +302,6 @@ void updateDiagonal_RL_DU_Projectile(COORD &xy, short &dist)
 		xy.X--;
 		xy.Y++;
 		counter_8++;
-		g_Console.writeToBuffer(xy, RLDU_PString, 0xF6);
 	}
 
 	if (xy.X == dist)
@@ -342,7 +333,6 @@ void updateCrusher(COORD &xy, short &dist)
 	{
 		xy.X++;
 		counter_9++;
-		g_Console.writeToBuffer(xy, CrusherString, 0xF6);
 	}
 
 	if (xy.X >= 7)
@@ -354,8 +344,6 @@ void updateCrusher(COORD &xy, short &dist)
 	{
 		xy.X--;
 		counter_9--;
-		g_Console.writeToBuffer(xy, CrusherString, 0xF6);
-
 		if (counter_9 == 0)
 		{
 			reversing = false;
@@ -386,8 +374,6 @@ void TryCircle(COORD xy)
 
 		z.X = (R*cos(t) + 15) * 2;
 		z.Y = (R*sin(t) + 15);
-
-		g_Console.writeToBuffer(z, circleString, 0xF6);
 	}
 	g_Console.writeToBuffer(z, circleString, 0xF6);
 
