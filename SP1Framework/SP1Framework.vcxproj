@@ -90,7 +90,12 @@
     <ClCompile Include="handleBulletProjectile.cpp" />
     <ClCompile Include="handleEnemyMovement.cpp" />
     <ClCompile Include="main.cpp" />
+<<<<<<< HEAD
+    <ClCompile Include="MenuSections.cpp" />
+    <ClCompile Include="ReadAnimation.cpp" />
+=======
     <ClCompile Include="FramesManager.cpp" />
+>>>>>>> 57adf5abfeeb50f51e5d61862b420cc70a5ef836
     <ClCompile Include="ReadMap.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="TileMap.cpp" />
@@ -103,6 +108,7 @@
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="MenuSections.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="portalGun.h" />
     <ClInclude Include="ReadMap.h" />

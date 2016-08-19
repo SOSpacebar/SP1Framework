@@ -69,6 +69,9 @@
     <ClCompile Include="checkBulletCollision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MenuSections.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">
@@ -102,6 +105,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="portalGun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSections.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
