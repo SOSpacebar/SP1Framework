@@ -12,29 +12,20 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include "MenuSections.h"
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
-int AnimationOffset = 0;
 
 //Shooting Variables
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
-int hp = 98;
-
-int a; // A interger to keep the of Start Game there 
-
-<<<<<<< HEAD
-=======
-int SplashCol = 0;
-string AnimationString;
-COORD l;
+//COORD l;
 bool dialogend = false;
 
->>>>>>> 57adf5abfeeb50f51e5d61862b420cc70a5ef836
 // Game specific variables here
 extern SMapData g_mapData;
 SGameChar   g_sChar;
@@ -400,72 +391,3 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
-void renderCombatScreen()
-{
-	//set screen black
-	string fillScreen;
-
-	for (; fillScreen.size() < 4800;)
-	{
-		fillScreen.push_back(' ');
-	}
-
-	g_Console.writeToBuffer(0, 0, fillScreen, 0x0D);
-
-	COORD x;
-	x.X = 42;
-	x.Y = 5;
-	if (AnimationOffset <= 20)
-	{
-		drawAnimation(0 , x);
-	}
-	else if (AnimationOffset > 20)
-	{
-		drawAnimation(1, x);
-	}
-
-	if (AnimationOffset >= 40)
-	{
-		AnimationOffset = 0;
-	}
-
-	AnimationOffset++;
-
-	x.X = 10;
-	x.Y = 25;
-
-	drawAnimation(3, x);
-
-	if (g_abKeyPressed[K_SPACE] && g_dElapsedTime >= g_dBounceTime)
-	{
-		hp -= 2;
-		g_dBounceTime = g_dElapsedTime + 1.125; // 125ms should be enough
-	}
-
-	if (GetAsyncKeyState(VK_SPACE) < 0)
-	{
-		
-	}
-	else
-	{
-		g_dBounceTime = g_dElapsedTime;
-	}
-
-	drawAnimation(3, x);
-
-	if (g_abKeyPressed[K_SPACE] && g_dElapsedTime >= g_dBounceTime)
-	{
-		hp -= 2;
-		g_dBounceTime = g_dElapsedTime + 1.125; // 125ms should be enough
-	}
-
-	if (GetAsyncKeyState(VK_SPACE) < 0)
-	{
-		
-	}
-	else
-	{
-		g_dBounceTime = g_dElapsedTime;
-	}
-	drawHpCurr(3, x);
-}

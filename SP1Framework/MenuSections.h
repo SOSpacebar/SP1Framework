@@ -15,3 +15,4 @@ void SetAnimationSplashScreen(); // Showing Animation
 void DrawAnimationSplashScreen(); // Draw the SplashScreen in
 void GameOver(); // When Player got killed in the game
 void Credits(); // Crediting everyone who work for the game
+void renderCombatScreen();
