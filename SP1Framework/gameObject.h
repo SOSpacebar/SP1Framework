@@ -2,6 +2,7 @@
 #define _GAMEOBJECT_H
 
 #include "Framework\timer.h"
+#include "ReadMap.h"
 #include <iostream>
 #include <string>
 
@@ -18,7 +19,7 @@ struct objectStruct
 void init_object(short level);				//GameObject initialiser
 void update_GameObject(void);
 
-void updateLR_Projectile(COORD &xy, short &dist);					//Left to Right Projectile
+void updateLR_Projectile(COORD &xy, short &dist, SMapData &map);					//Left to Right Projectile
 void updateRL_Projectile(COORD &xy, short &dist);					//Right to Left Projectile
 void updateUD_Projectile(COORD &xy, short &dist);					//Up to Down Projectile
 void updateDU_Projectile(COORD &xy, short &dist);					//Down to Up Projectile

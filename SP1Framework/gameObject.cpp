@@ -4,6 +4,7 @@
 
 extern double g_dElapsedTime;
 extern Console g_Console;
+extern SMapData g_mapData;
 
 objectStruct _object[3];
 
@@ -43,7 +44,7 @@ void update_GameObject(void)
 		{
 			if (_object[j].o_ID == "LR_P")		//check ID to send coord to specific "update" function for each obstacle
 			{
-				updateLR_Projectile(_object[j].o_location, _object[j].o_distance);
+				updateLR_Projectile(_object[j].o_location, _object[j].o_distance, g_mapData);
 			}
 			else if (_object[j].o_ID == "RL_P")		//check ID to send coord to specific "update" function for each obstacle
 			{
@@ -91,7 +92,7 @@ int offsetTime = 0;
 string LR_PString = ">>";
 int counter_1 = 0;
 
-void updateLR_Projectile(COORD &xy, short &dist)
+void updateLR_Projectile(COORD &xy, short &dist, SMapData &map)
 	{
 	offsetTime++;
 
@@ -101,7 +102,7 @@ void updateLR_Projectile(COORD &xy, short &dist)
 		counter_1++;
 	}
 
-	if (xy.X == dist)
+	if (map.mapGrid[xy.X][xy.Y] == (char)219)
 	{
 		reset = true;
 	}

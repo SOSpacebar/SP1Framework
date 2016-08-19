@@ -37,8 +37,6 @@ void handleBulletProjectile()
 			{
 				_bullet.b_pos.X++;
 			}
-
-			g_Console.writeToBuffer(_bullet.b_pos, 'o', 0x6D);
 		}
 	}
 	
