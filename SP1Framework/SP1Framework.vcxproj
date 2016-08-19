@@ -93,6 +93,8 @@
     <ClCompile Include="MenuSections.cpp" />
     <ClCompile Include="FramesManager.cpp" />
     <ClCompile Include="ReadMap.cpp" />
+    <ClCompile Include="renderPortal.cpp" />
+    <ClCompile Include="spawnPortal.cpp" />
     <ClCompile Include="stats.cpp" />
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>

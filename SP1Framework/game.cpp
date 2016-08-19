@@ -24,6 +24,9 @@ bool bulletType = 0;
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
+//Portal Variables
+Portal _portal;
+
 int hp = 98;
 
 bool dialogend = false;
@@ -296,8 +299,12 @@ void renderSplashScreen()  // renders the splash screen
 void renderGame()
 {
     renderMap();        // renders the map to the buffer first
+	renderPortal(_portal, g_Console); //renders portal.
     renderCharacter();  // renders the character into the buffer
 
+
+	if (_bullet.b_isActive == true)
+		handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData, _portal); //renders the bullet.
 
 	if (dialogend)
 	{
@@ -305,7 +312,7 @@ void renderGame()
 
 		WALKLA();
 
-	handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData); //renders the bullet.
+		
 
 
 		//renderCombatScreen();

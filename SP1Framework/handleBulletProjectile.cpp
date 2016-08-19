@@ -3,7 +3,7 @@
 double _elapsedTime;
 short travelTime;
 
-void handleBulletProjectile(Bullet &_bullet, double &g_dElapsedTime, Console &g_Console, SMapData &map)
+void handleBulletProjectile(Bullet &_bullet, double &g_dElapsedTime, Console &g_Console, SMapData &map, Portal &_portal)
 {
 	_elapsedTime = g_dElapsedTime;
 	travelTime++;
@@ -11,7 +11,7 @@ void handleBulletProjectile(Bullet &_bullet, double &g_dElapsedTime, Console &g_
 	if (_elapsedTime == g_dElapsedTime && travelTime == 5)
 	{
 		travelTime = 0;
-		if (checkBulletCollision(_bullet, map, g_Console) == false)
+		if (checkBulletCollision(_bullet, map, g_Console, _portal) == false)
 		{
 			if (_bullet.b_direction == K_UP)
 			{
@@ -32,7 +32,7 @@ void handleBulletProjectile(Bullet &_bullet, double &g_dElapsedTime, Console &g_
 		}
 	}
 	
-	if (checkBulletCollision(_bullet, map, g_Console) == false)
+	if (checkBulletCollision(_bullet, map, g_Console, _portal) == false)
 	{
 		if (_bullet.b_type == 1)
 			g_Console.writeToBuffer(_bullet.b_pos, 'o', 0x6D);
