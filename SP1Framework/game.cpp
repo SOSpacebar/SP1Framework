@@ -308,6 +308,9 @@ void renderGame()
 
 		WALKLA();
 
+		handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData); //renders the bullet.
+
+
 		//renderCombatScreen();
 		update_GameObject();
 		//TryCircle();

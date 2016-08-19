@@ -1,15 +1,14 @@
 #include "MenuSections.h"
 #include "ReadMap.h"
+#include "AnimationManager.h"
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include "AnimationManager.h"
 
 int SplashCol = 0;
 string AnimationString;
 COORD l;
 int hp = 98;
-
 bool keyReleased = false;
 
 int AnimationOffset = 0;
@@ -24,6 +23,7 @@ extern bool    g_abKeyPressed[K_COUNT];
 extern int     g_currLevel;
 extern SMapData g_mapData;
 extern EGAMESTATES g_eGameState;
+
 
 void renderMainMenu()
 {
@@ -124,7 +124,7 @@ void renderMainMenu()
 	if (bSomethingHappened)
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
-		g_dBounceTime = g_dElapsedTime + 0.325; // 125ms should be enough
+		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
 	}
 }
 
