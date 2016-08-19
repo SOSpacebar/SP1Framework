@@ -25,16 +25,8 @@ EKEYS lastDirection = K_RIGHT;
 
 int hp = 98;
 
-int a; // A interger to keep the of Start Game there 
-
-<<<<<<< HEAD
-=======
-int SplashCol = 0;
-string AnimationString;
-COORD l;
 bool dialogend = false;
 
->>>>>>> 57adf5abfeeb50f51e5d61862b420cc70a5ef836
 // Game specific variables here
 extern SMapData g_mapData;
 SGameChar   g_sChar;
