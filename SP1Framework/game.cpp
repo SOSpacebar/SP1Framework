@@ -28,6 +28,10 @@ int hp = 98;
 
 int a; // A interger to keep the of Start Game there 
 
+int SplashCol = 0;
+string AnimationString;
+COORD l;
+
 // Game specific variables here
 extern SMapData g_mapData;
 SGameChar   g_sChar;
@@ -97,7 +101,11 @@ void getInput( void )
     g_abKeyPressed[K_DOWN]   = isKeyPressed(VK_DOWN);
     g_abKeyPressed[K_LEFT]   = isKeyPressed(VK_LEFT);
     g_abKeyPressed[K_RIGHT]  = isKeyPressed(VK_RIGHT);
+<<<<<<< HEAD
 	g_abKeyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
+=======
+	g_abKeyPressed[K_ENTER]  = isKeyPressed(VK_RETURN);
+>>>>>>> 0fca91e2b665a2b3344b622185c668befa0a6f3a
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 }
@@ -128,6 +136,10 @@ void update(double dt)
             break;
 		case S_MAINMENU: renderMainMenu();
 			break;
+		case S_CREDITS: Credits();
+			break;
+		case S_LEVELSELECT: LevelSelect();
+			break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
     }
@@ -149,6 +161,8 @@ void render()
             break;
 		case S_MAINMENU: renderMainMenu();
 			break;
+		case S_CREDITS: Credits();
+			break;
 		case S_LEVELSELECT: LevelSelect();
 			break;
 		case S_COMBATSCREEN: renderCombatScreen();
@@ -165,9 +179,12 @@ void splashScreenWait()    // waits for time to pass in splash screen
     if (g_dElapsedTime > 1.0) // wait for 1 seconds to switch to game mode, else do nothing
 		g_eGameState = S_MAINMENU;
 }
+
 void renderMainMenu()
 {
-	string Menu[2] = { "Start Game", "Exit" };//Array of Start Game and Exit
+	bool bSomethingHappened = false;
+
+	string Menu[3] = { "Start Game", "Credits", "Exit" };//Array of Start Game and Exit
 
 	COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
@@ -175,40 +192,100 @@ void renderMainMenu()
 	g_Console.writeToBuffer(c, "Main Menu", 0x02);
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 8;
-	//From Pressing Up will make the user go to the Start Game
-	if (g_abKeyPressed[K_UP])
-	{
-		a = 0;
-	}
-	//From Pressing Down Player will go to the Exit Menu
-	else if (g_abKeyPressed[K_DOWN])
-	{
-		a = 1;
-	}
 
-	switch (a)
+	switch (MenuSelect)
 	{
 	case 0:
 		g_Console.writeToBuffer(c, Menu[0], 0x04);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[1], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[2], 0x03);
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
 		//Press Space in Start Menu will go to start game
+<<<<<<< HEAD
 		if (g_abKeyPressed[K_ENTER])
 		{
 			g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
 			g_eGameState = S_LEVELSELECT;
+=======
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 0;
+		}
+		//From Pressing Down Player will go to the Exit Menu
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 1;
+		}
+
+		if (g_abKeyPressed[K_ENTER])
+		{
+			g_eGameState = S_LEVELSELECT;
+			bSomethingHappened = true;
+			MenuSelect = 1;
+>>>>>>> 0fca91e2b665a2b3344b622185c668befa0a6f3a
 		}
 		break;
 	case 1:
 		g_Console.writeToBuffer(c, Menu[0], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[1], 0x04);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[2], 0x03);
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 0;
+		}
+		//From Pressing Down Player will go to the Exit Menu
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 2;
+		}
+		if (g_abKeyPressed[K_ENTER])
+		{
+			bSomethingHappened = true;
+			g_eGameState = S_CREDITS;
+		}
+		break;
+	case 2:
+		g_Console.writeToBuffer(c, Menu[0], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[1], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[2], 0x04);
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 1;
+		}
+		//From Pressing Down Player will go to the Exit Menu
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 2;
+		}
 		//Press Space in Exit Menu will quit the game
 		if (g_abKeyPressed[K_ENTER])
 		{
+			bSomethingHappened = true;
 			g_bQuitGame = true;
 		}
 		break;
+	}
+	if (bSomethingHappened)
+	{
+		// set the bounce time to some time in the future to prevent accidental triggers
+		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
 	}
 }
 
@@ -250,7 +327,10 @@ void LevelSelect()
 		{
 			bSomethingHappened = true;
 			SetLevel = 1;
+<<<<<<< HEAD
 			g_eGameState = S_COMBATSCREEN;
+=======
+>>>>>>> 0fca91e2b665a2b3344b622185c668befa0a6f3a
 		}
 		//Pressing ENTER will go into the game
 		if (g_abKeyPressed[K_ENTER])
@@ -392,6 +472,7 @@ void moveCharacter()
         g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
     }
 }
+
 void processUserInput()
 {
     // quits the game if player hits the escape key
@@ -491,6 +572,7 @@ void renderFramerate()
     c.Y = 0;
     g_Console.writeToBuffer(c, ss.str(), 0x59);
 }
+
 void renderToScreen()
 {
     // Writes the buffer to the console, hence you will see what you have written
@@ -565,4 +647,54 @@ void renderCombatScreen()
 		g_dBounceTime = g_dElapsedTime;
 	}
 	drawHpCurr(3, x);
+}
+
+void SetAnimationSplashScreen()
+{
+	if (SplashCol < 388)
+	{
+		for (int i = 0; i < 10; i++)
+			AnimationString.push_back((char)219);
+	}
+	if (SplashCol > 388)
+	{
+		g_eGameState = S_MAINMENU;
+	}
+}
+
+void DrawAnimationSplashScreen()
+{
+	SetAnimationSplashScreen();
+	g_Console.writeToBuffer(l, AnimationString, 0x4B);
+	SplashCol++;
+}
+
+
+void GameOver()
+{
+
+}
+
+void Credits()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y /= 3;
+	c.X = c.X / 2 - 5;
+	g_Console.writeToBuffer(c, "ESC to Return", 0x02);
+	c.Y += 4;
+	g_Console.writeToBuffer(c, "Done By,", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Ng JingJie <>", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Lim Zhi Sheng <>", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Lim Pei Sheng", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Lim Yi Chun <UI>", 0x02);
+	c.Y += 1;
+
+	if (g_abKeyPressed[K_ESCAPE])
+	{
+		g_eGameState = S_MAINMENU;
+	}
 }
