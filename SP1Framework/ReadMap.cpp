@@ -73,6 +73,14 @@ void readMap(int mapLevel)
 			{
 				g_mapData.mapGrid[row][col] = (char)201;
 			}
+			else if (loopedString.at(col) == 'K')
+			{
+				g_mapData.mapGrid[row][col] = (char)237;
+			}
+			else if (loopedString.at(col) == 'D')
+			{
+				g_mapData.mapGrid[row][col] = (char)178;
+			}
 			else
 			{
 				g_mapData.mapGrid[row][col] = loopedString.at(col);

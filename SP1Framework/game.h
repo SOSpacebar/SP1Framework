@@ -18,8 +18,7 @@ enum EKEYS
 	K_ENTER,
     K_ESCAPE,
     K_SPACE,
-    K_COUNT,
-	K_SWITCH
+    K_COUNT
 };
 
 // Enumeration for the different screen states
@@ -37,6 +36,12 @@ enum EGAMESTATES
 
 // struct for the game character
 struct SGameChar
+{
+	COORD m_cLocation;
+	bool  m_bActive;
+};
+
+struct SGameKey
 {
 	COORD m_cLocation;
 	bool  m_bActive;
@@ -60,5 +65,16 @@ void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 
+void renderMainMenu();// Main Menu
+void LevelSelect();// Selecting Level
+void SetAnimationSplashScreen(); // Showing Animation
+void DrawAnimationSplashScreen(); // Draw the SplashScreen in
+void GameOver(); // When Player got killed in the game
+void Credits(); // Crediting everyone who work for the game
+
+void RenderKey(); // Rendering Key 
+void LockedDoor(); // The Door Is lock If Player didnt get the Key
+
+void renderCombatScreen();
 
 #endif // _GAME_H

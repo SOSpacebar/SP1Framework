@@ -1,6 +1,6 @@
-#include "portalGun.h"
+#include "portalGun.h";
 
-void createBullet(short x, short y, EKEYS key, Bullet &_bullet, bool type)
+void createBullet(short x, short y, EKEYS key, Bullet &_bullet)
 {
 	short num = 0;
 	COORD bulletPosition;
@@ -8,7 +8,5 @@ void createBullet(short x, short y, EKEYS key, Bullet &_bullet, bool type)
 	bulletPosition.Y = y;
 
 	_bullet.b_pos = bulletPosition;
-	_bullet.b_direction = key;
-	_bullet.b_isActive = true;
-	_bullet.b_type = type;
+	_bullet.direction = key;
 }
