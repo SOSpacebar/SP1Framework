@@ -12,22 +12,21 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include "MenuSections.h"
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
-int AnimationOffset = 0;
 
 //Shooting Variables
 bool bulletType = 0;
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
+
 //Portal Variables
 Portal _portal;
-
-int hp = 98;
 
 bool dialogend = false;
 
@@ -36,6 +35,8 @@ extern SMapData g_mapData;
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
+
+int g_currLevel = 0;
 
 // Console object
 Console g_Console(120, 40, "INSERT GAME NAME HERE");
@@ -169,6 +170,8 @@ void render()
 			break;
         case S_GAME: renderGame();
             break;
+		case S_LOADLEVEL: setupLevel(g_currLevel);
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -293,7 +296,6 @@ void renderSplashScreen()  // renders the splash screen
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 9;
     g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);
-	readMap(1);
 }
 
 void renderGame()
@@ -301,7 +303,6 @@ void renderGame()
     renderMap();        // renders the map to the buffer first
 	renderPortal(_portal, g_Console); //renders portal.
     renderCharacter();  // renders the character into the buffer
-
 
 	if (_bullet.b_isActive == true)
 		handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData, _portal); //renders the bullet.
@@ -311,9 +312,6 @@ void renderGame()
 		//handleBulletProjectile(); //renders the bullet.
 
 		WALKLA();
-
-		
-
 
 		//renderCombatScreen();
 		update_GameObject();
@@ -366,7 +364,7 @@ void renderMap()
 	{
 		drawDialogBox(4, c);
 		
-		if (g_abKeyPressed[K_SPACE])
+		if (g_abKeyPressed[K_ENTER])
 		{
 			dialogend = true;
 		}
@@ -410,72 +408,3 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
-void renderCombatScreen()
-{
-	//set screen black
-	string fillScreen;
-
-	for (; fillScreen.size() < 4800;)
-	{
-		fillScreen.push_back(' ');
-	}
-
-	g_Console.writeToBuffer(0, 0, fillScreen, 0x0D);
-
-	COORD x;
-	x.X = 42;
-	x.Y = 5;
-	if (AnimationOffset <= 20)
-	{
-		drawAnimation(0 , x);
-	}
-	else if (AnimationOffset > 20)
-	{
-		drawAnimation(1, x);
-	}
-
-	if (AnimationOffset >= 40)
-	{
-		AnimationOffset = 0;
-	}
-
-	AnimationOffset++;
-
-	x.X = 10;
-	x.Y = 25;
-
-	drawAnimation(3, x);
-
-	if (g_abKeyPressed[K_SPACE] && g_dElapsedTime >= g_dBounceTime)
-	{
-		hp -= 2;
-		g_dBounceTime = g_dElapsedTime + 1.125; // 125ms should be enough
-	}
-
-	if (GetAsyncKeyState(VK_SPACE) < 0)
-	{
-		
-	}
-	else
-	{
-		g_dBounceTime = g_dElapsedTime;
-	}
-
-	drawAnimation(3, x);
-
-	if (g_abKeyPressed[K_SPACE] && g_dElapsedTime >= g_dBounceTime)
-	{
-		hp -= 2;
-		g_dBounceTime = g_dElapsedTime + 1.125; // 125ms should be enough
-	}
-
-	if (GetAsyncKeyState(VK_SPACE) < 0)
-	{
-		
-	}
-	else
-	{
-		g_dBounceTime = g_dElapsedTime;
-	}
-	drawHpCurr(3, x);
-}

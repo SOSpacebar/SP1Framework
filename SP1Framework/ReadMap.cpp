@@ -13,35 +13,24 @@ void readMap(int mapLevel)
 	string levelInfo;
 	string loopedString;
 
-	switch (mapLevel)
-	{
-	case 1:
-		//blah levelData.open("Map#.txt");
-		levelData.open("MapData/Map.txt");
-		if (!levelData.is_open()){
-			return;
-		}
-		break;
-	case 2:
-		//blah levelData.open("Map2.txt");
-		break;
+	string mapArray[5];
 
-	default:
-		//done levelData.open("Map.txt");
-		break;
-	}
+	mapArray[0] = "MapData/map.txt";
+	mapArray[1] = "MapData/map1a.txt";
+	mapArray[2] = "MapData/map1b.txt";
+	mapArray[3] = "MapData/map1c.txt";
+	mapArray[4] = "MapData/map2.txt";
 
-	int TilesHeight = 150 ;
-	int TilesWide = 150 ;
+	levelData.open(mapArray[mapLevel]);
 
-	for (int row = 0 ; row < TilesHeight; row++)
+	for (int row = 0 ; row < 150; row++)
 	{
 		if (levelData.eof()) 
 			break;
 
 		getline(levelData, loopedString);
 
-		for (int col = 0 ; col < TilesWide; col++)
+		for (int col = 0 ; col < 150; col++)
 		{
 			if (loopedString[col] == '\0')
 			{
@@ -73,11 +62,20 @@ void readMap(int mapLevel)
 			{
 				g_mapData.mapGrid[row][col] = (char)201;
 			}
+			else if (loopedString.at(col) == 'K')
+			{
+				g_mapData.mapGrid[row][col] = (char)237;
+			}
+			else if (loopedString.at(col) == 'D')
+			{
+				g_mapData.mapGrid[row][col] = (char)178;
+			}
 			else
 			{
 				g_mapData.mapGrid[row][col] = loopedString.at(col);
 			}
 		}
 	}
+	loopedString.clear();
 	levelData.close();
 }

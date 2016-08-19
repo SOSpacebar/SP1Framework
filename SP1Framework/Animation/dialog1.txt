@@ -5,7 +5,7 @@
 ##                                                                                                  ##
 ##                                   This is our tutorial stage,                                    ##
 ##                             Please use the Arrow Keys to move around                             ##
-##                                                                                                  ##
+##                                    [ Press SPACE to continue ]                                   ##
 ##                                                                                                  ##
 ##                                                                                                  ##
 ######################################################################################################

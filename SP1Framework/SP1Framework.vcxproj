@@ -80,7 +80,6 @@
     <ClCompile Include="checkBulletCollision.cpp" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="createBullet.cpp" />
-    <ClCompile Include="DrawAnimation.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fireGun.cpp" />
     <ClCompile Include="Framework\console.cpp" />

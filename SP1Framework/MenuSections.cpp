@@ -1,4 +1,6 @@
 #include "MenuSections.h"
+#include "ReadMap.h"
+#include "AnimationManager.h"
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -6,6 +8,10 @@
 int SplashCol = 0;
 string AnimationString;
 COORD l;
+int hp = 98;
+bool keyReleased = false;
+
+int AnimationOffset = 0;
 
 int MenuSelect; // A interger to keep the of Start Game there 
 int SetLevel;
@@ -14,8 +20,8 @@ extern double  g_dBounceTime; // this is to prevent key bouncing, so we won't tr
 extern double  g_dElapsedTime;
 extern double  g_dDeltaTime;
 extern bool    g_abKeyPressed[K_COUNT];
-
-
+extern int     g_currLevel;
+extern SMapData g_mapData;
 extern EGAMESTATES g_eGameState;
 
 
@@ -23,6 +29,7 @@ void renderMainMenu()
 {
 	bool bSomethingHappened = false;
 
+	g_currLevel = 0;
 	string Menu[3] = { "Start Game", "Credits", "Exit" };//Array of Start Game and Exit
 
 	COORD c = g_Console.getConsoleSize();
@@ -160,13 +167,13 @@ void LevelSelect()
 		{
 			bSomethingHappened = true;
 			SetLevel = 1;
-			g_eGameState = S_COMBATSCREEN;
 		}
 		//Pressing ENTER will go into the game
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
-			g_eGameState = S_GAME;
+			g_currLevel = 0;
+			g_eGameState = S_LOADLEVEL;
 		}
 		break;
 	case 1:
@@ -192,7 +199,8 @@ void LevelSelect()
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
-			g_eGameState = S_GAME;
+			g_currLevel = 4;
+			g_eGameState = S_LOADLEVEL;
 		}
 		break;
 	case 2:
@@ -218,7 +226,8 @@ void LevelSelect()
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
-			g_eGameState = S_GAME;
+			//g_currLevel = 2;
+			g_eGameState = S_COMBATSCREEN;
 		}
 		break;
 	}
@@ -276,4 +285,66 @@ void DrawAnimationSplashScreen()
 	SetAnimationSplashScreen();
 	g_Console.writeToBuffer(l, AnimationString, 0x4B);
 	SplashCol++;
+}
+
+void renderCombatScreen()
+{
+	processUserInput();
+	//set screen black
+	string fillScreen;
+
+	for (; fillScreen.size() < 4800;)
+	{
+		fillScreen.push_back(' ');
+	}
+
+	g_Console.writeToBuffer(0, 0, fillScreen, 0x0D);
+
+	COORD x;
+	x.X = 42;
+	x.Y = 5;
+	if (AnimationOffset <= 20)
+	{
+		drawAnimation(0, x);
+	}
+	else if (AnimationOffset > 20)
+	{
+		drawAnimation(1, x);
+	}
+
+	if (AnimationOffset >= 40)
+	{
+		AnimationOffset = 0;
+	}
+
+	AnimationOffset++;
+
+	x.X = 10;
+	x.Y = 25;
+
+	drawAnimation(3, x);
+
+	if (GetAsyncKeyState(VK_SPACE) < 0)
+	{
+		keyReleased = false;
+	}
+	else
+	{
+		keyReleased = true;
+	}
+
+	if (g_abKeyPressed[K_SPACE] && keyReleased)
+	{
+		hp -= 2;
+	}
+
+	drawHpCurr(3, x);
+}
+
+void setupLevel(int Level)
+{
+	clearScreen();
+	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
+	readMap(Level);
+	g_eGameState = S_GAME;
 }

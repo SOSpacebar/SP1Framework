@@ -37,4 +37,3 @@ bool fireGun(SGameChar player, SMapData map, EKEYS key, EKEYS lastDirection, Bul
 
 	return false;
 }
-

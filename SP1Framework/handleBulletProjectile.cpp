@@ -31,7 +31,7 @@ void handleBulletProjectile(Bullet &_bullet, double &g_dElapsedTime, Console &g_
 			}
 		}
 	}
-	
+
 	if (checkBulletCollision(_bullet, map, g_Console, _portal) == false)
 	{
 		if (_bullet.b_type == 1)
