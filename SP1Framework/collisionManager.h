@@ -1,4 +1,4 @@
 #include "game.h"
 #include "ReadMap.h"
 
-bool checkCollision(SGameChar player, SMapData map, EKEYS direction);
+bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction);

@@ -404,7 +404,7 @@ void moveCharacter()
     // providing a beep sound whenver we shift the character
 	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
 	{
-		if (checkCollision(g_sChar, g_mapData, K_UP) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_UP) == true)
 		{
 			lastDirection = K_UP;
 			g_sChar.m_cLocation.Y--;
@@ -413,7 +413,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
-		if (checkCollision(g_sChar, g_mapData, K_LEFT) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_LEFT;
@@ -423,7 +423,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
-		if (checkCollision(g_sChar, g_mapData, K_DOWN) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_DOWN;
@@ -433,7 +433,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-		if (checkCollision(g_sChar, g_mapData, K_RIGHT) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_RIGHT;
