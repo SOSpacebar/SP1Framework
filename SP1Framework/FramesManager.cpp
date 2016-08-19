@@ -26,7 +26,7 @@ void readAnimation(void)
 
 	chooseFrameToLoad[0] = "animation/mushroom.txt";
 	chooseFrameToLoad[1] = "animation/mushroom1.txt";
-	chooseFrameToLoad[2] = "animation/shroom2.txt";
+	chooseFrameToLoad[2] = "animation/mushroomhit.txt";
 	chooseFrameToLoad[3] = "animation/hp.txt";
 	chooseFrameToLoad[4] = "animation/dialog1.txt";
 

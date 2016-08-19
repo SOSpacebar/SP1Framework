@@ -35,8 +35,8 @@ void handleBulletProjectile(Bullet &_bullet, double &g_dElapsedTime, Console &g_
 	if (checkBulletCollision(_bullet, map, g_Console, _portal) == false)
 	{
 		if (_bullet.b_type == 1)
-			g_Console.writeToBuffer(_bullet.b_pos, 'o', 0x6D);
+			g_Console.writeToBuffer(_bullet.b_pos, 'o', 0x0D);
 		else
-			g_Console.writeToBuffer(_bullet.b_pos, 'x', 0x6D);
+			g_Console.writeToBuffer(_bullet.b_pos, 'x', 0x0D);
 	}
 }

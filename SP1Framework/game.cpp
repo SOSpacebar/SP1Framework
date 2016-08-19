@@ -251,17 +251,33 @@ void moveCharacter()
 		{
 			bSomethingHappened = true;
 		}
+		if (g_sChar.m_bActive == 0)
+		{
+			g_sChar.m_bActive = 1;
+			bulletType = 0;
+		}
+		else
+		{
+			g_sChar.m_bActive = 0;
+			bulletType = 1;
+		}
     }
 
 	if (g_abKeyPressed[K_SWITCH])
 	{
-		g_sChar.m_bActive = !g_sChar.m_bActive;
+		//g_sChar.m_bActive = !g_sChar.m_bActive;
 		bSomethingHappened = true;
 
-		if (bulletType == 0)
-			bulletType = 1;
-		else
+		if (g_sChar.m_bActive == 0)
+		{
+			g_sChar.m_bActive = 1;
 			bulletType = 0;
+		}
+		else
+		{
+			g_sChar.m_bActive = 0;
+			bulletType = 1;
+		}
 	}
 
     if (bSomethingHappened)
@@ -311,10 +327,10 @@ void renderGame()
 	{
 		//handleBulletProjectile(); //renders the bullet.
 
-		WALKLA();
+		//WALKLA();
 
 		//renderCombatScreen();
-		update_GameObject();
+		//update_GameObject();
 		//TryCircle();
 	}
 	

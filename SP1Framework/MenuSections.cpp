@@ -12,6 +12,7 @@ int hp = 98;
 bool keyReleased = false;
 
 int AnimationOffset = 0;
+int AnimationOffset2 = 0;
 
 int MenuSelect; // A interger to keep the of Start Game there 
 int SetLevel;
@@ -303,11 +304,12 @@ void renderCombatScreen()
 	COORD x;
 	x.X = 42;
 	x.Y = 5;
-	if (AnimationOffset <= 20)
+
+	if (AnimationOffset <= 20 && AnimationOffset2 == 0)
 	{
 		drawAnimation(0, x);
 	}
-	else if (AnimationOffset > 20)
+	else if (AnimationOffset > 20 && AnimationOffset2 == 0)
 	{
 		drawAnimation(1, x);
 	}
@@ -336,8 +338,23 @@ void renderCombatScreen()
 	if (g_abKeyPressed[K_SPACE] && keyReleased)
 	{
 		hp -= 2;
+		AnimationOffset2 = 30;
 	}
 
+	x.X = 46;
+	x.Y = 4;
+
+	if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
+	{
+		drawAnimation(2, x);
+		AnimationOffset2++;
+	}
+	else if (AnimationOffset2 > 45)
+	{
+		AnimationOffset2 = 0;
+	}
+	x.X = 10;
+	x.Y = 25;
 	drawHpCurr(3, x);
 }
 
