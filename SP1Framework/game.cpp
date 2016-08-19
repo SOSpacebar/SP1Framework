@@ -12,24 +12,22 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include "MenuSections.h"
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
+extern SGameKey g_iKey;
+extern SGameKey g_dDoor;
+
+int AnimationOffset = 0;
 
 //Shooting Variables
-bool bulletType = 0;
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
-<<<<<<< HEAD
-//COORD l;
-=======
 int hp = 98;
 
->>>>>>> a8af7b7bb4926270decb3355b207170ebfe82100
 bool dialogend = false;
 
 // Game specific variables here
@@ -53,6 +51,9 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
+
+	g_iKey.m_bActive = true;
+	g_dDoor.m_bActive = true;
 
 	readAnimation();
 
@@ -104,7 +105,6 @@ void getInput( void )
 	g_abKeyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
-	g_abKeyPressed[K_SWITCH] = isKeyPressed(0x53);
 }
 
 //--------------------------------------------------------------
@@ -245,22 +245,14 @@ void moveCharacter()
 	}
     if (g_abKeyPressed[K_SPACE])
     {
-		if (fireGun(g_sChar, g_mapData, K_SPACE, lastDirection, _bullet, bulletType) == true && _bullet.b_isActive == true)
+		g_sChar.m_bActive = !g_sChar.m_bActive;
+
+		if (fireGun(g_sChar, g_mapData, K_SPACE, lastDirection, _bullet) == true)
 		{
+			
 			bSomethingHappened = true;
 		}
     }
-
-	if (g_abKeyPressed[K_SWITCH])
-	{
-		g_sChar.m_bActive = !g_sChar.m_bActive;
-		bSomethingHappened = true;
-
-		if (bulletType == 0)
-			bulletType = 1;
-		else
-			bulletType = 0;
-	}
 
     if (bSomethingHappened)
     {
@@ -300,8 +292,10 @@ void renderSplashScreen()  // renders the splash screen
 void renderGame()
 {
     renderMap();        // renders the map to the buffer first
+	RenderKey();
+	LockedDoor();
     renderCharacter();  // renders the character into the buffer
-
+	
 
 	if (dialogend)
 	{
@@ -407,3 +401,72 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
+void renderCombatScreen()
+{
+	//set screen black
+	string fillScreen;
+
+	for (; fillScreen.size() < 4800;)
+	{
+		fillScreen.push_back(' ');
+	}
+
+	g_Console.writeToBuffer(0, 0, fillScreen, 0x0D);
+
+	COORD x;
+	x.X = 42;
+	x.Y = 5;
+	if (AnimationOffset <= 20)
+	{
+		drawAnimation(0 , x);
+	}
+	else if (AnimationOffset > 20)
+	{
+		drawAnimation(1, x);
+	}
+
+	if (AnimationOffset >= 40)
+	{
+		AnimationOffset = 0;
+	}
+
+	AnimationOffset++;
+
+	x.X = 10;
+	x.Y = 25;
+
+	drawAnimation(3, x);
+
+	if (g_abKeyPressed[K_SPACE] && g_dElapsedTime >= g_dBounceTime)
+	{
+		hp -= 2;
+		g_dBounceTime = g_dElapsedTime + 1.125; // 125ms should be enough
+	}
+
+	if (GetAsyncKeyState(VK_SPACE) < 0)
+	{
+		
+	}
+	else
+	{
+		g_dBounceTime = g_dElapsedTime;
+	}
+
+	drawAnimation(3, x);
+
+	if (g_abKeyPressed[K_SPACE] && g_dElapsedTime >= g_dBounceTime)
+	{
+		hp -= 2;
+		g_dBounceTime = g_dElapsedTime + 1.125; // 125ms should be enough
+	}
+
+	if (GetAsyncKeyState(VK_SPACE) < 0)
+	{
+		
+	}
+	else
+	{
+		g_dBounceTime = g_dElapsedTime;
+	}
+	drawHpCurr(3, x);
+}

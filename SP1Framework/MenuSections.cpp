@@ -2,16 +2,10 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include "AnimationManager.h"
 
 int SplashCol = 0;
 string AnimationString;
 COORD l;
-int hp = 98;
-
-bool keyReleased = false;
-
-int AnimationOffset = 0;
 
 int MenuSelect; // A interger to keep the of Start Game there 
 int SetLevel;
@@ -23,6 +17,7 @@ extern bool    g_abKeyPressed[K_COUNT];
 
 
 extern EGAMESTATES g_eGameState;
+
 
 void renderMainMenu()
 {
@@ -122,7 +117,7 @@ void renderMainMenu()
 	if (bSomethingHappened)
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
-		g_dBounceTime = g_dElapsedTime + 0.325; // 125ms should be enough
+		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
 	}
 }
 
@@ -281,58 +276,4 @@ void DrawAnimationSplashScreen()
 	SetAnimationSplashScreen();
 	g_Console.writeToBuffer(l, AnimationString, 0x4B);
 	SplashCol++;
-}
-
-void renderCombatScreen()
-{
-	processUserInput();
-	//set screen black
-	string fillScreen;
-
-	for (; fillScreen.size() < 4800;)
-	{
-		fillScreen.push_back(' ');
-	}
-
-	g_Console.writeToBuffer(0, 0, fillScreen, 0x0D);
-
-	COORD x;
-	x.X = 42;
-	x.Y = 5;
-	if (AnimationOffset <= 20)
-	{
-		drawAnimation(0, x);
-	}
-	else if (AnimationOffset > 20)
-	{
-		drawAnimation(1, x);
-	}
-
-	if (AnimationOffset >= 40)
-	{
-		AnimationOffset = 0;
-	}
-
-	AnimationOffset++;
-
-	x.X = 10;
-	x.Y = 25;
-
-	drawAnimation(3, x);
-
-	if (GetAsyncKeyState(VK_SPACE) < 0)
-	{
-		keyReleased = false;
-	}
-	else
-	{
-		keyReleased = true;
-	}
-
-	if (g_abKeyPressed[K_SPACE] && keyReleased)
-	{
-		hp -= 2;
-	}
-
-	drawHpCurr(3, x);
 }
