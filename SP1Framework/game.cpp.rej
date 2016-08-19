@@ -1,0 +1,12 @@
+diff a/SP1Framework/game.cpp b/SP1Framework/game.cpp	(rejected hunks)
+@@ -28,6 +28,10 @@
+ 
+ int a; // A interger to keep the of Start Game there 
+ 
++int SplashCol = 0;
++string AnimationString;
++COORD l;
++
+ // Game specific variables here
+ extern SMapData g_mapData;
+ SGameChar   g_sChar;

@@ -24,12 +24,6 @@ bool bulletType = 0;
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
-<<<<<<< HEAD
-//COORD l;
-=======
-int hp = 98;
-
->>>>>>> a8af7b7bb4926270decb3355b207170ebfe82100
 bool dialogend = false;
 
 // Game specific variables here
@@ -309,7 +303,7 @@ void renderGame()
 
 		WALKLA();
 
-	handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData); //renders the bullet.
+		handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData); //renders the bullet.
 
 
 		//renderCombatScreen();
