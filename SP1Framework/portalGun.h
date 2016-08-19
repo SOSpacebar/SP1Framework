@@ -4,8 +4,8 @@
 
 struct Bullet
 {
-	COORD b_pos;
 	short b_speed;
+	COORD b_pos;
 	EKEYS b_direction;
 	bool b_isActive;
 	bool b_type;

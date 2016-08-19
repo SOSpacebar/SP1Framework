@@ -22,4 +22,4 @@ void setAnimation();
 void drawHpCurr(int keyFrame, COORD currCoord);
 void drawDialogBox(int keyFrame, COORD boxCoord);
 
-#endif 
+#endif

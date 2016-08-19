@@ -364,8 +364,9 @@ void renderMap()
 	{
 		drawDialogBox(4, c);
 		
-		if (g_abKeyPressed[K_ENTER])
+		if (g_abKeyPressed[K_SPACE])
 		{
+			g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
 			dialogend = true;
 		}
 	}
