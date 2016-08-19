@@ -158,7 +158,7 @@ void render()
 			break;
 		case S_LEVELSELECT: LevelSelect();
 			break;
-		case S_COMBATSCREEN: renderCombatScreen();
+		case S_COMBATSCREEN: //renderCombatScreen();
 			break;
 		case S_GAMEOVER: GameOver();
 			break;

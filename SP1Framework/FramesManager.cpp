@@ -5,7 +5,7 @@
 using namespace std;
 FrameData frameData;
 
-extern int hp;
+int hp = 98;
 
 extern Console g_Console;
 

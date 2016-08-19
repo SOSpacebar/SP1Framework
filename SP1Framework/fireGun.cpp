@@ -1,6 +1,6 @@
 #include "portalGun.h"
 
-bool fireGun(SGameChar player, SMapData map, EKEYS key, EKEYS lastDirection, Bullet &_bullet)
+bool fireGun(SGameChar player, SMapData map, EKEYS key, EKEYS lastDirection, Bullet &_bullet, bool b_isActive)
 {
 	if (key == K_SPACE)
 	{

@@ -17,14 +17,92 @@ void init_object(short level) //Preload the data of the enemy into memory.
 {
 	if (level == 1)
 	{
-		short x_start[5]	= { 2, 15, 20, 10, 7};
-		short y_start[5]	= { 3, 20, 9, 10, 10};
-		short x[5]			= { 2, 15, 20, 10, 7};
-		short y[5]			= { 3, 20, 9, 10, 10 };
-		string ID[5]		= { "LR_P", "Crusher", "RL_P", "Crusher", "DU_P" };
-		string speed[5]		= { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.  Crusher has fixed speed due to it having 2 diff speed for "load" and "crush"
-		int distance[5]		= { 10, 7, 7, 5, 5 };
-		bool reset[5]		= { false, false, false, false, false };
+		short x_start[5] = { 2, 15, 20, 10, 7 };
+		short y_start[5] = { 3, 20, 9, 10, 10 };
+		short x[5] = { 2, 15, 20, 10, 7 };
+		short y[5] = { 3, 20, 9, 10, 10 };
+		string ID[5] = { "LR_P", "Crusher", "RL_P", "Crusher", "DU_P" };
+		string speed[5] = { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.  Crusher has fixed speed due to it having 2 diff speed for "load" and "crush"
+		int distance[5] = { 10, 7, 7, 5, 5 };
+		bool reset[5] = { false, false, false, false, false };
+	
+		for (short i = 0; i < 5; i++)
+		{
+			COORD pos;
+			pos.X = x[i];
+			pos.Y = y[i];
+
+			COORD pos_start;
+			pos_start.X = x_start[i];
+			pos_start.Y = y_start[i];
+
+			_object[i].o_location = pos;
+			_object[i].o_start_location = pos_start;
+			_object[i].o_ID = ID[i];
+			_object[i].o_distance = distance[i];
+			_object[i].o_reset = reset[i];
+
+			if (speed[i] == "slow")
+			{
+				if (_object[i].o_ID == "Crusher")
+				{
+					_object[i].o_speed.push_back(50);
+					_object[i].o_speed.push_back(3);
+				}
+				else
+				{
+					_object[i].o_speed.push_back(30);
+				}
+			}
+			else if (speed[i] == "normal")
+			{
+				if (_object[i].o_ID == "Crusher")
+				{
+					_object[i].o_speed.push_back(40);
+					_object[i].o_speed.push_back(2);
+				}
+				else
+				{
+					_object[i].o_speed.push_back(20);
+				}
+			}
+			else if (speed[i] == "fast")
+			{
+				if (_object[i].o_ID == "Crusher")
+				{
+					_object[i].o_speed.push_back(30);
+					_object[i].o_speed.push_back(1);
+				}
+				else
+				{
+					_object[i].o_speed.push_back(10);
+				}
+			}
+			else
+			{
+				if (_object[i].o_ID == "Crusher")
+				{
+					_object[i].o_speed.push_back(100);
+					_object[i].o_speed.push_back(1);
+				}
+				else
+				{
+					_object[i].o_speed.push_back(100);
+				}
+			}
+		}
+	}
+
+	if (level == 2)
+	{
+		short x_start[5] = { 2, 15, 20, 10, 7 };
+		short y_start[5] = { 3, 20, 9, 10, 10 };
+		short x[5] = { 2, 15, 20, 10, 7 };
+		short y[5] = { 3, 20, 9, 10, 10 };
+		string ID[5] = { "LR_P", "Crusher", "RL_P", "Crusher", "DU_P" };
+		string speed[5] = { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.  Crusher has fixed speed due to it having 2 diff speed for "load" and "crush"
+		int distance[5] = { 10, 7, 7, 5, 5 };
+		bool reset[5] = { false, false, false, false, false };
 
 		for (short i = 0; i < 5; i++)
 		{
@@ -42,20 +120,6 @@ void init_object(short level) //Preload the data of the enemy into memory.
 			_object[i].o_distance = distance[i];
 			_object[i].o_reset = reset[i];
 
-			/*
-
-			for (int x = 0; x < 5; x++ )
-			{
-				
-				objectArr[x][0] = _object.o_location;
-				objectArr[x][1] = xxxxx;
-				
-			}
-
-
-
-			*/
-			
 			if (speed[i] == "slow")
 			{
 				if (_object[i].o_ID == "Crusher")
