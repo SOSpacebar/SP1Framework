@@ -8,7 +8,6 @@ extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
 extern Console g_Console;
 using namespace std;
-<<<<<<< HEAD
 
 void renderMainMenu();// Main Menu
 void LevelSelect();// Selecting Level
@@ -17,5 +16,4 @@ void DrawAnimationSplashScreen(); // Draw the SplashScreen in
 void GameOver(); // When Player got killed in the game
 void Credits(); // Crediting everyone who work for the game
 void renderCombatScreen();
-=======
->>>>>>> a8af7b7bb4926270decb3355b207170ebfe82100
+void setupLevel(int Level);

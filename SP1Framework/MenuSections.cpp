@@ -1,4 +1,5 @@
 #include "MenuSections.h"
+#include "ReadMap.h"
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -20,14 +21,15 @@ extern double  g_dBounceTime; // this is to prevent key bouncing, so we won't tr
 extern double  g_dElapsedTime;
 extern double  g_dDeltaTime;
 extern bool    g_abKeyPressed[K_COUNT];
-
-
+extern int     g_currLevel;
+extern SMapData g_mapData;
 extern EGAMESTATES g_eGameState;
 
 void renderMainMenu()
 {
 	bool bSomethingHappened = false;
 
+	g_currLevel = 0;
 	string Menu[3] = { "Start Game", "Credits", "Exit" };//Array of Start Game and Exit
 
 	COORD c = g_Console.getConsoleSize();
@@ -165,13 +167,13 @@ void LevelSelect()
 		{
 			bSomethingHappened = true;
 			SetLevel = 1;
-			g_eGameState = S_COMBATSCREEN;
 		}
 		//Pressing ENTER will go into the game
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
-			g_eGameState = S_GAME;
+			g_currLevel = 0;
+			g_eGameState = S_LOADLEVEL;
 		}
 		break;
 	case 1:
@@ -197,7 +199,8 @@ void LevelSelect()
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
-			g_eGameState = S_GAME;
+			g_currLevel = 4;
+			g_eGameState = S_LOADLEVEL;
 		}
 		break;
 	case 2:
@@ -223,7 +226,8 @@ void LevelSelect()
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
-			g_eGameState = S_GAME;
+			//g_currLevel = 2;
+			g_eGameState = S_COMBATSCREEN;
 		}
 		break;
 	}
@@ -335,4 +339,12 @@ void renderCombatScreen()
 	}
 
 	drawHpCurr(3, x);
+}
+
+void setupLevel(int Level)
+{
+	clearScreen();
+	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
+	readMap(Level);
+	g_eGameState = S_GAME;
 }

@@ -24,12 +24,6 @@ bool bulletType = 0;
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
-<<<<<<< HEAD
-//COORD l;
-=======
-int hp = 98;
-
->>>>>>> a8af7b7bb4926270decb3355b207170ebfe82100
 bool dialogend = false;
 
 // Game specific variables here
@@ -37,6 +31,8 @@ extern SMapData g_mapData;
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
+
+int g_currLevel = 0;
 
 // Console object
 Console g_Console(120, 40, "INSERT GAME NAME HERE");
@@ -170,6 +166,8 @@ void render()
 			break;
         case S_GAME: renderGame();
             break;
+		case S_LOADLEVEL: setupLevel(g_currLevel);
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -294,7 +292,6 @@ void renderSplashScreen()  // renders the splash screen
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 9;
     g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);
-	readMap(1);
 }
 
 void renderGame()
@@ -302,15 +299,14 @@ void renderGame()
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
 
+	if (_bullet.b_isActive == true)
+		handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData); //renders the bullet.
 
 	if (dialogend)
 	{
 		//handleBulletProjectile(); //renders the bullet.
 
 		WALKLA();
-
-	handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData); //renders the bullet.
-
 
 		//renderCombatScreen();
 		update_GameObject();
