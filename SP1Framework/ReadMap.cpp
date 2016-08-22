@@ -1,5 +1,7 @@
 #include "ReadMap.h"
 #include "game.h"
+#include "MapGenerator.h"
+
 using namespace std;
 
 SMapData g_mapData;
@@ -24,61 +26,70 @@ void readMap(int mapLevel)
 	mapArray[3] = "MapData/map1c.txt";
 	mapArray[4] = "MapData/map2.txt";
 
-	levelData.open(mapArray[mapLevel]);
-
-	for (int row = 0 ; row < 150; row++)
+	if (mapLevel > 4)
 	{
-		if (levelData.eof()) 
-			break;
+		returnMap();
+		return;
+	}
+	else
+	{
+		levelData.open(mapArray[mapLevel]);
 
-		getline(levelData, loopedString);
-
-		for (int col = 0 ; col < 150; col++)
+		for (int row = 0; row < 150; row++)
 		{
-			if (loopedString[col] == '\0')
-			{
+			if (levelData.eof())
 				break;
-			}
-			if (loopedString.at(col) == '#')
+
+			getline(levelData, loopedString);
+
+			for (int col = 0; col < 150; col++)
 			{
-				g_mapData.mapGrid[row][col] = (char)219;
-			}
-			else if (loopedString.at(col) == 'S')
-			{
-				g_sChar.m_cLocation.X = col;
-				g_sChar.m_cLocation.Y = row+1;
-				g_mapData.mapGrid[row][col] = loopedString.at(col);
-			}
-			else if (loopedString.at(col) == '^')
-			{
-				g_mapData.mapGrid[row][col] = (char)187;
-			}
-			else if (loopedString.at(col) == '%')
-			{
-				g_mapData.mapGrid[row][col] = (char)188;
-			}
-			else if (loopedString.at(col) == '(')
-			{
-				g_mapData.mapGrid[row][col] = (char)200;
-			}
-			else if (loopedString.at(col) == '$')
-			{
-				g_mapData.mapGrid[row][col] = (char)201;
-			}
-			else if (loopedString.at(col) == 'K')
-			{
-				g_mapData.mapGrid[row][col] = (char)237;
-			}
-			else if (loopedString.at(col) == 'D')
-			{
-				g_mapData.mapGrid[row][col] = (char)178;
-			}
-			else
-			{
-				g_mapData.mapGrid[row][col] = loopedString.at(col);
+				if (loopedString[col] == '\0')
+				{
+					break;
+				}
+				if (loopedString.at(col) == '#')
+				{
+					g_mapData.mapGrid[row][col] = (char)219;
+				}
+				else if (loopedString.at(col) == 'S')
+				{
+					g_sChar.m_cLocation.X = col;
+					g_sChar.m_cLocation.Y = row + 1;
+					g_mapData.mapGrid[row][col] = loopedString.at(col);
+				}
+				else if (loopedString.at(col) == '^')
+				{
+					g_mapData.mapGrid[row][col] = (char)187;
+				}
+				else if (loopedString.at(col) == '%')
+				{
+					g_mapData.mapGrid[row][col] = (char)188;
+				}
+				else if (loopedString.at(col) == '(')
+				{
+					g_mapData.mapGrid[row][col] = (char)200;
+				}
+				else if (loopedString.at(col) == '$')
+				{
+					g_mapData.mapGrid[row][col] = (char)201;
+				}
+				else if (loopedString.at(col) == 'K')
+				{
+					g_mapData.mapGrid[row][col] = (char)237;
+				}
+				else if (loopedString.at(col) == 'D')
+				{
+					g_mapData.mapGrid[row][col] = (char)178;
+				}
+				else
+				{
+					g_mapData.mapGrid[row][col] = loopedString.at(col);
+				}
 			}
 		}
 	}
 	loopedString.clear();
 	levelData.close();
+
 }

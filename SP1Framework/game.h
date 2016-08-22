@@ -74,9 +74,6 @@ void DrawAnimationSplashScreen(); // Draw the SplashScreen in
 void GameOver(); // When Player got killed in the game
 void Credits(); // Crediting everyone who work for the game
 
-void RenderKey(); // Rendering Key 
-void LockedDoor(); // The Door Is lock If Player didnt get the Key
-
 void renderCombatScreen();
 
 #endif // _GAME_H

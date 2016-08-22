@@ -10,7 +10,7 @@
 #include "portalGun.h"
 #include "ReadMap.h"
 #include "MenuSections.h"
-
+#include "lockandUnlock.h"
 //Original framework stuff
 #include <iostream>
 #include <sstream>
@@ -26,6 +26,10 @@ bool    g_abKeyPressed[K_COUNT];
 bool bulletType = 0;
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
+
+//Key and Door calling 
+SGameKey g_iKey;
+SGameKey g_dDoor;
 
 //Portal Variables
 Portal _portal;
@@ -61,6 +65,9 @@ void init( void )
     g_dBounceTime = 0.0;
 
 	readAnimation();
+
+	g_iKey.m_bActive = true;
+	g_dDoor.m_bActive = true;
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
@@ -205,15 +212,16 @@ void gameplay()            // gameplay logic
 void moveCharacter()
 {
 	bool bSomethingHappened = false;
-
     if (g_dBounceTime > g_dElapsedTime)
         return;
+
+	checkDoorCollision(g_sChar, g_mapData, g_iKey, g_dDoor);
 
     // Updating the location of the character based on the key press
     // providing a beep sound whenver we shift the character
 	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_UP, g_eGameState, g_currLevel) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_UP, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
 		{
 			lastDirection = K_UP;
 			g_sChar.m_cLocation.Y--;
@@ -223,7 +231,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_LEFT;
@@ -234,7 +242,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_DOWN;
@@ -245,7 +253,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_RIGHT;
@@ -326,9 +334,11 @@ void renderSplashScreen()  // renders the splash screen
 void renderGame()
 {
     renderMap();        // renders the map to the buffer first
+	RenderKey(g_iKey);
+	LockedDoor(g_dDoor);
 	renderPortal(_portal, g_Console); //renders portal.
     renderCharacter();  // renders the character into the buffer
-
+	
 	if (_bullet.b_isActive == true)
 		handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData, _portal); //renders the bullet.
 
@@ -336,11 +346,8 @@ void renderGame()
 	{
 		enemyMovememt(_enemy, g_Console, g_dElapsedTime);
 		//renderCombatScreen();
-		//update_GameObject();
-		//TryCircle();
+		update_GameObject();
 	}
-	
-
 }
 
 void renderMap()
