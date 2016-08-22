@@ -72,7 +72,13 @@
     <ClCompile Include="MenuSections.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DrawAnimation.cpp">
+    <ClCompile Include="renderPortal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spawnPortal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="checkPlayerCollisionWithPortal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
