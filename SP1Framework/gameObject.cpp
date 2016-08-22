@@ -9,21 +9,26 @@ extern SMapData g_mapData;
 
 int offsetTime = g_dDeltaTime;
 
+//============ Test ================
+int counterTime = offsetTime;
+//==================================
+
 objectStruct _object[5];
 
-//================ Check Level objects ===================== Problem: it can only call 1 function at a time...
+//================ Check Level objects =====================
 
 void init_object(short level) //Preload the data of the enemy into memory.
 {
 	if (level == 1)
 	{
-		short x[5] = { 2, 15, 20, 10, 7 };
-		short y[5] = { 3, 20, 9, 10, 10 };
-		string ID[5] = { "LR_P", "Crusher", "RL_P", "Crusher", "UD_P" };
+		short x[5] = { 2, 12, 20, 10, 7 };
+		short y[5] = { 3, 9, 9, 19, 10 };
+		string ID[5] = { ">", "<O>", "^Ov", "^Ov", "v" };
 		string speed[5] = { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.  Crusher has fixed speed due to it having 2 diff speed for "load" and "crush"
-		int distance[5] = { 10, 7, 7, 5, 5 };
+		int distance[5] = { 10, 10, 7, 5, 5 };
 		bool reset[5] = { false, false, false, false, false };
-	
+		int count[5] = { 0, 0, 0, 0, 0, };
+
 		for (short i = 0; i < 5; i++)
 		{
 			COORD pos;
@@ -35,113 +40,74 @@ void init_object(short level) //Preload the data of the enemy into memory.
 			_object[i].o_ID = ID[i];
 			_object[i].o_distance = distance[i];
 			_object[i].o_reset = reset[i];
+			_object[i].o_shift = count[i];
 
 			if (speed[i] == "slow")
 			{
-				if (_object[i].o_ID == "Crusher")
-				{
-					_object[i].o_speed.push_back(50);
-					_object[i].o_speed.push_back(3);
-				}
-				else
-				{
-					_object[i].o_speed.push_back(30);
-				}
+				_object[i].o_speed.push_back(50);
 			}
 			else if (speed[i] == "normal")
 			{
-				if (_object[i].o_ID == "Crusher")
-				{
-					_object[i].o_speed.push_back(40);
-					_object[i].o_speed.push_back(2);
-				}
-				else
-				{
-					_object[i].o_speed.push_back(20);
-				}
+				_object[i].o_speed.push_back(40);
 			}
 			else if (speed[i] == "fast")
 			{
-				if (_object[i].o_ID == "Crusher")
-				{
-					_object[i].o_speed.push_back(30);
-					_object[i].o_speed.push_back(1);
-				}
-				else
-				{
-					_object[i].o_speed.push_back(10);
-				}
+				_object[i].o_speed.push_back(30);
 			}
 			else
 			{
-				if (_object[i].o_ID == "Crusher")
-				{
-					_object[i].o_speed.push_back(100);
-					_object[i].o_speed.push_back(1);
-				}
-				else
-				{
-					_object[i].o_speed.push_back(100);
-				}
+				_object[i].o_speed.push_back(1000);
 			}
 		}
 	}
 }
 
-//================ Check game objects =====================
+//================ Check game objects ======================
 
 void update_GameObject(void)
 {
+	offsetTime += 5;
+	counterTime += 1;
+
+	if (counterTime > 6)
+	{
+		counterTime = 0;
+	}
+
 	for (short j = 0; j < 5; j++)
 	{
-		if (_object[j].o_ID == "LR_P")				//check ID to send coord to specific "update" function for each obstacle
+		if (_object[j].o_ID == ">")					//check ID to send coord to specific "update" function for each obstacle
 		{
-			updateLR_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateLR_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
 		}
-		else if (_object[j].o_ID == "RL_P")			//check ID to send coord to specific "update" function for each obstacle
+		else if (_object[j].o_ID == "<")
 		{
-			updateRL_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateRL_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
 		}
-		else if (_object[j].o_ID == "UD_P")			//check ID to send coord to specific "update" function for each obstacle
+		else if (_object[j].o_ID == "v")
 		{
-			updateUD_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateUD_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
 		}
-		else if (_object[j].o_ID == "DU_P")			//check ID to send coord to specific "update" function for each obstacle
+		else if (_object[j].o_ID == "^")
 		{
-			updateDU_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateDU_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
 		}
-		else if (_object[j].o_ID == "LRUD_P")		//check ID to send coord to specific "update" function for each obstacle
+		else if (_object[j].o_ID == "<O>")
 		{
-			updateDiagonal_LR_UD_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateLR_EBall(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
 		}
-		else if (_object[j].o_ID == "LRDU_P")		//check ID to send coord to specific "update" function for each obstacle
+		else if (_object[j].o_ID == "^Ov")
 		{
-			updateDiagonal_LR_DU_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
-		}
-		else if (_object[j].o_ID == "RLUD_P")		//check ID to send coord to specific "update" function for each obstacle
-		{
-			updateDiagonal_RL_UD_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
-		}
-		else if (_object[j].o_ID == "RLDU_P")		//check ID to send coord to specific "update" function for each obstacle
-		{
-			updateDiagonal_RL_DU_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
-		}
-		else if (_object[j].o_ID == "Crusher")
-		{
-			updateCrusher(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateUD_EBall(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
 		}
 	}
-	offsetTime += 5;
 }
-	
-
 
 //========= Update each object and its location ============
 
-
 char LR_PString = '>';
 
-void updateLR_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
+void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
 {
 	if (reset == false && (offsetTime % speed[0] == 0))
 	{
@@ -164,7 +130,7 @@ void updateLR_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &sp
 
 char RL_PString = '<';
 
-void updateRL_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
+void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
 {
 	if (reset == false && offsetTime % speed[0] == 0)
 	{
@@ -187,7 +153,7 @@ void updateRL_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &sp
 
 char UD_PString = 'v';
 
-void updateUD_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
+void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
 {
 	if (reset == false && offsetTime % speed[0] == 0)
 	{
@@ -210,14 +176,14 @@ void updateUD_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &sp
 
 char DU_PString = '^';
 
-void updateDU_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
+void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
 {
 	if (reset == false && offsetTime % speed[0] == 0)
 	{
 		xy.Y--;
 	}
 
-	if (dist == xy.Y + start_xy.Y || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
+	if (dist == xy.Y + start_xy.Y || g_mapData.mapGrid[xy.Y - 2][xy.X] == (char)219)
 	{
 		reset = true;
 	}
@@ -231,127 +197,75 @@ void updateDU_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &sp
 	g_Console.writeToBuffer(xy, UD_PString, 0xF6);
 }
 
-char LRUD_PString = 92;
-
-void updateDiagonal_LR_UD_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
-{
-	if (reset == false && offsetTime % speed[0] == 0)
-	{
-		xy.X++;
-		xy.Y++;
-	}
-
-	if (dist == xy.X - start_xy.X || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
-	{
-		reset = true;
-	}
-
-	if (reset)
-	{
-		xy = start_xy;
-		reset = false;
-	}
-
-	g_Console.writeToBuffer(xy, LRUD_PString, 0xF6);
-}
-
-char LRDU_PString = 92;
-
-void updateDiagonal_LR_DU_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
-{
-	if (reset == false && offsetTime % speed[0] == 0)
-	{
-		xy.X++;
-		xy.Y--;
-	}
-
-	if (dist == xy.X - start_xy.X || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
-	{
-		reset = true;
-	}
-
-	if (reset)
-	{
-		xy = start_xy;
-		reset = false;
-	}
-
-	g_Console.writeToBuffer(xy, LRDU_PString, 0xF6);
-}
-
-char RLUD_PString = 42;
-
-void updateDiagonal_RL_UD_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
-{
-	if (reset == false && offsetTime % speed[0] == 0)
-	{
-		xy.X--;
-		xy.Y++;
-	}
-
-	if (dist == xy.X + start_xy.X || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
-	{
-		reset = true;
-	}
-
-	if (reset)
-	{
-		xy = start_xy;
-		reset = false;
-	}
-
-	g_Console.writeToBuffer(xy, RLUD_PString, 0xF6);
-}
-
-char RLDU_PString = 42;
-
-void updateDiagonal_RL_DU_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
-{
-	if (reset == false && offsetTime % speed[0] == 0)
-	{
-		xy.X--;
-		xy.Y--;
-	}
-
-	if (dist == xy.X + start_xy.X || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
-	{
-		reset = true;
-	}
-
-	if (reset)
-	{
-		xy = start_xy;
-		reset = false;
-	}
-
-	g_Console.writeToBuffer(xy, RLDU_PString, 0xF6);
-}
-
 string CrusherString = { (char)178 };
 
-void updateCrusher(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reverse)
+void updateLR_EBall(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reverse, int &count)
 {
-	if (reverse == false && offsetTime % speed[0] == 0)
+	if (count == 6 && counterTime <= 6)
 	{
-		xy.X++;
+		count = 0;
+		ID = "^Ov";
 	}
-
-	if (dist == xy.X - start_xy.X)
+	else
 	{
-		reverse = true;
-	}
-
-	if (reverse && offsetTime % speed[1] == 0 || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
-	{
-		xy.X--;
-
-		if (xy.X == start_xy.X)
+		if (reverse == false && offsetTime % speed[0] == 0)
 		{
-			reverse = false;
+			xy.X++;
+			if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
+			{
+				reverse = true;
+			}
+		}
+
+		if (reverse && offsetTime % speed[0] == 0)
+		{
+			xy.X--;
+			if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219)
+			{
+				reverse = false;
+				count++;
+			}
 		}
 	}
 	g_Console.writeToBuffer(xy, CrusherString, 0xF6);
 }
+
+void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reverse, int &count)
+{
+	if (count == 6 && counterTime <= 6)
+	{
+		count = 0;
+		ID = "<O>";
+	}
+	else if (count == 6)
+	{
+		count = 0;
+	}
+	else
+	{
+		if (reverse == false && offsetTime % speed[0] == 0)
+		{
+			xy.Y++;
+			if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
+			{
+				reverse = true;
+			}
+		}
+
+		if (reverse && offsetTime % speed[0] == 0)
+		{
+			xy.Y--;
+			if (g_mapData.mapGrid[xy.Y - 2][xy.X - 1] == (char)219)
+			{
+				reverse = false;
+				count++;
+			}
+		}
+	}
+	g_Console.writeToBuffer(xy, CrusherString, 0xF6);
+}
+
+//======== Might not work ========//
 
 string circleString = "()";
 int offsetTime2 = 0;
@@ -360,7 +274,7 @@ double R = 10;
 COORD z;
 double t = 0;
 
-void TryCircle(COORD xy)
+void TryCircle(COORD xy) // might scrape
 {
 	offsetTime2++;
 
