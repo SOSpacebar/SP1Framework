@@ -64,9 +64,8 @@ void init( void )
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
-
-	init_enemy(1);
-	init_object(1);
+	//init_enemy(1);
+	//init_object(1);
 }
 
 //--------------------------------------------------------------
@@ -332,7 +331,7 @@ void renderGame()
 		//WALKLA();
 
 		//renderCombatScreen();
-		//update_GameObject();
+		update_GameObject();
 	}
 }
 

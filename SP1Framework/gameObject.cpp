@@ -2,6 +2,7 @@
 #include "Framework\console.h"
 #include <math.h>
 #include <time.h>
+#include <vector>
 
 extern double g_dElapsedTime;
 extern double g_dDeltaTime;
@@ -14,12 +15,15 @@ objectStruct _object[5];
 
 //================ Check Level objects =====================
 
+vector<short> x;
+vector<short> y;
+
 void init_object(short level) //Preload the data of the enemy into memory.
 {
 	if (level == 1)
 	{
-		short x[5] = { 2, 12, 20, 10, 7 };
-		short y[5] = { 2, 9, 9, 19, 10 };
+		//short x[5] = { 2, 12, 20, 10, 7 };
+		//short y[5] = { 2, 9, 9, 19, 10 };
 		string ID[5] = { ">", "<O>", "^Ov", "^Ov", "v" };
 		string speed[5] = { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.
 		int distance[5] = { 10, 0, 0, 0, 5 };
@@ -200,4 +204,10 @@ void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &re
 		}
 	}	
 	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
+}
+
+void findCoordStart(int newX, int newY)
+{
+	x.push_back(newX);
+	y.push_back(newY);
 }
