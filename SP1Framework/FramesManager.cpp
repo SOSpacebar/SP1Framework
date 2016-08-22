@@ -9,15 +9,14 @@ FrameData frameData;
 
 extern Console g_Console;
 
-char AnimationArray[6][150][150];
+char AnimationArray[7][150][150];
 char indexChar;
 
 int temphp = 98;
-int currhp;
 
 extern int playerHealth;
-int playerHP = 98;
-int playerCurrHP;
+
+int playerCurrHP = 98;
 
 void readAnimation(void)
 {
@@ -31,18 +30,19 @@ void readAnimation(void)
 	chooseFrameToLoad[0] = "animation/mushroom.txt";
 	chooseFrameToLoad[1] = "animation/mushroom1.txt";
 	chooseFrameToLoad[2] = "animation/mushroomhit.txt";
-	chooseFrameToLoad[3] = "animation/hp.txt";
+	chooseFrameToLoad[3] = "animation/mobhp.txt";
 	chooseFrameToLoad[4] = "animation/dialog1.txt";
 	chooseFrameToLoad[5] = "animation/Damage.txt";
+	chooseFrameToLoad[6] = "animation/playerHP.txt";
 
-	for (int d = 0; d < 6; d++)
+	for (int d = 0; d < 7; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 
 		while (fin >> noskipws >> StringToLoad)
 		{
 			indexChar = StringToLoad;
-			if ((d ==  3 || d == 4) && indexChar == '#')
+			if ((d ==  3 || d == 4 || d == 6) && indexChar == '#')
 			{
 				AnimationArray[d][row][col] = (char)219;
 			}
@@ -80,17 +80,11 @@ void drawAnimation(int keyFrame, COORD animationCoord)
 			{
 				break;
 			}
-			if (AnimationArray[keyFrame][animationCoord2.Y][animationCoord2.X] == '&' && keyFrame == 3)
+			if (AnimationArray[keyFrame][animationCoord2.Y][animationCoord2.X] == '&' && (keyFrame == 3 || keyFrame == 6))
 			{
-				if (hp == 98)
-				{
-					g_Console.writeToBuffer(animationCoord, (char)219, 0x4A);
-				}
-				else
-				{
-					g_Console.writeToBuffer(animationCoord, (char)219, 0x04);
-				}
-				
+
+				g_Console.writeToBuffer(animationCoord, (char)219, 0x04);
+
 			}
 			else
 			{
@@ -107,12 +101,13 @@ void drawAnimation(int keyFrame, COORD animationCoord)
 
 void drawHpCurr(int keyFrame, COORD currCoord)
 {
+	temphp = (hp % 98);
+	COORD currCoord2;
+	int tempValue = currCoord.X;
+
 	if (hp != 98)
 	{
-		temphp = (hp % 98);
-
-		COORD currCoord2;
-		int tempValue = currCoord.X;
+		
 
 		for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
 		{
@@ -131,6 +126,40 @@ void drawHpCurr(int keyFrame, COORD currCoord)
 					g_Console.writeToBuffer(currCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0D);
 				}
 				currCoord.X++;
+			}
+			currCoord.X = tempValue;
+			currCoord.Y++;
+		}
+	}
+	else if (hp == 98)
+	{
+		for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
+		{
+			for (currCoord2.X = 0; currCoord2.X < 150; currCoord2.X++)
+			{
+				if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
+				{
+					break;
+				}
+				if (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '&' && (keyFrame == 3 || keyFrame == 6))
+				{
+					if (hp == 98)
+					{
+						g_Console.writeToBuffer(currCoord, (char)219, 0x4A);
+					}
+					else
+					{
+						g_Console.writeToBuffer(currCoord, (char)219, 0x04);
+					}
+
+				}
+				else
+				{
+					g_Console.writeToBuffer(currCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0D);
+				}
+
+				currCoord.X++;
+
 			}
 			currCoord.X = tempValue;
 			currCoord.Y++;
@@ -177,23 +206,7 @@ void damagePopUp(int keyFrame, COORD Pop)
 			{
 				break;
 			}
-			if (AnimationArray[keyFrame][PopCoord2.Y][PopCoord2.X] == '&' && keyFrame == 3)
-			{
-				if (hp == 98)
-				{
-					g_Console.writeToBuffer(Pop, (char)219, 0x4A);
-				}
-				else
-				{
-					g_Console.writeToBuffer(Pop, (char)219, 0x04);
-				}
-
-			}
-			else
-			{
-				g_Console.writeToBuffer(Pop, AnimationArray[keyFrame][PopCoord2.Y][PopCoord2.X], 0x0D);
-			}
-
+			g_Console.writeToBuffer(Pop, AnimationArray[keyFrame][PopCoord2.Y][PopCoord2.X], 0x0D);
 			Pop.X++;
 
 		}
@@ -205,30 +218,64 @@ void damagePopUp(int keyFrame, COORD Pop)
 //Already Set a Different Value appart from the origin... but the image still called from the same one
 void drawPlayerHP(int keyFrame, COORD playerCoord)
 {
+	playerCurrHP = (playerHealth % 98);
+
+	COORD playerCoord2;
+	int tempValue = playerCoord.X;
+
 	if (playerHealth != 98)
 	{
-		playerHP = (playerHealth % 98);
-
-		COORD currCoord2;
-		int tempValue = playerCoord.X;
-
-		for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
+		for (playerCoord2.Y = 0; playerCoord2.Y < 150; playerCoord2.Y++)
 		{
-			for (currCoord2.X = 0; currCoord2.X < playerHP; currCoord2.X++)
+			for (playerCoord2.X = 0; playerCoord2.X < playerCurrHP; playerCoord2.X++)
 			{
-				if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
+				if ((AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\0') || (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\n'))
 				{
 					break;
 				}
-				if (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '&' && keyFrame == 3)
+				if (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '&' && keyFrame == 6)
 				{
 					g_Console.writeToBuffer(playerCoord, (char)219, 0x4A);
 				}
 				else
 				{
-					g_Console.writeToBuffer(playerCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0D);
+					g_Console.writeToBuffer(playerCoord, AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X], 0x0D);
 				}
 				playerCoord.X++;
+			}
+			playerCoord.X = tempValue;
+			playerCoord.Y++;
+		}
+	}
+	else if (playerHealth = 98)
+	{
+ 		for (playerCoord2.Y = 0; playerCoord2.Y < 150; playerCoord2.Y++)
+		{
+			for (playerCoord2.X = 0; playerCoord2.X < 150; playerCoord2.X++)
+			{
+				if ((AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\0') || (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\n'))
+				{
+					break;
+				}
+				if (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '&' && (keyFrame == 3 || keyFrame == 6))
+				{
+					if (playerHealth == 98)
+					{
+						g_Console.writeToBuffer(playerCoord, (char)219, 0x4A);
+					}
+					else
+					{
+						g_Console.writeToBuffer(playerCoord, (char)219, 0x04);
+					}
+
+				}
+				else
+				{
+					g_Console.writeToBuffer(playerCoord, AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X], 0x0D);
+				}
+
+				playerCoord.X++;
+
 			}
 			playerCoord.X = tempValue;
 			playerCoord.Y++;

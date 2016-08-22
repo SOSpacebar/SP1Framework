@@ -331,6 +331,9 @@ void renderCombatScreen()
 
 	drawAnimation(3, x);
 
+	x.X = 10;
+	x.Y = 32;
+	drawAnimation(6, x);
 	if (GetAsyncKeyState(VK_SPACE) < 0)
 	{
 		keyReleased = false;
@@ -343,6 +346,7 @@ void renderCombatScreen()
 	if (g_abKeyPressed[K_SPACE] && keyReleased)
 	{
 		hp -= 2;
+		//playerHealth -= 2;
 		AnimationOffset2 = 30;
 	}
 
@@ -362,6 +366,11 @@ void renderCombatScreen()
 	x.X = 10;
 	x.Y = 25;
 	drawHpCurr(3, x);
+
+	x.X = 10;
+	x.Y = 32;
+	drawPlayerHP(6, x);
+
 }
 
 void setupLevel(int Level)
