@@ -333,7 +333,6 @@ void renderGame()
 
 		//renderCombatScreen();
 		//update_GameObject();
-		//TryCircle();
 	}
 	
 

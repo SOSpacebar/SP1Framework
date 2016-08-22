@@ -1,16 +1,17 @@
 #include "gameObject.h"
 #include "Framework\console.h"
 #include <math.h>
+#include <time.h>
 
 extern double g_dElapsedTime;
 extern double g_dDeltaTime;
 extern Console g_Console;
 extern SMapData g_mapData;
 
-int offsetTime = g_dDeltaTime;
+int offsetTime = 0;
 
 //============ Test ================
-int counterTime = offsetTime;
+time_t timer;
 //==================================
 
 objectStruct _object[5];
@@ -67,12 +68,6 @@ void init_object(short level) //Preload the data of the enemy into memory.
 void update_GameObject(void)
 {
 	offsetTime += 5;
-	counterTime += 1;
-
-	if (counterTime > 6)
-	{
-		counterTime = 0;
-	}
 
 	for (short j = 0; j < 5; j++)
 	{
@@ -101,12 +96,11 @@ void update_GameObject(void)
 			updateUD_EBall(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
 		}
 	}
-}
+} 
 
 //========= Update each object and its location ============
 
 char LR_PString = '>';
-
 void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
 {
 	if (reset == false && (offsetTime % speed[0] == 0))
@@ -129,7 +123,6 @@ void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vect
 }
 
 char RL_PString = '<';
-
 void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
 {
 	if (reset == false && offsetTime % speed[0] == 0)
@@ -152,7 +145,6 @@ void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vect
 }
 
 char UD_PString = 'v';
-
 void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
 {
 	if (reset == false && offsetTime % speed[0] == 0)
@@ -175,7 +167,6 @@ void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vect
 }
 
 char DU_PString = '^';
-
 void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
 {
 	if (reset == false && offsetTime % speed[0] == 0)
@@ -197,99 +188,49 @@ void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vect
 	g_Console.writeToBuffer(xy, UD_PString, 0xF6);
 }
 
-string CrusherString = { (char)178 };
 
+
+string CrusherString = { (char)254 };
 void updateLR_EBall(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reverse, int &count)
 {
-	if (count == 6 && counterTime <= 6)
+	if (reverse == false && offsetTime % speed[0] == 0)
 	{
-		count = 0;
-		ID = "^Ov";
-	}
-	else
-	{
-		if (reverse == false && offsetTime % speed[0] == 0)
+		xy.X++;
+		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
 		{
-			xy.X++;
-			if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
-			{
-				reverse = true;
-			}
-		}
-
-		if (reverse && offsetTime % speed[0] == 0)
-		{
-			xy.X--;
-			if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219)
-			{
-				reverse = false;
-				count++;
-			}
+			reverse = true;
 		}
 	}
-	g_Console.writeToBuffer(xy, CrusherString, 0xF6);
+	if (reverse && offsetTime % speed[0] == 0)
+	{
+		xy.X--;
+		if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219)
+		{
+			reverse = false;
+			count++;
+		}
+	}	
+	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
 }
 
 void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reverse, int &count)
 {
-	if (count == 6 && counterTime <= 6)
+	if (reverse == false && offsetTime % speed[0] == 0)
 	{
-		count = 0;
-		ID = "<O>";
-	}
-	else if (count == 6)
-	{
-		count = 0;
-	}
-	else
-	{
-		if (reverse == false && offsetTime % speed[0] == 0)
+		xy.Y++;
+		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
 		{
-			xy.Y++;
-			if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
-			{
-				reverse = true;
-			}
-		}
-
-		if (reverse && offsetTime % speed[0] == 0)
-		{
-			xy.Y--;
-			if (g_mapData.mapGrid[xy.Y - 2][xy.X - 1] == (char)219)
-			{
-				reverse = false;
-				count++;
-			}
+			reverse = true;
 		}
 	}
-	g_Console.writeToBuffer(xy, CrusherString, 0xF6);
-}
-
-//======== Might not work ========//
-
-string circleString = "()";
-int offsetTime2 = 0;
-float Pi = 3.1415926f;
-double R = 10;
-COORD z;
-double t = 0;
-
-void TryCircle(COORD xy) // might scrape
-{
-	offsetTime2++;
-
-	if (offsetTime % 1 == 0)
+	if (reverse && offsetTime % speed[0] == 0)
 	{
-		t += 0.01;
-		
-		if (t >= 2 * Pi)
+		xy.Y--;
+		if (g_mapData.mapGrid[xy.Y - 2][xy.X - 1] == (char)219)
 		{
-			t = 0;
+			reverse = false;
+			count++;
 		}
-
-		z.X = (R*cos(t) + 15) * 2;
-		z.Y = (R*sin(t) + 15);
-	}
-	g_Console.writeToBuffer(z, circleString, 0xF6);
-
+	}	
+	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
 }

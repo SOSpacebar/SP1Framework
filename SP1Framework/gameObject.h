@@ -31,6 +31,4 @@ void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vect
 void updateLR_EBall(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reverse, int &count);						//Right Left Crushing Block
 void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reverse, int &count);
 
-//void TryCircle(void);											//"Circular" motion Projectile
-
 #endif
