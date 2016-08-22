@@ -4,8 +4,6 @@
 #include <time.h>
 #include <vector>
 
-extern double g_dElapsedTime;
-extern double g_dDeltaTime;
 extern Console g_Console;
 extern SMapData g_mapData;
 
