@@ -72,14 +72,14 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 
-	g_sChar.m_cLocation.X = 5;// g_Console.getConsoleSize().X / 2;
-	g_sChar.m_cLocation.Y = 5;// g_Console.getConsoleSize().Y / 2;
+	g_sChar.m_cLocation.X = 5;
+	g_sChar.m_cLocation.Y = 5;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
 
-	init_enemy(1, _enemy, amountOfEnemies);
-	init_object(1);
+	//init_enemy(1, _enemy, amountOfEnemies);
+	//init_object(1);
 }
 
 //--------------------------------------------------------------
@@ -344,7 +344,7 @@ void renderGame()
 
 	if (dialogend)
 	{
-		enemyMovememt(_enemy, g_Console, g_dElapsedTime);
+		//enemyMovememt(_enemy, g_Console, g_dElapsedTime);
 		//renderCombatScreen();
 		update_GameObject();
 	}

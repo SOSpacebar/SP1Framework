@@ -29,5 +29,6 @@ void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int 
 
 void updateLR_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reverse);						//Right Left Crushing Block
 void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reverse);
+void findCoordStart(int x, int y);
 
 #endif
