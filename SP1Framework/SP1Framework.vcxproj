@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="checkBulletCollision.cpp" />
+    <ClCompile Include="checkPlayerCollisionWithPortal.cpp" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="createBullet.cpp" />
     <ClCompile Include="enemy.cpp" />
@@ -90,6 +91,7 @@
     <ClCompile Include="handleEnemyMovement.cpp" />
     <ClCompile Include="lockandUnlock.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="MenuSections.cpp" />
     <ClCompile Include="FramesManager.cpp" />
     <ClCompile Include="ReadMap.cpp" />
@@ -106,7 +108,11 @@
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+<<<<<<< HEAD
     <ClInclude Include="lockandUnlock.h" />
+=======
+    <ClInclude Include="MapGenerator.h" />
+>>>>>>> 0b0075faeb3c3a34245b063d443d35b5d9f41922
     <ClInclude Include="MenuSections.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="portalGun.h" />

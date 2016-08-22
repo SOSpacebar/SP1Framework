@@ -220,6 +220,7 @@ void moveCharacter()
 			lastDirection = K_UP;
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
+			checkPlayerCollisionWithPortal(g_sChar, _portal);
 		}
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
@@ -230,6 +231,7 @@ void moveCharacter()
 			lastDirection = K_LEFT;
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
+			checkPlayerCollisionWithPortal(g_sChar, _portal);
 		}
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
@@ -240,6 +242,7 @@ void moveCharacter()
 			lastDirection = K_DOWN;
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
+			checkPlayerCollisionWithPortal(g_sChar, _portal);
 		}
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
@@ -250,9 +253,10 @@ void moveCharacter()
 			lastDirection = K_RIGHT;
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
+			checkPlayerCollisionWithPortal(g_sChar, _portal);
 		}
-
 	}
+
     if (g_abKeyPressed[K_SPACE])
     {
 		if (fireGun(g_sChar, g_mapData, K_SPACE, lastDirection, _bullet, bulletType) == true && _bullet.b_isActive == true)
@@ -335,16 +339,11 @@ void renderGame()
 
 	if (dialogend)
 	{
-		//handleBulletProjectile(); //renders the bullet.
-
 		//WALKLA();
 
 		//renderCombatScreen();
 		//update_GameObject();
-		//TryCircle();
 	}
-	
-
 }
 
 void renderMap()
