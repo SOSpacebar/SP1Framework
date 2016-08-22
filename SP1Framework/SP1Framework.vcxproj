@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -108,11 +108,8 @@
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
-<<<<<<< HEAD
     <ClInclude Include="lockandUnlock.h" />
-=======
     <ClInclude Include="MapGenerator.h" />
->>>>>>> 0b0075faeb3c3a34245b063d443d35b5d9f41922
     <ClInclude Include="MenuSections.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="portalGun.h" />

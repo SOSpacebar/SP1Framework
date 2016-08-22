@@ -202,14 +202,10 @@ void LevelSelect()
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
-			bSomethingHappened = true;
-<<<<<<< HEAD
-			g_currLevel = 4;
-			g_eGameState = S_COMBATSCREEN;
-=======
+			bSomethingHappened = true;			
 			g_currLevel = 6;
 			g_eGameState = S_LOADLEVEL;
->>>>>>> 0b0075faeb3c3a34245b063d443d35b5d9f41922
+
 		}
 		break;
 	case 2:

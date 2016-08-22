@@ -78,14 +78,13 @@
     <ClCompile Include="spawnPortal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="lockandUnlock.cpp">
-=======
+    <Filter>Source Files</Filter>
+        </ClCompile>
     <ClCompile Include="MapGenerator.cpp">
         <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="checkPlayerCollisionWithPortal.cpp">
->>>>>>> 0b0075faeb3c3a34245b063d443d35b5d9f41922
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -126,11 +125,10 @@
     <ClInclude Include="MenuSections.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="lockandUnlock.h">
-=======
+        <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="MapGenerator.h">
->>>>>>> 0b0075faeb3c3a34245b063d443d35b5d9f41922
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
