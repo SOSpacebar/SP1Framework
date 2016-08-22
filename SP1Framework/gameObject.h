@@ -13,8 +13,8 @@ using namespace std;
 struct objectStruct
 {
 	COORD o_start_location;
-	COORD o_location;
 	string o_ID;
+	COORD o_location;
 	int o_speed;
 	bool o_reset;
 };

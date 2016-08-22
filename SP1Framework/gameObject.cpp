@@ -9,46 +9,50 @@ extern SMapData g_mapData;
 
 int offsetTime = 0;
 
-
-
+int objectIndex = 0;
+short totalNumObject = 0;
 //================ Check Level objects =====================
 
-vector<short> x;
-vector<short> y;
-vector<string> ID;
-vector<string> speed;
-vector<bool> reset;
+short x[20];
+short y[20];
+string ID[20];
+string speed[20];
+bool reset[20];
 
-objectStruct _object[10];
+objectStruct _object[20];
 
 void createObjectString()
 {
+	if (objectIndex > totalNumObject)
+	{
+		return;
+	}
+
 	string OID[8] = { ">", "<O>", "<", "^Ov", "v", "^", "<O>", "^Ov" };
 	string Ospeed[3] = { "slow", "normal", "fast" };
 
-	ID.push_back(OID[randomArr(8)]);
-	speed.push_back(Ospeed[randomArr(3)]);
-	reset.push_back(false);
+	ID[objectIndex] = OID[randomArr(7)];
+	speed[objectIndex] = Ospeed[randomArr(2)];
+	reset[objectIndex] = false;
+
+	objectIndex++;
 }
 
 void init_object(short level) //Preload the data of the enemy into memory.
 {
-	if (level == 1)
+	for (int i = 0; i < totalNumObject; i++)
 	{
-		for (int i = 0; i < 10; i++)
-		{
-			createObjectString();
-			COORD pos;
-			pos.X = x[i];
-			pos.Y = y[i];
+		createObjectString();
+		COORD pos;
+		pos.X = x[i];
+		pos.Y = y[i];
 
-			_object[i].o_location = pos;
-			_object[i].o_ID = ID[i];
-			_object[i].o_reset = reset[i];
-		}
+		_object[i].o_location = pos;
+		_object[i].o_ID = ID[i];
+		_object[i].o_reset = reset[i];
 	}
 
-	for (int i = 0; i < ID.size(); i++)
+	for (int i = 0; i < totalNumObject; i++)
 	{
 		if (speed[i] == "slow")
 		{
@@ -76,7 +80,7 @@ void update_GameObject(void)
 {
 	offsetTime += 5;
 
-	for (short j = 0; j < 5; j++)
+	for (short j = 0; j < totalNumObject; j++)
 	{
 		if (_object[j].o_ID == ">")					//check ID to send coord to specific "update" function for each obstacle
 		{
@@ -217,12 +221,15 @@ void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &re
 
 void findCoordStart(int newX, int newY)
 {
-	x.push_back(newX);
-	y.push_back(newY);
+	x[totalNumObject] = newX;
+	y[totalNumObject] = newY;
 }
 
 int randomArr(int rand_vec_size)
 {
-	rand_vec_size = std::rand() % rand_vec_size;
-	return rand_vec_size;
+		std::random_device randNew;
+		std::mt19937 twistNew(randNew());
+
+		std::uniform_int_distribution<> dist(0, rand_vec_size - 1);
+		return dist(twistNew);
 }

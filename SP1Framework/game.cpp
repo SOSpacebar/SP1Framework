@@ -11,6 +11,7 @@
 #include "ReadMap.h"
 #include "MenuSections.h"
 #include "lockandUnlock.h"
+#include "MapGenerator.h"
 //Original framework stuff
 #include <iostream>
 #include <sstream>
@@ -35,7 +36,7 @@ SGameKey g_dDoor;
 Portal _portal;
 
 //Monster Variables
-enemyStruct _enemy[3];
+enemyStruct _enemy[20];
 short amountOfEnemies = 3;
 
 bool dialogend = false;
@@ -45,6 +46,8 @@ extern SMapData g_mapData;
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
+
+extern int i;
 
 short g_currLevel = 0;
 
@@ -78,7 +81,6 @@ void init( void )
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
 
-	//init_enemy(1, _enemy, amountOfEnemies);
 	//init_object(1);
 }
 
@@ -344,7 +346,7 @@ void renderGame()
 
 	if (dialogend)
 	{
-		//enemyMovememt(_enemy, g_Console, g_dElapsedTime);
+		enemyMovememt(_enemy, g_Console, g_dElapsedTime);
 		//renderCombatScreen();
 		update_GameObject();
 	}

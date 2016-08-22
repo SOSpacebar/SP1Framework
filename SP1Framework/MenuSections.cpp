@@ -2,6 +2,7 @@
 #include "ReadMap.h"
 #include "AnimationManager.h"
 #include "gameObject.h"
+#include "enemyProperties.h"
 
 
 int SplashCol = 0;
@@ -27,7 +28,8 @@ extern bool    g_abKeyPressed[K_COUNT];
 extern short     g_currLevel;
 extern SMapData g_mapData;
 extern EGAMESTATES g_eGameState;
-
+extern int i;
+extern enemyStruct _enemy[20];
 
 void renderMainMenu()
 {
@@ -378,5 +380,6 @@ void setupLevel(short Level)
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
 	readMap(Level);
 	init_object(1);
+	init_enemy(6, _enemy, i);
 	g_eGameState = S_GAME;
 }

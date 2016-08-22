@@ -2,9 +2,13 @@
 #include "ReadMap.h"
 #include "game.h"
 #include "gameObject.h"
+#include "enemyProperties.h"
 
 extern SMapData g_mapData;
 extern SGameChar g_sChar;
+extern short totalNumObject;
+
+int i = 0;
 
 class MapGenerator
 {
@@ -81,16 +85,16 @@ public:
 		}
 
 
-		for (int x = 1; x < 4; ++x)
-		{
-			if (!placeObject(Spike))
-			{
-				//std::cout << "Unable to place down stairs.\n";
-				break;
-			}
-		}
+		//for (int x = 1; x < 9; ++x)
+		//{
+		//	if (!placeObject(Spike))
+		//	{
+		//		//std::cout << "Unable to place down stairs.\n";
+		//		break;
+		//	}
+		//}
 
-		for (int x = 1; x < 10; ++x)
+		for (int x = 1; x < 9; ++x)
 		{
 			if (!placeObject(Key))
 			{
@@ -99,7 +103,7 @@ public:
 			}
 		}
 
-		for (int x = 1; x < 10; ++x)
+		for (int x = 1; x < 9; ++x)
 		{
 			if (!placeObject(Monster))
 			{
@@ -108,7 +112,7 @@ public:
 			}
 		}
 		
-		for (int x = 1; x < 10; ++x)
+		for (int x = 1; x < 9; ++x)
 		{
 			if (!placeObject(EnergyBall))
 			{
@@ -139,6 +143,13 @@ public:
 				else if (getTiles(x, y) == '*')
 				{
 					findCoordStart(x, y);
+					totalNumObject++;
+					g_mapData.mapGrid[y][x] = ' ';
+				}
+				else if (getTiles(x, y) == 'm')
+				{
+					enemyCoordStart(x, y, i);
+					i++;
 					g_mapData.mapGrid[y][x] = ' ';
 				}
 				else
