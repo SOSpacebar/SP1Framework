@@ -72,7 +72,13 @@
     <ClCompile Include="MenuSections.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DrawAnimation.cpp">
+    <ClCompile Include="renderPortal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spawnPortal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lockandUnlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -111,6 +117,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MenuSections.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lockandUnlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

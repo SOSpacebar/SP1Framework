@@ -88,6 +88,7 @@
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="handleBulletProjectile.cpp" />
     <ClCompile Include="handleEnemyMovement.cpp" />
+    <ClCompile Include="lockandUnlock.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuSections.cpp" />
     <ClCompile Include="FramesManager.cpp" />
@@ -105,6 +106,7 @@
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="lockandUnlock.h" />
     <ClInclude Include="MenuSections.h" />
     <ClInclude Include="obstacle.h" />
     <ClInclude Include="portalGun.h" />
