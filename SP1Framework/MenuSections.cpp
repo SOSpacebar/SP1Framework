@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include "gameObject.h"
 
 int SplashCol = 0;
 string AnimationString;
@@ -368,5 +369,6 @@ void setupLevel(int Level)
 	clearScreen();
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
 	readMap(Level);
+	init_object(1);
 	g_eGameState = S_GAME;
 }

@@ -1,6 +1,7 @@
 #include "MapGenerator.h"
 #include "ReadMap.h"
 #include "game.h"
+#include "gameObject.h"
 
 extern SMapData g_mapData;
 extern SGameChar g_sChar;
@@ -134,6 +135,11 @@ public:
 					g_sChar.m_cLocation.X = x;
 					g_sChar.m_cLocation.Y = y + 1;
 					g_mapData.mapGrid[y][x] = getTiles(x, y);
+				}
+				else if (getTiles(x, y) == '*')
+				{
+					findCoordStart(x, y);
+					g_mapData.mapGrid[y][x] = ' ';
 				}
 				else
 				{
