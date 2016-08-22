@@ -19,7 +19,7 @@ void init_object(short level) //Preload the data of the enemy into memory.
 	if (level == 1)
 	{
 		short x[5] = { 2, 12, 20, 10, 7 };
-		short y[5] = { 3, 9, 9, 19, 10 };
+		short y[5] = { 2, 9, 9, 19, 10 };
 		string ID[5] = { ">", "<O>", "^Ov", "^Ov", "v" };
 		string speed[5] = { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.
 		int distance[5] = { 10, 0, 0, 0, 5 };
@@ -67,27 +67,27 @@ void update_GameObject(void)
 	{
 		if (_object[j].o_ID == ">")					//check ID to send coord to specific "update" function for each obstacle
 		{
-			updateLR_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateLR_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "<")
 		{
-			updateRL_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateRL_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "v")
 		{
-			updateUD_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateUD_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "^")
 		{
-			updateDU_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateDU_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "<O>")
 		{
-			updateLR_EBall(_object[j].o_start_location, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
+			updateLR_EBall(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "^Ov")
 		{
-			updateUD_EBall(_object[j].o_start_location, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
+			updateUD_EBall(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
 		}
 	}
 } 
@@ -95,95 +95,72 @@ void update_GameObject(void)
 //========= Update each object and its location ============
 
 char LR_PString = '>';
-void updateLR_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
+void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
 	if (reset == false && (offsetTime % speed == 0))
 	{
 		xy.X++;
 	}
 
-	if (dist == xy.X - start_xy.X || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
+	if (dist == xy.X - start_xy.X || g_mapData.mapGrid[xy.Y][xy.X + 1] == (char)219)
 	{
-		reset = true;
-	}
-
-	if (reset)
-	{
-		xy = start_xy;
-		reset = false;
+		ID = "<";
 	}
 	
 	g_Console.writeToBuffer(xy, LR_PString, 0xF6);
 }
 
 char RL_PString = '<';
-void updateRL_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
+void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
 	if (reset == false && offsetTime % speed == 0)
 	{
 		xy.X--;
 	}
 
-	if (dist == xy.X + start_xy.X || g_mapData.mapGrid[xy.Y-1][xy.X] == (char)219)
+	if (g_mapData.mapGrid[xy.Y][xy.X -1] == (char)219)
 	{
-		reset = true;
+		ID = ">";
 	}
 
-	if (reset)
-	{
-		xy = start_xy;
-		reset = false;
-	}
 
 	g_Console.writeToBuffer(xy, RL_PString, 0xF6);
 }
 
 char UD_PString = 'v';
-void updateUD_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
+void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
 	if (reset == false && offsetTime % speed == 0)
 	{
 		xy.Y++;
 	}
 
-	if (dist == xy.Y - start_xy.Y || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
+	if (g_mapData.mapGrid[xy.Y][xy.X] == (char)219)
 	{
-		reset = true;
-	}
-
-	if (reset)
-	{
-		xy = start_xy;
-		reset = false;
+		ID = "^";
 	}
 
 	g_Console.writeToBuffer(xy, UD_PString, 0xF6);
 }
 
 char DU_PString = '^';
-void updateDU_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
+void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
 	if (reset == false && offsetTime % speed == 0)
 	{
 		xy.Y--;
 	}
 
-	if (dist == xy.Y + start_xy.Y || g_mapData.mapGrid[xy.Y - 2][xy.X] == (char)219)
+	if (g_mapData.mapGrid[xy.Y - 2][xy.X] == (char)219)
 	{
-		reset = true;
+		ID = "v";
 	}
 
-	if (reset)
-	{
-		xy = start_xy;
-		reset = false;
-	}
-
-	g_Console.writeToBuffer(xy, UD_PString, 0xF6);
+	g_Console.writeToBuffer(xy, DU_PString, 0xF6);
 }
 
 string CrusherString = { (char)254 };
-void updateLR_EBall(COORD &start_xy, COORD &xy, int &speed, bool &reverse)
+void updateLR_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reverse)
 {
 	if (reverse == false && offsetTime % speed == 0)
 	{
@@ -204,7 +181,7 @@ void updateLR_EBall(COORD &start_xy, COORD &xy, int &speed, bool &reverse)
 	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
 }
 
-void updateUD_EBall(COORD &start_xy, COORD &xy, int &speed, bool &reverse)
+void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reverse)
 {
 	if (reverse == false && offsetTime % speed == 0)
 	{
