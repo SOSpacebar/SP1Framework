@@ -1,5 +1,4 @@
 #include "collisionManager.h"
-#include "game.h"
 #include "Framework/console.h"
 
 extern int g_currLevel;
@@ -72,7 +71,6 @@ bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction)
 
 	return true;
 }
-
 void RenderKey()
 {
 	g_iKey.m_cLocation.X = 10;

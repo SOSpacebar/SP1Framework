@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="checkBulletCollision.cpp" />
+    <ClCompile Include="checkPlayerCollisionWithPortal.cpp" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="createBullet.cpp" />
     <ClCompile Include="enemy.cpp" />
