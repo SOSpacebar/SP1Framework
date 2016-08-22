@@ -67,27 +67,27 @@ void update_GameObject(void)
 	{
 		if (_object[j].o_ID == ">")					//check ID to send coord to specific "update" function for each obstacle
 		{
-			updateLR_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
+			updateLR_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "<")
 		{
-			updateRL_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
+			updateRL_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "v")
 		{
-			updateUD_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
+			updateUD_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "^")
 		{
-			updateDU_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
+			updateDU_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "<O>")
 		{
-			updateLR_EBall(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
+			updateLR_EBall(_object[j].o_start_location, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "^Ov")
 		{
-			updateUD_EBall(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset, _object[j].o_shift);
+			updateUD_EBall(_object[j].o_start_location, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
 		}
 	}
 } 
@@ -97,7 +97,7 @@ void update_GameObject(void)
 char LR_PString = '>';
 void updateLR_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
-	if (reset == false && (offsetTime % speed[0] == 0))
+	if (reset == false && (offsetTime % speed == 0))
 	{
 		xy.X++;
 	}
@@ -117,9 +117,9 @@ void updateLR_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool
 }
 
 char RL_PString = '<';
-void updateRL_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &resett)
+void updateRL_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
-	if (reset == false && offsetTime % speed[0] == 0)
+	if (reset == false && offsetTime % speed == 0)
 	{
 		xy.X--;
 	}
@@ -141,7 +141,7 @@ void updateRL_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool
 char UD_PString = 'v';
 void updateUD_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
-	if (reset == false && offsetTime % speed[0] == 0)
+	if (reset == false && offsetTime % speed == 0)
 	{
 		xy.Y++;
 	}
@@ -163,7 +163,7 @@ void updateUD_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool
 char DU_PString = '^';
 void updateDU_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
-	if (reset == false && offsetTime % speed[0] == 0)
+	if (reset == false && offsetTime % speed == 0)
 	{
 		xy.Y--;
 	}
@@ -183,9 +183,9 @@ void updateDU_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool
 }
 
 string CrusherString = { (char)254 };
-void updateLR_EBall(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reverse)
+void updateLR_EBall(COORD &start_xy, COORD &xy, int &speed, bool &reverse)
 {
-	if (reverse == false && offsetTime % speed[0] == 0)
+	if (reverse == false && offsetTime % speed == 0)
 	{
 		xy.X++;
 		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
@@ -193,21 +193,20 @@ void updateLR_EBall(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &rev
 			reverse = true;
 		}
 	}
-	if (reverse && offsetTime % speed[0] == 0)
+	if (reverse && offsetTime % speed == 0)
 	{
 		xy.X--;
 		if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219)
 		{
 			reverse = false;
-			count++;
 		}
 	}	
 	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
 }
 
-void updateUD_EBall(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reverse)
+void updateUD_EBall(COORD &start_xy, COORD &xy, int &speed, bool &reverse)
 {
-	if (reverse == false && offsetTime % speed[0] == 0)
+	if (reverse == false && offsetTime % speed == 0)
 	{
 		xy.Y++;
 		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
@@ -215,13 +214,12 @@ void updateUD_EBall(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &rev
 			reverse = true;
 		}
 	}
-	if (reverse && offsetTime % speed[0] == 0)
+	if (reverse && offsetTime % speed == 0)
 	{
 		xy.Y--;
 		if (g_mapData.mapGrid[xy.Y - 2][xy.X - 1] == (char)219)
 		{
 			reverse = false;
-			count++;
 		}
 	}	
 	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
