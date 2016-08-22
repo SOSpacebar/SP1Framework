@@ -1,12 +1,9 @@
-#include "game.h"
 #include "Framework/console.h"
 #include "lockandUnlock.h"
 
-SGameKey g_iKey;
-SGameKey g_dDoor;
 extern Console g_Console;
 
-bool checkDoorCollision(SGameChar player, SMapData map)
+bool checkDoorCollision(SGameChar player, SMapData map, SGameKey &g_iKey, SGameKey g_dDoor)
 {
 	if (player.m_cLocation.Y == g_iKey.m_cLocation.Y && player.m_cLocation.X == g_iKey.m_cLocation.X && g_iKey.m_bActive) //Checking the player gotten the key or not
 	{
@@ -39,7 +36,7 @@ bool checkDoorCollision(SGameChar player, SMapData map)
 }
 
 //Render the key position
-void RenderKey()
+void RenderKey(SGameKey &g_iKey)
 {
 	g_iKey.m_cLocation.X = 12;
 	g_iKey.m_cLocation.Y = 10;
@@ -49,7 +46,7 @@ void RenderKey()
 }
 
 //Render the door position
-void LockedDoor()
+void LockedDoor(SGameKey &g_dDoor)
 {
 	g_dDoor.m_cLocation.X = 12;
 	g_dDoor.m_cLocation.Y = 14;

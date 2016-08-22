@@ -8,6 +8,9 @@ SMapData g_mapData;
 
 extern SGameChar g_sChar;
 
+/*
+TODO: REFERNECE TO SGMAECHAR
+*/
 void readMap(int mapLevel)
 {
 

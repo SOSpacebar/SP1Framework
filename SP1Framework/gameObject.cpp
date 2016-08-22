@@ -9,55 +9,66 @@ extern SMapData g_mapData;
 
 int offsetTime = 0;
 
-objectStruct _object[5];
+
 
 //================ Check Level objects =====================
 
 vector<short> x;
 vector<short> y;
+vector<string> ID;
+vector<string> speed;
+vector<bool> reset;
+
+objectStruct _object[10];
+
+void createObjectString()
+{
+	string OID[8] = { ">", "<O>", "<", "^Ov", "v", "^", "<O>", "^Ov" };
+	string Ospeed[3] = { "slow", "normal", "fast" };
+
+	ID.push_back(OID[randomArr(8)]);
+	speed.push_back(Ospeed[randomArr(3)]);
+	reset.push_back(false);
+}
 
 void init_object(short level) //Preload the data of the enemy into memory.
 {
 	if (level == 1)
 	{
-		//short x[5] = { 2, 12, 20, 10, 7 };
-		//short y[5] = { 2, 9, 9, 19, 10 };
-		string ID[5] = { ">", "<O>", "^Ov", "^Ov", "v" };
-		string speed[5] = { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.
-		int distance[5] = { 10, 0, 0, 0, 5 };
-		bool reset[5] = { false, false, false, false, false };
-
-		for (short i = 0; i < 5; i++)
+		for (int i = 0; i < 10; i++)
 		{
+			createObjectString();
 			COORD pos;
 			pos.X = x[i];
 			pos.Y = y[i];
 
 			_object[i].o_location = pos;
-			_object[i].o_start_location = pos;
 			_object[i].o_ID = ID[i];
-			_object[i].o_distance = distance[i];
 			_object[i].o_reset = reset[i];
+		}
+	}
 
-			if (speed[i] == "slow")
-			{
-				_object[i].o_speed = 50;
-			}
-			else if (speed[i] == "normal")
-			{
-				_object[i].o_speed =40;
-			}
-			else if (speed[i] == "fast")
-			{
-				_object[i].o_speed = 30;
-			}
-			else
-			{
-				_object[i].o_speed = 1000;
-			}
+	for (int i = 0; i < ID.size(); i++)
+	{
+		if (speed[i] == "slow")
+		{
+			_object[i].o_speed = 50;
+		}
+		else if (speed[i] == "normal")
+		{
+			_object[i].o_speed = 40;
+		}
+		else if (speed[i] == "fast")
+		{
+			_object[i].o_speed = 30;
+		}
+		else
+		{
+			_object[i].o_speed = 1000;
 		}
 	}
 }
+
 
 //================ Check game objects ======================
 
@@ -69,19 +80,19 @@ void update_GameObject(void)
 	{
 		if (_object[j].o_ID == ">")					//check ID to send coord to specific "update" function for each obstacle
 		{
-			updateLR_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateLR_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "<")
 		{
-			updateRL_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateRL_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "v")
 		{
-			updateUD_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateUD_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "^")
 		{
-			updateDU_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
+			updateDU_Projectile(_object[j].o_ID, _object[j].o_start_location, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "<O>")
 		{
@@ -97,14 +108,14 @@ void update_GameObject(void)
 //========= Update each object and its location ============
 
 char LR_PString = '>';
-void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
+void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reset)
 {
 	if (reset == false && (offsetTime % speed == 0))
 	{
 		xy.X++;
 	}
 
-	if (dist == xy.X - start_xy.X || g_mapData.mapGrid[xy.Y][xy.X + 1] == (char)219)
+	if (g_mapData.mapGrid[xy.Y][xy.X + 1] == (char)219)
 	{
 		ID = "<";
 	}
@@ -113,14 +124,14 @@ void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int 
 }
 
 char RL_PString = '<';
-void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
+void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reset)
 {
 	if (reset == false && offsetTime % speed == 0)
 	{
 		xy.X--;
 	}
 
-	if (g_mapData.mapGrid[xy.Y][xy.X -1] == (char)219)
+	if (g_mapData.mapGrid[xy.Y + 1][xy.X -1] == (char)219)
 	{
 		ID = ">";
 	}
@@ -130,7 +141,7 @@ void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int 
 }
 
 char UD_PString = 'v';
-void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
+void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reset)
 {
 	if (reset == false && offsetTime % speed == 0)
 	{
@@ -146,7 +157,7 @@ void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int 
 }
 
 char DU_PString = '^';
-void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
+void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reset)
 {
 	if (reset == false && offsetTime % speed == 0)
 	{
@@ -208,4 +219,10 @@ void findCoordStart(int newX, int newY)
 {
 	x.push_back(newX);
 	y.push_back(newY);
+}
+
+int randomArr(int rand_vec_size)
+{
+	rand_vec_size = std::rand() % rand_vec_size;
+	return rand_vec_size;
 }
