@@ -1,14 +1,13 @@
 #include "MenuSections.h"
 #include "ReadMap.h"
 #include "AnimationManager.h"
-#include <iostream>
-#include <sstream>
-#include <iomanip>
 #include "gameObject.h"
+
 
 int SplashCol = 0;
 string AnimationString;
-COORD l;
+
+COORD l; 
 
 int hp = 98;
 int playerHealth = 98;
@@ -25,7 +24,7 @@ extern double  g_dBounceTime; // this is to prevent key bouncing, so we won't tr
 extern double  g_dElapsedTime;
 extern double  g_dDeltaTime;
 extern bool    g_abKeyPressed[K_COUNT];
-extern int     g_currLevel;
+extern short     g_currLevel;
 extern SMapData g_mapData;
 extern EGAMESTATES g_eGameState;
 
@@ -364,7 +363,7 @@ void renderCombatScreen()
 	drawHpCurr(3, x);
 }
 
-void setupLevel(int Level)
+void setupLevel(short Level)
 {
 	clearScreen();
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);

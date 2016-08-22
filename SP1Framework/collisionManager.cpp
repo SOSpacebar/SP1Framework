@@ -1,11 +1,11 @@
 #include "collisionManager.h"
 #include "Framework/console.h"
 
-extern int g_currLevel;
-extern EGAMESTATES g_eGameState;
-extern SGameKey g_iKey;
-extern SGameKey g_dDoor;
-bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction)
+
+//extern Console g_Console;
+
+
+bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAMESTATES &g_eGameState, short &g_currLevel, SGameKey g_iKey, SGameKey g_dDoor)
 {
 	if (direction == K_UP) 	 //Check is anything above the player.
 	{
