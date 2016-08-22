@@ -3,8 +3,6 @@
 #include <math.h>
 #include <time.h>
 
-extern double g_dElapsedTime;
-extern double g_dDeltaTime;
 extern Console g_Console;
 extern SMapData g_mapData;
 

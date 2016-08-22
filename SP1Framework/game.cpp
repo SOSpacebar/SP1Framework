@@ -332,7 +332,7 @@ void renderGame()
 		//WALKLA();
 
 		//renderCombatScreen();
-		//update_GameObject();
+		update_GameObject();
 	}
 }
 
