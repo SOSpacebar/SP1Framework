@@ -6,8 +6,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <random>
 
 using namespace std;
+
+int randomArr(int rand_ID)
+{
+	rand_ID = rand() % 5;
+}
 
 struct objectStruct
 {
