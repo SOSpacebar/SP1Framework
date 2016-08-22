@@ -17,11 +17,9 @@ void init_object(short level) //Preload the data of the enemy into memory.
 {
 	if (level == 1)
 	{
-		short x_start[5] = { 2, 15, 20, 10, 7 };
-		short y_start[5] = { 3, 20, 9, 10, 10 };
 		short x[5] = { 2, 15, 20, 10, 7 };
 		short y[5] = { 3, 20, 9, 10, 10 };
-		string ID[5] = { "LR_P", "Crusher", "RL_P", "Crusher", "DU_P" };
+		string ID[5] = { "LR_P", "Crusher", "RL_P", "Crusher", "UD_P" };
 		string speed[5] = { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.  Crusher has fixed speed due to it having 2 diff speed for "load" and "crush"
 		int distance[5] = { 10, 7, 7, 5, 5 };
 		bool reset[5] = { false, false, false, false, false };
@@ -32,90 +30,8 @@ void init_object(short level) //Preload the data of the enemy into memory.
 			pos.X = x[i];
 			pos.Y = y[i];
 
-			COORD pos_start;
-			pos_start.X = x_start[i];
-			pos_start.Y = y_start[i];
-
 			_object[i].o_location = pos;
-			_object[i].o_start_location = pos_start;
-			_object[i].o_ID = ID[i];
-			_object[i].o_distance = distance[i];
-			_object[i].o_reset = reset[i];
-
-			if (speed[i] == "slow")
-			{
-				if (_object[i].o_ID == "Crusher")
-				{
-					_object[i].o_speed.push_back(50);
-					_object[i].o_speed.push_back(3);
-				}
-				else
-				{
-					_object[i].o_speed.push_back(30);
-				}
-			}
-			else if (speed[i] == "normal")
-			{
-				if (_object[i].o_ID == "Crusher")
-				{
-					_object[i].o_speed.push_back(40);
-					_object[i].o_speed.push_back(2);
-				}
-				else
-				{
-					_object[i].o_speed.push_back(20);
-				}
-			}
-			else if (speed[i] == "fast")
-			{
-				if (_object[i].o_ID == "Crusher")
-				{
-					_object[i].o_speed.push_back(30);
-					_object[i].o_speed.push_back(1);
-				}
-				else
-				{
-					_object[i].o_speed.push_back(10);
-				}
-			}
-			else
-			{
-				if (_object[i].o_ID == "Crusher")
-				{
-					_object[i].o_speed.push_back(100);
-					_object[i].o_speed.push_back(1);
-				}
-				else
-				{
-					_object[i].o_speed.push_back(100);
-				}
-			}
-		}
-	}
-
-	if (level == 2)
-	{
-		short x_start[5] = { 2, 15, 20, 10, 7 };
-		short y_start[5] = { 3, 20, 9, 10, 10 };
-		short x[5] = { 2, 15, 20, 10, 7 };
-		short y[5] = { 3, 20, 9, 10, 10 };
-		string ID[5] = { "LR_P", "Crusher", "RL_P", "Crusher", "DU_P" };
-		string speed[5] = { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.  Crusher has fixed speed due to it having 2 diff speed for "load" and "crush"
-		int distance[5] = { 10, 7, 7, 5, 5 };
-		bool reset[5] = { false, false, false, false, false };
-
-		for (short i = 0; i < 5; i++)
-		{
-			COORD pos;
-			pos.X = x[i];
-			pos.Y = y[i];
-
-			COORD pos_start;
-			pos_start.X = x_start[i];
-			pos_start.Y = y_start[i];
-
-			_object[i].o_location = pos;
-			_object[i].o_start_location = pos_start;
+			_object[i].o_start_location = pos;
 			_object[i].o_ID = ID[i];
 			_object[i].o_distance = distance[i];
 			_object[i].o_reset = reset[i];
@@ -188,23 +104,6 @@ void update_GameObject(void)
 		}
 		else if (_object[j].o_ID == "UD_P")			//check ID to send coord to specific "update" function for each obstacle
 		{
-			/*
-			
-			if (arr[0][5] == 5 || arr[2][5] )
-			{
-				update(	arr[x][0],		
-			}
-			if (arr[1][5] == 10)
-			{
-				update(	arr[x][0],		
-			}
-			if (arr[2][5] == 5)
-			{
-			update(	arr[x][0],
-			}
-			
-			
-			*/
 			updateUD_Projectile(_object[j].o_start_location, _object[j].o_location, _object[j].o_distance, _object[j].o_speed, _object[j].o_reset);
 		}
 		else if (_object[j].o_ID == "DU_P")			//check ID to send coord to specific "update" function for each obstacle
@@ -240,30 +139,30 @@ void update_GameObject(void)
 //========= Update each object and its location ============
 
 
-string LR_PString = ">>";
+char LR_PString = '>';
 
 void updateLR_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
-	{
-		if (reset == false && (offsetTime % speed[0] == 0))
+{
+	if (reset == false && (offsetTime % speed[0] == 0))
 	{
 		xy.X++;
 	}
 
-	if (dist == xy.X - start_xy.X)
+	if (dist == xy.X - start_xy.X || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
 	{
 		reset = true;
 	}
 
 	if (reset)
 	{
-		xy.X -= dist;
+		xy = start_xy;
 		reset = false;
 	}
 	
 	g_Console.writeToBuffer(xy, LR_PString, 0xF6);
 }
 
-string RL_PString = "<<";
+char RL_PString = '<';
 
 void updateRL_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
 {
@@ -272,21 +171,21 @@ void updateRL_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &sp
 		xy.X--;
 	}
 
-	if (dist == xy.X + start_xy.X)
+	if (dist == xy.X + start_xy.X || g_mapData.mapGrid[xy.Y-1][xy.X] == (char)219)
 	{
 		reset = true;
 	}
 
 	if (reset)
 	{
-		xy.X += dist;
+		xy = start_xy;
 		reset = false;
 	}
 
 	g_Console.writeToBuffer(xy, RL_PString, 0xF6);
 }
 
-string UD_PString = "\/";
+char UD_PString = 'v';
 
 void updateUD_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
 {
@@ -295,21 +194,21 @@ void updateUD_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &sp
 		xy.Y++;
 	}
 
-	if (dist == xy.Y - start_xy.Y)
+	if (dist == xy.Y - start_xy.Y || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
 	{
 		reset = true;
 	}
 
 	if (reset)
 	{
-		xy.Y -= dist;
+		xy = start_xy;
 		reset = false;
 	}
 
 	g_Console.writeToBuffer(xy, UD_PString, 0xF6);
 }
 
-string DU_PString = { (char)47, (char)92 };
+char DU_PString = '^';
 
 void updateDU_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset)
 {
@@ -318,14 +217,14 @@ void updateDU_Projectile(COORD &start_xy, COORD &xy, int &dist, vector <int> &sp
 		xy.Y--;
 	}
 
-	if (dist == xy.Y + start_xy.Y)
+	if (dist == xy.Y + start_xy.Y || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
 	{
 		reset = true;
 	}
 
 	if (reset)
 	{
-		xy.Y += dist;
+		xy = start_xy;
 		reset = false;
 	}
 
@@ -342,15 +241,14 @@ void updateDiagonal_LR_UD_Projectile(COORD &start_xy, COORD &xy, int &dist, vect
 		xy.Y++;
 	}
 
-	if (dist == xy.X - start_xy.X)
+	if (dist == xy.X - start_xy.X || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
 	{
 		reset = true;
 	}
 
 	if (reset)
 	{
-		xy.X -= dist;
-		xy.Y -= dist;
+		xy = start_xy;
 		reset = false;
 	}
 
@@ -367,15 +265,14 @@ void updateDiagonal_LR_DU_Projectile(COORD &start_xy, COORD &xy, int &dist, vect
 		xy.Y--;
 	}
 
-	if (dist == xy.X - start_xy.X)
+	if (dist == xy.X - start_xy.X || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
 	{
 		reset = true;
 	}
 
 	if (reset)
 	{
-		xy.X -= dist;
-		xy.Y += dist;
+		xy = start_xy;
 		reset = false;
 	}
 
@@ -392,15 +289,14 @@ void updateDiagonal_RL_UD_Projectile(COORD &start_xy, COORD &xy, int &dist, vect
 		xy.Y++;
 	}
 
-	if (dist == xy.X + start_xy.X)
+	if (dist == xy.X + start_xy.X || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
 	{
 		reset = true;
 	}
 
 	if (reset)
 	{
-		xy.X += dist;
-		xy.Y -= dist;
+		xy = start_xy;
 		reset = false;
 	}
 
@@ -417,15 +313,14 @@ void updateDiagonal_RL_DU_Projectile(COORD &start_xy, COORD &xy, int &dist, vect
 		xy.Y--;
 	}
 
-	if (dist == xy.X + start_xy.X)
+	if (dist == xy.X + start_xy.X || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
 	{
 		reset = true;
 	}
 
 	if (reset)
 	{
-		xy.X += dist;
-		xy.Y += dist;
+		xy = start_xy;
 		reset = false;
 	}
 
@@ -446,7 +341,7 @@ void updateCrusher(COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, b
 		reverse = true;
 	}
 
-	if (reverse && offsetTime % speed[1] == 0)
+	if (reverse && offsetTime % speed[1] == 0 || g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
 	{
 		xy.X--;
 
