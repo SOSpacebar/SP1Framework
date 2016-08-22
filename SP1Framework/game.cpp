@@ -9,6 +9,7 @@
 #include "gameObject.h"
 #include "portalGun.h"
 #include "ReadMap.h"
+#include "lockandUnlock.h"
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -24,6 +25,9 @@ bool bulletType = 0;
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
+//Key and Door calling 
+extern SGameKey g_iKey;
+extern SGameKey g_dDoor;
 
 //Portal Variables
 Portal _portal;
@@ -55,6 +59,9 @@ void init( void )
     g_dBounceTime = 0.0;
 
 	readAnimation();
+
+	g_iKey.m_bActive = true;
+	g_dDoor.m_bActive = true;
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
@@ -199,9 +206,10 @@ void gameplay()            // gameplay logic
 void moveCharacter()
 {
 	bool bSomethingHappened = false;
-
     if (g_dBounceTime > g_dElapsedTime)
         return;
+
+	checkDoorCollision(g_sChar, g_mapData);
 
     // Updating the location of the character based on the key press
     // providing a beep sound whenver we shift the character
@@ -321,9 +329,11 @@ void renderSplashScreen()  // renders the splash screen
 void renderGame()
 {
     renderMap();        // renders the map to the buffer first
+	RenderKey();
+	LockedDoor();
 	renderPortal(_portal, g_Console); //renders portal.
     renderCharacter();  // renders the character into the buffer
-
+	
 	if (_bullet.b_isActive == true)
 		handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData, _portal); //renders the bullet.
 

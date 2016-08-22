@@ -8,7 +8,10 @@
 int SplashCol = 0;
 string AnimationString;
 COORD l;
+
 int hp = 98;
+int playerHealth = 98;
+
 bool keyReleased = false;
 
 int AnimationOffset = 0;
@@ -199,9 +202,10 @@ void LevelSelect()
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
-			bSomethingHappened = true;
-			g_currLevel = 4;
+			bSomethingHappened = true;			
+			g_currLevel = 6;
 			g_eGameState = S_LOADLEVEL;
+
 		}
 		break;
 	case 2:
@@ -277,7 +281,7 @@ void SetAnimationSplashScreen()
 	}
 	if (SplashCol > 388)
 	{
-		g_eGameState = S_MAINMENU;
+		g_eGameState = S_COMBATSCREEN;
 	}
 }
 
@@ -347,6 +351,7 @@ void renderCombatScreen()
 	if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
 	{
 		drawAnimation(2, x);
+		damagePopUp(5, x);
 		AnimationOffset2++;
 	}
 	else if (AnimationOffset2 > 45)
