@@ -10,10 +10,6 @@ extern SMapData g_mapData;
 
 int offsetTime = 0;
 
-//============ Test ================
-time_t timer;
-//==================================
-
 objectStruct _object[5];
 
 //================ Check Level objects =====================
@@ -25,10 +21,9 @@ void init_object(short level) //Preload the data of the enemy into memory.
 		short x[5] = { 2, 12, 20, 10, 7 };
 		short y[5] = { 3, 9, 9, 19, 10 };
 		string ID[5] = { ">", "<O>", "^Ov", "^Ov", "v" };
-		string speed[5] = { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.  Crusher has fixed speed due to it having 2 diff speed for "load" and "crush"
-		int distance[5] = { 10, 10, 7, 5, 5 };
+		string speed[5] = { "slow", "normal", "normal", "normal", "slow" };		//check speed level: Slow, Normal, Fast.
+		int distance[5] = { 10, 0, 0, 0, 5 };
 		bool reset[5] = { false, false, false, false, false };
-		int count[5] = { 0, 0, 0, 0, 0, };
 
 		for (short i = 0; i < 5; i++)
 		{
@@ -41,23 +36,22 @@ void init_object(short level) //Preload the data of the enemy into memory.
 			_object[i].o_ID = ID[i];
 			_object[i].o_distance = distance[i];
 			_object[i].o_reset = reset[i];
-			_object[i].o_shift = count[i];
 
 			if (speed[i] == "slow")
 			{
-				_object[i].o_speed.push_back(50);
+				_object[i].o_speed = 50;
 			}
 			else if (speed[i] == "normal")
 			{
-				_object[i].o_speed.push_back(40);
+				_object[i].o_speed =40;
 			}
 			else if (speed[i] == "fast")
 			{
-				_object[i].o_speed.push_back(30);
+				_object[i].o_speed = 30;
 			}
 			else
 			{
-				_object[i].o_speed.push_back(1000);
+				_object[i].o_speed = 1000;
 			}
 		}
 	}
@@ -101,7 +95,7 @@ void update_GameObject(void)
 //========= Update each object and its location ============
 
 char LR_PString = '>';
-void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
+void updateLR_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
 	if (reset == false && (offsetTime % speed[0] == 0))
 	{
@@ -123,7 +117,7 @@ void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vect
 }
 
 char RL_PString = '<';
-void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
+void updateRL_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &resett)
 {
 	if (reset == false && offsetTime % speed[0] == 0)
 	{
@@ -145,7 +139,7 @@ void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vect
 }
 
 char UD_PString = 'v';
-void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
+void updateUD_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
 	if (reset == false && offsetTime % speed[0] == 0)
 	{
@@ -167,7 +161,7 @@ void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vect
 }
 
 char DU_PString = '^';
-void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reset, int &count)
+void updateDU_Projectile(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reset)
 {
 	if (reset == false && offsetTime % speed[0] == 0)
 	{
@@ -188,10 +182,8 @@ void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &dist, vect
 	g_Console.writeToBuffer(xy, UD_PString, 0xF6);
 }
 
-
-
 string CrusherString = { (char)254 };
-void updateLR_EBall(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reverse, int &count)
+void updateLR_EBall(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reverse)
 {
 	if (reverse == false && offsetTime % speed[0] == 0)
 	{
@@ -213,7 +205,7 @@ void updateLR_EBall(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <i
 	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
 }
 
-void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &dist, vector <int> &speed, bool &reverse, int &count)
+void updateUD_EBall(COORD &start_xy, COORD &xy, int &dist, int &speed, bool &reverse)
 {
 	if (reverse == false && offsetTime % speed[0] == 0)
 	{
