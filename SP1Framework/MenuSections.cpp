@@ -200,7 +200,7 @@ void LevelSelect()
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
-			g_currLevel = 4;
+			g_currLevel = 6;
 			g_eGameState = S_LOADLEVEL;
 		}
 		break;
