@@ -1,9 +1,8 @@
 #include "enemyProperties.h"
-#include "Framework\console.h"
 
-extern enemyStruct _enemy[3];
-extern double g_dElapsedTime;
-extern Console g_Console;
+//extern enemyStruct _enemy[3];
+//extern double g_dElapsedTime;
+//extern Console g_Console;
 
 double currTime1;
 
@@ -12,7 +11,7 @@ bool reversing1 = false;
 
 int offsetTime1 = 0;
 
-void WALKLA()
+void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedTime)
 {
 	currTime1 = g_dElapsedTime;
 	offsetTime1++;

@@ -1,4 +1,5 @@
 #include "game.h"
+#include "Framework\console.h"
 
 struct enemyStruct
 {
@@ -9,7 +10,6 @@ struct enemyStruct
 	bool e_alive;
 };
 
-void init_enemy(short level);
-void WALKLA();
-//void handleMovement(COORD pos, short speed);
+void init_enemy(short level, enemyStruct _enemy[], short amountOfEnemy);
+void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedTime);
 

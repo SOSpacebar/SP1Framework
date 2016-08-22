@@ -9,10 +9,13 @@
 #include "gameObject.h"
 #include "portalGun.h"
 #include "ReadMap.h"
+#include "MenuSections.h"
+
+//Original framework stuff
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include "MenuSections.h"
+
 
 double  g_dElapsedTime;
 double  g_dDeltaTime;
@@ -24,9 +27,12 @@ bool bulletType = 0;
 Bullet _bullet;
 EKEYS lastDirection = K_RIGHT;
 
-
 //Portal Variables
 Portal _portal;
+
+//Monster Variables
+enemyStruct _enemy[3];
+short amountOfEnemies = 3;
 
 bool dialogend = false;
 
@@ -36,7 +42,7 @@ SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
-int g_currLevel = 0;
+short g_currLevel = 0;
 
 // Console object
 Console g_Console(120, 40, "INSERT GAME NAME HERE");
@@ -65,7 +71,7 @@ void init( void )
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
 
-	init_enemy(1);
+	init_enemy(1, _enemy, amountOfEnemies);
 	init_object(1);
 }
 
@@ -207,7 +213,7 @@ void moveCharacter()
     // providing a beep sound whenver we shift the character
 	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_UP) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_UP, g_eGameState, g_currLevel) == true)
 		{
 			lastDirection = K_UP;
 			g_sChar.m_cLocation.Y--;
@@ -217,7 +223,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_LEFT;
@@ -228,7 +234,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_DOWN;
@@ -239,7 +245,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_RIGHT;
@@ -269,7 +275,6 @@ void moveCharacter()
 
 	if (g_abKeyPressed[K_SWITCH])
 	{
-		//g_sChar.m_bActive = !g_sChar.m_bActive;
 		bSomethingHappened = true;
 
 		if (g_sChar.m_bActive == 0)
@@ -329,8 +334,7 @@ void renderGame()
 
 	if (dialogend)
 	{
-		//WALKLA();
-
+		enemyMovememt(_enemy, g_Console, g_dElapsedTime);
 		//renderCombatScreen();
 		//update_GameObject();
 		//TryCircle();
