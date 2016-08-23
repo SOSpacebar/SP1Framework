@@ -107,11 +107,9 @@ void drawHpCurr(int keyFrame, COORD currCoord)
 
 	if (hp != 98)
 	{
-		
-
 		for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
 		{
-			for (currCoord2.X = 0; currCoord2.X < temphp; currCoord2.X++)
+			for (currCoord2.X = 0; currCoord2.X < temphp -4; currCoord2.X++)
 			{
 				if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
 				{
@@ -124,6 +122,10 @@ void drawHpCurr(int keyFrame, COORD currCoord)
 				else
 				{
 					g_Console.writeToBuffer(currCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0D);
+				}
+				if (hp <= 16)
+				{
+					hp = 0;
 				}
 				currCoord.X++;
 			}
