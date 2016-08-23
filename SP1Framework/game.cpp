@@ -179,7 +179,7 @@ void render()
 			break;
 		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_COMBATSCREEN: renderCombatScreen(g_abKeyPressed);
+		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed);
 			break;
 		case S_GAMEOVER: GameOver();
 			break;
