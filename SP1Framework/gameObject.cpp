@@ -119,7 +119,7 @@ void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		xy.X++;
 	}
 
-	if (g_mapData.mapGrid[xy.Y][xy.X + 1] == (char)219)
+	if (g_mapData.mapGrid[xy.Y][xy.X + 1] == (char)219 || g_mapData.mapGrid[xy.Y][xy.X + 1] == '+' || g_mapData.mapGrid[xy.Y][xy.X + 1] == '-')
 	{
 		ID = "<";
 	}
@@ -135,7 +135,7 @@ void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		xy.X--;
 	}
 
-	if (g_mapData.mapGrid[xy.Y + 1][xy.X -1] == (char)219)
+	if (g_mapData.mapGrid[xy.Y + 1][xy.X - 1] == (char)219 || g_mapData.mapGrid[xy.Y + 1][xy.X - 1] == '+' || g_mapData.mapGrid[xy.Y + 1][xy.X - 1] == '-')
 	{
 		ID = ">";
 	}
@@ -152,7 +152,7 @@ void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		xy.Y++;
 	}
 
-	if (g_mapData.mapGrid[xy.Y][xy.X] == (char)219)
+	if (g_mapData.mapGrid[xy.Y][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y][xy.X] == '+' || g_mapData.mapGrid[xy.Y][xy.X] == '-')
 	{
 		ID = "^";
 	}
@@ -168,7 +168,7 @@ void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		xy.Y--;
 	}
 
-	if (g_mapData.mapGrid[xy.Y - 2][xy.X] == (char)219)
+	if (g_mapData.mapGrid[xy.Y - 2][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y - 2][xy.X] == '+' || g_mapData.mapGrid[xy.Y - 2][xy.X] == '-')
 	{
 		ID = "v";
 	}
@@ -190,7 +190,7 @@ void updateLR_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &re
 	if (reverse && offsetTime % speed == 0)
 	{
 		xy.X--;
-		if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219)
+		if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == '-')
 		{
 			reverse = false;
 		}
@@ -211,7 +211,7 @@ void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &re
 	if (reverse && offsetTime % speed == 0)
 	{
 		xy.Y--;
-		if (g_mapData.mapGrid[xy.Y - 2][xy.X - 1] == (char)219)
+		if (g_mapData.mapGrid[xy.Y - 2][xy.X - 1] == (char)219 || g_mapData.mapGrid[xy.Y - 2][xy.X - 1] == '-')
 		{
 			reverse = false;
 		}
