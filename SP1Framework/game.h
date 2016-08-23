@@ -67,13 +67,6 @@ void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 
-void renderMainMenu();// Main Menu
-void LevelSelect();// Selecting Level
-void SetAnimationSplashScreen(); // Showing Animation
-void DrawAnimationSplashScreen(); // Draw the SplashScreen in
-void GameOver(); // When Player got killed in the game
-void Credits(); // Crediting everyone who work for the game
-
 void renderCombatScreen();
 
 #endif // _GAME_H

@@ -146,11 +146,11 @@ void update(double dt)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
-		case S_MAINMENU: renderMainMenu();
+		case S_MAINMENU: renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_CREDITS: Credits();
+		case S_CREDITS: Credits(g_eGameState, g_abKeyPressed);
 			break;
-		case S_LEVELSELECT: LevelSelect();
+		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
 		case S_GAMEOVER: GameOver();
 			break;
@@ -173,19 +173,19 @@ void render()
     {
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
-		case S_MAINMENU: renderMainMenu();
+		case S_MAINMENU: renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_CREDITS: Credits();
+		case S_CREDITS: Credits(g_eGameState, g_abKeyPressed);
 			break;
-		case S_LEVELSELECT: LevelSelect();
+		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_COMBATSCREEN: renderCombatScreen();
+		case S_COMBATSCREEN: renderCombatScreen(g_abKeyPressed);
 			break;
 		case S_GAMEOVER: GameOver();
 			break;
         case S_GAME: renderGame();
             break;
-		case S_LOADLEVEL: setupLevel(g_currLevel);
+		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState);
 			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc

@@ -23,18 +23,13 @@ int AnimationOffset2 = 0;
 
 int MenuSelect; // A interger to keep the of Start Game there 
 int SetLevel;
-extern double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
-extern double  g_dElapsedTime;
-extern double  g_dDeltaTime;
-extern bool    g_abKeyPressed[K_COUNT];
 extern short     g_currLevel;
 extern SMapData g_mapData;
-extern EGAMESTATES g_eGameState;
 extern int i;
 extern enemyStruct _enemy[20];
 
-void renderMainMenu()
+void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
 	bool bSomethingHappened = false;
 
@@ -137,7 +132,7 @@ void renderMainMenu()
 	}
 }
 
-void LevelSelect()
+void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
 	bool bSomethingHappened = false;
 	string Level[3] {"Level_1", "Level_2", "Level_3"};//creating a simple level selection.
@@ -248,7 +243,7 @@ void LevelSelect()
 	}
 }
 
-void Credits()
+void Credits(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT])
 {
 	COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
@@ -277,7 +272,7 @@ void GameOver()
 
 }
 
-void SetAnimationSplashScreen()
+void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 {
 	if (SplashCol < 388)
 	{
@@ -290,14 +285,14 @@ void SetAnimationSplashScreen()
 	}
 }
 
-void DrawAnimationSplashScreen()
+void DrawAnimationSplashScreen(EGAMESTATES &g_eGameState)
 {
-	SetAnimationSplashScreen();
+	SetAnimationSplashScreen(g_eGameState);
 	g_Console.writeToBuffer(l, AnimationString, 0x4B);
 	SplashCol++;
 }
 
-void renderCombatScreen()
+void renderCombatScreen(bool g_abKeyPressed[K_COUNT])
 {
 	timeOffset++;
 
@@ -392,7 +387,7 @@ void renderCombatScreen()
 	drawPlayerHP(6, x);
 }
 
-void setupLevel(short Level)
+void setupLevel(short Level, EGAMESTATES &g_eGameState)
 {
 	clearScreen();
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
