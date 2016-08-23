@@ -24,7 +24,7 @@ int AnimationOffset2 = 0;
 int MenuSelect; // A interger to keep the of Start Game there 
 int SetLevel;
 
-extern short     g_currLevel;
+extern short    g_currLevel;
 extern SMapData g_mapData;
 extern int i;
 extern enemyStruct _enemy[20];
@@ -292,7 +292,7 @@ void DrawAnimationSplashScreen(EGAMESTATES &g_eGameState)
 	SplashCol++;
 }
 
-void renderCombatScreen(bool g_abKeyPressed[K_COUNT])
+void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT])
 {
 	timeOffset++;
 
