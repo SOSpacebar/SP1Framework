@@ -138,11 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PathfindingAI.h">
-<Filter>Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="fieldOfView.h">
-<Filter>Header Files</Filter>
-    </ClInclude>
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

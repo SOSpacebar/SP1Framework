@@ -386,12 +386,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.Y = 32;
 	drawPlayerHP(6, x);
 }
-
-<<<<<<< HEAD
-void setupLevel(short Level, SGameChar &_sChar)
-=======
-void setupLevel(short Level, EGAMESTATES &g_eGameState)
->>>>>>> 22ac0e1f015f95342b294d321da3884a3c80e189
+void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar)
 {
 	clearScreen();
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);

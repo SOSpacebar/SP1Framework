@@ -15,18 +15,13 @@ void GameOver(); // When Player got killed in the game
 
 void Credits(); // Crediting everyone who work for the game
 void renderCombatScreen();
-<<<<<<< HEAD
-void setupLevel(short Level, SGameChar &_sChar);
-=======
 void setupLevel(short Level);
 int generate_dmg();
 int randomhp_dmg(int rand_dmg_timeOffset);
 
 void Credits(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT]); // Crediting everyone who work for the game
 void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT]);
-void setupLevel(short Level, EGAMESTATES &g_eGameState);
+void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar);
 
 int generate_dmg();
 int randomhp_dmg(int rand_dmg_timeOffset);
-
->>>>>>> 22ac0e1f015f95342b294d321da3884a3c80e189

@@ -3,18 +3,17 @@
 extern Console g_Console;
 
 Sectors CheckSector;
-string CheckIndex;
+int SectorIndex[8];
 
-double Check1;
-double Check2;
-double Check3;
-short CheckWithinRadius = 15;
+short prevCoordX[8];
+short prevCoordY[8];
+float CheckWithinRadius = 9;
 
-COORD DirectionArray[8];
+//COORD DirectionArray[8];
 
 void scanSectorForPlayer(SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy)
 {
-	float MagitudeDist;
+	double MagitudeDist;
 
 	short charX;
 	short charY;
@@ -63,91 +62,214 @@ void scanSectorForPlayer(SGameChar _sChar, enemyStruct _enemy[], int totalEnemy,
 			CheckSector = UpLeft;
 		}		
 	}
+
+	SectorIndex[indexEnemy] = 0;
 }
 
 void scanTiles(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy)
 {
-	char MapGridData = mapData.mapGrid[_enemy[indexEnemy].e_location.X][_enemy[indexEnemy].e_location.Y - 2];
+	double MagitudeDist;
+	MagitudeDist = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)));
 
-	if (sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y))) <= CheckWithinRadius)
+	if (MagitudeDist <= CheckWithinRadius)
 	{
-		if (CheckSector == UpperLeft)
+		if (CheckSector == Up)
 		{
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X - 1][_enemy[indexEnemy].e_location.Y - 2] != (char)219 && CheckIndex == "Check1")
+			if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X] != (char)219) &&
+				(mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X] != '-') &&
+				(_enemy[indexEnemy].e_location.Y - 1 != prevCoordY[indexEnemy]))
 			{
-				//move or update location
-				_enemy[indexEnemy].e_location.X--;
 				_enemy[indexEnemy].e_location.Y--;
+				prevCoordX[indexEnemy] = _enemy[indexEnemy].e_location.X;
+				prevCoordY[indexEnemy] = _enemy[indexEnemy].e_location.Y;
 			}
-			if ((MapGridData != -37) && (CheckIndex == "Check2") )
+			else
 			{
-				//move  or update location
-				_enemy[indexEnemy].e_location.Y--;
-			}
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X - 1][_enemy[indexEnemy].e_location.Y] != (char)219 && CheckIndex == "Check3")
-			{
-				//move  or update location
-				_enemy[indexEnemy].e_location.X--;
+				if (SectorIndex[indexEnemy] == 8)
+				{
+					SectorIndex[indexEnemy] = 0;
+					prevCoordX[indexEnemy] = 0;
+					prevCoordY[indexEnemy] = 0;
+					return;
+				}
+				SectorIndex[indexEnemy]++;
+				CheckSector = UpRight;
 			}
 		}
 
-		else if (CheckSector == UpperRight)
+		if (CheckSector == UpRight)
 		{
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X + 1][_enemy[indexEnemy].e_location.Y - 2] != (char)219 && CheckIndex == "Check1")
+			if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X + 1] != (char)219) &&
+				(mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X + 1] != '-') &&
+				(_enemy[indexEnemy].e_location.Y - 1 != prevCoordY[indexEnemy]) &&
+				(_enemy[indexEnemy].e_location.X + 1 != prevCoordX[indexEnemy]))
 			{
-				//move  or update location
-				_enemy[indexEnemy].e_location.X++;
 				_enemy[indexEnemy].e_location.Y--;
-			}
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X][_enemy[indexEnemy].e_location.Y - 2] != (char)219 && CheckIndex == "Check2")
-			{
-				//move  or update location
-				_enemy[indexEnemy].e_location.Y--;
-			}
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X + 1][_enemy[indexEnemy].e_location.Y] != (char)219 && CheckIndex == "Check3")
-			{
-				//move  or update location
 				_enemy[indexEnemy].e_location.X++;
+				prevCoordX[indexEnemy] = _enemy[indexEnemy].e_location.X;
+				prevCoordY[indexEnemy] = _enemy[indexEnemy].e_location.Y;
+			}
+			else
+			{
+				if (SectorIndex[indexEnemy] == 8)
+				{
+					SectorIndex[indexEnemy] = 0;
+					prevCoordX[indexEnemy] = 0;
+					prevCoordY[indexEnemy] = 0;
+					return;
+				}
+				SectorIndex[indexEnemy]++;
+				CheckSector = Right;
 			}
 		}
 
-		else if (CheckSector == BtmRight)
+		if (CheckSector == Right)
 		{
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X + 1][_enemy[indexEnemy].e_location.Y] != (char)219 && CheckIndex == "Check1")
+			if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 1][_enemy[indexEnemy].e_location.X + 1] != (char)219) &&
+				(mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 1][_enemy[indexEnemy].e_location.X + 1] != '-') &&
+				(_enemy[indexEnemy].e_location.X + 1 != prevCoordX[indexEnemy]))
 			{
-				//move  or update location
 				_enemy[indexEnemy].e_location.X++;
-				_enemy[indexEnemy].e_location.Y++;
+				prevCoordX[indexEnemy] = _enemy[indexEnemy].e_location.X;
+				prevCoordY[indexEnemy] = _enemy[indexEnemy].e_location.Y;
 			}
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X][_enemy[indexEnemy].e_location.Y] != (char)219 && CheckIndex == "Check2")
+			else
 			{
-				//move  or update location
-				_enemy[indexEnemy].e_location.Y++;
-			}
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X + 1][_enemy[indexEnemy].e_location.Y] != (char)219 && CheckIndex == "Check3")
-			{
-				//move  or update location
-				_enemy[indexEnemy].e_location.X++;
+				if (SectorIndex[indexEnemy] == 8)
+				{
+					SectorIndex[indexEnemy] = 0;
+					prevCoordX[indexEnemy] = 0;
+					prevCoordY[indexEnemy] = 0;
+					return;
+				}
+				SectorIndex[indexEnemy]++;
+				CheckSector = BtmRight;
 			}
 		}
 
-		else if (CheckSector == BtmLeft)
+		if (CheckSector == BtmRight)
 		{
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X - 1][_enemy[indexEnemy].e_location.Y] != (char)219 && CheckIndex == "Check1")
+			if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X + 1] != (char)219) &&
+				(mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X + 1] != '-') &&
+				(_enemy[indexEnemy].e_location.X + 1 != prevCoordX[indexEnemy]) &&
+				(_enemy[indexEnemy].e_location.Y + 1 != prevCoordY[indexEnemy]))
 			{
-				//move or update location
-				_enemy[indexEnemy].e_location.X--;
+				_enemy[indexEnemy].e_location.X++;
 				_enemy[indexEnemy].e_location.Y++;
+				prevCoordX[indexEnemy] = _enemy[indexEnemy].e_location.X;
+				prevCoordY[indexEnemy] = _enemy[indexEnemy].e_location.Y;
 			}
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X][_enemy[indexEnemy].e_location.Y] != (char)219 && CheckIndex == "Check2")
+			else
 			{
-				//move  or update location
+				if (SectorIndex[indexEnemy] == 8)
+				{
+					SectorIndex[indexEnemy] = 0;
+					prevCoordX[indexEnemy] = 0;
+					prevCoordY[indexEnemy] = 0;
+					return;
+				}
+				SectorIndex[indexEnemy]++;
+				CheckSector = Down;
+			}
+		}
+
+		if (CheckSector == Down)
+		{
+			if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X] != (char)219) &&
+				(mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X] != '-') &&
+				(_enemy[indexEnemy].e_location.Y + 1 != prevCoordY[indexEnemy]))
+			{
 				_enemy[indexEnemy].e_location.Y++;
+				prevCoordX[indexEnemy] = _enemy[indexEnemy].e_location.X;
+				prevCoordY[indexEnemy] = _enemy[indexEnemy].e_location.Y;
 			}
-			if (mapData.mapGrid[_enemy[indexEnemy].e_location.X - 1][_enemy[indexEnemy].e_location.Y] != (char)219 && CheckIndex == "Check3")
+			else
 			{
-				//move  or update location
+				if (SectorIndex[indexEnemy] == 8)
+				{
+					SectorIndex[indexEnemy] = 0;
+					prevCoordX[indexEnemy] = 0;
+					prevCoordY[indexEnemy] = 0;
+					return;
+				}
+				SectorIndex[indexEnemy]++;
+				CheckSector = BtmLeft;
+			}
+		}
+
+		if (CheckSector == BtmLeft)
+		{
+			if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X - 1] != (char)219) &&
+				(mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X - 1] != '-') &&
+				(_enemy[indexEnemy].e_location.X - 1 != prevCoordX[indexEnemy]) &&
+				(_enemy[indexEnemy].e_location.Y + 1 != prevCoordY[indexEnemy]))
+			{
+				_enemy[indexEnemy].e_location.Y++;
 				_enemy[indexEnemy].e_location.X--;
+				prevCoordX[indexEnemy] = _enemy[indexEnemy].e_location.X;
+				prevCoordY[indexEnemy] = _enemy[indexEnemy].e_location.Y;
+			}
+			else
+			{
+				if (SectorIndex[indexEnemy] == 8)
+				{
+					SectorIndex[indexEnemy] = 0;
+					prevCoordX[indexEnemy] = 0;
+					prevCoordY[indexEnemy] = 0;
+					return;
+				}
+				SectorIndex[indexEnemy]++;
+				CheckSector = Left;
+			}
+		}
+
+		if (CheckSector == Left)
+		{
+			if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 1][_enemy[indexEnemy].e_location.X - 1] != (char)219) &&
+				(mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 1][_enemy[indexEnemy].e_location.X - 1] != '-') &&
+				(_enemy[indexEnemy].e_location.X - 1) != prevCoordX[indexEnemy])
+			{
+				_enemy[indexEnemy].e_location.X--;
+				prevCoordX[indexEnemy] = _enemy[indexEnemy].e_location.X;
+				prevCoordY[indexEnemy] = _enemy[indexEnemy].e_location.Y;
+			}
+			else
+			{
+				if (SectorIndex[indexEnemy] == 8)
+				{
+					SectorIndex[indexEnemy] = 0;
+					prevCoordX[indexEnemy] = 0;
+					prevCoordY[indexEnemy] = 0;
+					return;
+				}
+				SectorIndex[indexEnemy]++;
+				CheckSector = UpLeft;
+			}
+		}
+
+		if (CheckSector == UpLeft)
+		{
+			if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X - 1] != (char)219) &&
+				(mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X - 1] != '-') &&
+				(_enemy[indexEnemy].e_location.X - 1 != prevCoordX[indexEnemy]) &&
+				(_enemy[indexEnemy].e_location.Y - 1 != prevCoordY[indexEnemy]))
+			{
+				_enemy[indexEnemy].e_location.X--;
+				_enemy[indexEnemy].e_location.Y--;
+				prevCoordX[indexEnemy] = _enemy[indexEnemy].e_location.X;
+				prevCoordY[indexEnemy] = _enemy[indexEnemy].e_location.Y;
+			}
+			else
+			{
+				if (SectorIndex[indexEnemy] == 8)
+				{
+					SectorIndex[indexEnemy] = 0;
+					prevCoordX[indexEnemy] = 0;
+					prevCoordY[indexEnemy] = 0;
+					return;
+				}
+				SectorIndex[indexEnemy]++;
+				CheckSector = Up;
 			}
 		}
 	}
@@ -284,6 +406,6 @@ void compareTiles(SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int in
 void moveAI(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy)
 {
 	scanSectorForPlayer(_sChar, _enemy, totalEnemy, indexEnemy);
-	compareTiles(_sChar, _enemy, totalEnemy, indexEnemy);
+	//compareTiles(_sChar, _enemy, totalEnemy, indexEnemy);
 	scanTiles(mapData, _sChar, _enemy, totalEnemy, indexEnemy);
 }
