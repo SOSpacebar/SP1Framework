@@ -1,6 +1,11 @@
 #include "enemyProperties.h"
 #include "ReadMap.h"
+<<<<<<< HEAD
 #include "PathfindingAI.h"
+=======
+#include <math.h>
+#include <stdio.h>
+>>>>>>> 22ac0e1f015f95342b294d321da3884a3c80e189
 
 //extern enemyStruct _enemy[3];
 //extern double g_dElapsedTime;
@@ -16,7 +21,10 @@ int offsetTime1 = 0;
 extern int i;
 extern SMapData g_mapData;
 extern SGameChar g_sChar;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22ac0e1f015f95342b294d321da3884a3c80e189
 //int x = 0;
 
 void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedTime)
@@ -51,7 +59,11 @@ void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedT
 			moveAI(g_mapData, g_sChar, _enemy, i, x);
 		}
 
-		g_Console.writeToBuffer(_enemy[x].e_location, 'M', 0xF6);
+		if (sqrt((g_sChar.m_cLocation.X - _enemy[x].e_location.X)*(g_sChar.m_cLocation.X - _enemy[x].e_location.X) + ((g_sChar.m_cLocation.Y - _enemy[x].e_location.Y)*(g_sChar.m_cLocation.Y - _enemy[x].e_location.Y))) <= 8)
+		{
+			g_Console.writeToBuffer(_enemy[x].e_location, 'M', 0x06);
+		}
+		
 
 	}
 }

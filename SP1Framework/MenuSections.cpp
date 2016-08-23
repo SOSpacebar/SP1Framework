@@ -13,6 +13,9 @@ COORD l;
 int hp = 98;
 int playerHealth = 98;
 
+int timeOffset = 0;
+bool dmg_taken = false;
+double mushroomBounceTime;
 bool keyReleased = false;
 
 int AnimationOffset = 0;
@@ -20,18 +23,13 @@ int AnimationOffset2 = 0;
 
 int MenuSelect; // A interger to keep the of Start Game there 
 int SetLevel;
-extern double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
-extern double  g_dElapsedTime;
-extern double  g_dDeltaTime;
-extern bool    g_abKeyPressed[K_COUNT];
-extern short     g_currLevel;
+extern short    g_currLevel;
 extern SMapData g_mapData;
-extern EGAMESTATES g_eGameState;
 extern int i;
 extern enemyStruct _enemy[20];
 
-void renderMainMenu()
+void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
 	bool bSomethingHappened = false;
 
@@ -134,7 +132,7 @@ void renderMainMenu()
 	}
 }
 
-void LevelSelect()
+void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
 	bool bSomethingHappened = false;
 	string Level[3] {"Level_1", "Level_2", "Level_3"};//creating a simple level selection.
@@ -245,7 +243,7 @@ void LevelSelect()
 	}
 }
 
-void Credits()
+void Credits(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT])
 {
 	COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
@@ -274,7 +272,7 @@ void GameOver()
 
 }
 
-void SetAnimationSplashScreen()
+void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 {
 	if (SplashCol < 388)
 	{
@@ -287,15 +285,18 @@ void SetAnimationSplashScreen()
 	}
 }
 
-void DrawAnimationSplashScreen()
+void DrawAnimationSplashScreen(EGAMESTATES &g_eGameState)
 {
-	SetAnimationSplashScreen();
+	SetAnimationSplashScreen(g_eGameState);
 	g_Console.writeToBuffer(l, AnimationString, 0x4B);
 	SplashCol++;
 }
 
-void renderCombatScreen()
+void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT])
 {
+	timeOffset++;
+
+
 	processUserInput();
 	//set screen black
 	string fillScreen;
@@ -347,8 +348,21 @@ void renderCombatScreen()
 	if (g_abKeyPressed[K_SPACE] && keyReleased)
 	{
 		hp -= 2;
-		//playerHealth -= 2;
 		AnimationOffset2 = 30;
+		if (hp <= 16)
+		{
+			playerHealth += 20;
+			g_eGameState = S_LOADLEVEL;
+		}
+	}
+	
+	if (((randomhp_dmg(21) > 65 && randomhp_dmg(21) < 70) && generate_dmg() == 1) && g_dElapsedTime > mushroomBounceTime)
+	{
+		if (hp != 98)
+		{
+			mushroomBounceTime = g_dElapsedTime + 0.125;
+			playerHealth--;
+		}
 	}
 
 	x.X = 46;
@@ -371,10 +385,13 @@ void renderCombatScreen()
 	x.X = 10;
 	x.Y = 32;
 	drawPlayerHP(6, x);
-
 }
 
+<<<<<<< HEAD
 void setupLevel(short Level, SGameChar &_sChar)
+=======
+void setupLevel(short Level, EGAMESTATES &g_eGameState)
+>>>>>>> 22ac0e1f015f95342b294d321da3884a3c80e189
 {
 	clearScreen();
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
@@ -382,4 +399,22 @@ void setupLevel(short Level, SGameChar &_sChar)
 	init_object(1);
 	init_enemy(6, _enemy, i);
 	g_eGameState = S_GAME;
+}
+
+int generate_dmg()
+{
+	std::random_device randtrue;
+	std::mt19937 twistNew(randtrue());
+
+	std::uniform_int_distribution<> dmgtaken(0, 2 - 1);
+	return (dmgtaken(twistNew));
+}
+
+int randomhp_dmg(int rand_dmg_timeOffset)
+{
+	std::random_device randDMG;
+	std::mt19937 twistNew(randDMG());
+
+	std::uniform_int_distribution<> dmg(0, 21 - 1);
+	return (dmg(twistNew)+50);
 }

@@ -12,6 +12,7 @@
 #include "MenuSections.h"
 #include "lockandUnlock.h"
 #include "MapGenerator.h"
+#include "fieldOfView.h"
 //Original framework stuff
 #include <iostream>
 #include <sstream>
@@ -46,6 +47,7 @@ extern SMapData g_mapData;
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
+char fogMap[150][150];
 
 extern int i;
 
@@ -81,6 +83,7 @@ void init( void )
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
 
+	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
 	//init_object(1);
 }
 
@@ -146,11 +149,11 @@ void update(double dt)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
-		case S_MAINMENU: renderMainMenu();
+		case S_MAINMENU: renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_CREDITS: Credits();
+		case S_CREDITS: Credits(g_eGameState, g_abKeyPressed);
 			break;
-		case S_LEVELSELECT: LevelSelect();
+		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
 		case S_GAMEOVER: GameOver();
 			break;
@@ -173,19 +176,23 @@ void render()
     {
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
-		case S_MAINMENU: renderMainMenu();
+		case S_MAINMENU: renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_CREDITS: Credits();
+		case S_CREDITS: Credits(g_eGameState, g_abKeyPressed);
 			break;
-		case S_LEVELSELECT: LevelSelect();
+		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_COMBATSCREEN: renderCombatScreen();
+		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed);
 			break;
 		case S_GAMEOVER: GameOver();
 			break;
         case S_GAME: renderGame();
             break;
+<<<<<<< HEAD
 		case S_LOADLEVEL: setupLevel(g_currLevel, g_sChar);
+=======
+		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState);
+>>>>>>> 22ac0e1f015f95342b294d321da3884a3c80e189
 			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
@@ -316,7 +323,7 @@ void processUserInput()
 void clearScreen()
 {
     // Clears the buffer with this colour attribute
-    g_Console.clearBuffer(0x1F);
+    g_Console.clearBuffer(0x00);
 }
 
 void renderSplashScreen()  // renders the splash screen
@@ -324,7 +331,7 @@ void renderSplashScreen()  // renders the splash screen
     COORD c = g_Console.getConsoleSize();
     c.Y /= 3;
     c.X = c.X / 2 - 9;
-    g_Console.writeToBuffer(c, "A game in a seconds", 0x03);
+    g_Console.writeToBuffer(c, "Please wait while we boot up the game", 0x03);
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 20;
     g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
@@ -350,6 +357,7 @@ void renderGame()
 		//renderCombatScreen();
 		update_GameObject();
 	}
+	
 }
 
 void renderMap()
@@ -360,36 +368,11 @@ void renderMap()
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
     };
 
-    COORD c;
-
+	COORD c;
 	c.X = 0;
 	c.Y = 1;
-	int tempValue = c.X;
 
-    for (int row = 0; row < 150; row++)
-    {
-		for (int col = 0; col < 150; col++)
-		{
-			if ((g_mapData.mapGrid[row][col] == '\0') || (g_mapData.mapGrid[row][col] == '\n'))
-			{
-				break;
-			}
-
-			if ((g_mapData.mapGrid[row][col] == (char)187) || (g_mapData.mapGrid[row][col] == (char)188) || (g_mapData.mapGrid[row][col] == (char)200) || (g_mapData.mapGrid[row][col] == (char)201))
-			{
-				g_Console.writeToBuffer(c, g_mapData.mapGrid[row][col], 0x0A);
-			}
-			else
-			{
-				g_Console.writeToBuffer(c, g_mapData.mapGrid[row][col], 0x0D);
-			}
-			
-
-			c.X++;
-		}
-		c.X = tempValue;
-		c.Y ++;		
-    }
+	renderFogOfWarAndMap(g_mapData, g_sChar, g_Console, fogMap);
 
 	if (dialogend == false)
 	{
@@ -401,7 +384,6 @@ void renderMap()
 			dialogend = true;
 		}
 	}
-
 }
 
 void renderCharacter()
