@@ -15,3 +15,5 @@ void GameOver(); // When Player got killed in the game
 void Credits(); // Crediting everyone who work for the game
 void renderCombatScreen();
 void setupLevel(short Level);
+int generate_dmg();
+int randomhp_dmg(int rand_dmg_timeOffset);

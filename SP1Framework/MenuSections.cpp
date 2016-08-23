@@ -13,6 +13,9 @@ COORD l;
 int hp = 98;
 int playerHealth = 98;
 
+int timeOffset = 0;
+bool dmg_taken = false;
+double mushroomBounceTime;
 bool keyReleased = false;
 
 int AnimationOffset = 0;
@@ -296,6 +299,9 @@ void DrawAnimationSplashScreen()
 
 void renderCombatScreen()
 {
+	timeOffset++;
+
+
 	processUserInput();
 	//set screen black
 	string fillScreen;
@@ -347,8 +353,21 @@ void renderCombatScreen()
 	if (g_abKeyPressed[K_SPACE] && keyReleased)
 	{
 		hp -= 2;
-		//playerHealth -= 2;
 		AnimationOffset2 = 30;
+		if (hp <= 16)
+		{
+			playerHealth += 20;
+			g_eGameState = S_LOADLEVEL;
+		}
+	}
+	
+	if (((randomhp_dmg(21) > 65 && randomhp_dmg(21) < 70) && generate_dmg() == 1) && g_dElapsedTime > mushroomBounceTime)
+	{
+		if (hp != 98)
+		{
+			mushroomBounceTime = g_dElapsedTime + 0.125;
+			playerHealth--;
+		}
 	}
 
 	x.X = 46;
@@ -371,7 +390,6 @@ void renderCombatScreen()
 	x.X = 10;
 	x.Y = 32;
 	drawPlayerHP(6, x);
-
 }
 
 void setupLevel(short Level)
@@ -382,4 +400,22 @@ void setupLevel(short Level)
 	init_object(1);
 	init_enemy(6, _enemy, i);
 	g_eGameState = S_GAME;
+}
+
+int generate_dmg()
+{
+	std::random_device randtrue;
+	std::mt19937 twistNew(randtrue());
+
+	std::uniform_int_distribution<> dmgtaken(0, 2 - 1);
+	return (dmgtaken(twistNew));
+}
+
+int randomhp_dmg(int rand_dmg_timeOffset)
+{
+	std::random_device randDMG;
+	std::mt19937 twistNew(randDMG());
+
+	std::uniform_int_distribution<> dmg(0, 21 - 1);
+	return (dmg(twistNew)+50);
 }
