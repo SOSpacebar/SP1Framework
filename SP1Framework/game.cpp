@@ -185,7 +185,7 @@ void render()
 			break;
         case S_GAME: renderGame();
             break;
-		case S_LOADLEVEL: setupLevel(g_currLevel);
+		case S_LOADLEVEL: setupLevel(g_currLevel, g_sChar);
 			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc

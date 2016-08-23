@@ -19,7 +19,7 @@ public:
 		Floor = ' ',
 		Corridor = ',',
 		Wall = (char)219,
-		BreakDoor = '+',
+		BreakDoor = ' ',
 		PortalDoor = '-',
 		Endpoint = 'E',
 		Startpoint = 'S',
@@ -233,7 +233,7 @@ private:
 			return false;
 		}
 
-		if (randomInt(100) < roomChance)
+		if (randomInt(200) < roomChance)
 		{
 			if (makeRoom(x, y, dir))
 			{

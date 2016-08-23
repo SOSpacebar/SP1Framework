@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -94,6 +94,7 @@
     <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="MenuSections.cpp" />
     <ClCompile Include="FramesManager.cpp" />
+    <ClCompile Include="PathfindingAI.cpp" />
     <ClCompile Include="ReadMap.cpp" />
     <ClCompile Include="renderPortal.cpp" />
     <ClCompile Include="spawnPortal.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="MenuSections.h" />
     <ClInclude Include="obstacle.h" />
+    <ClInclude Include="PathfindingAI.h" />
     <ClInclude Include="portalGun.h" />
     <ClInclude Include="ReadMap.h" />
     <ClInclude Include="stats.h" />

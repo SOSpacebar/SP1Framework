@@ -374,11 +374,11 @@ void renderCombatScreen()
 
 }
 
-void setupLevel(short Level)
+void setupLevel(short Level, SGameChar &_sChar)
 {
 	clearScreen();
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
-	readMap(Level);
+	readMap(Level, _sChar);
 	init_object(1);
 	init_enemy(6, _enemy, i);
 	g_eGameState = S_GAME;

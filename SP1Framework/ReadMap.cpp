@@ -11,7 +11,7 @@ extern SGameChar g_sChar;
 /*
 TODO: REFERNECE TO SGMAECHAR
 */
-void readMap(int mapLevel)
+void readMap(int mapLevel, SGameChar &_sChar)
 {
 
 	ifstream levelData;
@@ -54,8 +54,8 @@ void readMap(int mapLevel)
 				}
 				else if (loopedString.at(col) == 'S')
 				{
-					g_sChar.m_cLocation.X = col;
-					g_sChar.m_cLocation.Y = row + 1;
+					_sChar.m_cLocation.X = col;
+					_sChar.m_cLocation.Y = row + 1;
 					g_mapData.mapGrid[row][col] = loopedString.at(col);
 				}
 				else if (loopedString.at(col) == '^')
