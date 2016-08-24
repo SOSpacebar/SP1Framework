@@ -16,9 +16,9 @@ void readMap(int mapLevel, SGameChar &_sChar)
 	string mapArray[5];
 
 	mapArray[0] = "MapData/map.txt";
-	mapArray[1] = "MapData/map1a.txt";
-	mapArray[2] = "MapData/map1b.txt";
-	mapArray[3] = "MapData/map1c.txt";
+	mapArray[1] = "MapData/Level1A.txt";
+	mapArray[2] = "MapData/Level1B.txt";
+	mapArray[3] = "MapData/Level1C.txt";
 	mapArray[4] = "MapData/map2.txt";
 
 	if (mapLevel > 4)
@@ -76,6 +76,12 @@ void readMap(int mapLevel, SGameChar &_sChar)
 				else if (loopedString.at(col) == 'D')
 				{
 					g_mapData.mapGrid[row][col] = (char)178;
+				}
+				else if (loopedString.at(col) == 'E')
+				{
+					_sChar.m_cLocation.X = col;
+					_sChar.m_cLocation.Y = row + 1;
+					g_mapData.mapGrid[row][col] = loopedString.at(col);
 				}
 				else
 				{

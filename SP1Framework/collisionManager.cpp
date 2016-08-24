@@ -49,7 +49,7 @@ bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAME
 
 	if ((map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)187) || (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)188) || (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)200) || (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)201))
 	{
-		g_currLevel = 4;
+		g_currLevel++;
 		g_eGameState = S_LOADLEVEL;
 	}
 	return true;

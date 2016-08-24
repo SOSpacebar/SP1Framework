@@ -48,7 +48,11 @@ void RenderKey(SGameKey &g_iKey, Portal _portal, SGameChar _sChar)
 		(sqrt((_portal.p_pos[0].X - g_iKey.m_cLocation.X)   *
 		(_portal.p_pos[0].X - g_iKey.m_cLocation.X) +
 		((_portal.p_pos[0].Y - g_iKey.m_cLocation.Y)       *
-		(_portal.p_pos[0].Y - g_iKey.m_cLocation.Y))) <= 3))
+		(_portal.p_pos[0].Y - g_iKey.m_cLocation.Y))) <= 3) ||
+		(sqrt((_sChar.m_cLocation.X - g_iKey.m_cLocation.X) *
+		(_sChar.m_cLocation.X - g_iKey.m_cLocation.X) +
+		((_sChar.m_cLocation.Y - g_iKey.m_cLocation.Y)	 *
+		(_sChar.m_cLocation.Y - g_iKey.m_cLocation.Y))) <= 8))
 	{
 		if (g_iKey.m_bActive == true)
 		{
@@ -66,9 +70,13 @@ void LockedDoor(SGameKey &g_dDoor, SGameKey &g_iKey, Portal _portal, SGameChar _
 		((_portal.p_pos[1].Y - g_dDoor.m_cLocation.Y)       *
 		(_portal.p_pos[1].Y - g_dDoor.m_cLocation.Y))) <= 3) ||
 		(sqrt((_portal.p_pos[0].X - g_dDoor.m_cLocation.X)   *
-		(_portal.p_pos[0].X - g_dDoor.m_cLocation.X) +
+		(_portal.p_pos[0].X - g_dDoor.m_cLocation.X)		+
 		((_portal.p_pos[0].Y - g_dDoor.m_cLocation.Y)       *
-		(_portal.p_pos[0].Y - g_dDoor.m_cLocation.Y)))))
+		(_portal.p_pos[0].Y - g_dDoor.m_cLocation.Y))))		||
+		(sqrt((_sChar.m_cLocation.X - g_dDoor.m_cLocation.X) *
+		(_sChar.m_cLocation.X - g_dDoor.m_cLocation.X) +
+		((_sChar.m_cLocation.Y - g_dDoor.m_cLocation.Y)	 *
+		(_sChar.m_cLocation.Y - g_dDoor.m_cLocation.Y))) <= 8))
 	{
 		if (g_dDoor.m_bActive)
 		{
