@@ -254,7 +254,7 @@ void Credits(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT])
 	c.Y += 1;
 	g_Console.writeToBuffer(c, "Ng JingJie <>", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Zhi Sheng <>", 0x02);
+	g_Console.writeToBuffer(c, "Lim Zi Sheng <>", 0x02);
 	c.Y += 1;
 	g_Console.writeToBuffer(c, "Lim Pei Sheng", 0x02);
 	c.Y += 1;
