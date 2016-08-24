@@ -350,9 +350,7 @@ void renderGame()
 
 	if (dialogend)
 	{
-		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData);
-		checkIfEngage(_enemy, g_sChar, g_eGameState);
-		//renderCombatScreen();
+		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData, g_eGameState);
 		update_GameObject();
 	}
 	

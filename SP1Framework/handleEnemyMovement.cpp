@@ -13,7 +13,7 @@ int offsetTime1 = 0;
 
 extern int i;
 
-void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedTime, SGameChar _sChar, SMapData _mapData)
+void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedTime, SGameChar _sChar, SMapData _mapData, EGAMESTATES &g_eGameState)
 {
 	currTime1 = g_dElapsedTime;
 	offsetTime1++;
@@ -22,20 +22,20 @@ void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedT
 	{
 		if (offsetTime1 % 20 == 0)
 		{
-			moveAI(_mapData, _sChar, _enemy, i, x);
+			moveAI(_mapData, _sChar, _enemy, i, x, g_eGameState);
 		}
 
 		if (sqrt((_sChar.m_cLocation.X - _enemy[x].e_location.X)*(_sChar.m_cLocation.X - _enemy[x].e_location.X) + ((_sChar.m_cLocation.Y - _enemy[x].e_location.Y)*(_sChar.m_cLocation.Y - _enemy[x].e_location.Y))) <= 8)
 		{
-			g_Console.writeToBuffer(_enemy[x].e_location, 'M', 0x06);
+			if (_enemy[x].e_alive)
+			{
+				g_Console.writeToBuffer(_enemy[x].e_location, 'M', 0x06);
+			}
+			else if (_enemy[x].e_alive == false)
+			{
+				_enemy[x].e_location.X = 0;
+				_enemy[x].e_location.Y = 0;
+			}
 		}
-	}
-}
-
-void checkIfEngage(enemyStruct _enemy[], SGameChar player, EGAMESTATES &g_eGameState)
-{
-	if ((player.m_cLocation.Y == _enemy[i].e_location.Y) && (player.m_cLocation.X == _enemy[i].e_location.X))
-	{
-		g_eGameState = S_TRANSITION;
 	}
 }
