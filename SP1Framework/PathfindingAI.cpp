@@ -344,14 +344,18 @@ void scanTiles(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int tot
 	}
 }
 
-void compareTiles(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy)
+void checkIfEngage(enemyStruct _enemy[], SGameChar player, EGAMESTATES &g_eGameState, int indexEnemy)
 {
-	
+	if ((player.m_cLocation.Y == _enemy[indexEnemy].e_location.Y) && (player.m_cLocation.X == _enemy[indexEnemy].e_location.X))
+	{
+		_enemy[indexEnemy].e_alive = false;
+		g_eGameState = S_TRANSITION;
+	}
 }
 
-void moveAI(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy)
+void moveAI(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy, EGAMESTATES &g_eGameState)
 {
 	scanSectorForPlayer(_sChar, _enemy, totalEnemy, indexEnemy);
-	//compareTiles(_sChar, _enemy, totalEnemy, indexEnemy);
 	scanTiles(mapData, _sChar, _enemy, totalEnemy, indexEnemy);
+	checkIfEngage(_enemy, _sChar, g_eGameState, indexEnemy);
 }
