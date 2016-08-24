@@ -281,12 +281,12 @@ void DrawAnimationSplashScreen(EGAMESTATES &g_eGameState)
 
 void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 {
-	if (SplashCol < 480)
+	if (SplashCol < 240)
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 20; i++)
 			AnimationString.push_back((char)219);
 	}
-	if (SplashCol > 480)
+	if (SplashCol > 240)
 	{
 		SplashCol = 0;
 		AnimationString = "";
