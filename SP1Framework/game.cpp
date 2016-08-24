@@ -412,7 +412,6 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
-
 void resetVariables()
 {
 	COORD C;

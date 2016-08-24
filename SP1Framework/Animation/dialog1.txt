@@ -1,11 +1,11 @@
 ######################################################################################################
 ##                                                                                                  ##
 ##                                                                                                  ##
-##                                   Welcome to INSERT GAME NAME.                                   ##
+##                                    Welcome to - UNDEFINED -                                      ##
 ##                                                                                                  ##
 ##                                   This is our tutorial stage,                                    ##
 ##                             Please use the Arrow Keys to move around                             ##
-##                                    [ Press SPACE to continue ]                                   ##
 ##                                                                                                  ##
 ##                                                                                                  ##
+##                                                                                    >>[ SPACE ]>> ##
 ######################################################################################################
