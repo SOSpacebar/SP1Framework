@@ -99,6 +99,11 @@ void drawHpCurr(int keyFrame, COORD currCoord, int &hp, Console &g_Console)
 	COORD currCoord2;
 	int tempValue = currCoord.X;
 
+	if (hp > 98)
+	{
+		hp = 98;
+	}
+
 	if (hp != 98)
 	{
 		for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
