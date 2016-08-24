@@ -70,13 +70,12 @@ void init( void )
     g_dBounceTime = 0.0;
 
 	readAnimation();
-
 	g_iKey.m_bActive = true;
 	g_dDoor.m_bActive = true;
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
-
+	
 	g_sChar.m_cLocation.X = 5;
 	g_sChar.m_cLocation.Y = 5;
     g_sChar.m_bActive = true;
@@ -144,7 +143,6 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
-
     switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
@@ -160,6 +158,7 @@ void update(double dt)
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
     }
+
 }
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
@@ -193,6 +192,7 @@ void render()
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
+	initalizeSound(g_eGameState);//Play Sound
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
@@ -211,7 +211,6 @@ void gameplay()            // gameplay logic
 	}
    
    // sound can be played here too.
-
 }
 
 void moveCharacter()
@@ -417,4 +416,3 @@ void renderToScreen()
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
 }
-

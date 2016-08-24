@@ -413,3 +413,19 @@ int randomhp_dmg(int rand_dmg_timeOffset)
 	std::uniform_int_distribution<> dmg(0, 21 - 1);
 	return (dmg(twistNew)+50);
 }
+
+void initalizeSound(EGAMESTATES &g_eGameState)
+{
+	//PlaySound(NULL, 0, 0);
+	if (g_eGameState == S_SPLASHSCREEN)
+	{
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Sound/Detective.wav"),NULL , SND_ASYNC);
+	}
+	
+	if (g_eGameState == S_LEVELSELECT)
+	{
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_ASYNC);
+	}
+}
