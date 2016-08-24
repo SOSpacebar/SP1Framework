@@ -72,7 +72,7 @@ void LockedDoor(SGameKey &g_dDoor, SGameKey &g_iKey, Portal _portal, SGameChar _
 		(sqrt((_portal.p_pos[0].X - g_dDoor.m_cLocation.X)   *
 		(_portal.p_pos[0].X - g_dDoor.m_cLocation.X)		+
 		((_portal.p_pos[0].Y - g_dDoor.m_cLocation.Y)       *
-		(_portal.p_pos[0].Y - g_dDoor.m_cLocation.Y))))		||
+		(_portal.p_pos[0].Y - g_dDoor.m_cLocation.Y))) <= 3) ||
 		(sqrt((_sChar.m_cLocation.X - g_dDoor.m_cLocation.X) *
 		(_sChar.m_cLocation.X - g_dDoor.m_cLocation.X) +
 		((_sChar.m_cLocation.Y - g_dDoor.m_cLocation.Y)	 *
