@@ -133,6 +133,10 @@ void update_GameObject(void)
 char LR_PString = '>';
 void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 {
+	if (xy.X >= 140 || xy.Y >= 50)
+	{
+		ID = "";
+	}
 	if (reset == false && (offsetTime % speed == 0))
 	{
 		xy.X++;
@@ -154,6 +158,10 @@ void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 char RL_PString = '<';
 void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 {
+	if (xy.X >= 140 || xy.Y >= 50)
+	{
+		ID = "";
+	}
 	if (reset == false && offsetTime % speed == 0)
 	{
 		xy.X--;
@@ -175,6 +183,10 @@ void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 char UD_PString = 'v';
 void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 {
+	if (xy.X >= 140 || xy.Y >= 50)
+	{
+		ID = "";
+	}
 	if (reset == false && offsetTime % speed == 0)
 	{
 		xy.Y++;
@@ -196,6 +208,10 @@ void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 char DU_PString = '^';
 void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 {
+	if (xy.X >= 140 || xy.Y >= 50)
+	{
+		ID = "";
+	}
 	if (reset == false && offsetTime % speed == 0)
 	{
 		xy.Y--;
@@ -217,6 +233,10 @@ void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 string CrusherString = { (char)233 };
 void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse)
 {
+	if (xy.X >= 140 || xy.Y >= 50)
+	{
+		ID = "";
+	}
 	if (reverse == false && offsetTime % speed == 0)
 	{
 		if (g_mapData.mapGrid[xy.Y - 1][xy.X + 1] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X + 1] == '-')
@@ -248,6 +268,10 @@ void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse)
 
 void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse)
 {
+	if (xy.X >= 140 || xy.Y >= 50)
+	{
+		ID = "";
+	}
 	if (reverse == false && offsetTime % speed == 0)
 	{
 		if (g_mapData.mapGrid[xy.Y][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y][xy.X] == '-')
