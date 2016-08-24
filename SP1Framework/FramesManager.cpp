@@ -9,7 +9,7 @@ extern int hp;
 
 extern Console g_Console; 
 
-char AnimationArray[7][150][150];
+char AnimationArray[9][150][150];
 char indexChar;
 
 int temphp = 98;
@@ -34,8 +34,10 @@ void readAnimation(void)
 	chooseFrameToLoad[4] = "animation/dialog1.txt";
 	chooseFrameToLoad[5] = "animation/Damage.txt";
 	chooseFrameToLoad[6] = "animation/playerHP.txt";
+	chooseFrameToLoad[7] = "animation/Warning.txt";
+	chooseFrameToLoad[8] = "animation/Loading.txt";
 
-	for (int d = 0; d < 7; d++)
+	for (int d = 0; d < 9; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 
