@@ -247,7 +247,7 @@ private:
 			return false;
 		}
 
-		if (randomInt(200) < roomChance)
+		if (randomInt(500) < roomChance)
 		{
 			if (makeRoom(x, y, dir))
 			{

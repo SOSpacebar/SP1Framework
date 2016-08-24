@@ -2,7 +2,6 @@
 #define _GAMEOBJECT_H
 
 #include "Framework\timer.h"
-#include "ReadMap.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,11 +11,11 @@ using namespace std;
 
 struct objectStruct
 {
+	bool o_reset;
 	COORD o_start_location;
 	string o_ID;
 	COORD o_location;
 	int o_speed;
-	bool o_reset;
 };
 
 void init_object(short level);				//GameObject initialiser

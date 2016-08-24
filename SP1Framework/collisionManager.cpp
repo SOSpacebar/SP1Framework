@@ -47,6 +47,11 @@ bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAME
 			return false;
 	}	
 
+	if (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == '!')
+	{
+
+	}
+
 	if ((map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)187) || (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)188) || (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)200) || (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)201)
 		|| (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X] == (char)254))
 	{

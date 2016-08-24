@@ -13,7 +13,7 @@ extern Portal _portal;
 int offsetTime = 0;
 
 int objectIndex = 0;
-short totalNumObject = 0;
+extern short totalNumObject;
 //================ Check Level objects =====================
 
 short x[20];

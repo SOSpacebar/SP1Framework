@@ -13,6 +13,7 @@
 #include "lockandUnlock.h"
 #include "MapGenerator.h"
 #include "fieldOfView.h"
+#include "DialogBox.h"
 //Original framework stuff
 #include <iostream>
 #include <sstream>
@@ -36,6 +37,11 @@ SGameKey g_dDoor;
 //Portal Variables
 Portal _portal;
 
+//dialog box
+DialogStruct boxArr[20];
+int maxBox = 0;
+int boxIndex = 0;
+
 //Monster Variables
 enemyStruct _enemy[20];
 short amountOfEnemies = 3;
@@ -51,10 +57,13 @@ char fogMap[150][150];
 
 extern int i;
 
+short totalNumObject = 0;
 short g_currLevel = 0;
 
 // Console object
 Console g_Console(120, 40, "- UNDEFINED -");
+
+extern objectStruct _object[20];
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -187,7 +196,7 @@ void render()
 			break;
         case S_GAME: renderGame();
             break;
-		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar);
+		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject);
 			resetVariables();
 			break;
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
@@ -338,7 +347,9 @@ void renderGame()
 	LockedDoor(g_dDoor, g_iKey, _portal, g_sChar);
 	renderPortal(_portal, g_Console); //renders portal.
     renderCharacter();  // renders the character into the buffer
-	
+
+	checkDialogBox(boxArr, g_sChar, maxBox, boxIndex, g_Console); //render dialog
+
 	if (_bullet.b_isActive == true)
 		handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData, _portal); //renders the bullet.
 
@@ -422,5 +433,6 @@ void resetVariables()
 	_portal.p_isActive[0] = false;
 	_portal.p_isActive[1] = false;
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
+	g_iKey.m_bActive = true;
 }
 

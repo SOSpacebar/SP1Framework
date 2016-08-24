@@ -396,11 +396,11 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.Y = 32;
 	drawPlayerHP(6, x, playerHealth, g_Console);
 }
-void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar)
+void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int maxBox, SGameKey g_iKey, SGameKey g_dDoor, objectStruct _object[], short totalNumObject)
 {
 	clearScreen();
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
-	readMap(Level, _sChar);
+	readMap(Level, _sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject);
 	init_object(1);
 	init_enemy(6, _enemy, i);
 	g_eGameState = S_GAME;

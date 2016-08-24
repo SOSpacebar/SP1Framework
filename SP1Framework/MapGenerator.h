@@ -1,3 +1,6 @@
+#ifndef _MAPGENERATOR_H
+#define _MAPGENERATOR_H
+
 #include <random>
 #include <vector>
 #include <iostream>
@@ -34,3 +37,5 @@ struct Rect
 };
 
 void returnMap();
+
+#endif

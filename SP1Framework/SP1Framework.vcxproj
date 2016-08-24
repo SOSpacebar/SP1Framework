@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="checkBulletCollision.cpp" />
+    <ClCompile Include="DialogBox.cpp" />
     <ClCompile Include="portalCollision.cpp" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="createBullet.cpp" />
@@ -104,6 +105,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="collisionManager.h" />
+    <ClInclude Include="DialogBox.h" />
     <ClInclude Include="enemyProperties.h" />
     <ClInclude Include="fieldOfView.h" />
     <ClInclude Include="Framework\console.h" />
