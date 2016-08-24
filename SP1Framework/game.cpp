@@ -82,8 +82,6 @@ void init( void )
     g_Console.setConsoleFont(0, 16, L"Arial");
 
 	// reset portal back to inActive
-	_portal.p_isActive[0] = false;
-	_portal.p_isActive[1] = false;
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
 }
 
@@ -150,6 +148,7 @@ void update(double dt)
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
 		case S_MAINMENU: renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			resetVariables();
 			break;
 		case S_CREDITS: Credits(g_eGameState, g_abKeyPressed);
 			break;
@@ -212,7 +211,6 @@ void gameplay()            // gameplay logic
 	}
    
    // sound can be played here too.
-
 }
 
 void moveCharacter()
@@ -418,3 +416,14 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
+void resetVariables()
+{
+	COORD C;
+	C.X = 0;
+	C.Y = 0;
+	_portal.p_pos[0] = C;
+	_portal.p_pos[1] = C;
+	_portal.p_isActive[0] = false;
+	_portal.p_isActive[1] = false;
+	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
+}
