@@ -96,7 +96,7 @@ public:
 		//	}
 		//}
 
-		for (int x = 1; x < 9; ++x)
+		for (int x = 1; x < 3; ++x)
 		{
 			if (!placeObject(Key))
 			{
