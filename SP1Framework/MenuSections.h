@@ -25,3 +25,5 @@ void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar);
 
 int generate_dmg();
 int randomhp_dmg(int rand_dmg_timeOffset);
+
+void initalizeSound(EGAMESTATES &g_eGameState);

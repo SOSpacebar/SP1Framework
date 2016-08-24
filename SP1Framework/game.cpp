@@ -54,7 +54,7 @@ extern int i;
 short g_currLevel = 0;
 
 // Console object
-Console g_Console(120, 40, "INSERT GAME NAME HERE");
+Console g_Console(120, 40, "- UNDEFINED -");
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -70,13 +70,14 @@ void init( void )
     g_dBounceTime = 0.0;
 
 	readAnimation();
-
 	g_iKey.m_bActive = true;
 	g_dDoor.m_bActive = true;
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
-
+	
+	g_sChar.m_cLocation.X = 5;
+	g_sChar.m_cLocation.Y = 5;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
@@ -142,7 +143,6 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
-
     switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
@@ -159,6 +159,7 @@ void update(double dt)
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
     }
+
 }
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
@@ -193,11 +194,12 @@ void render()
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
+	initalizeSound(g_eGameState);//Play Sound
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 1.0) // wait for 1 seconds to switch to game mode, else do nothing
+    if (g_dElapsedTime > 1.5) // wait for 1 seconds to switch to game mode, else do nothing
 		g_eGameState = S_MAINMENU;
 }
 
@@ -323,16 +325,10 @@ void clearScreen()
 
 void renderSplashScreen()  // renders the splash screen
 {
-    COORD c = g_Console.getConsoleSize();
-    c.Y /= 3;
-    c.X = c.X / 2 - 9;
-    g_Console.writeToBuffer(c, "Please wait while we boot up the game", 0x03);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 20;
-    g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 9;
-    g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);
+    COORD c;
+	c.X = 5;
+	c.Y = 12;
+	drawAnimation(8, c);
 }
 
 void renderGame()
@@ -416,6 +412,7 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
+
 void resetVariables()
 {
 	COORD C;
@@ -427,3 +424,4 @@ void resetVariables()
 	_portal.p_isActive[1] = false;
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
 }
+

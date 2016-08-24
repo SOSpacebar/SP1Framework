@@ -272,25 +272,26 @@ void GameOver()
 
 }
 
-void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
-{
-	if (SplashCol < 388)
-	{
-		for (int i = 0; i < 10; i++)
-			AnimationString.push_back((char)219);
-	}
-	if (SplashCol > 388)
-	{
-		SplashCol = 0;
-		g_eGameState = S_COMBATSCREEN;
-	}
-}
-
 void DrawAnimationSplashScreen(EGAMESTATES &g_eGameState)
 {
 	SetAnimationSplashScreen(g_eGameState);
 	g_Console.writeToBuffer(l, AnimationString, 0x4B);
 	SplashCol++;
+}
+
+void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
+{
+	if (SplashCol < 480)
+	{
+		for (int i = 0; i < 10; i++)
+			AnimationString.push_back((char)219);
+	}
+	if (SplashCol > 480)
+	{
+		SplashCol = 0;
+		AnimationString = "";
+		g_eGameState = S_COMBATSCREEN;
+	}
 }
 
 void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT])
@@ -421,4 +422,20 @@ int randomhp_dmg(int rand_dmg_timeOffset)
 
 	std::uniform_int_distribution<> dmg(0, 21 - 1);
 	return (dmg(twistNew)+50);
+}
+
+void initalizeSound(EGAMESTATES &g_eGameState)
+{
+	//PlaySound(NULL, 0, 0);
+	if (g_eGameState == S_SPLASHSCREEN)
+	{
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Sound/Detective.wav"),0 , SND_ASYNC);
+	}
+	
+	if (g_eGameState == S_LEVELSELECT)
+	{
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_ASYNC);
+	}
 }

@@ -3,7 +3,8 @@
 
 #include "Framework\timer.h"
 #include <string>
-
+#include <iostream>
+#include <Windows.h>
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
 
