@@ -78,7 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="checkBulletCollision.cpp" />
-    <ClCompile Include="checkPlayerCollisionWithPortal.cpp" />
+    <ClCompile Include="portalCollision.cpp" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="createBullet.cpp" />
     <ClCompile Include="enemy.cpp" />
@@ -99,7 +99,6 @@
     <ClCompile Include="ReadMap.cpp" />
     <ClCompile Include="renderPortal.cpp" />
     <ClCompile Include="spawnPortal.cpp" />
-    <ClCompile Include="stats.cpp" />
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -118,7 +117,6 @@
     <ClInclude Include="PathfindingAI.h" />
     <ClInclude Include="portalGun.h" />
     <ClInclude Include="ReadMap.h" />
-    <ClInclude Include="stats.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
