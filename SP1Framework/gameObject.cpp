@@ -134,9 +134,11 @@ void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		ID = "<";
 	}
 
-	if (sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8)
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8)||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3)			||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3)) 
 	{
-		g_Console.writeToBuffer(xy, LR_PString, 0xF6);
+		g_Console.writeToBuffer(xy, LR_PString, 0x04);
 	}
 }
 
@@ -153,9 +155,11 @@ void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		ID = ">";
 	}
 
-	if (sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8)
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
 	{
-		g_Console.writeToBuffer(xy, RL_PString, 0xF6);
+		g_Console.writeToBuffer(xy, RL_PString, 0x04);
 	}
 }
 
@@ -172,9 +176,11 @@ void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		ID = "^";
 	}
 
-	if (sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8)
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
 	{
-		g_Console.writeToBuffer(xy, UD_PString, 0xF6);
+		g_Console.writeToBuffer(xy, UD_PString, 0x04);
 	}
 }
 
@@ -191,63 +197,75 @@ void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		ID = "v";
 	}
 
-	if (sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8)
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
 	{
-		g_Console.writeToBuffer(xy, DU_PString, 0xF6);
+		g_Console.writeToBuffer(xy, DU_PString, 0x04);
 	}
 }
 
-string CrusherString = { (char)254 };
+string CrusherString = { (char)233 };
 void updateLR_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reverse)
 {
 	if (reverse == false && offsetTime % speed == 0)
 	{
-		xy.X++;
-		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X] == '-')
+		if (g_mapData.mapGrid[xy.Y - 1][xy.X + 1] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X + 1] == '-')
 		{
 			reverse = true;
+			xy.X--;
 		}
+		xy.X++;
 	}
 
 	if (reverse && offsetTime % speed == 0)
 	{
-		xy.X--;
-		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X] == '-')
+		if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == '-')
 		{
 			reverse = false;
+			xy.X++;
 		}
+		xy.X--;
 	}
 
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
+	{
+		g_Console.writeToBuffer(xy, CrusherString, 0xCF);
+	}
 	checkEBallCollsionWithPortal(xy, _portal);
-
-	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
-	
 }
 
 void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reverse)
 {
 	if (reverse == false && offsetTime % speed == 0)
 	{
-		xy.Y++;
-		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X] == '-')
+		if (g_mapData.mapGrid[xy.Y][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y][xy.X] == '-')
 		{
 			reverse = true;
+			xy.Y--;
 		}
+		xy.Y++;
 	}
 
 	if (reverse && offsetTime % speed == 0)
 	{
-		xy.Y--;
 		if (g_mapData.mapGrid[xy.Y - 2][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y - 2][xy.X] == '-')
 		{
 			reverse = false;
+			xy.Y++;
 		}
+		xy.Y--;
 	}
 
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
+	{
+		g_Console.writeToBuffer(xy, CrusherString, 0xCF);
+	}
 	checkEBallCollsionWithPortal(xy, _portal);
-
-	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
-	
 }
 
 void findCoordStart(int newX, int newY)

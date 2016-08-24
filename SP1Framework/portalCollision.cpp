@@ -51,6 +51,6 @@ void teleportEBall(COORD &xy, COORD portalPos, Portal portalFlag)
 
 	if (skip)
 	{
-		teleBounceTime = g_dElapsedTime + 0.225;
+		teleBounceTime = g_dElapsedTime + 0.325;
 	}
 }
