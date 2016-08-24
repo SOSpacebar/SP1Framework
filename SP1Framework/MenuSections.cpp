@@ -430,12 +430,12 @@ void initalizeSound(EGAMESTATES &g_eGameState)
 	if (g_eGameState == S_SPLASHSCREEN)
 	{
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Sound/Detective.wav"),0 , SND_ASYNC);
+		PlaySound(TEXT("Sound/Detective.wav"),0 , SND_ASYNC | SND_LOOP);
 	}
 	
 	if (g_eGameState == S_LEVELSELECT)
 	{
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_ASYNC);
+		PlaySound(TEXT("Sound/JumpShot.wav"),0 , SND_ASYNC | SND_LOOP);
 	}
 }

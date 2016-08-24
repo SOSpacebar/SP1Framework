@@ -140,6 +140,7 @@ void getInput( void )
 //--------------------------------------------------------------
 void update(double dt)
 {
+
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
