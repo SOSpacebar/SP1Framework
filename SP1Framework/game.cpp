@@ -368,7 +368,7 @@ void renderMap()
 	c.X = 0;
 	c.Y = 1;
 
-	renderFogOfWarAndMap(g_mapData, g_sChar, g_Console, fogMap);
+	renderFogOfWarAndMap(g_mapData, g_sChar, g_Console, fogMap, _bullet, _portal);
 
 	if (dialogend == false)
 	{

@@ -1,3 +1,6 @@
+#ifndef _PORTALGUN_H
+#define _PORTALGUN_H
+
 #include "game.h"
 #include "ReadMap.h"
 #include "Framework\console.h"
@@ -35,3 +38,5 @@ void checkEBallCollsionWithPortal(COORD &xy, Portal portal);
 void teleportEBall(COORD &xy, COORD portalPos, Portal portalFlag);
 
 void skipper(void);
+
+#endif 
