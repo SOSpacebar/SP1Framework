@@ -163,8 +163,8 @@ public:
 				else if (getTiles(x, y) == 'E')
 				{
 					g_dDoor.m_cLocation.X = x;
-					g_dDoor.m_cLocation.Y = y;
-					g_mapData.mapGrid[y][x] = ' ';
+					g_dDoor.m_cLocation.Y = y + 1;
+					g_mapData.mapGrid[y][x] = (char)254;
 				}
 				else
 				{
