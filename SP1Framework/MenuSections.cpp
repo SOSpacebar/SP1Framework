@@ -281,12 +281,12 @@ void DrawAnimationSplashScreen(EGAMESTATES &g_eGameState)
 
 void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 {
-	if (SplashCol < 480)
+	if (SplashCol < 240)
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 20; i++)
 			AnimationString.push_back((char)219);
 	}
-	if (SplashCol > 480)
+	if (SplashCol > 240)
 	{
 		SplashCol = 0;
 		AnimationString = "";
@@ -316,11 +316,11 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 
 	if (AnimationOffset <= 20 && AnimationOffset2 == 0)
 	{
-		drawAnimation(0, x);
+		drawAnimation(0, x, g_Console);
 	}
 	else if (AnimationOffset > 20 && AnimationOffset2 == 0)
 	{
-		drawAnimation(1, x);
+		drawAnimation(1, x, g_Console);
 	}
 
 	if (AnimationOffset >= 40)
@@ -333,11 +333,11 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.X = 10;
 	x.Y = 25;
 
-	drawAnimation(3, x);
+	drawAnimation(3, x, g_Console);
 
 	x.X = 10;
 	x.Y = 32;
-	drawAnimation(6, x);
+	drawAnimation(6, x, g_Console);
 	if (GetAsyncKeyState(VK_SPACE) < 0)
 	{
 		keyReleased = false;
@@ -380,8 +380,8 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 
 	if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
 	{
-		drawAnimation(2, x);
-		damagePopUp(5, x);
+		drawAnimation(2, x, g_Console);
+		damagePopUp(5, x, g_Console);
 		AnimationOffset2++;
 	}
 	else if (AnimationOffset2 > 45)
@@ -390,11 +390,11 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	}
 	x.X = 10;
 	x.Y = 25;
-	drawHpCurr(3, x);
+	drawHpCurr(3, x, hp, g_Console);
 
 	x.X = 10;
 	x.Y = 32;
-	drawPlayerHP(6, x);
+	drawPlayerHP(6, x, playerHealth, g_Console);
 }
 void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar)
 {

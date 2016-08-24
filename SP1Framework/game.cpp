@@ -329,7 +329,7 @@ void renderSplashScreen()  // renders the splash screen
     COORD c;
 	c.X = 5;
 	c.Y = 12;
-	drawAnimation(8, c);
+	drawAnimation(8, c, g_Console);
 }
 
 void renderGame()
@@ -367,7 +367,7 @@ void renderMap()
 
 	if (dialogend == false)
 	{
-		drawDialogBox(4, c);
+		drawDialogBox(4, c, g_Console);
 		
 		if (g_abKeyPressed[K_SPACE])
 		{

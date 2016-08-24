@@ -2,21 +2,13 @@
 #include "game.h"
 #include "Framework\console.h"
 
-using namespace std;
 FrameData frameData;
 
-extern int hp;
-
-extern Console g_Console; 
+int enemyHp = 98;
+int playerCurrHP = 98;
 
 char AnimationArray[9][150][150];
 char indexChar;
-
-int temphp = 98;
-
-extern int playerHealth;
-
-int playerCurrHP = 98;
 
 void readAnimation(void)
 {
@@ -69,7 +61,7 @@ void readAnimation(void)
 	
 }
 
-void drawAnimation(int keyFrame, COORD animationCoord)
+void drawAnimation(int keyFrame, COORD animationCoord, Console &g_Console)
 {
 	COORD animationCoord2;
 	int tempValue = animationCoord.X;
@@ -101,9 +93,9 @@ void drawAnimation(int keyFrame, COORD animationCoord)
 	}
 }
 
-void drawHpCurr(int keyFrame, COORD currCoord)
+void drawHpCurr(int keyFrame, COORD currCoord, int &hp, Console &g_Console)
 {
-	temphp = (hp % 98);
+	enemyHp = (hp % 98);
 	COORD currCoord2;
 	int tempValue = currCoord.X;
 
@@ -111,7 +103,7 @@ void drawHpCurr(int keyFrame, COORD currCoord)
 	{
 		for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
 		{
-			for (currCoord2.X = 0; currCoord2.X < temphp -4; currCoord2.X++)
+			for (currCoord2.X = 0; currCoord2.X < enemyHp - 4; currCoord2.X++)
 			{
 				if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
 				{
@@ -171,7 +163,7 @@ void drawHpCurr(int keyFrame, COORD currCoord)
 	}
 }
 
-void drawDialogBox(int keyFrame, COORD boxCoord)
+void drawDialogBox(int keyFrame, COORD boxCoord, Console &g_Console)
 {
 	COORD currCoord2;
 	boxCoord.X = 0;
@@ -196,7 +188,7 @@ void drawDialogBox(int keyFrame, COORD boxCoord)
 	}
 }
 
-void damagePopUp(int keyFrame, COORD Pop)
+void damagePopUp(int keyFrame, COORD Pop, Console &g_Console)
 {
 	COORD PopCoord2;
 	Pop.X = 85; // Position of Popping up Damage Sign
@@ -220,7 +212,7 @@ void damagePopUp(int keyFrame, COORD Pop)
 }
 
 //Already Set a Different Value appart from the origin... but the image still called from the same one
-void drawPlayerHP(int keyFrame, COORD playerCoord)
+void drawPlayerHP(int keyFrame, COORD playerCoord, int &playerHealth, Console &g_Console)
 {
 	playerCurrHP = (playerHealth % 98);
 

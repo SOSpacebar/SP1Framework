@@ -96,7 +96,7 @@ public:
 		//	}
 		//}
 
-		for (int x = 1; x < 9; ++x)
+		for (int x = 1; x < 3; ++x)
 		{
 			if (!placeObject(Key))
 			{
@@ -163,8 +163,8 @@ public:
 				else if (getTiles(x, y) == 'E')
 				{
 					g_dDoor.m_cLocation.X = x;
-					g_dDoor.m_cLocation.Y = y;
-					g_mapData.mapGrid[y][x] = ' ';
+					g_dDoor.m_cLocation.Y = y + 1;
+					g_mapData.mapGrid[y][x] = (char)254;
 				}
 				else
 				{
