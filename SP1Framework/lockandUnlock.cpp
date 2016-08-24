@@ -1,5 +1,8 @@
 #include "Framework/console.h"
 #include "lockandUnlock.h"
+#include <math.h>
+#include <stdio.h>
+
 
 extern Console g_Console;
 
@@ -36,23 +39,49 @@ bool checkDoorCollision(SGameChar player, SMapData map, SGameKey &g_iKey, SGameK
 }
 
 //Render the key position
-void RenderKey(SGameKey &g_iKey)
+void RenderKey(SGameKey &g_iKey, Portal _portal, SGameChar _sChar)
 {
-	g_iKey.m_cLocation.X = 12;
-	g_iKey.m_cLocation.Y = 10;
-	if (g_iKey.m_bActive == true){
-		g_Console.writeToBuffer(g_iKey.m_cLocation, (char)237);
+	if ((sqrt((_portal.p_pos[1].X - g_iKey.m_cLocation.X)   *
+		(_portal.p_pos[1].X - g_iKey.m_cLocation.X)		   +
+		((_portal.p_pos[1].Y - g_iKey.m_cLocation.Y)       *
+		(_portal.p_pos[1].Y - g_iKey.m_cLocation.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[0].X - g_iKey.m_cLocation.X)   *
+		(_portal.p_pos[0].X - g_iKey.m_cLocation.X) +
+		((_portal.p_pos[0].Y - g_iKey.m_cLocation.Y)       *
+		(_portal.p_pos[0].Y - g_iKey.m_cLocation.Y))) <= 3))
+	{
+		if (g_iKey.m_bActive == true)
+		{
+			g_Console.writeToBuffer(g_iKey.m_cLocation, (char)237);
+		}
 	}
+	
 }
 
 //Render the door position
-void LockedDoor(SGameKey &g_dDoor)
+void LockedDoor(SGameKey &g_dDoor, SGameKey &g_iKey, Portal _portal, SGameChar _sChar)
 {
-	g_dDoor.m_cLocation.X = 12;
-	g_dDoor.m_cLocation.Y = 14;
-	if (g_dDoor.m_bActive)
+	if ((sqrt((_portal.p_pos[1].X - g_dDoor.m_cLocation.X)   *
+		(_portal.p_pos[1].X - g_dDoor.m_cLocation.X)	    +
+		((_portal.p_pos[1].Y - g_dDoor.m_cLocation.Y)       *
+		(_portal.p_pos[1].Y - g_dDoor.m_cLocation.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[0].X - g_dDoor.m_cLocation.X)   *
+		(_portal.p_pos[0].X - g_dDoor.m_cLocation.X) +
+		((_portal.p_pos[0].Y - g_dDoor.m_cLocation.Y)       *
+		(_portal.p_pos[0].Y - g_dDoor.m_cLocation.Y)))))
 	{
-		g_Console.writeToBuffer(g_dDoor.m_cLocation, (char)178);
+		if (g_dDoor.m_bActive)
+		{
+			if (g_iKey.m_bActive)
+			{
+				g_Console.writeToBuffer(g_dDoor.m_cLocation, (char)254, 0x40);
+			}
+			else
+			{
+				g_Console.writeToBuffer(g_dDoor.m_cLocation, (char)254, 0xA0);
+			}
+
+		}
 	}
 }
 

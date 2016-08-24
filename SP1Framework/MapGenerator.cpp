@@ -7,6 +7,8 @@
 extern SMapData g_mapData;
 extern SGameChar g_sChar;
 extern short totalNumObject;
+extern SGameKey g_iKey;
+extern SGameKey g_dDoor;
 
 int i = 0;
 
@@ -150,6 +152,18 @@ public:
 				{
 					enemyCoordStart(x, y, i);
 					i++;
+					g_mapData.mapGrid[y][x] = ' ';
+				}
+				else if (getTiles(x, y) == 'Q')
+				{
+					g_iKey.m_cLocation.X = x;
+					g_iKey.m_cLocation.Y = y;
+					g_mapData.mapGrid[y][x] = ' ';
+				}
+				else if (getTiles(x, y) == 'E')
+				{
+					g_dDoor.m_cLocation.X = x;
+					g_dDoor.m_cLocation.Y = y;
 					g_mapData.mapGrid[y][x] = ' ';
 				}
 				else

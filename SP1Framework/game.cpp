@@ -338,8 +338,8 @@ void renderSplashScreen()  // renders the splash screen
 void renderGame()
 {
     renderMap();        // renders the map to the buffer first
-	RenderKey(g_iKey);
-	LockedDoor(g_dDoor);
+	RenderKey(g_iKey, _portal, g_sChar);
+	LockedDoor(g_dDoor, g_iKey, _portal, g_sChar);
 	renderPortal(_portal, g_Console); //renders portal.
     renderCharacter();  // renders the character into the buffer
 	
