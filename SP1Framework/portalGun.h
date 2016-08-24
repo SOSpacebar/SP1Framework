@@ -27,5 +27,11 @@ bool checkBulletCollision(Bullet &_bullet, SMapData &g_mapData, Console &g_Conso
 //Portal Functions
 void spawnPortal(Portal &_portal, COORD position, bool type);
 void renderPortal(Portal &_portal, Console &g_Console);
-void teleportPlayer(SGameChar &playerPos, COORD portalPos, Portal portalFlag);
+
 void checkPlayerCollisionWithPortal(SGameChar &player, Portal portal);
+void teleportPlayer(SGameChar &playerPos, COORD portalPos, Portal portalFlag);
+
+void checkEBallCollsionWithPortal(COORD &xy, Portal portal);
+void teleportEBall(COORD &xy, COORD portalPos, Portal portalFlag);
+
+void skipper(void);

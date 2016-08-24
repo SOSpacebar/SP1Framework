@@ -1,11 +1,14 @@
 #include "gameObject.h"
 #include "Framework\console.h"
+#include "portalGun.h"
 #include <math.h>
 #include <time.h>
 #include <vector>
 
 extern Console g_Console;
 extern SMapData g_mapData;
+extern SGameChar g_sChar;
+extern Portal _portal;
 
 int offsetTime = 0;
 
@@ -54,21 +57,28 @@ void init_object(short level) //Preload the data of the enemy into memory.
 
 	for (int i = 0; i < totalNumObject; i++)
 	{
-		if (speed[i] == "slow")
+		if (ID[i] == "<O>" || ID[i] == "^Ov")
 		{
-			_object[i].o_speed = 50;
-		}
-		else if (speed[i] == "normal")
-		{
-			_object[i].o_speed = 40;
-		}
-		else if (speed[i] == "fast")
-		{
-			_object[i].o_speed = 30;
+			_object[i].o_speed = 60;
 		}
 		else
 		{
-			_object[i].o_speed = 1000;
+			if (speed[i] == "slow")
+			{
+				_object[i].o_speed = 50;
+			}
+			else if (speed[i] == "normal")
+			{
+				_object[i].o_speed = 40;
+			}
+			else if (speed[i] == "fast")
+			{
+				_object[i].o_speed = 30;
+			}
+			else
+			{
+				_object[i].o_speed = 1000;
+			}
 		}
 	}
 }
@@ -123,8 +133,11 @@ void updateLR_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 	{
 		ID = "<";
 	}
-	
-	g_Console.writeToBuffer(xy, LR_PString, 0xF6);
+
+	if (sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8)
+	{
+		g_Console.writeToBuffer(xy, LR_PString, 0xF6);
+	}
 }
 
 char RL_PString = '<';
@@ -140,8 +153,10 @@ void updateRL_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		ID = ">";
 	}
 
-
-	g_Console.writeToBuffer(xy, RL_PString, 0xF6);
+	if (sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8)
+	{
+		g_Console.writeToBuffer(xy, RL_PString, 0xF6);
+	}
 }
 
 char UD_PString = 'v';
@@ -157,7 +172,10 @@ void updateUD_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		ID = "^";
 	}
 
-	g_Console.writeToBuffer(xy, UD_PString, 0xF6);
+	if (sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8)
+	{
+		g_Console.writeToBuffer(xy, UD_PString, 0xF6);
+	}
 }
 
 char DU_PString = '^';
@@ -173,7 +191,10 @@ void updateDU_Projectile(string &ID, COORD &start_xy, COORD &xy, int &speed, boo
 		ID = "v";
 	}
 
-	g_Console.writeToBuffer(xy, DU_PString, 0xF6);
+	if (sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8)
+	{
+		g_Console.writeToBuffer(xy, DU_PString, 0xF6);
+	}
 }
 
 string CrusherString = { (char)254 };
@@ -182,20 +203,25 @@ void updateLR_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &re
 	if (reverse == false && offsetTime % speed == 0)
 	{
 		xy.X++;
-		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
+		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X] == '-')
 		{
 			reverse = true;
 		}
 	}
+
 	if (reverse && offsetTime % speed == 0)
 	{
 		xy.X--;
-		if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == '-')
+		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X] == '-')
 		{
 			reverse = false;
 		}
-	}	
+	}
+
+	checkEBallCollsionWithPortal(xy, _portal);
+
 	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
+	
 }
 
 void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &reverse)
@@ -203,20 +229,25 @@ void updateUD_EBall(string &ID, COORD &start_xy, COORD &xy, int &speed, bool &re
 	if (reverse == false && offsetTime % speed == 0)
 	{
 		xy.Y++;
-		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219)
+		if (g_mapData.mapGrid[xy.Y - 1][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X] == '-')
 		{
 			reverse = true;
 		}
 	}
+
 	if (reverse && offsetTime % speed == 0)
 	{
 		xy.Y--;
-		if (g_mapData.mapGrid[xy.Y - 2][xy.X - 1] == (char)219 || g_mapData.mapGrid[xy.Y - 2][xy.X - 1] == '-')
+		if (g_mapData.mapGrid[xy.Y - 2][xy.X] == (char)219 || g_mapData.mapGrid[xy.Y - 2][xy.X] == '-')
 		{
 			reverse = false;
 		}
-	}	
+	}
+
+	checkEBallCollsionWithPortal(xy, _portal);
+
 	g_Console.writeToBuffer(xy, CrusherString, 0xC3);
+	
 }
 
 void findCoordStart(int newX, int newY)
