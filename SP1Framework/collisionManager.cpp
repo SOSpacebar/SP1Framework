@@ -1,11 +1,11 @@
 #include "collisionManager.h"
 #include "Framework/console.h"
-
+#include "enemyProperties.h"
 
 //extern Console g_Console;
 
 
-bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAMESTATES &g_eGameState, short &g_currLevel, SGameKey g_iKey, SGameKey g_dDoor)
+bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAMESTATES &g_eGameState, short &g_currLevel, SGameKey g_iKey, SGameKey g_dDoor, int indexEnemy, enemyStruct _enemy[])
 {
 	if (direction == K_UP) 	 //Check is anything above the player.
 	{
@@ -45,7 +45,7 @@ bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAME
 			return false;
 		if (player.m_cLocation.X == g_dDoor.m_cLocation.X + 1 && player.m_cLocation.Y == g_dDoor.m_cLocation.Y && g_iKey.m_bActive == true)
 			return false;
-	}
+	}	
 
 	if ((map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)187) || (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)188) || (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)200) || (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == (char)201))
 	{

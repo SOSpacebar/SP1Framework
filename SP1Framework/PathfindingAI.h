@@ -10,6 +10,7 @@
 
 enum Sectors
 {
+	Wander,
 	Up,
 	UpRight,
 	Right,

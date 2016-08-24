@@ -190,6 +190,7 @@ void render()
             break;
 		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar);
 			break;
+		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -226,7 +227,7 @@ void moveCharacter()
     // providing a beep sound whenver we shift the character
 	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_UP, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_UP, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 		{
 			lastDirection = K_UP;
 			g_sChar.m_cLocation.Y--;
@@ -236,7 +237,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_LEFT;
@@ -247,7 +248,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_DOWN;
@@ -258,7 +259,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_RIGHT;
@@ -349,7 +350,8 @@ void renderGame()
 
 	if (dialogend)
 	{
-		enemyMovememt(_enemy, g_Console, g_dElapsedTime);
+		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData);
+		checkIfEngage(_enemy, g_sChar, g_eGameState);
 		//renderCombatScreen();
 		update_GameObject();
 	}
