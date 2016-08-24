@@ -3,7 +3,8 @@
 
 #include "Framework\timer.h"
 #include <string>
-
+#include <iostream>
+#include <Windows.h>
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
 
@@ -69,5 +70,6 @@ void renderFramerate();     // renders debug information, frame rate, elapsed ti
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 
 void renderCombatScreen();
+void resetVariables();
 
 #endif // _GAME_H

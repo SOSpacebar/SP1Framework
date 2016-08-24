@@ -70,20 +70,19 @@ void init( void )
     g_dBounceTime = 0.0;
 
 	readAnimation();
-
 	g_iKey.m_bActive = true;
 	g_dDoor.m_bActive = true;
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
-
+	
+	g_sChar.m_cLocation.X = 5;
+	g_sChar.m_cLocation.Y = 5;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
 
 	// reset portal back to inActive
-	_portal.p_isActive[0] = false;
-	_portal.p_isActive[1] = false;
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
 }
 
@@ -144,12 +143,12 @@ void update(double dt)
     // get the delta time
     g_dElapsedTime += dt;
     g_dDeltaTime = dt;
-
     switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
 		case S_MAINMENU: renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			resetVariables();
 			break;
 		case S_CREDITS: Credits(g_eGameState, g_abKeyPressed);
 			break;
@@ -160,6 +159,7 @@ void update(double dt)
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
     }
+
 }
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
@@ -194,6 +194,7 @@ void render()
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
+	initalizeSound(g_eGameState);//Play Sound
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
@@ -212,7 +213,6 @@ void gameplay()            // gameplay logic
 	}
    
    // sound can be played here too.
-
 }
 
 void moveCharacter()
@@ -416,5 +416,18 @@ void renderToScreen()
 {
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
+}
+
+
+void resetVariables()
+{
+	COORD C;
+	C.X = 0;
+	C.Y = 0;
+	_portal.p_pos[0] = C;
+	_portal.p_pos[1] = C;
+	_portal.p_isActive[0] = false;
+	_portal.p_isActive[1] = false;
+	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
 }
 
