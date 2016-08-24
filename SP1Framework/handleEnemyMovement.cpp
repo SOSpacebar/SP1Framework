@@ -13,7 +13,7 @@ int offsetTime1 = 0;
 
 extern int i;
 
-void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedTime, SGameChar _sChar, SMapData _mapData, EGAMESTATES &g_eGameState)
+void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedTime, SGameChar _sChar, SMapData _mapData, EGAMESTATES &g_eGameState, Portal &_portal)
 {
 	currTime1 = g_dElapsedTime;
 	offsetTime1++;
@@ -25,7 +25,18 @@ void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedT
 			moveAI(_mapData, _sChar, _enemy, i, x, g_eGameState);
 		}
 
-		if (sqrt((_sChar.m_cLocation.X - _enemy[x].e_location.X)*(_sChar.m_cLocation.X - _enemy[x].e_location.X) + ((_sChar.m_cLocation.Y - _enemy[x].e_location.Y)*(_sChar.m_cLocation.Y - _enemy[x].e_location.Y))) <= 8)
+		if (sqrt((_sChar.m_cLocation.X - _enemy[x].e_location.X) *
+			(_sChar.m_cLocation.X - _enemy[x].e_location.X)		 +
+			((_sChar.m_cLocation.Y - _enemy[x].e_location.Y)	 *
+			(_sChar.m_cLocation.Y - _enemy[x].e_location.Y))) <= 8 ||
+			(sqrt((_portal.p_pos[1].X - _enemy[x].e_location.X)  *
+			(_portal.p_pos[1].X - _enemy[x].e_location.X)		 +
+			((_portal.p_pos[1].Y - _enemy[x].e_location.Y)       *
+			(_portal.p_pos[1].Y - _enemy[x].e_location.Y))) <= 3)	||
+			(sqrt(((_portal.p_pos[0].Y - _enemy[x].e_location.Y) *
+			(_portal.p_pos[0].Y - _enemy[x].e_location.Y)        +
+			((_portal.p_pos[0].X - _enemy[x].e_location.X)       *
+			(_portal.p_pos[0].X - _enemy[x].e_location.X))))<= 3))
 		{
 			if (_enemy[x].e_alive)
 			{
