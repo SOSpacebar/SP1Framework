@@ -1,17 +1,23 @@
 #include "ReadMap.h"
 #include "game.h"
 #include "MapGenerator.h"
+#include "gameObject.h"
 
 using namespace std;
 
 SMapData g_mapData;
+extern SGameKey g_iKey;
+extern SGameKey g_dDoor;
+extern objectStruct _object[20];
+extern short totalNumObject;
 
 void readMap(int mapLevel, SGameChar &_sChar)
 {
-
+	int IndexObject = 0;
 	ifstream levelData;
 	string levelInfo;
 	string loopedString;
+	COORD x;
 
 	string mapArray[5];
 
@@ -79,9 +85,35 @@ void readMap(int mapLevel, SGameChar &_sChar)
 				}
 				else if (loopedString.at(col) == 'E')
 				{
-					_sChar.m_cLocation.X = col;
-					_sChar.m_cLocation.Y = row + 1;
-					g_mapData.mapGrid[row][col] = loopedString.at(col);
+					g_dDoor.m_cLocation.X = col;
+					g_dDoor.m_cLocation.Y = row + 1;
+					g_mapData.mapGrid[row][col] = (char)254;
+				}
+				else if (loopedString.at(col) == '*')
+				{
+					x.X = col;
+					x.Y = row + 1;
+					//_object[IndexObject].o_location.X = col;
+					//_object[IndexObject].o_location.Y = row + 1;
+
+					_object[IndexObject].o_location = x;
+					g_mapData.mapGrid[row][col] = ' ';
+					IndexObject++;
+					totalNumObject++;
+				}
+				//else if (loopedString.at(col) == '<')
+				//{
+				//	_object[IndexObject].o_location.X = col;
+				//	_object[IndexObject].o_location.Y = row + 1;
+				//	g_mapData.mapGrid[row][col] = ' ';
+				//	IndexObject++;
+				//	totalNumObject++;
+				//}
+				else if (loopedString.at(col) == 'Q')
+				{
+					g_iKey.m_cLocation.X = col;
+					g_iKey.m_cLocation.Y = row + 1;
+					g_mapData.mapGrid[row][col] = ' ';
 				}
 				else
 				{
