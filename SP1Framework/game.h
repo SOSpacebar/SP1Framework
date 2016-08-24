@@ -34,7 +34,8 @@ enum EGAMESTATES
 	S_CREDITS,
     S_COUNT,
 	S_COMBATSCREEN,
-	S_LOADLEVEL
+	S_LOADLEVEL,
+	S_TRANSITION
 };
 
 // struct for the game character
@@ -69,5 +70,6 @@ void renderFramerate();     // renders debug information, frame rate, elapsed ti
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 
 void renderCombatScreen();
+void resetVariables();
 
 #endif // _GAME_H

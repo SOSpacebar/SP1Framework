@@ -254,7 +254,7 @@ void Credits(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT])
 	c.Y += 1;
 	g_Console.writeToBuffer(c, "Ng JingJie <>", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Zhi Sheng <>", 0x02);
+	g_Console.writeToBuffer(c, "Lim Zi Sheng <>", 0x02);
 	c.Y += 1;
 	g_Console.writeToBuffer(c, "Lim Pei Sheng", 0x02);
 	c.Y += 1;
@@ -281,6 +281,7 @@ void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 	}
 	if (SplashCol > 388)
 	{
+		SplashCol = 0;
 		g_eGameState = S_COMBATSCREEN;
 	}
 }
@@ -352,7 +353,8 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		if (hp <= 16)
 		{
 			playerHealth += 20;
-			g_eGameState = S_LOADLEVEL;
+			hp = 98;
+			g_eGameState = S_GAME;
 		}
 	}
 	
@@ -363,6 +365,13 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 			mushroomBounceTime = g_dElapsedTime + 0.125;
 			playerHealth--;
 		}
+	}
+
+	if (playerHealth <= 16)
+	{
+		g_eGameState = S_MAINMENU;
+		playerHealth = 98;
+		hp = 98;
 	}
 
 	x.X = 46;

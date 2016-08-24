@@ -6,11 +6,6 @@ using namespace std;
 
 SMapData g_mapData;
 
-extern SGameChar g_sChar;
-
-/*
-TODO: REFERNECE TO SGMAECHAR
-*/
 void readMap(int mapLevel, SGameChar &_sChar)
 {
 

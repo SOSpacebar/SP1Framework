@@ -10,6 +10,7 @@
 
 enum Sectors
 {
+	Wander,
 	Up,
 	UpRight,
 	Right,
@@ -22,7 +23,7 @@ enum Sectors
 
 void scanSectorForPlayer(SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy);
 void scanTiles(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy);
-void compareTiles(SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy);
-void moveAI(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy);
+void checkIfEngage(enemyStruct _enemy[], SGameChar player, EGAMESTATES &g_eGameState, int indexEnemy);
+void moveAI(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy, EGAMESTATES &g_eGameState);
 
 #endif

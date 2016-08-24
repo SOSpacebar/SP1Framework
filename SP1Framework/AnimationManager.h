@@ -18,7 +18,6 @@ struct FrameData
 
 void readAnimation(void);
 void drawAnimation(int keyFrame, COORD animationCoord);
-void setAnimation();
 void drawHpCurr(int keyFrame, COORD currCoord);
 void drawDialogBox(int keyFrame, COORD boxCoord);
 void damagePopUp(int keyFrame, COORD Pop);

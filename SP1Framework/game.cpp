@@ -82,8 +82,8 @@ void init( void )
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
 
+	// reset portal back to inActive
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
-	//init_object(1);
 }
 
 //--------------------------------------------------------------
@@ -148,6 +148,7 @@ void update(double dt)
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
 		case S_MAINMENU: renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			resetVariables();
 			break;
 		case S_CREDITS: Credits(g_eGameState, g_abKeyPressed);
 			break;
@@ -189,6 +190,7 @@ void render()
             break;
 		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar);
 			break;
+		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -225,7 +227,7 @@ void moveCharacter()
     // providing a beep sound whenver we shift the character
 	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_UP, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_UP, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 		{
 			lastDirection = K_UP;
 			g_sChar.m_cLocation.Y--;
@@ -235,7 +237,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_LEFT;
@@ -246,7 +248,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_DOWN;
@@ -257,7 +259,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel, g_iKey, g_dDoor) == true)
+		if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 		{
 			//Beep(1440, 30);
 			lastDirection = K_RIGHT;
@@ -348,8 +350,7 @@ void renderGame()
 
 	if (dialogend)
 	{
-		enemyMovememt(_enemy, g_Console, g_dElapsedTime);
-		//renderCombatScreen();
+		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData, g_eGameState, _portal);
 		update_GameObject();
 	}
 	
@@ -367,7 +368,7 @@ void renderMap()
 	c.X = 0;
 	c.Y = 1;
 
-	renderFogOfWarAndMap(g_mapData, g_sChar, g_Console, fogMap);
+	renderFogOfWarAndMap(g_mapData, g_sChar, g_Console, fogMap, _bullet, _portal);
 
 	if (dialogend == false)
 	{
@@ -416,3 +417,17 @@ void renderToScreen()
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
 }
+
+
+void resetVariables()
+{
+	COORD C;
+	C.X = 0;
+	C.Y = 0;
+	_portal.p_pos[0] = C;
+	_portal.p_pos[1] = C;
+	_portal.p_isActive[0] = false;
+	_portal.p_isActive[1] = false;
+	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
+}
+

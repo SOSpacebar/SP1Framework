@@ -7,7 +7,7 @@ int SectorIndex[8];
 
 short prevCoordX[8];
 short prevCoordY[8];
-float CheckWithinRadius = 9;
+float CheckWithinRadius = 7;
 
 //COORD DirectionArray[8];
 
@@ -62,6 +62,10 @@ void scanSectorForPlayer(SGameChar _sChar, enemyStruct _enemy[], int totalEnemy,
 			CheckSector = UpLeft;
 		}		
 	}
+	else
+	{
+		CheckSector = Wander;
+	}
 
 	SectorIndex[indexEnemy] = 0;
 }
@@ -69,7 +73,72 @@ void scanSectorForPlayer(SGameChar _sChar, enemyStruct _enemy[], int totalEnemy,
 void scanTiles(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy)
 {
 	double MagitudeDist;
+	short Rand = rand() % 16;
+
 	MagitudeDist = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)));
+
+	if (CheckSector == Wander)
+	{
+		if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X] != (char)219) &&
+			(mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X] != '-')       &&
+			((Rand == 0) || (Rand == 8)))
+		{
+			_enemy[indexEnemy].e_location.Y--;
+		}
+
+		if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X + 1] != (char)219) &&
+			(mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X + 1] != '-')		 &&
+			((Rand == 1) || (Rand == 9)))
+		{
+			_enemy[indexEnemy].e_location.Y--;
+			_enemy[indexEnemy].e_location.X++;
+		}
+
+		if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 1][_enemy[indexEnemy].e_location.X + 1] != (char)219) &&
+			(mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 1][_enemy[indexEnemy].e_location.X + 1] != '-')		 &&
+			((Rand == 2) || (Rand == 10)))
+		{
+			_enemy[indexEnemy].e_location.X++;
+		}
+
+		if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X + 1] != (char)219) &&
+			(mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X + 1] != '-')		 &&
+			((Rand == 3) || (Rand == 11)))
+		{
+			_enemy[indexEnemy].e_location.X++;
+			_enemy[indexEnemy].e_location.Y++;
+		}
+
+		if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X] != (char)219) &&
+			(mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X] != '-')		 &&
+			((Rand == 4) || (Rand == 12)))
+		{
+			_enemy[indexEnemy].e_location.Y++;
+		}
+
+		if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X - 1] != (char)219) &&
+			(mapData.mapGrid[_enemy[indexEnemy].e_location.Y][_enemy[indexEnemy].e_location.X - 1] != '-')       &&
+			((Rand == 5) || (Rand == 13)))
+		{
+			_enemy[indexEnemy].e_location.Y++;
+			_enemy[indexEnemy].e_location.X--;
+		}
+
+		if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 1][_enemy[indexEnemy].e_location.X - 1] != (char)219) &&
+			(mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 1][_enemy[indexEnemy].e_location.X - 1] != '-')	     &&
+			((Rand == 6) || (Rand == 14)))
+		{
+			_enemy[indexEnemy].e_location.X--;
+		}
+
+		if ((mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X - 1] != (char)219) &&
+			(mapData.mapGrid[_enemy[indexEnemy].e_location.Y - 2][_enemy[indexEnemy].e_location.X - 1] != '-')       &&
+			((Rand == 7) || (Rand == 15)))
+		{
+			_enemy[indexEnemy].e_location.X--;
+			_enemy[indexEnemy].e_location.Y--;
+		}
+	}
 
 	if (MagitudeDist <= CheckWithinRadius)
 	{
@@ -275,137 +344,18 @@ void scanTiles(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int tot
 	}
 }
 
-void compareTiles(SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy)
+void checkIfEngage(enemyStruct _enemy[], SGameChar player, EGAMESTATES &g_eGameState, int indexEnemy)
 {
-	if (CheckSector == Up)
+	if ((player.m_cLocation.Y == _enemy[indexEnemy].e_location.Y) && (player.m_cLocation.X == _enemy[indexEnemy].e_location.X))
 	{
-
+		_enemy[indexEnemy].e_alive = false;
+		g_eGameState = S_TRANSITION;
 	}
-	/*if (CheckSector == Up)
-	{
-
-	}
-	if (CheckSector == UpperLeft)
-	{
-		Check1 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X - 1)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X - 1)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y - 1)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y - 1)));
-		Check2 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y - 1)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y - 1)));
-		Check3 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X - 1)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X - 1)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)));
-
-		if (Check1 <= Check2)
-		{
-			if (Check3 >= Check2)
-			{
-				CheckIndex = "Check1";
-			}
-			else if (Check3 <= Check1)
-			{
-				CheckIndex = "Check3";
-			}
-		}
-		else
-		{
-			if (Check2 <= Check3)
-			{
-				CheckIndex = "Check2";
-			}
-			else
-			{
-				CheckIndex = "Check3";
-			}
-		}
-	}
-	else if (CheckSector == UpperRight)
-	{
-		Check1 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X + 1)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X + 1)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y - 1)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y - 1)));
-		Check2 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y - 1)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y - 1)));
-		Check3 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X + 1)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X + 1)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)));
-
-		if (Check1 <= Check2)
-		{
-			if (Check3 >= Check2)
-			{
-				CheckIndex = "Check1";
-			}
-			else if (Check3 <= Check1)
-			{
-				CheckIndex = "Check3";
-			}
-		}
-		else
-		{
-			if (Check2 <= Check3)
-			{
-				CheckIndex = "Check2";
-			}
-			else
-			{
-				CheckIndex = "Check3";
-			}
-		}
-	}
-	else if (CheckSector == BtmRight)
-	{
-		Check1 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X + 1)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X + 1)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y + 1)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y + 1)));
-		Check2 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y + 1)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y + 1)));
-		Check3 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X + 1)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X + 1)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)));
-
-		if (Check1 <= Check2)
-		{
-			if (Check3 >= Check2)
-			{
-				CheckIndex = "Check1";
-			}
-			else if (Check3 <= Check1)
-			{
-				CheckIndex = "Check3";
-			}
-		}
-		else
-		{
-			if (Check2 <= Check3)
-			{
-				CheckIndex = "Check2";
-			}
-			else
-			{
-				CheckIndex = "Check3";
-			}
-		}
-	}
-	else if (CheckSector == BtmLeft)
-	{
-		Check1 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X - 1)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X - 1)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y + 1)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y + 1)));
-		Check2 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y + 1)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y + 1)));
-		Check3 = sqrt(((_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X - 1)*(_sChar.m_cLocation.X - _enemy[indexEnemy].e_location.X - 1)) + ((_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)*(_sChar.m_cLocation.Y - _enemy[indexEnemy].e_location.Y)));
-
-		if (Check1 <= Check2)
-		{
-			if (Check3 >= Check2)
-			{
-				CheckIndex = "Check1";
-			}
-			else if (Check3 <= Check1)
-			{
-				CheckIndex = "Check3";
-			}
-		}
-		else
-		{
-			if (Check2 <= Check3)
-			{
-				CheckIndex = "Check2";
-			}
-			else
-			{
-				CheckIndex = "Check3";
-			}
-		}
-	}*/
 }
 
-void moveAI(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy)
+void moveAI(SMapData mapData, SGameChar _sChar, enemyStruct _enemy[], int totalEnemy, int indexEnemy, EGAMESTATES &g_eGameState)
 {
 	scanSectorForPlayer(_sChar, _enemy, totalEnemy, indexEnemy);
-	//compareTiles(_sChar, _enemy, totalEnemy, indexEnemy);
 	scanTiles(mapData, _sChar, _enemy, totalEnemy, indexEnemy);
+	checkIfEngage(_enemy, _sChar, g_eGameState, indexEnemy);
 }
