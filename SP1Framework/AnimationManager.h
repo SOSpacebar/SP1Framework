@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include "game.h"
+#include "Framework\console.h"
 
 struct FrameData
 {
@@ -17,10 +18,10 @@ struct FrameData
 };
 
 void readAnimation(void);
-void drawAnimation(int keyFrame, COORD animationCoord);
-void drawHpCurr(int keyFrame, COORD currCoord);
-void drawDialogBox(int keyFrame, COORD boxCoord);
-void damagePopUp(int keyFrame, COORD Pop);
-void drawPlayerHP(int keyFrame, COORD playerCoord);
+void drawAnimation(int keyFrame, COORD animationCoord, Console &g_Console);
+void drawHpCurr(int keyFrame, COORD currCoord, int &hp, Console &g_Console);
+void drawDialogBox(int keyFrame, COORD boxCoord, Console &g_Console);
+void damagePopUp(int keyFrame, COORD Pop, Console &g_Console);
+void drawPlayerHP(int keyFrame, COORD playerCoord, int &playerHealth, Console &g_Console);
 
 #endif
