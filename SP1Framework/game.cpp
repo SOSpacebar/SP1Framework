@@ -77,14 +77,14 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 
-	g_sChar.m_cLocation.X = 5;
-	g_sChar.m_cLocation.Y = 5;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
 
+	// reset portal back to inActive
+	_portal.p_isActive[0] = false;
+	_portal.p_isActive[1] = false;
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
-	//init_object(1);
 }
 
 //--------------------------------------------------------------

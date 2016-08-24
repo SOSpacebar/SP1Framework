@@ -5,9 +5,9 @@
 using namespace std;
 FrameData frameData;
 
- extern int hp;
+extern int hp;
 
-extern Console g_Console;
+extern Console g_Console; 
 
 char AnimationArray[7][150][150];
 char indexChar;
