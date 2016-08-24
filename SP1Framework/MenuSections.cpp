@@ -272,25 +272,26 @@ void GameOver()
 
 }
 
-void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
-{
-	if (SplashCol < 388)
-	{
-		for (int i = 0; i < 10; i++)
-			AnimationString.push_back((char)219);
-	}
-	if (SplashCol > 388)
-	{
-		SplashCol = 0;
-		g_eGameState = S_COMBATSCREEN;
-	}
-}
-
 void DrawAnimationSplashScreen(EGAMESTATES &g_eGameState)
 {
 	SetAnimationSplashScreen(g_eGameState);
 	g_Console.writeToBuffer(l, AnimationString, 0x4B);
 	SplashCol++;
+}
+
+void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
+{
+	if (SplashCol < 480)
+	{
+		for (int i = 0; i < 10; i++)
+			AnimationString.push_back((char)219);
+	}
+	if (SplashCol > 480)
+	{
+		SplashCol = 0;
+		AnimationString = "";
+		g_eGameState = S_COMBATSCREEN;
+	}
 }
 
 void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT])

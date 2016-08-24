@@ -54,7 +54,7 @@ extern int i;
 short g_currLevel = 0;
 
 // Console object
-Console g_Console(120, 40, "INSERT GAME NAME HERE");
+Console g_Console(120, 40, "- UNDEFINED -");
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
