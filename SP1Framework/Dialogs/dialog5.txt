@@ -1,11 +1,11 @@
 ########################################################################################################################
 ##                                                                                                                    ##
 ##                                                                                                                    ##
-##                                   Welcome to the next level of the tutorial stage!                                 ##
+##                              To go to the next level, you have to find the Exit Door                               ##
+##                                   And to open that door, you have to find a Key                                    ##
 ##                                                                                                                    ##
+##                                                      Psst!                                                         ##
+##                                          Go up north and you will find it                                          ##
 ##                                                                                                                    ##
-##                                      You will encounter your first monster here                                    ##
-##                                  During combat, repeatedly press [SPACE] to attack!                                ##
-##                                                                                                                    ##
-##                                                                                                      >>[ SPACE ]>> ##
+##                                                                                                        >>[SPACE]>> ##
 ########################################################################################################################

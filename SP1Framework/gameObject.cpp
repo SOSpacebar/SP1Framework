@@ -139,7 +139,12 @@ void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 		ID = "<";
 	}
 
-	g_Console.writeToBuffer(xy, LR_PString, 0x04);
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
+	{
+		g_Console.writeToBuffer(xy, LR_PString, 0x04);
+	}
 }
 
 char RL_PString = '<';
@@ -159,7 +164,12 @@ void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 		ID = ">";
 	}
 
-	g_Console.writeToBuffer(xy, RL_PString, 0x04);
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
+	{
+		g_Console.writeToBuffer(xy, RL_PString, 0x04);
+	}
 }
 
 char UD_PString = 'v';
@@ -179,7 +189,12 @@ void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 		ID = "^";
 	}
 
-	g_Console.writeToBuffer(xy, UD_PString, 0x04);
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
+	{
+		g_Console.writeToBuffer(xy, UD_PString, 0x04);
+	}
 }
 
 char DU_PString = '^';
@@ -199,7 +214,12 @@ void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 		ID = "v";
 	}
 
-	g_Console.writeToBuffer(xy, DU_PString, 0x04);
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
+	{
+		g_Console.writeToBuffer(xy, DU_PString, 0x04);
+	}
 }
 
 string CrusherString = { (char)233 };
@@ -228,7 +248,12 @@ void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &
 		}
 		xy.X--;
 	}
-	g_Console.writeToBuffer(xy, CrusherString, 0xCF);
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
+	{
+		g_Console.writeToBuffer(xy, CrusherString, 0xCF);
+	}
 	checkEBallCollsionWithPortal(xy, _portal);
 }
 
@@ -258,7 +283,12 @@ void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &
 		xy.Y--;
 	}
 
-	g_Console.writeToBuffer(xy, CrusherString, 0xCF);
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
+		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
+	{
+		g_Console.writeToBuffer(xy, CrusherString, 0xCF);
+	}
 	checkEBallCollsionWithPortal(xy, _portal);
 }
 
