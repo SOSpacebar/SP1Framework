@@ -77,7 +77,7 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
-
+	
 	readAnimation();
 	g_iKey.m_bActive = true;
 	g_dDoor.m_bActive = true;
@@ -85,6 +85,7 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 	
+
 	g_sChar.m_cLocation.X = 5;
 	g_sChar.m_cLocation.Y = 5;
     g_sChar.m_bActive = true;
@@ -204,12 +205,13 @@ void render()
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
-	//initalizeSound(g_eGameState);//Play Sound
+	initalizeSound(g_eGameState);
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 1.5) // wait for 1 seconds to switch to game mode, else do nothing
+
+	if (g_dElapsedTime > 1.5) // wait for 1 seconds to switch to game mode, else do nothing
 		g_eGameState = S_MAINMENU;
 }
 
@@ -223,7 +225,6 @@ void gameplay()            // gameplay logic
 	}
    
    // sound can be played here too.
-	initalizeSound(g_eGameState);
 }
 
 void moveCharacter()
@@ -340,6 +341,7 @@ void renderSplashScreen()  // renders the splash screen
 	c.X = 5;
 	c.Y = 12;
 	drawAnimation(8, c, g_Console);
+
 }
 
 void renderGame()

@@ -2,7 +2,8 @@
 #include "AnimationManager.h"
 #include "enemyProperties.h"
 #include <random>
-
+#include <Windows.h>
+#include "MMSystem.h"
 
 int SplashCol = 0;
 string AnimationString;
@@ -430,15 +431,14 @@ int randomhp_dmg(int rand_dmg_timeOffset)
 void initalizeSound(EGAMESTATES &g_eGameState)
 {
 	//PlaySound(NULL, 0, 0);
-	if (g_eGameState == S_SPLASHSCREEN)
+	if (g_eGameState == S_MAINMENU)
 	{
-		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Sound/Detective.wav"),NULL , SND_ASYNC | SND_LOOP);
+		PlaySound(NULL, NULL, SND_ASYNC);
+		PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
 	}
-	
-	if (g_eGameState == S_LEVELSELECT)
+	if (g_eGameState == S_GAME)
 	{
-		PlaySound(NULL, 0, 0);
+		//PlaySound(NULL, NULL, 0);
 		PlaySound(TEXT("Sound/JumpShot.wav"),NULL , SND_ASYNC | SND_LOOP);
 	}
 }

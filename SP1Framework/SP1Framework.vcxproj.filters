@@ -87,9 +87,6 @@
     <ClCompile Include="handleBulletProjectile.cpp">
       <Filter>Source Files\Portal Gun</Filter>
     </ClCompile>
-    <ClCompile Include="TileMap.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="ReadMap.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
