@@ -1,8 +1,6 @@
 #include "ReadMap.h"
 #include "MapGenerator.h"
 
-using namespace std;
-
 SMapData g_mapData;
 
 
