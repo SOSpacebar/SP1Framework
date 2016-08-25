@@ -5,7 +5,7 @@
 //extern Console g_Console;
 
 
-bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAMESTATES &g_eGameState, short &g_currLevel, SGameKey g_iKey, SGameKey g_dDoor, int indexEnemy, enemyStruct _enemy[])
+bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAMESTATES &g_eGameState, short &g_currLevel, SGameKey &g_iKey, SGameKey &g_dDoor, int indexEnemy, enemyStruct _enemy[])
 {
 	if (direction == K_UP) 	 //Check is anything above the player.
 	{

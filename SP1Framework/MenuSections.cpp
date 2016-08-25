@@ -1,9 +1,9 @@
 #include "MenuSections.h"
-#include "ReadMap.h"
 #include "AnimationManager.h"
-#include "gameObject.h"
 #include "enemyProperties.h"
-
+#include <random>
+#include <Windows.h>
+#include "MMSystem.h"
 
 int SplashCol = 0;
 string AnimationString;
@@ -203,7 +203,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;			
-			g_currLevel = 6;
+			g_currLevel = 4;
 			g_eGameState = S_LOADLEVEL;
 
 		}
@@ -267,9 +267,76 @@ void Credits(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT])
 	}
 }
 
-void GameOver()
+void GameOver(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
+	bool bSomethingHappened = false;
+	string MenuSelection[2] {"Retry", "MainMenu"};//creating a simple level selection.
 
+	COORD c = g_Console.getConsoleSize();
+	c.Y /= 3;
+	c.X = c.X / 2 - 5;
+	g_Console.writeToBuffer(c, "GAMEOVER", 0x02);
+	c.Y += 1;
+	c.X = g_Console.getConsoleSize().X / 2 - 8;
+
+	switch (SetLevel)
+	{
+	case 0:
+		g_Console.writeToBuffer(c, MenuSelection[0], 0x04);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, MenuSelection[1], 0x03);
+		c.Y += 1;
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			SetLevel = 0;
+		}
+
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			SetLevel = 1;
+		}
+		//Pressing ENTER will go into the game
+		if (g_abKeyPressed[K_ENTER])
+		{
+			bSomethingHappened = true;
+			g_eGameState = S_LOADLEVEL;
+		}
+		break;
+	case 1:
+		g_Console.writeToBuffer(c, MenuSelection[0], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, MenuSelection[1], 0x04);
+		c.Y += 1;
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
+		//Pressing up will move back to case 0
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			SetLevel = 0;
+		}
+		//Pressing Down will move to 2nd case
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			SetLevel = 1;
+		}
+		if (g_abKeyPressed[K_ENTER])
+		{
+			bSomethingHappened = true;
+			g_eGameState = S_MAINMENU;
+		}
+		break;
+	}
+	if (bSomethingHappened)
+	{
+		// set the bounce time to some time in the future to prevent accidental triggers
+		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+	}
 }
 
 void DrawAnimationSplashScreen(EGAMESTATES &g_eGameState)
@@ -297,7 +364,6 @@ void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT])
 {
 	timeOffset++;
-
 
 	processUserInput();
 	//set screen black
@@ -372,13 +438,17 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		}
 	}
 
-	if (playerHealth <= 16)
+	/*if (playerHealth <= 16)
 	{
 		g_eGameState = S_MAINMENU;
 		playerHealth = 98;
 		hp = 98;
-	}
+	}*/
 
+	if (playerHealth <= 10)
+	{
+		g_eGameState = S_GAMEOVER;
+	}
 	x.X = 46;
 	x.Y = 4;
 
@@ -400,13 +470,18 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.Y = 32;
 	drawPlayerHP(6, x, playerHealth, g_Console);
 }
-void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int maxBox, SGameKey g_iKey, SGameKey g_dDoor, objectStruct _object[], short totalNumObject)
+void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, struct objectStruct(*_object)[20], short &totalNumObject, bool &canPortalGun)
 {
+	init_object(Level, totalNumObject);
 	clearScreen();
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
 	readMap(Level, _sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject);
-	init_object(1);
 	init_enemy(6, _enemy, i);
+
+	if (Level > 3)
+	{
+		canPortalGun = true;
+	}
 	g_eGameState = S_GAME;
 }
 
@@ -431,15 +506,108 @@ int randomhp_dmg(int rand_dmg_timeOffset)
 void initalizeSound(EGAMESTATES &g_eGameState)
 {
 	//PlaySound(NULL, 0, 0);
-	if (g_eGameState == S_SPLASHSCREEN)
+	if (g_eGameState == S_MAINMENU)
 	{
-		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Sound/Detective.wav"),0 , SND_ASYNC | SND_LOOP);
+		//PlaySound(NULL, NULL, 0);
+		PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
 	}
-	
-	if (g_eGameState == S_LEVELSELECT)
+	if (g_eGameState == S_GAME)
 	{
-		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Sound/JumpShot.wav"),0 , SND_ASYNC | SND_LOOP);
+		//PlaySound(NULL, NULL, 0);
+		PlaySound(TEXT("Sound/JumpShot.wav"),NULL , SND_ASYNC | SND_LOOP);
+	}
+}
+
+void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
+{
+	bool bSomethingHappened = false;
+	string MenuSelection[2] {"Unpause","MainMenu"};//creating a simple level selection.
+
+	COORD c = g_Console.getConsoleSize();
+	c.Y /= 3;
+	c.X = c.X / 2 - 5;
+	g_Console.writeToBuffer(c, "PAUSE", 0x02);
+	c.Y += 1;
+	c.X = g_Console.getConsoleSize().X / 2 - 8;
+
+	switch (SetLevel)
+	{
+	case 0:
+		g_Console.writeToBuffer(c, MenuSelection[0], 0x04);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, MenuSelection[1], 0x03);
+		c.Y += 1;
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			SetLevel = 0;
+		}
+
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			SetLevel = 1;
+		}
+		//Pressing ENTER will go into the game
+		if (g_abKeyPressed[K_ENTER])
+		{
+			bSomethingHappened = true;
+			g_eGameState = S_GAME;
+		}
+		break;
+	case 1:
+		g_Console.writeToBuffer(c, MenuSelection[0], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, MenuSelection[1], 0x04);
+		c.Y += 1;
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
+		//Pressing up will move back to case 0
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			SetLevel = 0;
+		}
+		//Pressing Down will move to 2nd case
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			SetLevel = 1;
+		}
+		if (g_abKeyPressed[K_ENTER])
+		{
+			bSomethingHappened = true;
+			g_eGameState = S_MAINMENU;
+		}
+		break;
+	}
+	if (bSomethingHappened)
+	{
+		// set the bounce time to some time in the future to prevent accidental triggers
+		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+	}
+}
+
+void checkDialogEnd(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], int &boxIndex, Console &g_Console, bool dialogend, double &g_dBounceTime, double &g_dElapsedTime, bool &canPortalGun)
+{
+	COORD boxStart;
+	boxStart.X = 0;
+	boxStart.Y = 15;
+
+	renderGame();
+	drawDialogBox((boxIndex + 8), boxStart, g_Console);
+	dialogend = false;
+
+	if (g_abKeyPressed[K_SPACE])
+	{
+		g_dBounceTime = g_dElapsedTime + 0.225;
+		dialogend = true;
+		if ((canPortalGun == false) && (boxIndex > 1))
+		{
+			canPortalGun = true;
+		}
+		g_eGameState = S_GAME;
 	}
 }

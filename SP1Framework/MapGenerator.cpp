@@ -1,12 +1,11 @@
 #include "MapGenerator.h"
-#include "ReadMap.h"
 #include "game.h"
-#include "gameObject.h"
 #include "enemyProperties.h"
+#include "gameObject.h"
 
 extern SMapData g_mapData;
 extern SGameChar g_sChar;
-extern short totalNumObject;
+//extern short totalNumObject;
 extern SGameKey g_iKey;
 extern SGameKey g_dDoor;
 
@@ -86,19 +85,9 @@ public:
 			return;
 		}
 
-
-		//for (int x = 1; x < 9; ++x)
-		//{
-		//	if (!placeObject(Spike))
-		//	{
-		//		//std::cout << "Unable to place down stairs.\n";
-		//		break;
-		//	}
-		//}
-
-		for (int x = 1; x < 3; ++x)
+		for (int x = 1; x < 9; ++x)
 		{
-			if (!placeObject(Key))
+			if (!placeObject(EnergyBall))
 			{
 				//std::cout << "Unable to place down stairs.\n";
 				break;
@@ -113,15 +102,15 @@ public:
 				break;
 			}
 		}
-		
-		for (int x = 1; x < 9; ++x)
-		{
-			if (!placeObject(EnergyBall))
-			{
-				//std::cout << "Unable to place down stairs.\n";
-				break;
-			}
-		}
+		//
+		//for (int x = 1; x < 0; ++x)
+		//{
+		//	if (!placeObject(Key))
+		//	{
+		//		//std::cout << "Unable to place down stairs.\n";
+		//		break;
+		//	}
+		//}
 
 		for (char& tile : _tiles)
 		{
@@ -130,7 +119,7 @@ public:
 		}
 	}
 
-	void saveToArr() //save the generated map into my mapGrid
+	void saveToArr(short &totalNumObject) //save the generated map into my mapGrid
 	{
 		for (int y = 0; y < _height; ++y)
 		{
@@ -144,7 +133,7 @@ public:
 				}
 				else if (getTiles(x, y) == '*')
 				{
-					findCoordStart(x, y);
+					findCoordStart(x, y, totalNumObject);
 					totalNumObject++;
 					g_mapData.mapGrid[y][x] = ' ';
 				}
@@ -220,7 +209,7 @@ private:
 
 	bool createItems(int x, int y, Direction dir)
 	{
-		static const int roomChance = 50;
+		static const int roomChance = 75;
 
 		int dx = 0;
 		int dy = 0;
@@ -247,12 +236,12 @@ private:
 			return false;
 		}
 
-		if (randomInt(500) < roomChance)
+		if (randomInt(200) < roomChance)
 		{
 			if (makeRoom(x, y, dir))
 			{
 				//create breakable door
-				setTiles(x, y, PortalDoor);
+				setTiles(x, y, BreakDoor);
 
 				return true;
 			}
@@ -281,8 +270,8 @@ private:
 	bool makeRoom(int x, int y, Direction dir, bool firstRoom = false)
 	{
 		//define fixed room size
-		static const int minRoomSize = 3;
-		static const int maxRoomSize = 10;
+		static const int minRoomSize = 4;
+		static const int maxRoomSize = 8;
 
 		//create a random room size within the fixed sized
 		Rect room;
@@ -335,7 +324,7 @@ private:
 	bool makeCorridor(int x, int y, Direction dir)
 	{
 		static const int minCorridorLength = 3;
-		static const int maxCorridorLength = 10;
+		static const int maxCorridorLength = 8;
 
 		Rect corridor;
 		corridor.x = x;
@@ -344,7 +333,7 @@ private:
 		if (randomBool()) // horizontal corridor
 		{
 			corridor.width = randomInt(minCorridorLength, maxCorridorLength);
-			corridor.height = 2;
+			corridor.height = 3;
 
 			if (dir == North)
 			{
@@ -371,7 +360,7 @@ private:
 
 		else // vertical corridor
 		{
-			corridor.width = 2;
+			corridor.width = 3;
 			corridor.height = randomInt(minCorridorLength, maxCorridorLength);
 
 			if (dir == North)
@@ -457,15 +446,6 @@ private:
 			return true;
 		}
 		
-		if (getTiles(x, y) == PortalDoor)
-		{
-			setTiles(x, y, Key);
-
-			// place one object in one room (optional)
-			_rooms.erase(_rooms.begin() + r);
-
-			return true;
-		}
 		return false;
 	}
 
@@ -476,9 +456,9 @@ private:
 	std::vector<Rect> _exit; // 4 sides of rooms or corridors
 };
 
-void returnMap()
+void returnMap(short &totalNumObject)
 {
-	MapGenerator map(115, 35);
+	MapGenerator map(120, 35);
 	map.generate(200);
-	map.saveToArr();
+	map.saveToArr(totalNumObject);
 }

@@ -2,16 +2,16 @@
 #define _PORTALGUN_H
 
 #include "game.h"
-#include "ReadMap.h"
+#include "HeaderIncludes.h"
 #include "Framework\console.h"
 
 struct Bullet
 {
 	short b_speed;
-	COORD b_pos;
 	EKEYS b_direction;
 	bool b_isActive;
 	bool b_type;
+	COORD b_pos;
 };
 
 struct Portal

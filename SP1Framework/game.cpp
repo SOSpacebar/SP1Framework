@@ -50,7 +50,8 @@ int boxIndex = 0;
 enemyStruct _enemy[20];
 short amountOfEnemies = 3;
 
-bool dialogend = false;
+bool dialogend = true;
+bool canPortalGun = false;
 
 // Game specific variables here
 extern SMapData g_mapData;
@@ -84,7 +85,7 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
-
+	
 	readAnimation();
 	g_iKey.m_bActive = true;
 	g_dDoor.m_bActive = true;
@@ -92,6 +93,7 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 	
+
 	g_sChar.m_cLocation.X = 5;
 	g_sChar.m_cLocation.Y = 5;
     g_sChar.m_bActive = true;
@@ -174,7 +176,9 @@ void update(double dt)
 			break;
 		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_GAMEOVER: GameOver();
+		case S_GAMEOVER: GameOver(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			break;
+		case S_PAUSE: GamePause(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
@@ -206,26 +210,31 @@ void render()
 			break;
 		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed);
 			break;
-		case S_GAMEOVER: GameOver();
+		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
         case S_GAME: renderGame();
             break;
-		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject);
+		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, &_object, totalNumObject, canPortalGun);
 			resetVariables();
+			break;
+		case S_PAUSE: GamePause(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
 			break;
 		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats);
 			break;
+		case S_DIALOG: checkDialogEnd(g_eGameState, g_abKeyPressed, boxIndex, g_Console, dialogend, g_dBounceTime, g_dElapsedTime, canPortalGun);
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
-	initalizeSound(g_eGameState);//Play Sound
+	initalizeSound(g_eGameState);
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 1.5) // wait for 1 seconds to switch to game mode, else do nothing
+
+	if (g_dElapsedTime > 1.5) // wait for 1 seconds to switch to game mode, else do nothing
 		g_eGameState = S_MAINMENU;
 }
 
@@ -295,8 +304,10 @@ void moveCharacter()
 		}
 	}
 
-    if (g_abKeyPressed[K_SPACE])
+    if ((g_abKeyPressed[K_SPACE]) && (canPortalGun))
     {
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
 		if (fireGun(g_sChar, g_mapData, K_SPACE, lastDirection, _bullet, bulletType) == true && _bullet.b_isActive == true)
 		{
 			bSomethingHappened = true;
@@ -329,11 +340,18 @@ void moveCharacter()
 		}
 	}
 
+
 	if (g_abKeyPressed[K_STATS])
 	{
 		bSomethingHappened = true;
 
 		g_eGameState = S_STATSSCREEN;
+	}
+
+	if (g_eGameState == S_GAME && g_abKeyPressed[K_ENTER])
+	{
+		bSomethingHappened = true;
+		g_eGameState = S_PAUSE;
 	}
 
     if (bSomethingHappened)
@@ -362,6 +380,7 @@ void renderSplashScreen()  // renders the splash screen
 	c.X = 5;
 	c.Y = 12;
 	drawAnimation(8, c, g_Console);
+
 }
 
 void renderGame()
@@ -372,7 +391,7 @@ void renderGame()
 	renderPortal(_portal, g_Console); //renders portal.
     renderCharacter();  // renders the character into the buffer
 
-	checkDialogBox(boxArr, g_sChar, maxBox, boxIndex, g_Console); //render dialog
+	checkDialogBox(boxArr, g_sChar, maxBox, boxIndex, g_Console, g_eGameState); //render dialog
 
 	if (_bullet.b_isActive == true)
 		handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData, _portal); //renders the bullet.
@@ -380,7 +399,7 @@ void renderGame()
 	if (dialogend)
 	{
 		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData, g_eGameState, _portal);
-		update_GameObject();
+		update_GameObject(g_mapData, g_sChar, _portal, totalNumObject);
 	}
 	
 }
@@ -398,17 +417,6 @@ void renderMap()
 	c.Y = 1;
 
 	renderFogOfWarAndMap(g_mapData, g_sChar, g_Console, fogMap, _bullet, _portal);
-
-	if (dialogend == false)
-	{
-		drawDialogBox(4, c, g_Console);
-		
-		if (g_abKeyPressed[K_SPACE])
-		{
-			g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-			dialogend = true;
-		}
-	}
 }
 
 void renderCharacter()

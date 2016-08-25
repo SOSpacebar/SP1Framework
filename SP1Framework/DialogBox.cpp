@@ -1,7 +1,7 @@
 #include "DialogBox.h"
 #include "AnimationManager.h"
 
-void checkDialogBox(DialogStruct boxArr[], SGameChar _sChar, int maxBox, int boxIndex, Console &g_Console)
+void checkDialogBox(DialogStruct boxArr[], SGameChar _sChar, int &maxBox, int &boxIndex, Console &g_Console, EGAMESTATES &g_eGameState)
 {
 	for (int x = 0; x < maxBox; x++)
 	{
@@ -9,17 +9,13 @@ void checkDialogBox(DialogStruct boxArr[], SGameChar _sChar, int maxBox, int box
 		{
 			boxArr[x].Location.X = 0;
 			boxArr[x].Location.Y = 0;
-			dialogCollision(boxIndex, g_Console, maxBox);
+			dialogCollision(boxIndex, g_Console, maxBox, g_eGameState);
 		}
 	}
 }
 
-void dialogCollision(int boxIndex, Console &g_Console, int maxBox)
+void dialogCollision(int &boxIndex, Console &g_Console, int &maxBox, EGAMESTATES &g_eGameState)
 {
-	COORD boxStart;
-	boxStart.X = 0;
-	boxStart.Y = 15;
-
 	boxIndex++;
-	drawDialogBox(boxIndex, boxStart, g_Console);
+	g_eGameState = S_DIALOG;
 }
