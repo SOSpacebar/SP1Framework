@@ -2,7 +2,7 @@
 #define _PORTALGUN_H
 
 #include "game.h"
-#include "ReadMap.h"
+#include "HeaderIncludes.h"
 #include "Framework\console.h"
 
 struct Bullet

@@ -1,24 +1,12 @@
 #ifndef _GAMEOBJECT_H
 #define _GAMEOBJECT_H
 
-#include "Framework\timer.h"
-#include <iostream>
-#include <string>
-#include <vector>
-#include <random>
-
+#include "HeaderIncludes.h"
+#include "portalGun.h"
 using namespace std;
 
-struct objectStruct
-{
-	COORD o_location;
-	string o_ID;
-	int o_speed;
-	bool o_reset;
-};
-
 void init_object(short level);				//GameObject initialiser
-void update_GameObject(void);				//GameObject Indivisual function call
+void update_GameObject(SMapData g_mapData, SGameChar g_sChar, Portal _portal);				//GameObject Indivisual function call
 
 void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal _portal);					//Left to Right Projectile
 void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal _portal);					//Right to Left Projectile
