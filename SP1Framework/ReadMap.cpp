@@ -3,8 +3,6 @@
 #include "DialogBox.h"
 #include <fstream>
 
-using namespace std;
-
 SMapData g_mapData;
 
 

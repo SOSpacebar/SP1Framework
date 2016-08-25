@@ -36,7 +36,8 @@ enum EGAMESTATES
 	S_COMBATSCREEN,
 	S_LOADLEVEL,
 	S_TRANSITION,
-	S_DIALOG
+	S_DIALOG,
+	S_PAUSE,
 };
 
 // struct for the game character

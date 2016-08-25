@@ -78,7 +78,7 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
-
+	
 	readAnimation();
 	g_iKey.m_bActive = true;
 	g_dDoor.m_bActive = true;
@@ -86,6 +86,7 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 	
+
 	g_sChar.m_cLocation.X = 5;
 	g_sChar.m_cLocation.Y = 5;
     g_sChar.m_bActive = true;
@@ -164,7 +165,9 @@ void update(double dt)
 			break;
 		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_GAMEOVER: GameOver();
+		case S_GAMEOVER: GameOver(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			break;
+		case S_PAUSE: GamePause(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
@@ -194,12 +197,14 @@ void render()
 			break;
 		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed);
 			break;
-		case S_GAMEOVER: GameOver();
+		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
         case S_GAME: renderGame();
             break;
 		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, &_object, totalNumObject, canPortalGun);
 			resetVariables();
+			break;
+		case S_PAUSE: GamePause(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
 			break;
@@ -207,12 +212,13 @@ void render()
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
-	initalizeSound(g_eGameState);//Play Sound
+	initalizeSound(g_eGameState);
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 1.5) // wait for 1 seconds to switch to game mode, else do nothing
+
+	if (g_dElapsedTime > 1.5) // wait for 1 seconds to switch to game mode, else do nothing
 		g_eGameState = S_MAINMENU;
 }
 
@@ -318,6 +324,12 @@ void moveCharacter()
 		}
 	}
 
+	if (g_eGameState == S_GAME && g_abKeyPressed[K_ENTER])
+	{
+		bSomethingHappened = true;
+		g_eGameState = S_PAUSE;
+	}
+
     if (bSomethingHappened)
     {
         // set the bounce time to some time in the future to prevent accidental triggers
@@ -344,6 +356,7 @@ void renderSplashScreen()  // renders the splash screen
 	c.X = 5;
 	c.Y = 12;
 	drawAnimation(8, c, g_Console);
+
 }
 
 void renderGame()
