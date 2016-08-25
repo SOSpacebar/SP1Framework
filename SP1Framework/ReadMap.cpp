@@ -18,7 +18,7 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 	mapArray[0] = "MapData/Level1A.txt";
 	mapArray[1] = "MapData/Level1B.txt";
 	mapArray[2] = "MapData/Level1C.txt";
-	mapArray[3] = "MapData/map2.txt";
+	mapArray[3] = "MapData/map3.txt";
 
 	if (mapLevel > 3)
 	{
@@ -52,26 +52,7 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 					_sChar.m_cLocation.Y = row + 1;
 					g_mapData.mapGrid[row][col] = loopedString.at(col);
 				}
-				else if (loopedString.at(col) == '^')
-				{
-					g_mapData.mapGrid[row][col] = (char)187;
-				}
-				else if (loopedString.at(col) == '%')
-				{
-					g_mapData.mapGrid[row][col] = (char)188;
-				}
-				else if (loopedString.at(col) == '(')
-				{
-					g_mapData.mapGrid[row][col] = (char)200;
-				}
-				else if (loopedString.at(col) == '$')
-				{
-					g_mapData.mapGrid[row][col] = (char)201;
-				}
-				else if (loopedString.at(col) == 'K')
-				{
-					g_mapData.mapGrid[row][col] = (char)237;
-				}
+
 				else if (loopedString.at(col) == 'D')
 				{
 					g_mapData.mapGrid[row][col] = (char)178;
@@ -82,13 +63,23 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 					g_dDoor.m_cLocation.Y = row + 1;
 					g_mapData.mapGrid[row][col] = (char)254;
 				}
-				else if (loopedString.at(col) == '*')
+				else if (loopedString.at(col) == '<')
 				{
 					x.X = col;
 					x.Y = row + 1;
 					(*_object)[totalNumObject].o_location = x;
 					(*_object)[totalNumObject].o_ID = "<";
-					(*_object)[totalNumObject].o_speed = 40;
+					(*_object)[totalNumObject].o_speed = 50;
+					g_mapData.mapGrid[row][col] = ' ';
+					totalNumObject++;
+				}
+				else if (loopedString.at(col) == 'O')
+				{
+					x.X = col;
+					x.Y = row + 1;
+					(*_object)[totalNumObject].o_location = x;
+					(*_object)[totalNumObject].o_ID = "<O>";
+					(*_object)[totalNumObject].o_speed = 60;
 					g_mapData.mapGrid[row][col] = ' ';
 					totalNumObject++;
 				}
