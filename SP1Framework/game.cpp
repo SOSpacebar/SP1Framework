@@ -164,7 +164,9 @@ void update(double dt)
 			break;
 		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_GAMEOVER: GameOver();
+		case S_GAMEOVER: GameOver(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			break;
+		case S_PAUSE: GamePause(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
@@ -194,12 +196,14 @@ void render()
 			break;
 		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed);
 			break;
-		case S_GAMEOVER: GameOver();
+		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
         case S_GAME: renderGame();
             break;
 		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject);
 			resetVariables();
+			break;
+		case S_PAUSE: GamePause(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
     }
@@ -313,6 +317,12 @@ void moveCharacter()
 			g_sChar.m_bActive = 0;
 			bulletType = 1;
 		}
+	}
+
+	if (g_eGameState == S_GAME && g_abKeyPressed[K_ENTER])
+	{
+		bSomethingHappened = true;
+		g_eGameState = S_PAUSE;
 	}
 
     if (bSomethingHappened)
