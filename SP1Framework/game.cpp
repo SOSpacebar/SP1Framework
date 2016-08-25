@@ -204,7 +204,7 @@ void render()
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
-	initalizeSound(g_eGameState);//Play Sound
+	//initalizeSound(g_eGameState);//Play Sound
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
@@ -223,6 +223,7 @@ void gameplay()            // gameplay logic
 	}
    
    // sound can be played here too.
+	initalizeSound(g_eGameState);
 }
 
 void moveCharacter()
