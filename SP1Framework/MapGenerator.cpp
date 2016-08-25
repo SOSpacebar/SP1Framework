@@ -1,8 +1,7 @@
 #include "MapGenerator.h"
-#include "ReadMap.h"
 #include "game.h"
-#include "gameObject.h"
 #include "enemyProperties.h"
+#include "gameObject.h"
 
 extern SMapData g_mapData;
 extern SGameChar g_sChar;
