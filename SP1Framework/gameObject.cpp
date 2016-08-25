@@ -6,9 +6,6 @@
 #include <vector>
 
 extern Console g_Console;
-extern SMapData g_mapData;
-extern SGameChar g_sChar;
-extern Portal _portal;
 
 int offsetTime = 0;
 
@@ -131,7 +128,7 @@ void update_GameObject(void)
 //========= Update each object and its location ============
 
 char LR_PString = '>';
-void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
+void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -147,16 +144,11 @@ void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 		ID = "<";
 	}
 
-	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8)||
-		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3)			||
-		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3)) 
-	{
-		g_Console.writeToBuffer(xy, LR_PString, 0x04);
-	}
+	g_Console.writeToBuffer(xy, LR_PString, 0x04);
 }
 
 char RL_PString = '<';
-void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
+void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -172,16 +164,11 @@ void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 		ID = ">";
 	}
 
-	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
-		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
-		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
-	{
-		g_Console.writeToBuffer(xy, RL_PString, 0x04);
-	}
+	g_Console.writeToBuffer(xy, RL_PString, 0x04);
 }
 
 char UD_PString = 'v';
-void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
+void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -197,16 +184,11 @@ void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 		ID = "^";
 	}
 
-	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
-		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
-		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
-	{
-		g_Console.writeToBuffer(xy, UD_PString, 0x04);
-	}
+	g_Console.writeToBuffer(xy, UD_PString, 0x04);
 }
 
 char DU_PString = '^';
-void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
+void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -222,16 +204,11 @@ void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset)
 		ID = "v";
 	}
 
-	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
-		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
-		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
-	{
-		g_Console.writeToBuffer(xy, DU_PString, 0x04);
-	}
+	g_Console.writeToBuffer(xy, DU_PString, 0x04);
 }
 
 string CrusherString = { (char)233 };
-void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse)
+void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -256,17 +233,11 @@ void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse)
 		}
 		xy.X--;
 	}
-
-	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
-		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
-		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
-	{
-		g_Console.writeToBuffer(xy, CrusherString, 0xCF);
-	}
+	g_Console.writeToBuffer(xy, CrusherString, 0xCF);
 	checkEBallCollsionWithPortal(xy, _portal);
 }
 
-void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse)
+void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -292,12 +263,7 @@ void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse)
 		xy.Y--;
 	}
 
-	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
-		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
-		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
-	{
-		g_Console.writeToBuffer(xy, CrusherString, 0xCF);
-	}
+	g_Console.writeToBuffer(xy, CrusherString, 0xCF);
 	checkEBallCollsionWithPortal(xy, _portal);
 }
 
