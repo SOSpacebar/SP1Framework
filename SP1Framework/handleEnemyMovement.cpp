@@ -10,6 +10,7 @@ bool reversing0 = false;
 bool reversing1 = false;
 
 int offsetTime1 = 0;
+int indexEnemy = 0;
 
 extern int i;
 
@@ -18,7 +19,7 @@ void enemyMovememt(enemyStruct _enemy[], Console &g_Console, double &g_dElapsedT
 	currTime1 = g_dElapsedTime;
 	offsetTime1++;
 
-	for (int x = 0; x < i; x++)
+	for (indexEnemy = 0; x < i; x++)
 	{
 		if (offsetTime1 % 20 == 0)
 		{
