@@ -138,6 +138,9 @@
     <ClCompile Include="handleStatsScreen.cpp">
       <Filter>Source Files\Game Screens</Filter>
     </ClCompile>
+    <ClCompile Include="loadPlayerDetails.cpp">
+      <Filter>Source Files\Player Stats</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="handleStatsScreen.h">
       <Filter>Header Files\Game Screens Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="loadPlayerDetails.h">
+      <Filter>Header Files\Player Stats Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
