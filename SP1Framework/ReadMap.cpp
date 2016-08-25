@@ -1,12 +1,12 @@
-#include "HeaderIncludes.h"
 #include "MapGenerator.h"
 #include "DialogBox.h"
+#include "ReadMap.h"
 #include <fstream>
 
 SMapData g_mapData;
 
 
-void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, struct objectStruct (*_object)[20], short &totalNumObject)
+void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, struct objectStruct(*_object)[20], short &totalNumObject, enemyStruct _enemy[])
 {
 	ifstream levelData;
 	string levelInfo;
@@ -79,6 +79,16 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 					x.Y = row + 1;
 					(*_object)[totalNumObject].o_location = x;
 					(*_object)[totalNumObject].o_ID = "<O>";
+					(*_object)[totalNumObject].o_speed = 60;
+					g_mapData.mapGrid[row][col] = ' ';
+					totalNumObject++;
+				}
+				else if (loopedString.at(col) == 'o')
+				{
+					x.X = col;
+					x.Y = row + 1;
+					(*_object)[totalNumObject].o_location = x;
+					(*_object)[totalNumObject].o_ID = "^Ov";
 					(*_object)[totalNumObject].o_speed = 60;
 					g_mapData.mapGrid[row][col] = ' ';
 					totalNumObject++;
