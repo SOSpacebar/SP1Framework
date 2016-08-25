@@ -21,7 +21,7 @@ string ID[20];
 string speed[20];
 bool reset[20];
 
-objectStruct _object[20];
+objectStruct _object[25];
 
 void createObjectString(short &totalNumObject)
 {

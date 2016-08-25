@@ -108,10 +108,7 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 				}
 				else if (loopedString.at(col) == 'm')
 				{
-					boxArr[maxBox].Location.X = col;
-					boxArr[maxBox].Location.Y = row + 1;
 					g_mapData.mapGrid[row][col] = ' ';
-					maxBox++;
 				}
 				else
 				{
