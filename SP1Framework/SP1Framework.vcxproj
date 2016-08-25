@@ -79,6 +79,7 @@
   <ItemGroup>
     <ClCompile Include="checkBulletCollision.cpp" />
     <ClCompile Include="DialogBox.cpp" />
+    <ClCompile Include="playerStats.cpp" />
     <ClCompile Include="portalCollision.cpp" />
     <ClCompile Include="collisionManager.cpp" />
     <ClCompile Include="createBullet.cpp" />
@@ -98,9 +99,10 @@
     <ClCompile Include="FramesManager.cpp" />
     <ClCompile Include="PathfindingAI.cpp" />
     <ClCompile Include="ReadMap.cpp" />
+    <ClCompile Include="renderPlayerStatsScreen.cpp" />
     <ClCompile Include="renderPortal.cpp" />
     <ClCompile Include="spawnPortal.cpp" />
-    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="handleStatsScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationManager.h" />
@@ -112,12 +114,15 @@
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="handleStatsScreen.h" />
     <ClInclude Include="lockandUnlock.h" />
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="MenuSections.h" />
     <ClInclude Include="PathfindingAI.h" />
+    <ClInclude Include="playerStats.h" />
     <ClInclude Include="portalGun.h" />
     <ClInclude Include="ReadMap.h" />
+    <ClInclude Include="renderPlayerStatsScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -14,6 +14,10 @@
 #include "MapGenerator.h"
 #include "fieldOfView.h"
 #include "DialogBox.h"
+//Mk 2
+#include "playerStats.h"
+#include "renderPlayerStatsScreen.h"
+#include "handleStatsScreen.h"
 //Original framework stuff
 #include <iostream>
 #include <sstream>
@@ -65,6 +69,9 @@ Console g_Console(120, 40, "- UNDEFINED -");
 
 extern objectStruct _object[20];
 
+//MK 2
+PlayerStats _playerStats;
+
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
 //            Initialize variables, allocate memory, load data from file, etc. 
@@ -93,6 +100,9 @@ void init( void )
 
 	// reset portal back to inActive
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
+
+	//Load Player Stats
+	_playerStats.setPlayerStats(1, 0, 100, 100, 1, 1, 1);
 }
 
 //--------------------------------------------------------------
@@ -131,6 +141,7 @@ void getInput( void )
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 	g_abKeyPressed[K_SWITCH] = isKeyPressed(0x53);
+	g_abKeyPressed[K_STATS] = isKeyPressed(0x41);
 }
 
 //--------------------------------------------------------------
@@ -167,6 +178,8 @@ void update(double dt)
 			break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
+		case S_STATSSCREEN: statsUserInterface(g_eGameState, g_abKeyPressed, g_dElapsedTime, g_dBounceTime);
+			break;
     }
 
 }
@@ -201,6 +214,9 @@ void render()
 			resetVariables();
 			break;
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
+			break;
+		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats);
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -311,6 +327,13 @@ void moveCharacter()
 			g_sChar.m_bActive = 0;
 			bulletType = 1;
 		}
+	}
+
+	if (g_abKeyPressed[K_STATS])
+	{
+		bSomethingHappened = true;
+
+		g_eGameState = S_STATSSCREEN;
 	}
 
     if (bSomethingHappened)

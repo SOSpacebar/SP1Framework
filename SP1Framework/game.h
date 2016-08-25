@@ -20,7 +20,8 @@ enum EKEYS
     K_ESCAPE,
     K_SPACE,
     K_COUNT,
-	K_SWITCH
+	K_SWITCH,
+	K_STATS
 };
 
 // Enumeration for the different screen states
@@ -35,7 +36,8 @@ enum EGAMESTATES
     S_COUNT,
 	S_COMBATSCREEN,
 	S_LOADLEVEL,
-	S_TRANSITION
+	S_TRANSITION,
+	S_STATSSCREEN
 };
 
 // struct for the game character

@@ -49,6 +49,12 @@
     <Filter Include="Header Files\Portal Gun Headers">
       <UniqueIdentifier>{05e3e5b1-f4cd-46e7-84a0-c9d087665593}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Player Stats Headers">
+      <UniqueIdentifier>{bba5402f-816f-496c-8547-4d603a3d7286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Player Stats">
+      <UniqueIdentifier>{e17ec73f-b9a7-41c9-8e1f-9038eb566474}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -87,9 +93,6 @@
     <ClCompile Include="handleBulletProjectile.cpp">
       <Filter>Source Files\Portal Gun</Filter>
     </ClCompile>
-    <ClCompile Include="TileMap.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="ReadMap.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
@@ -125,6 +128,15 @@
     </ClCompile>
     <ClCompile Include="collisionManager.cpp">
       <Filter>Source Files\OtherFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="playerStats.cpp">
+      <Filter>Source Files\Player Stats</Filter>
+    </ClCompile>
+    <ClCompile Include="renderPlayerStatsScreen.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="handleStatsScreen.cpp">
+      <Filter>Source Files\Game Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +184,15 @@
     </ClInclude>
     <ClInclude Include="DialogBox.h">
       <Filter>Header Files\Rendering Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="playerStats.h">
+      <Filter>Header Files\Player Stats Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="renderPlayerStatsScreen.h">
+      <Filter>Header Files\Rendering Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="handleStatsScreen.h">
+      <Filter>Header Files\Game Screens Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
