@@ -1,11 +1,11 @@
 ########################################################################################################################
 ##                                                                                                                    ##
-##                                                                                                                    ##
 ##                                              You have now acquired a                                               ##
 ##                                                    PORTAL GUN                                                      ##
 ##                                                                                                                    ##
-##                                           Use SPACEBAR to shoot portals!                                           ##
-##                                              Press S to switch Portals.                                            ##
+##                                            Use [SPACE] to shoot portals!                                           ##
+##                                   Press S to switch between portals before shooting.                               ##
 ##                                                                                                                    ##
+##                                                    Try it out!                                                     ##
 ##                                                                                                      >>[ SPACE ]>> ##
 ########################################################################################################################

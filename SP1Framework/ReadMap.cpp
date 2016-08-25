@@ -73,7 +73,7 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 					g_mapData.mapGrid[row][col] = ' ';
 					totalNumObject++;
 				}
-				else if (loopedString.at(col) == 'O')
+				else if (loopedString.at(col) == 'o')
 				{
 					x.X = col;
 					x.Y = row + 1;
@@ -83,7 +83,7 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 					g_mapData.mapGrid[row][col] = ' ';
 					totalNumObject++;
 				}
-				else if (loopedString.at(col) == 'o')
+				else if (loopedString.at(col) == 'O')
 				{
 					x.X = col;
 					x.Y = row + 1;

@@ -1,11 +1,11 @@
 ########################################################################################################################
 ##                                                                                                                    ##
 ##                                                                                                                    ##
-##                                             Welcome to the next level                                              ##
+##                                   Welcome to the next level of the tutorial stage!                                 ##
 ##                                                                                                                    ##
 ##                                                                                                                    ##
 ##                                      You will encounter your first monster here                                    ##
-##                                           In combat, Press SPACE to attack                                         ##
+##                                  During combat, repeatedly press [SPACE] to attack!                                ##
 ##                                                                                                                    ##
 ##                                                                                                      >>[ SPACE ]>> ##
 ########################################################################################################################

@@ -4,7 +4,7 @@
 ##                                                                                                                    ##
 ##                                              Further up is a projectile                                            ##
 ##                                                                                                                    ##
-##                                               It kills you if touched                                              ##
+##                                    It will kill you if you touch it, so be careful.                                ##
 ##                                                                                                                    ##
 ##                                                                                                                    ##
 ##                                                                                                      >>[ SPACE ]>> ##

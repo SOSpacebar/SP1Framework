@@ -1,11 +1,11 @@
 ########################################################################################################################
 ##                                                                                                                    ##
+##                                             Up ahead are Energy Ball                                               ##
+##                    Energy Ball can move through portals! Be careful of where you shoot your portals!               ##
 ##                                                                                                                    ##
-##                                          If a energy ball hits a monster                                           ##
-##                                             It will kill the monster                                               ##
-##                                                                                                                    ##
-##                                     You can avoid combat by luring the monsters                                    ##
-##                                               into the energy balls                                                ##
-##                                                                                                                    ##
+##                                         It can kill you if you touch it,                                           ##
+##                                  It can also kill any monster if it touches them!                                  ##
+##                                   So lure the monsters into the Energy Ball or...                                  ##
+##                                      you can send it to the monsters instead                                       ##
 ##                                                                                                      >>[ SPACE ]>> ##
 ########################################################################################################################

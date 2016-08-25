@@ -3,9 +3,9 @@
 ##                                                                                                                    ##
 ##                                             Welcome to - UNDEFINED -                                               ##
 ##                                                                                                                    ##
-##                                            This is our tutorial stage,                                             ##
-##                                      Please use the Arrow Keys to move around                                      ##
+##                                            This is our tutorial stage.                                             ##
 ##                                                                                                                    ##
+##                                        Use the Arrow Keys to move around                                           ##
 ##                                                                                                                    ##
 ##                                                                                                      >>[ SPACE ]>> ##
 ########################################################################################################################
