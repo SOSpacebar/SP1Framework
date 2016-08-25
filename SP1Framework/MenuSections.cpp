@@ -4,6 +4,7 @@
 #include <random>
 #include <Windows.h>
 #include "MMSystem.h"
+#include "ReadMap.h"
 
 int SplashCol = 0;
 string AnimationString;
@@ -466,12 +467,12 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.Y = 32;
 	drawPlayerHP(6, x, playerHealth, g_Console);
 }
-void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, struct objectStruct(*_object)[20], short &totalNumObject, bool &canPortalGun)
+void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, struct objectStruct(*_object)[20], short &totalNumObject, bool &canPortalGun, enemyStruct _enemy[])
 {
 	init_object(Level, totalNumObject);
 	clearScreen();
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
-	readMap(Level, _sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject);
+	readMap(Level, _sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject, _enemy);
 	init_enemy(6, _enemy, i);
 
 	if (Level > 3)

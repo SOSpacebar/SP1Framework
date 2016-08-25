@@ -4,8 +4,8 @@
 
 #include "game.h"
 #include "Framework\console.h"
-#include "ReadMap.h"
 #include "portalGun.h"
+#include "HeaderIncludes.h"
 
 struct enemyStruct
 {
