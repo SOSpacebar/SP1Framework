@@ -1,5 +1,7 @@
-#include "ReadMap.h"
+#include "HeaderIncludes.h"
 #include "MapGenerator.h"
+#include "DialogBox.h"
+#include <fstream>
 
 using namespace std;
 

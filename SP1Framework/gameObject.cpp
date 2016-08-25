@@ -1,9 +1,11 @@
-#include "gameObject.h"
+
 #include "Framework\console.h"
+#include "gameObject.h"
 #include "portalGun.h"
 #include <math.h>
 #include <time.h>
 #include <vector>
+#include <random>
 
 extern Console g_Console;
 
@@ -92,7 +94,7 @@ void init_object(short level) //Preload the data of the enemy into memory.
 
 //================ Check game objects ======================
 
-void update_GameObject(void)
+void update_GameObject(SMapData g_mapData, SGameChar g_sChar, Portal _portal)
 {
 	offsetTime += 5;
 
@@ -100,27 +102,27 @@ void update_GameObject(void)
 	{
 		if (_object[j].o_ID == ">")					//check ID to send coord to specific "update" function for each obstacle
 		{
-			updateLR_Projectile(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
+			updateLR_Projectile(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset, g_mapData, g_sChar, _portal);
 		}
 		else if (_object[j].o_ID == "<")
 		{
-			updateRL_Projectile(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
+			updateRL_Projectile(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset, g_mapData, g_sChar, _portal);
 		}
 		else if (_object[j].o_ID == "v")
 		{
-			updateUD_Projectile(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
+			updateUD_Projectile(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset, g_mapData, g_sChar, _portal);
 		}
 		else if (_object[j].o_ID == "^")
 		{
-			updateDU_Projectile(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
+			updateDU_Projectile(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset, g_mapData, g_sChar, _portal);
 		}
 		else if (_object[j].o_ID == "<O>")
 		{
-			updateLR_EBall(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
+			updateLR_EBall(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset, g_mapData, g_sChar, _portal);
 		}
 		else if (_object[j].o_ID == "^Ov")
 		{
-			updateUD_EBall(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset);
+			updateUD_EBall(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset, g_mapData, g_sChar, _portal);
 		}
 	}
 } 
@@ -128,7 +130,7 @@ void update_GameObject(void)
 //========= Update each object and its location ============
 
 char LR_PString = '>';
-void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
+void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -148,7 +150,7 @@ void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 }
 
 char RL_PString = '<';
-void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
+void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -168,7 +170,7 @@ void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 }
 
 char UD_PString = 'v';
-void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
+void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -188,7 +190,7 @@ void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 }
 
 char DU_PString = '^';
-void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
+void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -208,7 +210,7 @@ void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 }
 
 string CrusherString = { (char)233 };
-void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
+void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -237,7 +239,7 @@ void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g
 	checkEBallCollsionWithPortal(xy, _portal);
 }
 
-void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g_mapData, SGameChar g_sChar, Portal &_portal)
+void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{

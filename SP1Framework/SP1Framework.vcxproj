@@ -112,6 +112,7 @@
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="HeaderIncludes.h" />
     <ClInclude Include="lockandUnlock.h" />
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="MenuSections.h" />

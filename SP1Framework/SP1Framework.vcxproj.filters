@@ -173,5 +173,8 @@
     <ClInclude Include="DialogBox.h">
       <Filter>Header Files\Rendering Headers</Filter>
     </ClInclude>
+    <ClInclude Include="HeaderIncludes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

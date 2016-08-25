@@ -358,7 +358,7 @@ void renderGame()
 	if (dialogend)
 	{
 		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData, g_eGameState, _portal);
-		update_GameObject();
+		update_GameObject(g_mapData, g_sChar, _portal);
 	}
 	
 }
