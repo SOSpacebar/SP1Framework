@@ -439,17 +439,13 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		}
 	}
 
-	/*if (playerHealth <= 16)
-	{
-		g_eGameState = S_MAINMENU;
-		playerHealth = 98;
-		hp = 98;
-	}*/
-
-	if (playerHealth <= 10)
+	if (playerHealth <= 11)
 	{
 		g_eGameState = S_GAMEOVER;
+		playerHealth = 98;
+		hp = 98;
 	}
+
 	x.X = 46;
 	x.Y = 4;
 
