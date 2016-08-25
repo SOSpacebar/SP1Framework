@@ -100,7 +100,6 @@
     <ClCompile Include="ReadMap.cpp" />
     <ClCompile Include="renderPortal.cpp" />
     <ClCompile Include="spawnPortal.cpp" />
-    <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationManager.h" />

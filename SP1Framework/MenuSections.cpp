@@ -202,7 +202,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;			
-			g_currLevel = 6;
+			g_currLevel = 4;
 			g_eGameState = S_LOADLEVEL;
 
 		}
@@ -296,7 +296,6 @@ void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT])
 {
 	timeOffset++;
-
 
 	processUserInput();
 	//set screen black
@@ -399,13 +398,18 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.Y = 32;
 	drawPlayerHP(6, x, playerHealth, g_Console);
 }
-void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int maxBox, SGameKey g_iKey, SGameKey g_dDoor, objectStruct _object[], short totalNumObject)
+void setupLevel(short Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, struct objectStruct(*_object)[20], short &totalNumObject, bool &canPortalGun)
 {
+	init_object(Level, totalNumObject);
 	clearScreen();
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
 	readMap(Level, _sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject);
-	init_object(1);
 	init_enemy(6, _enemy, i);
+
+	if (Level > 3)
+	{
+		canPortalGun = true;
+	}
 	g_eGameState = S_GAME;
 }
 
@@ -440,5 +444,27 @@ void initalizeSound(EGAMESTATES &g_eGameState)
 	{
 		PlaySound(NULL, 0, 0);
 		PlaySound(TEXT("Sound/JumpShot.wav"),0 , SND_ASYNC | SND_LOOP);
+	}
+}
+
+void checkDialogEnd(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], int &boxIndex, Console &g_Console, bool dialogend, double &g_dBounceTime, double &g_dElapsedTime, bool &canPortalGun)
+{
+	COORD boxStart;
+	boxStart.X = 0;
+	boxStart.Y = 15;
+
+	renderGame();
+	drawDialogBox((boxIndex + 8), boxStart, g_Console);
+	dialogend = false;
+
+	if (g_abKeyPressed[K_SPACE])
+	{
+		g_dBounceTime = g_dElapsedTime + 0.225;
+		dialogend = true;
+		if ((canPortalGun == false) && (boxIndex > 1))
+		{
+			canPortalGun = true;
+		}
+		g_eGameState = S_GAME;
 	}
 }

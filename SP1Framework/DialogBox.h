@@ -10,8 +10,8 @@ struct DialogStruct
 	COORD Location;
 };
 
-void dialogCollision(int boxIndex, Console &g_Console, int maxBox);
-void checkDialogBox(DialogStruct boxArr[], SGameChar _sChar, int maxBox, int boxIndex, Console &g_Console);
+void dialogCollision(int &boxIndex, Console &g_Console, int &maxBox, EGAMESTATES &g_eGameState);
+void checkDialogBox(DialogStruct boxArr[], SGameChar _sChar, int &maxBox, int &boxIndex, Console &g_Console, EGAMESTATES &g_eGameState);
 
 
 #endif

@@ -36,6 +36,6 @@ struct Rect
 	int width, height;
 };
 
-void returnMap();
+void returnMap(short &totalNumObject);
 
 #endif

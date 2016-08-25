@@ -6,7 +6,7 @@
 
 extern Console g_Console;
 
-bool checkDoorCollision(SGameChar player, SMapData map, SGameKey &g_iKey, SGameKey g_dDoor)
+bool checkDoorCollision(SGameChar &player, SMapData &map, SGameKey &g_iKey, SGameKey &g_dDoor)
 {
 	if (player.m_cLocation.Y == g_iKey.m_cLocation.Y && player.m_cLocation.X == g_iKey.m_cLocation.X && g_iKey.m_bActive) //Checking the player gotten the key or not
 	{
@@ -39,7 +39,7 @@ bool checkDoorCollision(SGameChar player, SMapData map, SGameKey &g_iKey, SGameK
 }
 
 //Render the key position
-void RenderKey(SGameKey &g_iKey, Portal _portal, SGameChar _sChar)
+void RenderKey(SGameKey &g_iKey, Portal &_portal, SGameChar &_sChar)
 {
 	if ((sqrt((_portal.p_pos[1].X - g_iKey.m_cLocation.X)   *
 		(_portal.p_pos[1].X - g_iKey.m_cLocation.X)		   +
@@ -63,7 +63,7 @@ void RenderKey(SGameKey &g_iKey, Portal _portal, SGameChar _sChar)
 }
 
 //Render the door position
-void LockedDoor(SGameKey &g_dDoor, SGameKey &g_iKey, Portal _portal, SGameChar _sChar)
+void LockedDoor(SGameKey &g_dDoor, SGameKey &g_iKey, Portal &_portal, SGameChar &_sChar)
 {
 	if ((sqrt((_portal.p_pos[1].X - g_dDoor.m_cLocation.X)   *
 		(_portal.p_pos[1].X - g_dDoor.m_cLocation.X)	    +

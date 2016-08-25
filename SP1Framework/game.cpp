@@ -46,7 +46,8 @@ int boxIndex = 0;
 enemyStruct _enemy[20];
 short amountOfEnemies = 3;
 
-bool dialogend = false;
+bool dialogend = true;
+bool canPortalGun = false;
 
 // Game specific variables here
 extern SMapData g_mapData;
@@ -197,10 +198,12 @@ void render()
 			break;
         case S_GAME: renderGame();
             break;
-		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject);
+		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, &_object, totalNumObject, canPortalGun);
 			resetVariables();
 			break;
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
+			break;
+		case S_DIALOG: checkDialogEnd(g_eGameState, g_abKeyPressed, boxIndex, g_Console, dialogend, g_dBounceTime, g_dElapsedTime, canPortalGun);
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -279,8 +282,10 @@ void moveCharacter()
 		}
 	}
 
-    if (g_abKeyPressed[K_SPACE])
+    if ((g_abKeyPressed[K_SPACE]) && (canPortalGun))
     {
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
 		if (fireGun(g_sChar, g_mapData, K_SPACE, lastDirection, _bullet, bulletType) == true && _bullet.b_isActive == true)
 		{
 			bSomethingHappened = true;
@@ -349,7 +354,7 @@ void renderGame()
 	renderPortal(_portal, g_Console); //renders portal.
     renderCharacter();  // renders the character into the buffer
 
-	checkDialogBox(boxArr, g_sChar, maxBox, boxIndex, g_Console); //render dialog
+	checkDialogBox(boxArr, g_sChar, maxBox, boxIndex, g_Console, g_eGameState); //render dialog
 
 	if (_bullet.b_isActive == true)
 		handleBulletProjectile(_bullet, g_dElapsedTime, g_Console, g_mapData, _portal); //renders the bullet.
@@ -357,7 +362,7 @@ void renderGame()
 	if (dialogend)
 	{
 		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData, g_eGameState, _portal);
-		update_GameObject(g_mapData, g_sChar, _portal);
+		update_GameObject(g_mapData, g_sChar, _portal, totalNumObject);
 	}
 	
 }
@@ -375,17 +380,6 @@ void renderMap()
 	c.Y = 1;
 
 	renderFogOfWarAndMap(g_mapData, g_sChar, g_Console, fogMap, _bullet, _portal);
-
-	if (dialogend == false)
-	{
-		drawDialogBox(4, c, g_Console);
-		
-		if (g_abKeyPressed[K_SPACE])
-		{
-			g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-			dialogend = true;
-		}
-	}
 }
 
 void renderCharacter()

@@ -12,7 +12,7 @@ extern Console g_Console;
 int offsetTime = 0;
 
 int objectIndex = 0;
-extern short totalNumObject;
+//extern short totalNumObject;
 //================ Check Level objects =====================
 
 short x[20];
@@ -23,7 +23,7 @@ bool reset[20];
 
 objectStruct _object[20];
 
-void createObjectString()
+void createObjectString(short &totalNumObject)
 {
 	if (objectIndex > totalNumObject)
 	{
@@ -40,25 +40,18 @@ void createObjectString()
 	objectIndex++;
 }
 
-void init_object(short level) //Preload the data of the enemy into memory.
+void init_object(short level, short &totalNumObject) //Preload the data of the enemy into memory.
 {
-	if (level == 1)
-	{
-		string OID[3] = { ">", "<", ">" };
-		string Ospeed[3] = { "slow", "slow", "slow" };
-		reset[3] = false;
-
-		totalNumObject = 3;
-	}
-
 	for (int i = 0; i < totalNumObject; i++)
 	{
-		createObjectString();
+		createObjectString(totalNumObject);
 		COORD pos;
 		pos.X = x[i];
 		pos.Y = y[i];
 
 		_object[i].o_location = pos;
+		_object[i].o_location.X = 1;
+		_object[i].o_location.Y = 1;
 		_object[i].o_ID = ID[i];
 		_object[i].o_reset = reset[i];
 	}
@@ -94,7 +87,7 @@ void init_object(short level) //Preload the data of the enemy into memory.
 
 //================ Check game objects ======================
 
-void update_GameObject(SMapData g_mapData, SGameChar g_sChar, Portal _portal)
+void update_GameObject(SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, short &totalNumObject)
 {
 	offsetTime += 5;
 
@@ -130,7 +123,7 @@ void update_GameObject(SMapData g_mapData, SGameChar g_sChar, Portal _portal)
 //========= Update each object and its location ============
 
 char LR_PString = '>';
-void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
+void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -141,7 +134,7 @@ void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 		xy.X++;
 	}
 
-	if (g_mapData.mapGrid[xy.Y][xy.X + 1] == (char)219 || g_mapData.mapGrid[xy.Y][xy.X + 1] == '-')
+	if (g_mapData.mapGrid[xy.Y - 1][xy.X + 1] == (char)219 || g_mapData.mapGrid[xy.Y][xy.X + 1] == '-')
 	{
 		ID = "<";
 	}
@@ -150,7 +143,7 @@ void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 }
 
 char RL_PString = '<';
-void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
+void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -161,7 +154,7 @@ void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 		xy.X--;
 	}
 
-	if (g_mapData.mapGrid[xy.Y + 1][xy.X - 1] == (char)219 || g_mapData.mapGrid[xy.Y + 1][xy.X - 1] == '-')
+	if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219 || g_mapData.mapGrid[xy.Y + 1][xy.X - 1] == '-')
 	{
 		ID = ">";
 	}
@@ -170,7 +163,7 @@ void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 }
 
 char UD_PString = 'v';
-void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
+void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -190,7 +183,7 @@ void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 }
 
 char DU_PString = '^';
-void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
+void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -210,7 +203,7 @@ void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 }
 
 string CrusherString = { (char)233 };
-void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
+void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -239,7 +232,7 @@ void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g
 	checkEBallCollsionWithPortal(xy, _portal);
 }
 
-void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g_mapData, SGameChar g_sChar, Portal _portal)
+void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal)
 {
 	if (xy.X >= 140 || xy.Y >= 50)
 	{
@@ -269,7 +262,7 @@ void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData g
 	checkEBallCollsionWithPortal(xy, _portal);
 }
 
-void findCoordStart(int newX, int newY)
+void findCoordStart(int newX, int newY, short &totalNumObject)
 {
 	x[totalNumObject] = newX;
 	y[totalNumObject] = newY;

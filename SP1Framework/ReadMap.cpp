@@ -8,24 +8,23 @@ using namespace std;
 SMapData g_mapData;
 
 
-void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int maxBox, SGameKey g_iKey, SGameKey g_dDoor, objectStruct _object[], short totalNumObject)
+void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, struct objectStruct (*_object)[20], short &totalNumObject)
 {
 	ifstream levelData;
 	string levelInfo;
 	string loopedString;
 	COORD x;
 
-	string mapArray[5];
+	string mapArray[4];
 
-	mapArray[0] = "MapData/map.txt";
-	mapArray[1] = "MapData/Level1A.txt";
-	mapArray[2] = "MapData/Level1B.txt";
-	mapArray[3] = "MapData/Level1C.txt";
-	mapArray[4] = "MapData/map2.txt";
+	mapArray[0] = "MapData/Level1A.txt";
+	mapArray[1] = "MapData/Level1B.txt";
+	mapArray[2] = "MapData/Level1C.txt";
+	mapArray[3] = "MapData/map2.txt";
 
-	if (mapLevel > 4)
+	if (mapLevel > 3)
 	{
-		returnMap();
+		returnMap(totalNumObject);
 		return;
 	}
 	else
@@ -89,7 +88,9 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int maxBox,
 				{
 					x.X = col;
 					x.Y = row + 1;
-					_object[totalNumObject].o_location = x;
+					(*_object)[totalNumObject].o_location = x;
+					(*_object)[totalNumObject].o_ID = "<";
+					(*_object)[totalNumObject].o_speed = 40;
 					g_mapData.mapGrid[row][col] = ' ';
 					totalNumObject++;
 				}
