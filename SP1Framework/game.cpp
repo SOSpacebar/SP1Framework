@@ -64,7 +64,7 @@ short g_currLevel = 0;
 // Console object
 Console g_Console(120, 40, "- UNDEFINED -");
 
-extern objectStruct _object[20];
+extern objectStruct _object[25];
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -375,7 +375,7 @@ void renderGame()
 	if (dialogend)
 	{
 		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData, g_eGameState, _portal);
-		update_GameObject(g_mapData, g_sChar, _portal, totalNumObject);
+		update_GameObject(g_mapData, g_sChar, _portal, g_eGameState, totalNumObject);
 	}
 	
 }
