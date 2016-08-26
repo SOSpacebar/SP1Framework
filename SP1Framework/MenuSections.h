@@ -1,3 +1,6 @@
+#ifndef _MENUSECTIONS.H
+#define _MENUSECTIONS_H
+
 #include "Framework\console.h"
 #include "game.h"
 #include "DialogBox.h"
@@ -27,3 +30,5 @@ int randomhp_dmg(int rand_dmg_timeOffset);
 void initalizeSound(EGAMESTATES &g_eGameState);
 
 void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime);
+
+#endif
