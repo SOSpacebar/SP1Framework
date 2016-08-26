@@ -44,7 +44,6 @@ int boxIndex = 0;
 
 //Monster Variables
 enemyStruct _enemy[20];
-short amountOfEnemies = 3;
 
 bool dialogend = true;
 bool canPortalGun = false;
@@ -377,7 +376,7 @@ void renderGame()
 	if (dialogend)
 	{
 		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData, g_eGameState, _portal);
-		update_GameObject(g_mapData, g_sChar, _portal, g_eGameState, totalNumObject);
+		update_GameObject(g_mapData, g_sChar, _enemy, _portal, g_eGameState, totalNumObject);
 	}
 	
 }
@@ -445,5 +444,6 @@ void resetVariables()
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
 	g_iKey.m_bActive = true;
 	totalNumObject = 0;
+	i = 0;
 }
 

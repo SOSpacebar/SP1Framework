@@ -8,6 +8,7 @@
 #include <random>
 
 extern Console g_Console;
+extern int i;
 
 int offsetTime = 0;
 
@@ -90,7 +91,7 @@ void init_object(short &level, short &totalNumObject) //Preload the data of the 
 
 //================ Check game objects ======================
 
-void update_GameObject(SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState, short &totalNumObject)
+void update_GameObject(SMapData &g_mapData, SGameChar &g_sChar, enemyStruct _enemy[], Portal &_portal, EGAMESTATES &g_eGameState, short &totalNumObject)
 {
 	offsetTime += 5;
 
@@ -114,11 +115,11 @@ void update_GameObject(SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal,
 		}
 		else if (_object[j].o_ID == "<O>")
 		{
-			updateLR_EBall(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset, g_mapData, g_sChar, _portal, g_eGameState);
+			updateLR_EBall(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset, g_mapData, g_sChar, _enemy, _portal, g_eGameState);
 		}
 		else if (_object[j].o_ID == "^Ov")
 		{
-			updateUD_EBall(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset, g_mapData, g_sChar, _portal, g_eGameState);
+			updateUD_EBall(_object[j].o_ID, _object[j].o_location, _object[j].o_speed, _object[j].o_reset, g_mapData, g_sChar, _enemy, _portal, g_eGameState);
 		}
 	}
 } 
@@ -128,7 +129,7 @@ void update_GameObject(SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal,
 char LR_PString = '>';
 void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState)
 {
-	if (xy.X >= 140 || xy.Y >= 50)
+	if (xy.X >= 120 || xy.Y >= 40)
 	{
 		ID = "";
 	}
@@ -158,7 +159,7 @@ void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 char RL_PString = '<';
 void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState)
 {
-	if (xy.X >= 140 || xy.Y >= 50)
+	if (xy.X >= 120 || xy.Y >= 40)
 	{
 		ID = "";
 	}
@@ -188,7 +189,7 @@ void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 char UD_PString = 'v';
 void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState)
 {
-	if (xy.X >= 140 || xy.Y >= 50)
+	if (xy.X >= 120 || xy.Y >= 40)
 	{
 		ID = "";
 	}
@@ -218,7 +219,7 @@ void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 char DU_PString = '^';
 void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState)
 {
-	if (xy.X >= 140 || xy.Y >= 50)
+	if (xy.X >= 120 || xy.Y >= 40)
 	{
 		ID = "";
 	}
@@ -246,9 +247,9 @@ void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 }
 
 string CrusherString = { (char)233 };
-void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState)
+void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, enemyStruct _enemy[], Portal &_portal, EGAMESTATES &g_eGameState)
 {
-	if (xy.X >= 140 || xy.Y >= 50)
+	if (xy.X >= 120 || xy.Y >= 40)
 	{
 		ID = "";
 	}
@@ -282,12 +283,21 @@ void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &
 	{
 		g_eGameState = S_GAMEOVER;
 	}
+
+	for (int index = 0; index < i; index++)
+	{
+		if ((_enemy[index].e_location.X == xy.X) && (_enemy[index].e_location.Y == xy.Y))
+		{
+			_enemy[index].e_alive = false;
+			ID = "";
+		}
+	}
 	checkEBallCollsionWithPortal(xy, _portal);
 }
 
-void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState)
+void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, enemyStruct _enemy[], Portal &_portal, EGAMESTATES &g_eGameState)
 {
-	if (xy.X >= 140 || xy.Y >= 50)
+	if (xy.X >= 120 || xy.Y >= 40)
 	{
 		ID = "";
 	}
@@ -321,6 +331,15 @@ void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &
 	if ((g_sChar.m_cLocation.X == xy.X) && (g_sChar.m_cLocation.Y == xy.Y))
 	{
 		g_eGameState = S_GAMEOVER;
+	}
+
+	for (int index = 0; index < i; index++)
+	{
+		if ((_enemy[index].e_location.X == xy.X) && (_enemy[index].e_location.Y == xy.Y))
+		{
+			_enemy[index].e_alive = false;
+			ID = "";
+		}
 	}
 	checkEBallCollsionWithPortal(xy, _portal);
 }

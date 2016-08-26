@@ -4,6 +4,7 @@
 #include <fstream>
 
 SMapData g_mapData;
+extern int i;
 
 void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, objectStruct _object[], short &totalNumObject, enemyStruct _enemy[])
 {
@@ -107,7 +108,10 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 				}
 				else if (loopedString.at(col) == 'm')
 				{
+					_enemy[i].e_location.X = col;
+					_enemy[i].e_location.Y = row + 1;
 					g_mapData.mapGrid[row][col] = ' ';
+					i++;
 				}
 				else
 				{

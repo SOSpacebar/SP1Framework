@@ -8,12 +8,15 @@ void init_enemy(short level, enemyStruct _enemy[], short amountOfEnemy) //Preloa
 	short num = amountOfEnemy;
 	for (short i = 0; i < num; i++)
 	{
-		COORD pos;
-		pos.X = xPos[i];
-		pos.Y = yPos[i];
+		if (level > 3)
+		{
+			COORD pos;
+			pos.X = xPos[i];
+			pos.Y = yPos[i];
+			_enemy[i].e_location = pos;
+		}
 
 		_enemy[i].e_alive = true;
-		_enemy[i].e_location = pos;
 	}
 
 }

@@ -474,7 +474,7 @@ void setupLevel(short &Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, Dial
 	memset(g_mapData.mapGrid, '\0', sizeof(g_mapData.mapGrid[0][0]) * 150 * 150);
 	readMap(Level, _sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject, _enemy);
 	init_object(Level, totalNumObject);
-	init_enemy(6, _enemy, i);
+	init_enemy(Level, _enemy, i);
 
 	if (Level > 3)
 	{
