@@ -24,6 +24,7 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
+extern int playerHealth;
 
 //Shooting Variables
 bool bulletType = 0;
@@ -188,7 +189,8 @@ void render()
     {
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
-		case S_MAINMENU: renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+		case S_MAINMENU: resetVariables();
+			renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
 		case S_CREDITS: Credits(g_eGameState, g_abKeyPressed);
 			break;
@@ -198,6 +200,7 @@ void render()
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			boxIndex = 0;
+			resetVariables();
 			break;
         case S_GAME: renderGame();
             break;
@@ -445,5 +448,6 @@ void resetVariables()
 	g_iKey.m_bActive = true;
 	totalNumObject = 0;
 	i = 0;
+	playerHealth = 98;
 }
 

@@ -7,7 +7,7 @@ FrameData frameData;
 int enemyHp = 98;
 int playerCurrHP = 98;
 
-char AnimationArray[19][150][150];
+char AnimationArray[20][150][150];
 char indexChar;
 
 void readAnimation(void)
@@ -40,7 +40,7 @@ void readAnimation(void)
 	chooseFrameToLoad[18] = "dialogs/dialog8.txt";
 	chooseFrameToLoad[19] = "dialogs/dialog9.txt";
 
-	for (int d = 0; d < 19; d++)
+	for (int d = 0; d < 20; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 
