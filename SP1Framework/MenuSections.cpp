@@ -507,7 +507,7 @@ int randomhp_dmg(int rand_dmg_timeOffset)
 void initalizeSound(EGAMESTATES &g_eGameState)
 {
 	//PlaySound(NULL, 0, 0);
-	if (g_eGameState == S_MAINMENU)
+	/*if (g_eGameState == S_MAINMENU)
 	{
 		//PlaySound(NULL, NULL, 0);
 		PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
@@ -516,7 +516,7 @@ void initalizeSound(EGAMESTATES &g_eGameState)
 	{
 		//PlaySound(NULL, NULL, 0);
 		PlaySound(TEXT("Sound/JumpShot.wav"),NULL , SND_ASYNC | SND_LOOP);
-	}
+	}*/
 }
 
 void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
