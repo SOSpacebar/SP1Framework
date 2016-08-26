@@ -7,7 +7,7 @@ FrameData frameData;
 int enemyHp = 98;
 int playerCurrHP = 98;
 
-char AnimationArray[16][150][150];
+char AnimationArray[18][150][150];
 char indexChar;
 
 void readAnimation(void)
@@ -35,8 +35,11 @@ void readAnimation(void)
 	chooseFrameToLoad[13] = "dialogs/dialog5.txt";
 	chooseFrameToLoad[14] = "dialogs/dialog6.txt";
 	chooseFrameToLoad[15] = "dialogs/dialog7.txt";
+	chooseFrameToLoad[16] = "animation/MushroomH1.txt";
+	chooseFrameToLoad[17] = "animation/MushroomH2.txt";
+	chooseFrameToLoad[18] = "animation/MushroomH3.txt";
 
-	for (int d = 0; d < 16; d++)
+	for (int d = 0; d < 19; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 
