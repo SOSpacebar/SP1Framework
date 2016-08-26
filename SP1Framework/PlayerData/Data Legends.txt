@@ -5,3 +5,11 @@ Player MaxHealth
 Player Attack
 Player Strenght
 Player Constitution
+
+
+http://www.cplusplus.com/forum/beginner/111949/
+http://www.dreamincode.net/forums/topic/332204-ctext-based-rpg-inventory-system/
+http://stackoverflow.com/questions/31093180/c-text-rpg-inventory-system
+http://stackoverflow.com/questions/13457920/adding-newly-created-items-to-an-inventory-using-push-back
+http://www.dreamincode.net/forums/topic/230256-c-help-with-rpg-inventory-and-item-system-please-and-thank-you/
+http://codereview.stackexchange.com/questions/105073/character-class-for-an-rpg-game

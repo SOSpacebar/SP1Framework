@@ -105,7 +105,6 @@ void init( void )
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
 
 	//Load Player Stats
-	//_playerStats.setPlayerStats(1, 0, 100, 100, 1, 1, 1);
 	loadFile(_playerStats);
 }
 

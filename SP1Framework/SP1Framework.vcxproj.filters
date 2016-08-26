@@ -29,6 +29,8 @@
     <ClCompile Include="spawnPortal.cpp" />
     <ClCompile Include="handleStatsScreen.cpp" />
     <ClCompile Include="savePlayerDetails.cpp" />
+    <ClCompile Include="items.cpp" />
+    <ClCompile Include="inventory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationManager.h" />
@@ -51,5 +53,7 @@
     <ClInclude Include="ReadMap.h" />
     <ClInclude Include="renderPlayerStatsScreen.h" />
     <ClInclude Include="playerDetailsManager.h" />
+    <ClInclude Include="items.h" />
+    <ClInclude Include="inventory.h" />
   </ItemGroup>
 </Project>
