@@ -569,7 +569,7 @@ void setupLevel(short &Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, Dial
 	init_object(Level, totalNumObject);
 	init_enemy(Level, _enemy, i);
 
-	if (Level > 3)
+	if (Level > 1)
 	{
 		canPortalGun = true;
 	}
