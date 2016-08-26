@@ -16,7 +16,7 @@ void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 
 void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal);						//Right Left Crushing Block
 void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal);
-void findCoordStart(int x, int y, short &totalNumObject);
+void findCoordStart(int &x, int &y, short &totalNumObject);
 int randomArr(int rand_vec_size);
 
 #endif

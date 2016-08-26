@@ -292,7 +292,7 @@ void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &
 	checkEBallCollsionWithPortal(xy, _portal);
 }
 
-void findCoordStart(int newX, int newY, short &totalNumObject)
+void findCoordStart(int &newX, int &newY, short &totalNumObject)
 {
 	x[totalNumObject] = newX;
 	y[totalNumObject] = newY;
