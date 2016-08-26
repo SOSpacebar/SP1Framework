@@ -2,26 +2,28 @@
 #define _PLAYERSTATS_H
 
 #include "game.h"
+#include "inventory.h"
 
 class PlayerStats
 {
 public:
 	//int getPlayerStats(int level, int exp, int health, int maxHealth, int attack, int str, int con);
-	inline int getPlayerLevel(){ return player_level; };
-	inline int getPlayerExp(){ return player_experience; };
-	inline int getPlayerHealth(){ return player_health; };
-	inline int getPlayerMaxHealth(){ return player_maxHealth; };
-	inline int getPlayerAttack(){ return player_attack; };
-	inline int getPlayerStr(){ return player_strenght; };
-	inline int getPlayerCon(){ return player_constitution; };
+	inline const int getPlayerLevel() const { return player_level; };
+	inline const int getPlayerExp() const { return player_experience; };
+	inline const int getPlayerHealth() const { return player_health; };
+	inline const int getPlayerMaxHealth() const { return player_maxHealth; };
+	inline const int getPlayerAttack() const { return player_attack; };
+	inline const int getPlayerStr() const { return player_strenght; };
+	inline const int getPlayerCon() const { return player_constitution; };
+	inline const int getExp() const { return player_experience; };
 
 
 	int updatePlayerhealth(int health, int maxHealth);
 	void setPlayerStats(int level, int exp, int health, int maxHealth, int attack, int str, int con);
-	inline int getExp(){ return player_experience; };
 	void updateExp(int exp);
 	void updateStr(int str);
 	void updateCon(int con);
+	void levelUp();
 
 private:
 	int player_level;

@@ -79,6 +79,8 @@
   <ItemGroup>
     <ClCompile Include="checkBulletCollision.cpp" />
     <ClCompile Include="DialogBox.cpp" />
+    <ClCompile Include="inventory.cpp" />
+    <ClCompile Include="items.cpp" />
     <ClCompile Include="loadPlayerDetails.cpp" />
     <ClCompile Include="playerStats.cpp" />
     <ClCompile Include="portalCollision.cpp" />
@@ -117,6 +119,8 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="handleStatsScreen.h" />
+    <ClInclude Include="inventory.h" />
+    <ClInclude Include="items.h" />
     <ClInclude Include="playerDetailsManager.h" />
     <ClInclude Include="HeaderIncludes.h" />
     <ClInclude Include="lockandUnlock.h" />

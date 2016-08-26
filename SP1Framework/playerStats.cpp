@@ -33,6 +33,11 @@ void PlayerStats::setPlayerStats(int level, int exp, int health, int maxHealth, 
 void PlayerStats::updateExp(int exp)
 {
 	player_experience = exp;
+
+	if (player_experience > (player_level * 100))
+	{
+		levelUp();
+	}
 }
 
 void PlayerStats::updateStr(int str)
@@ -42,4 +47,9 @@ void PlayerStats::updateStr(int str)
 void PlayerStats::updateCon(int con)
 {
 	player_constitution += con;
+}
+
+void PlayerStats::levelUp()
+{
+	player_level++;
 }
