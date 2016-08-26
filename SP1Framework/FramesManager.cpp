@@ -338,7 +338,7 @@ void drawUI(Console &g_Console)
 				break;
 			}
 
-			g_Console.writeToBuffer(UiLocationStart, AnimationArray[22][UiLocationIndex.Y][UiLocationIndex.X], 0x0A);
+			g_Console.writeToBuffer(UiLocationStart, AnimationArray[22][UiLocationIndex.Y][UiLocationIndex.X], 0x03);
 
 			UiLocationStart.X++;
 		}
@@ -352,6 +352,9 @@ void drawEXP(Console &g_Console)
 	COORD UiLocationStart;
 	COORD UiLocationIndex;
 
+	UiLocationStart.X = 100;
+	UiLocationStart.Y = 37;
+
 	int tempValue = UiLocationStart.X;
 
 	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 50; UiLocationIndex.Y++)
@@ -363,7 +366,7 @@ void drawEXP(Console &g_Console)
 				break;
 			}
 
-			g_Console.writeToBuffer(UiLocationStart, AnimationArray[21][UiLocationIndex.Y][UiLocationIndex.X], 0x0A);
+			g_Console.writeToBuffer(UiLocationStart, AnimationArray[21][UiLocationIndex.Y][UiLocationIndex.X], 0x06);
 
 			UiLocationStart.X++;
 		}
