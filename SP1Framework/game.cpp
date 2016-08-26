@@ -49,7 +49,6 @@ int boxIndex = 0;
 
 //Monster Variables
 enemyStruct _enemy[20];
-short amountOfEnemies = 3;
 
 bool dialogend = true;
 bool canPortalGun = false;
@@ -69,7 +68,7 @@ short g_currLevel = 0;
 // Console object
 Console g_Console(120, 40, "- UNDEFINED -");
 
-extern objectStruct _object[20];
+extern objectStruct _object[25];
 
 //MK 2
 PlayerStats _playerStats;
@@ -212,11 +211,12 @@ void render()
 		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed);
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			boxIndex = 0;
 			break;
         case S_GAME: renderGame();
             break;
-		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, &_object, totalNumObject, canPortalGun, _enemy);
-			resetVariables();
+		case S_LOADLEVEL: resetVariables(); 
+			setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject, canPortalGun, _enemy);
 			break;
 		case S_PAUSE: GamePause(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
@@ -404,7 +404,7 @@ void renderGame()
 	if (dialogend)
 	{
 		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData, g_eGameState, _portal);
-		update_GameObject(g_mapData, g_sChar, _portal, totalNumObject);
+		update_GameObject(g_mapData, g_sChar, _enemy, _portal, g_eGameState, totalNumObject);
 	}
 	
 }
@@ -471,5 +471,7 @@ void resetVariables()
 	_portal.p_isActive[1] = false;
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
 	g_iKey.m_bActive = true;
+	totalNumObject = 0;
+	i = 0;
 }
 

@@ -119,7 +119,7 @@ public:
 		}
 	}
 
-	void saveToArr(short &totalNumObject) //save the generated map into my mapGrid
+	void saveToArr(short &totalNumObject, objectStruct _object[]) //save the generated map into my mapGrid
 	{
 		for (int y = 0; y < _height; ++y)
 		{
@@ -133,7 +133,7 @@ public:
 				}
 				else if (getTiles(x, y) == '*')
 				{
-					findCoordStart(x, y, totalNumObject);
+					findCoordStart(x, y, totalNumObject, _object);
 					totalNumObject++;
 					g_mapData.mapGrid[y][x] = ' ';
 				}
@@ -456,9 +456,9 @@ private:
 	std::vector<Rect> _exit; // 4 sides of rooms or corridors
 };
 
-void returnMap(short &totalNumObject)
+void returnMap(short &totalNumObject, objectStruct _object[])
 {
 	MapGenerator map(120, 35);
 	map.generate(200);
-	map.saveToArr(totalNumObject);
+	map.saveToArr(totalNumObject, _object);
 }

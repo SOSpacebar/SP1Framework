@@ -4,9 +4,9 @@
 #include <fstream>
 
 SMapData g_mapData;
+extern int i;
 
-
-void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, struct objectStruct(*_object)[20], short &totalNumObject, enemyStruct _enemy[])
+void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, objectStruct _object[], short &totalNumObject, enemyStruct _enemy[])
 {
 	ifstream levelData;
 	string levelInfo;
@@ -22,7 +22,7 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 
 	if (mapLevel > 3)
 	{
-		returnMap(totalNumObject);
+		returnMap(totalNumObject, _object);
 		return;
 	}
 	else
@@ -67,19 +67,9 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 				{
 					x.X = col;
 					x.Y = row + 1;
-					(*_object)[totalNumObject].o_location = x;
-					(*_object)[totalNumObject].o_ID = "<";
-					(*_object)[totalNumObject].o_speed = 50;
-					g_mapData.mapGrid[row][col] = ' ';
-					totalNumObject++;
-				}
-				else if (loopedString.at(col) == 'O')
-				{
-					x.X = col;
-					x.Y = row + 1;
-					(*_object)[totalNumObject].o_location = x;
-					(*_object)[totalNumObject].o_ID = "<O>";
-					(*_object)[totalNumObject].o_speed = 60;
+					_object[totalNumObject].o_location = x;
+					_object[totalNumObject].o_ID = "<";
+					_object[totalNumObject].o_speed = 50;
 					g_mapData.mapGrid[row][col] = ' ';
 					totalNumObject++;
 				}
@@ -87,9 +77,19 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 				{
 					x.X = col;
 					x.Y = row + 1;
-					(*_object)[totalNumObject].o_location = x;
-					(*_object)[totalNumObject].o_ID = "^Ov";
-					(*_object)[totalNumObject].o_speed = 60;
+					_object[totalNumObject].o_location = x;
+					_object[totalNumObject].o_ID = "<O>";
+					_object[totalNumObject].o_speed = 60;
+					g_mapData.mapGrid[row][col] = ' ';
+					totalNumObject++;
+				}
+				else if (loopedString.at(col) == 'O')
+				{
+					x.X = col;
+					x.Y = row + 1;
+					_object[totalNumObject].o_location = x;
+					_object[totalNumObject].o_ID = "^Ov";
+					_object[totalNumObject].o_speed = 60;
 					g_mapData.mapGrid[row][col] = ' ';
 					totalNumObject++;
 				}
@@ -108,10 +108,10 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 				}
 				else if (loopedString.at(col) == 'm')
 				{
-					boxArr[maxBox].Location.X = col;
-					boxArr[maxBox].Location.Y = row + 1;
+					_enemy[i].e_location.X = col;
+					_enemy[i].e_location.Y = row + 1;
 					g_mapData.mapGrid[row][col] = ' ';
-					maxBox++;
+					i++;
 				}
 				else
 				{

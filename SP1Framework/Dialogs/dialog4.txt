@@ -1,11 +1,11 @@
 ########################################################################################################################
 ##                                                                                                                    ##
+##                                 You can shoot your portals through the '-' walls,                                  ##
+##                                   Use your portals to jump through those walls!                                    ##
 ##                                                                                                                    ##
-##                                           You can shoot portals through                                            ##
-##                                                   the ' - ' door                                                   ##
+##                                                     Remember!                                                      ##
 ##                                                                                                                    ##
-##                                           Use SPACEBAR to shoot portals!                                           ##
-##                                              Press S to switch Portals.                                            ##
-##                                                                                                                    ##
-##                                                                                                      >>[ SPACE ]>> ##
+##                                            Use [SPACE] to shoot portals!                                           ##
+##                                         Press S to switch between portals.                                         ##
+##                                                                                                        >>[SPACE]>> ##
 ########################################################################################################################

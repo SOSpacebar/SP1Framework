@@ -7,7 +7,9 @@ FrameData frameData;
 int enemyHp = 98;
 int playerCurrHP = 98;
 
-char AnimationArray[21][150][150];
+
+char AnimationArray[26][150][150];
+
 char indexChar;
 
 void readAnimation(void)
@@ -28,21 +30,27 @@ void readAnimation(void)
 	chooseFrameToLoad[6] = "animation/playerHP.txt";
 	chooseFrameToLoad[7] = "animation/Warning.txt";
 	chooseFrameToLoad[8] = "animation/Loading.txt";
-	chooseFrameToLoad[9] = "dialogs/dialog1.txt";
-	chooseFrameToLoad[10] = "dialogs/dialog2.txt";
-	chooseFrameToLoad[11] = "dialogs/dialog3.txt";
-	chooseFrameToLoad[12] = "dialogs/dialog4.txt";
-	chooseFrameToLoad[13] = "dialogs/dialog5.txt";
-	chooseFrameToLoad[14] = "dialogs/dialog6.txt";
-	chooseFrameToLoad[15] = "dialogs/dialog7.txt";
-	chooseFrameToLoad[16] = "animation/MushroomH1.txt";
-	chooseFrameToLoad[17] = "animation/MushroomH2.txt";
-	chooseFrameToLoad[18] = "animation/MushroomH3.txt";
-	chooseFrameToLoad[19] = "animation/Slime.txt";
-	chooseFrameToLoad[20] = "animation/Slime2.txt";
-	chooseFrameToLoad[21] = "animation/Slime3.txt";
+	chooseFrameToLoad[9] = "animation/Title.txt";
+	chooseFrameToLoad[10] = "animation/GameOver.txt";
+	chooseFrameToLoad[11] = "dialogs/dialog1.txt";
+	chooseFrameToLoad[12] = "dialogs/dialog2.txt";
+	chooseFrameToLoad[13] = "dialogs/dialog3.txt";
+	chooseFrameToLoad[14] = "dialogs/dialog4.txt";
+	chooseFrameToLoad[15] = "dialogs/dialog5.txt";
+	chooseFrameToLoad[16] = "dialogs/dialog6.txt";
+	chooseFrameToLoad[17] = "dialogs/dialog7.txt";
+	chooseFrameToLoad[18] = "dialogs/dialog8.txt";
+	chooseFrameToLoad[19] = "dialogs/dialog9.txt";
+	chooseFrameToLoad[20] = "animation/MushroomH1.txt";
+	chooseFrameToLoad[21] = "animation/MushroomH2.txt";
+	chooseFrameToLoad[22] = "animation/MushroomH3.txt";
+	chooseFrameToLoad[23] = "animation/Slime.txt";
+	chooseFrameToLoad[24] = "animation/Slime2.txt";
+	chooseFrameToLoad[25] = "animation/Slime3.txt";
 
-	for (int d = 0; d < 22; d++)
+	
+
+	for (int d = 0; d < 26; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 
@@ -289,5 +297,31 @@ void drawPlayerHP(int keyFrame, COORD playerCoord, int &playerHealth, Console &g
 			playerCoord.X = tempValue;
 			playerCoord.Y++;
 		}
+	}
+}
+
+void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console)
+{
+	COORD currCoord2;
+	T_Coord.X;
+	T_Coord.Y;
+
+	int tempValue = T_Coord.X;
+
+	for (currCoord2.Y = 0; currCoord2.Y < 8; currCoord2.Y++)
+	{
+		for (currCoord2.X = 0; currCoord2.X < 90; currCoord2.X++)
+		{
+			if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
+			{
+				break;
+			}
+
+			g_Console.writeToBuffer(T_Coord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0A);
+
+			T_Coord.X++;
+		}
+		T_Coord.X = tempValue;
+		T_Coord.Y++;
 	}
 }

@@ -23,5 +23,6 @@ void drawHpCurr(int keyFrame, COORD currCoord, int &hp, Console &g_Console);
 void drawDialogBox(int keyFrame, COORD boxCoord, Console &g_Console);
 void damagePopUp(int keyFrame, COORD Pop, Console &g_Console);
 void drawPlayerHP(int keyFrame, COORD playerCoord, int &playerHealth, Console &g_Console);
+void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console);
 
 #endif

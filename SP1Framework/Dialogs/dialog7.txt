@@ -1,10 +1,11 @@
 ########################################################################################################################
 ##                                                                                                                    ##
 ##                                                                                                                    ##
-##                                                 Congratulation!                                                    ##
-##                                          You have completed the tutorial                                           ##
+##                                   Welcome to the next level of the tutorial stage!                                 ##
 ##                                                                                                                    ##
-##                                               Please enjoy - UNDEFIN.d;      !@#$%^@$%#$@@$@ 432$@#$ !#1fsf24#$!DF###
-##     #@!#$#@^^#%$@!fsdrew5418932312          qwe2 tha tha thankss,,;;                                                 
-## %$#!%$#@%#$$@#4234!@#!@312d2441ds13!@#!@#SE#$!#ew3fE$4432423DD$#@                     REACHED END OF MEMORY.         
-                                                                                                         ERROR C2091.   
+##                                                                                                                    ##
+##                                      You will encounter your first monster here                                    ##
+##                                  During combat, repeatedly press [SPACE] to attack!                                ##
+##                                                                                                                    ##
+##                                                                                                        >>[SPACE]>> ##
+########################################################################################################################
