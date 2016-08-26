@@ -14,16 +14,10 @@ void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState);					//Up to Down Projectile
 void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState);					//Down to Up Projectile
 
-<<<<<<< HEAD
 void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState);						//Right Left Crushing Block
 void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState);
-void findCoordStart(int x, int y, short &totalNumObject);
-=======
-void updateLR_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal);						//Right Left Crushing Block
-void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal);
-void findCoordStart(int &x, int &y, short &totalNumObject, objectStruct _enemy[]
-	);
->>>>>>> 5728e8bab32d0072e4697757c6c022bacee2019e
+
+void findCoordStart(int &x, int &y, short &totalNumObject, objectStruct _enemy[]);
 int randomArr(int rand_vec_size);
 
 #endif

@@ -5,12 +5,7 @@
 
 SMapData g_mapData;
 
-
-<<<<<<< HEAD
-void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, struct objectStruct(*_object)[25], short &totalNumObject, enemyStruct _enemy[])
-=======
 void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, objectStruct _object[], short &totalNumObject, enemyStruct _enemy[])
->>>>>>> 5728e8bab32d0072e4697757c6c022bacee2019e
 {
 	ifstream levelData;
 	string levelInfo;
