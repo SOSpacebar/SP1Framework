@@ -117,6 +117,7 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 			}
 		}
 	}
+	totalNumObject == 0;
 	loopedString.clear();
 	levelData.close();
 
