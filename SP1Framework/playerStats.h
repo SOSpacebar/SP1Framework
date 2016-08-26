@@ -7,18 +7,18 @@ class PlayerStats
 {
 public:
 	//int getPlayerStats(int level, int exp, int health, int maxHealth, int attack, int str, int con);
-	int getPlayerLevel(){ return player_level; };
-	int getPlayerExp(){ return player_experience; };
-	int getPlayerHealth(){ return player_health; };
-	int getPlayerMaxHealth(){ return player_maxHealth; };
-	int getPlayerAttack(){ return player_attack; };
-	int getPlayerStr(){ return player_strenght; };
-	int getPlayerCon(){ return player_constitution; };
+	inline int getPlayerLevel(){ return player_level; };
+	inline int getPlayerExp(){ return player_experience; };
+	inline int getPlayerHealth(){ return player_health; };
+	inline int getPlayerMaxHealth(){ return player_maxHealth; };
+	inline int getPlayerAttack(){ return player_attack; };
+	inline int getPlayerStr(){ return player_strenght; };
+	inline int getPlayerCon(){ return player_constitution; };
 
 
 	int updatePlayerhealth(int health, int maxHealth);
 	void setPlayerStats(int level, int exp, int health, int maxHealth, int attack, int str, int con);
-	int getExp(){ return player_experience; };
+	inline int getExp(){ return player_experience; };
 	void updateExp(int exp);
 	void updateStr(int str);
 	void updateCon(int con);

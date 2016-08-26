@@ -1,0 +1,7 @@
+Player Level
+Player Exp
+Player Health
+Player MaxHealth
+Player Attack
+Player Strenght
+Player Constitution

@@ -18,6 +18,7 @@
 #include "playerStats.h"
 #include "renderPlayerStatsScreen.h"
 #include "handleStatsScreen.h"
+#include "playerDetailsManager.h"
 //Original framework stuff
 #include <iostream>
 #include <sstream>
@@ -104,7 +105,8 @@ void init( void )
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
 
 	//Load Player Stats
-	_playerStats.setPlayerStats(1, 0, 100, 100, 1, 1, 1);
+	//_playerStats.setPlayerStats(1, 0, 100, 100, 1, 1, 1);
+	loadFile(_playerStats);
 }
 
 //--------------------------------------------------------------
@@ -330,6 +332,7 @@ void moveCharacter()
 
 		if (g_sChar.m_bActive == 0)
 		{
+			_playerStats.setPlayerStats(5, 100, 120, 120, 10, 10, 10);
 			g_sChar.m_bActive = 1;
 			bulletType = 0;
 		}
@@ -364,8 +367,11 @@ void moveCharacter()
 void processUserInput()
 {
     // quits the game if player hits the escape key
-    if (g_abKeyPressed[K_ESCAPE])
-        g_bQuitGame = true;    
+	if (g_abKeyPressed[K_ESCAPE])
+	{
+		saveFile(_playerStats);
+		g_bQuitGame = true;
+	}
 }
 
 void clearScreen()
