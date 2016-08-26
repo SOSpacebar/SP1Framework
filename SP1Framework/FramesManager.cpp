@@ -7,7 +7,8 @@ FrameData frameData;
 int enemyHp = 98;
 int playerCurrHP = 98;
 
-char AnimationArray[20][150][150];
+char AnimationArray[23][150][150];
+
 char indexChar;
 
 void readAnimation(void)
@@ -39,8 +40,12 @@ void readAnimation(void)
 	chooseFrameToLoad[17] = "dialogs/dialog7.txt";
 	chooseFrameToLoad[18] = "dialogs/dialog8.txt";
 	chooseFrameToLoad[19] = "dialogs/dialog9.txt";
+	chooseFrameToLoad[20] = "animation/hpui.txt";
+	chooseFrameToLoad[21] = "animation/expui.txt";
+	chooseFrameToLoad[22] = "animation/uibox.txt";
 
-	for (int d = 0; d < 20; d++)
+
+	for (int d = 0; d < 23; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 
@@ -313,5 +318,83 @@ void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console)
 		}
 		T_Coord.X = tempValue;
 		T_Coord.Y++;
+	}
+}
+
+void drawUI(Console &g_Console)
+{
+	COORD UiLocationStart;
+	COORD UiLocationIndex;
+
+	UiLocationStart.X = 0;
+	UiLocationStart.Y = 36;
+
+	int tempValue = UiLocationStart.X;
+
+	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 50; UiLocationIndex.Y++)
+	{
+		for (UiLocationIndex.X = 0; UiLocationIndex.X < 150; UiLocationIndex.X++)
+		{
+			if ((AnimationArray[22][UiLocationIndex.Y][UiLocationIndex.X] == '\0') || (AnimationArray[22][UiLocationIndex.Y][UiLocationIndex.X] == '\n'))
+			{
+				break;
+			}
+
+			g_Console.writeToBuffer(UiLocationStart, AnimationArray[22][UiLocationIndex.Y][UiLocationIndex.X], 0x0A);
+
+			UiLocationStart.X++;
+		}
+		UiLocationStart.X = tempValue;
+		UiLocationStart.Y++;
+	}
+}
+
+void drawEXP(Console &g_Console)
+{
+	COORD UiLocationStart;
+	COORD UiLocationIndex;
+
+	int tempValue = UiLocationStart.X;
+
+	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 50; UiLocationIndex.Y++)
+	{
+		for (UiLocationIndex.X = 0; UiLocationIndex.X < 150; UiLocationIndex.X++)
+		{
+			if ((AnimationArray[21][UiLocationIndex.Y][UiLocationIndex.X] == '\0') || (AnimationArray[21][UiLocationIndex.Y][UiLocationIndex.X] == '\n'))
+			{
+				break;
+			}
+
+			g_Console.writeToBuffer(UiLocationStart, AnimationArray[21][UiLocationIndex.Y][UiLocationIndex.X], 0x0A);
+
+			UiLocationStart.X++;
+		}
+		UiLocationStart.X = tempValue;
+		UiLocationStart.Y++;
+	}
+}
+
+void drawHP(Console &g_Console)
+{
+	COORD UiLocationStart;
+	COORD UiLocationIndex;
+
+	int tempValue = UiLocationStart.X;
+
+	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 50; UiLocationIndex.Y++)
+	{
+		for (UiLocationIndex.X = 0; UiLocationIndex.X < 150; UiLocationIndex.X++)
+		{
+			if ((AnimationArray[20][UiLocationIndex.Y][UiLocationIndex.X] == '\0') || (AnimationArray[20][UiLocationIndex.Y][UiLocationIndex.X] == '\n'))
+			{
+				break;
+			}
+
+			g_Console.writeToBuffer(UiLocationStart, AnimationArray[20][UiLocationIndex.Y][UiLocationIndex.X], 0x0A);
+
+			UiLocationStart.X++;
+		}
+		UiLocationStart.X = tempValue;
+		UiLocationStart.Y++;
 	}
 }

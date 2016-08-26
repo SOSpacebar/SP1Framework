@@ -62,7 +62,7 @@ short totalNumObject = 0;
 short g_currLevel = 0;
 
 // Console object
-Console g_Console(120, 40, "- UNDEFINED -");
+Console g_Console(120, 49, "- UNDEFINED -");
 
 extern objectStruct _object[25];
 
@@ -381,6 +381,8 @@ void renderGame()
 		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData, g_eGameState, _portal);
 		update_GameObject(g_mapData, g_sChar, _enemy, _portal, g_eGameState, totalNumObject);
 	}
+
+	drawUI(g_Console);
 	
 }
 
