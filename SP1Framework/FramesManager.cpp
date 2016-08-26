@@ -7,7 +7,7 @@ FrameData frameData;
 int enemyHp = 98;
 int playerCurrHP = 98;
 
-char AnimationArray[18][150][150];
+char AnimationArray[19][150][150];
 char indexChar;
 
 void readAnimation(void)
@@ -28,17 +28,18 @@ void readAnimation(void)
 	chooseFrameToLoad[6] = "animation/playerHP.txt";
 	chooseFrameToLoad[7] = "animation/Warning.txt";
 	chooseFrameToLoad[8] = "animation/Loading.txt";
-	chooseFrameToLoad[9] = "dialogs/dialog1.txt";
-	chooseFrameToLoad[10] = "dialogs/dialog2.txt";
-	chooseFrameToLoad[11] = "dialogs/dialog3.txt";
-	chooseFrameToLoad[12] = "dialogs/dialog4.txt";
-	chooseFrameToLoad[13] = "dialogs/dialog5.txt";
-	chooseFrameToLoad[14] = "dialogs/dialog6.txt";
-	chooseFrameToLoad[15] = "dialogs/dialog7.txt";
-	chooseFrameToLoad[16] = "dialogs/dialog8.txt";
-	chooseFrameToLoad[17] = "dialogs/dialog9.txt";
+	chooseFrameToLoad[9] = "animation/Title.txt";
+	chooseFrameToLoad[10] = "dialogs/dialog1.txt";
+	chooseFrameToLoad[11] = "dialogs/dialog2.txt";
+	chooseFrameToLoad[12] = "dialogs/dialog3.txt";
+	chooseFrameToLoad[13] = "dialogs/dialog4.txt";
+	chooseFrameToLoad[14] = "dialogs/dialog5.txt";
+	chooseFrameToLoad[15] = "dialogs/dialog6.txt";
+	chooseFrameToLoad[16] = "dialogs/dialog7.txt";
+	chooseFrameToLoad[17] = "dialogs/dialog8.txt";
+	chooseFrameToLoad[18] = "dialogs/dialog9.txt";
 
-	for (int d = 0; d < 18; d++)
+	for (int d = 0; d < 19; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 
@@ -285,5 +286,30 @@ void drawPlayerHP(int keyFrame, COORD playerCoord, int &playerHealth, Console &g
 			playerCoord.X = tempValue;
 			playerCoord.Y++;
 		}
+	}
+}
+
+void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console)
+{
+	COORD currCoord2;
+	T_Coord.X = 20;
+	T_Coord.Y = 5;
+	int tempValue = T_Coord.X;
+
+	for (currCoord2.Y = 0; currCoord2.Y < 8; currCoord2.Y++)
+	{
+		for (currCoord2.X = 0; currCoord2.X < 80; currCoord2.X++)
+		{
+			if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
+			{
+				break;
+			}
+
+			g_Console.writeToBuffer(T_Coord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0A);
+
+			T_Coord.X++;
+		}
+		T_Coord.X = tempValue;
+		T_Coord.Y++;
 	}
 }

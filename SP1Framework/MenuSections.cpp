@@ -32,16 +32,21 @@ extern enemyStruct _enemy[20];
 
 void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
-	bool bSomethingHappened = false;
+	COORD title;
+	title.X = 0;
+	title.Y = 5;
 
+	drawTitle(9, title, g_Console);
+
+	bool bSomethingHappened = false;
+	
 	g_currLevel = 0;
 	string Menu[3] = { "Start Game", "Credits", "Exit" };//Array of Start Game and Exit
 
 	COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
 	c.X = c.X / 2 - 5;
-	g_Console.writeToBuffer(c, "Main Menu", 0x02);
-	c.Y += 1;
+	c.Y += 4;
 	c.X = g_Console.getConsoleSize().X / 2 - 8;
 
 	switch (MenuSelect)//Main Menu Selections
@@ -69,9 +74,9 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 
 		if (g_abKeyPressed[K_ENTER])//By Pressing Enter will got to LevelSelection State
 		{
-			g_eGameState = S_LEVELSELECT;
+			MenuSelect = 0;
 			bSomethingHappened = true;
-			MenuSelect = 1;
+			g_eGameState = S_LEVELSELECT;
 		}
 		break;
 	case 1:
@@ -96,6 +101,7 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
+			MenuSelect = 0;
 			g_eGameState = S_CREDITS;
 		}
 		break;
@@ -122,6 +128,7 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
+			MenuSelect = 0;
 			g_bQuitGame = true;
 		}
 		break;
@@ -135,12 +142,18 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 
 void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
+	COORD title;
+	title.X = 0;
+	title.Y = 5;
+
+	drawTitle(9, title, g_Console);
+
 	bool bSomethingHappened = false;
-	string Level[3] {"Level_1", "Level_2", "Level_3"};//creating a simple level selection.
+	string Level[3] {"Tutorial", "Challenge", "Random Generate"};//creating a simple level selection.
 
 	COORD c = g_Console.getConsoleSize();
-	c.Y /= 3;
-	c.X = c.X / 2 - 5;
+	c.Y = c.Y /2 - 3;
+	c.X = c.X / 2 - 8;
 	g_Console.writeToBuffer(c, "Level Selection", 0x02);
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 8;
@@ -177,6 +190,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
+			SetLevel = 0;
 			g_currLevel = 0;
 			g_eGameState = S_LOADLEVEL;
 		}
@@ -203,8 +217,9 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
-			bSomethingHappened = true;			
-			g_currLevel = 4;
+			bSomethingHappened = true;	
+			SetLevel = 0;
+			g_currLevel = 3;
 			g_eGameState = S_LOADLEVEL;
 
 		}
@@ -232,8 +247,9 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
-			//g_currLevel = 2;
-			g_eGameState = S_COMBATSCREEN;
+			SetLevel = 0;
+			g_currLevel = 4;
+			g_eGameState = S_LOADLEVEL;
 		}
 		break;
 	}
@@ -304,6 +320,7 @@ void GameOver(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
+			SetLevel = 0;
 			g_eGameState = S_LOADLEVEL;
 		}
 		break;
@@ -329,6 +346,7 @@ void GameOver(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
+			SetLevel = 0;
 			g_eGameState = S_MAINMENU;
 		}
 		break;
@@ -467,6 +485,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.Y = 32;
 	drawPlayerHP(6, x, playerHealth, g_Console);
 }
+
 void setupLevel(short &Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, objectStruct _object[], short &totalNumObject, bool &canPortalGun, enemyStruct _enemy[])
 {
 	
@@ -552,6 +571,7 @@ void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
+			SetLevel = 0;
 			g_eGameState = S_GAME;
 		}
 		break;
@@ -577,6 +597,7 @@ void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
+			SetLevel = 0;
 			g_eGameState = S_MAINMENU;
 		}
 		break;
@@ -595,7 +616,7 @@ void checkDialogEnd(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], int
 	boxStart.Y = 15;
 
 	renderGame();
-	drawDialogBox((boxIndex + 8), boxStart, g_Console);
+	drawDialogBox((boxIndex + 9), boxStart, g_Console);
 	dialogend = false;
 
 	if (g_abKeyPressed[K_SPACE])
