@@ -201,8 +201,8 @@ void render()
 			break;
         case S_GAME: renderGame();
             break;
-		case S_LOADLEVEL: setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, &_object, totalNumObject, canPortalGun, _enemy);
-			resetVariables();
+		case S_LOADLEVEL: resetVariables(); 
+			setupLevel(g_currLevel, g_eGameState, g_sChar, boxArr, maxBox, g_iKey, g_dDoor, _object, totalNumObject, canPortalGun, _enemy);
 			break;
 		case S_PAUSE: GamePause(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
@@ -442,5 +442,6 @@ void resetVariables()
 	_portal.p_isActive[1] = false;
 	memset(fogMap, ' ', sizeof(fogMap[0][0]) * 150 * 150);
 	g_iKey.m_bActive = true;
+	totalNumObject = 0;
 }
 

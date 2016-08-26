@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include "game.h"
+#include "HeaderIncludes.h"
 
 namespace
 {
@@ -36,6 +37,6 @@ struct Rect
 	int width, height;
 };
 
-void returnMap(short &totalNumObject);
+void returnMap(short &totalNumObject, objectStruct _object[]);
 
 #endif

@@ -6,7 +6,11 @@
 SMapData g_mapData;
 
 
+<<<<<<< HEAD
 void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, struct objectStruct(*_object)[25], short &totalNumObject, enemyStruct _enemy[])
+=======
+void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, objectStruct _object[], short &totalNumObject, enemyStruct _enemy[])
+>>>>>>> 5728e8bab32d0072e4697757c6c022bacee2019e
 {
 	ifstream levelData;
 	string levelInfo;
@@ -22,7 +26,7 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 
 	if (mapLevel > 3)
 	{
-		returnMap(totalNumObject);
+		returnMap(totalNumObject, _object);
 		return;
 	}
 	else
@@ -67,9 +71,9 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 				{
 					x.X = col;
 					x.Y = row + 1;
-					(*_object)[totalNumObject].o_location = x;
-					(*_object)[totalNumObject].o_ID = "<";
-					(*_object)[totalNumObject].o_speed = 50;
+					_object[totalNumObject].o_location = x;
+					_object[totalNumObject].o_ID = "<";
+					_object[totalNumObject].o_speed = 50;
 					g_mapData.mapGrid[row][col] = ' ';
 					totalNumObject++;
 				}
@@ -77,9 +81,9 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 				{
 					x.X = col;
 					x.Y = row + 1;
-					(*_object)[totalNumObject].o_location = x;
-					(*_object)[totalNumObject].o_ID = "<O>";
-					(*_object)[totalNumObject].o_speed = 60;
+					_object[totalNumObject].o_location = x;
+					_object[totalNumObject].o_ID = "<O>";
+					_object[totalNumObject].o_speed = 60;
 					g_mapData.mapGrid[row][col] = ' ';
 					totalNumObject++;
 				}
@@ -87,9 +91,9 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 				{
 					x.X = col;
 					x.Y = row + 1;
-					(*_object)[totalNumObject].o_location = x;
-					(*_object)[totalNumObject].o_ID = "^Ov";
-					(*_object)[totalNumObject].o_speed = 60;
+					_object[totalNumObject].o_location = x;
+					_object[totalNumObject].o_ID = "^Ov";
+					_object[totalNumObject].o_speed = 60;
 					g_mapData.mapGrid[row][col] = ' ';
 					totalNumObject++;
 				}
@@ -117,7 +121,6 @@ void readMap(int mapLevel, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox
 			}
 		}
 	}
-	totalNumObject == 0;
 	loopedString.clear();
 	levelData.close();
 

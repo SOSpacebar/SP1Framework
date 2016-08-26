@@ -45,13 +45,7 @@ void init_object(short level, short &totalNumObject) //Preload the data of the e
 	for (int i = 0; i < totalNumObject; i++)
 	{
 		createObjectString(totalNumObject);
-		COORD pos;
-		pos.X = x[i];
-		pos.Y = y[i];
 
-		_object[i].o_location = pos;
-		_object[i].o_location.X = 1;
-		_object[i].o_location.Y = 1;
 		_object[i].o_ID = ID[i];
 		_object[i].o_reset = reset[i];
 	}
@@ -323,10 +317,10 @@ void updateUD_EBall(string &ID, COORD &xy, int &speed, bool &reverse, SMapData &
 	checkEBallCollsionWithPortal(xy, _portal);
 }
 
-void findCoordStart(int newX, int newY, short &totalNumObject)
+void findCoordStart(int &newX, int &newY, short &totalNumObject, objectStruct _enemy[])
 {
-	x[totalNumObject] = newX;
-	y[totalNumObject] = newY;
+	_enemy[totalNumObject].o_location.X = newX;
+	_enemy[totalNumObject].o_location.Y = newY;
 }
 
 int randomArr(int rand_vec_size)
