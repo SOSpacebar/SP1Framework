@@ -82,6 +82,7 @@ void init_object(short level, short &totalNumObject) //Preload the data of the e
 			}
 		}
 	}
+	objectIndex = 0;
 }
 
 
