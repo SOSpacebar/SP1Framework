@@ -29,15 +29,16 @@ void readAnimation(void)
 	chooseFrameToLoad[7] = "animation/Warning.txt";
 	chooseFrameToLoad[8] = "animation/Loading.txt";
 	chooseFrameToLoad[9] = "animation/Title.txt";
-	chooseFrameToLoad[10] = "dialogs/dialog1.txt";
-	chooseFrameToLoad[11] = "dialogs/dialog2.txt";
-	chooseFrameToLoad[12] = "dialogs/dialog3.txt";
-	chooseFrameToLoad[13] = "dialogs/dialog4.txt";
-	chooseFrameToLoad[14] = "dialogs/dialog5.txt";
-	chooseFrameToLoad[15] = "dialogs/dialog6.txt";
-	chooseFrameToLoad[16] = "dialogs/dialog7.txt";
-	chooseFrameToLoad[17] = "dialogs/dialog8.txt";
-	chooseFrameToLoad[18] = "dialogs/dialog9.txt";
+	chooseFrameToLoad[10] = "animation/GameOver.txt";
+	chooseFrameToLoad[11] = "dialogs/dialog1.txt";
+	chooseFrameToLoad[12] = "dialogs/dialog2.txt";
+	chooseFrameToLoad[13] = "dialogs/dialog3.txt";
+	chooseFrameToLoad[14] = "dialogs/dialog4.txt";
+	chooseFrameToLoad[15] = "dialogs/dialog5.txt";
+	chooseFrameToLoad[16] = "dialogs/dialog6.txt";
+	chooseFrameToLoad[17] = "dialogs/dialog7.txt";
+	chooseFrameToLoad[18] = "dialogs/dialog8.txt";
+	chooseFrameToLoad[19] = "dialogs/dialog9.txt";
 
 	for (int d = 0; d < 19; d++)
 	{
@@ -292,13 +293,14 @@ void drawPlayerHP(int keyFrame, COORD playerCoord, int &playerHealth, Console &g
 void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console)
 {
 	COORD currCoord2;
-	T_Coord.X = 20;
-	T_Coord.Y = 5;
+	T_Coord.X;
+	T_Coord.Y;
+
 	int tempValue = T_Coord.X;
 
 	for (currCoord2.Y = 0; currCoord2.Y < 8; currCoord2.Y++)
 	{
-		for (currCoord2.X = 0; currCoord2.X < 80; currCoord2.X++)
+		for (currCoord2.X = 0; currCoord2.X < 90; currCoord2.X++)
 		{
 			if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
 			{

@@ -33,7 +33,7 @@ extern enemyStruct _enemy[20];
 void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
 	COORD title;
-	title.X = 0;
+	title.X = 20;
 	title.Y = 5;
 
 	drawTitle(9, title, g_Console);
@@ -143,7 +143,7 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
 	COORD title;
-	title.X = 0;
+	title.X = 20;
 	title.Y = 5;
 
 	drawTitle(9, title, g_Console);
@@ -286,12 +286,18 @@ void Credits(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT])
 
 void GameOver(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
+	COORD G_over;
+	G_over.X = 15;
+	G_over.Y = 5;
+
+	drawTitle(10, G_over, g_Console);
+
 	bool bSomethingHappened = false;
 	string MenuSelection[2] {"Retry", "MainMenu"};//creating a simple level selection.
 
 	COORD c = g_Console.getConsoleSize();
-	c.Y /= 3;
-	c.X = c.X / 2 - 5;
+	c.Y = c.Y/2 - 3;
+	c.X = c.X / 2 - 8;
 	g_Console.writeToBuffer(c, "GAMEOVER", 0x02);
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 8;
@@ -522,17 +528,17 @@ int randomhp_dmg(int rand_dmg_timeOffset)
 
 void initalizeSound(EGAMESTATES &g_eGameState)
 {
-	//PlaySound(NULL, 0, 0);
-	if (g_eGameState == S_MAINMENU)
-	{
-		//PlaySound(NULL, NULL, 0);
-		PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
-	}
-	if (g_eGameState == S_GAME)
-	{
-		//PlaySound(NULL, NULL, 0);
-		PlaySound(TEXT("Sound/JumpShot.wav"),NULL , SND_ASYNC | SND_LOOP);
-	}
+	////PlaySound(NULL, 0, 0);
+	//if (g_eGameState == S_MAINMENU)
+	//{
+	//	//PlaySound(NULL, NULL, 0);
+	//	PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
+	//}
+	//if (g_eGameState == S_GAME)
+	//{
+	//	//PlaySound(NULL, NULL, 0);
+	//	PlaySound(TEXT("Sound/JumpShot.wav"),NULL , SND_ASYNC | SND_LOOP);
+	//}
 }
 
 void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
@@ -616,7 +622,7 @@ void checkDialogEnd(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], int
 	boxStart.Y = 15;
 
 	renderGame();
-	drawDialogBox((boxIndex + 9), boxStart, g_Console);
+	drawDialogBox((boxIndex + 10), boxStart, g_Console);
 	dialogend = false;
 
 	if (g_abKeyPressed[K_SPACE])
