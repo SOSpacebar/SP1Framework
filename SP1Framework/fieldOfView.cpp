@@ -114,20 +114,13 @@ void renderFogOfWarAndMap(SMapData &g_mapData, SGameChar player, Console &g_Cons
 				break;
 			}
 
-			if ((fogMap[row][col] == (char)187) || (fogMap[row][col] == (char)188) || (fogMap[row][col] == (char)200) || (fogMap[row][col] == (char)201))
-			{
-				g_Console.writeToBuffer(c, fogMap[row][col], 0x0A);
-			}
-			
-			else
-			{
-				g_Console.writeToBuffer(c, fogMap[row][col], 0x08);
+			g_Console.writeToBuffer(c, fogMap[row][col], 0x08);
 
-				if (fogMap2[row][col] != '\0')
-				{
-					g_Console.writeToBuffer(c, fogMap2[row][col], 0x0d);
-				}
+			if (fogMap2[row][col] != '\0')
+			{
+				g_Console.writeToBuffer(c, fogMap2[row][col], 0x0d);
 			}
+
 
 			c.X++;
 		}

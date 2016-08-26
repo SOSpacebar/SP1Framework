@@ -198,6 +198,7 @@ void render()
 		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed);
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			boxIndex = 0;
 			break;
         case S_GAME: renderGame();
             break;
@@ -209,6 +210,7 @@ void render()
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
 			break;
 		case S_DIALOG: checkDialogEnd(g_eGameState, g_abKeyPressed, boxIndex, g_Console, dialogend, g_dBounceTime, g_dElapsedTime, canPortalGun);
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game

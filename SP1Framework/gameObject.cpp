@@ -23,7 +23,7 @@ bool reset[20];
 
 objectStruct _object[25];
 
-void createObjectString(short &totalNumObject)
+void createObjectString(short &totalNumObject, short &Level)
 {
 	if (objectIndex > totalNumObject)
 	{
@@ -33,20 +33,25 @@ void createObjectString(short &totalNumObject)
 	string OID[8] = { ">", "<O>", "<", "^Ov", "v", "^", "<O>", "^Ov" };
 	string Ospeed[3] = { "slow", "normal", "fast" };
 
-	ID[objectIndex] = OID[randomArr(7)];
-	speed[objectIndex] = Ospeed[randomArr(2)];
+	if (Level > 3)
+	{
+		ID[objectIndex] = OID[randomArr(7)];
+		speed[objectIndex] = Ospeed[randomArr(2)];
+	}
 	reset[objectIndex] = false;
-
 	objectIndex++;
 }
 
-void init_object(short level, short &totalNumObject) //Preload the data of the enemy into memory.
+void init_object(short &level, short &totalNumObject) //Preload the data of the enemy into memory.
 {
 	for (int i = 0; i < totalNumObject; i++)
 	{
-		createObjectString(totalNumObject);
+		createObjectString(totalNumObject, level);
 
-		_object[i].o_ID = ID[i];
+		if (level > 3)
+		{
+			_object[i].o_ID = ID[i];
+		}
 		_object[i].o_reset = reset[i];
 	}
 
@@ -72,7 +77,10 @@ void init_object(short level, short &totalNumObject) //Preload the data of the e
 			}
 			else
 			{
-				_object[i].o_speed = 1000;
+				if (level > 3)
+				{
+					_object[i].o_speed = 1000;
+				}
 			}
 		}
 	}

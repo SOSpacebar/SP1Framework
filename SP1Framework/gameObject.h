@@ -5,8 +5,8 @@
 #include "portalGun.h"
 using namespace std;
 
-void createObjectString(short &totalNumObject);
-void init_object(short level, short &totalNumObject);				//GameObject initialiser
+void createObjectString(short &totalNumObject, short &level);
+void init_object(short &level, short &totalNumObject);				//GameObject initialiser
 void update_GameObject(SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState, short &totalNumObject);				//GameObject Indivisual function call
 
 void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapData &g_mapData, SGameChar &g_sChar, Portal &_portal, EGAMESTATES &g_eGameState);					//Left to Right Projectile
