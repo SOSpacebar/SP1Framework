@@ -17,7 +17,7 @@ int playerHealth = 98;
 int timeOffset = 0;
 bool dmg_taken = false;
 double mushroomBounceTime;
-bool keyReleased = false;
+bool keyReleased = true;
 
 int AnimationOffset = 0;
 int AnimationOffset2 = 0;
@@ -499,27 +499,27 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	drawAnimation(6, x, g_Console);
 	if (GetAsyncKeyState(VK_SPACE) < 0)
 	{
+		if (keyReleased)
+		{
+			hp -= 2;
+			AnimationOffset2 = 30;
+			if (hp <= 16)
+			{
+				playerHealth += 20;
+				hp = 98;
+				if (playerHealth > 98)
+				{
+					playerHealth = 98;
+				}
+				g_eGameState = S_GAME;
+				
+			}
+		}
 		keyReleased = false;
 	}
 	else
 	{
 		keyReleased = true;
-	}
-
-	if (g_abKeyPressed[K_SPACE] && keyReleased)
-	{
-		hp -= 2;
-		AnimationOffset2 = 30;
-		if (hp <= 16)
-		{
-			playerHealth += 20;
-			if (playerHealth > 98)
-			{
-				playerHealth = 98;
-			}
-			hp = 98;
-			g_eGameState = S_GAME;
-		}
 	}
 	
 	if (((randomhp_dmg(21) > 65 && randomhp_dmg(21) < 70) && generate_dmg() == 1) && g_dElapsedTime > mushroomBounceTime)
