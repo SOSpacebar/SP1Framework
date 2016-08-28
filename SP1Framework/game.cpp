@@ -29,6 +29,7 @@ double  g_dElapsedTime;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
+extern int playerHealth;
 
 //Shooting Variables
 bool bulletType = 0;
@@ -66,7 +67,7 @@ short totalNumObject = 0;
 short g_currLevel = 0;
 
 // Console object
-Console g_Console(120, 40, "- UNDEFINED -");
+Console g_Console(120, 49, "- UNDEFINED -");
 
 extern objectStruct _object[25];
 
@@ -144,6 +145,7 @@ void getInput( void )
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 	g_abKeyPressed[K_SWITCH] = isKeyPressed(0x53);
 	g_abKeyPressed[K_STATS] = isKeyPressed(0x41);
+	g_abKeyPressed[K_Z] = isKeyPressed(0x5A);
 }
 
 //--------------------------------------------------------------
@@ -202,16 +204,18 @@ void render()
     {
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
-		case S_MAINMENU: renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+		case S_MAINMENU: resetVariables();
+			renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
 		case S_CREDITS: Credits(g_eGameState, g_abKeyPressed);
 			break;
 		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed);
+		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed, g_dBounceTime);
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			boxIndex = 0;
+			resetVariables();
 			break;
         case S_GAME: renderGame();
             break;
@@ -224,7 +228,16 @@ void render()
 			break;
 		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats);
 			break;
-		case S_DIALOG: checkDialogEnd(g_eGameState, g_abKeyPressed, boxIndex, g_Console, dialogend, g_dBounceTime, g_dElapsedTime, canPortalGun);
+		case S_DIALOG: 
+			if (g_currLevel > 3)
+			{
+				g_eGameState = S_GAME;
+			}
+			else
+			{
+				checkDialogEnd(g_eGameState, g_abKeyPressed, boxIndex, g_Console, dialogend, g_dBounceTime, g_dElapsedTime, canPortalGun);
+
+			}
 			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
@@ -263,46 +276,61 @@ void moveCharacter()
     // providing a beep sound whenver we shift the character
 	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_UP, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
+		if (!g_abKeyPressed[K_Z])
 		{
-			lastDirection = K_UP;
-			g_sChar.m_cLocation.Y--;
-			bSomethingHappened = true;
-			checkPlayerCollisionWithPortal(g_sChar, _portal);
+			if (checkPlayerCollision(g_sChar, g_mapData, K_UP, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
+			{
+				g_sChar.m_cLocation.Y--;
+				bSomethingHappened = true;
+				checkPlayerCollisionWithPortal(g_sChar, _portal);
+			}
 		}
+		lastDirection = K_UP;
+		bSomethingHappened = true;
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
+		if (!g_abKeyPressed[K_Z])
 		{
-			//Beep(1440, 30);
-			lastDirection = K_LEFT;
-			g_sChar.m_cLocation.X--;
-			bSomethingHappened = true;
-			checkPlayerCollisionWithPortal(g_sChar, _portal);
+			if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
+			{
+				//Beep(1440, 30);
+				g_sChar.m_cLocation.X--;
+				bSomethingHappened = true;
+				checkPlayerCollisionWithPortal(g_sChar, _portal);
+			}
 		}
+		lastDirection = K_LEFT;
+		bSomethingHappened = true;
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
+		if (!g_abKeyPressed[K_Z])
 		{
-			//Beep(1440, 30);
-			lastDirection = K_DOWN;
-			g_sChar.m_cLocation.Y++;
-			bSomethingHappened = true;
-			checkPlayerCollisionWithPortal(g_sChar, _portal);
+			if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
+			{
+				//Beep(1440, 30);
+				g_sChar.m_cLocation.Y++;
+				bSomethingHappened = true;
+				checkPlayerCollisionWithPortal(g_sChar, _portal);
+			}
 		}
+		bSomethingHappened = true;
+		lastDirection = K_DOWN;
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-		if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
+		if (!g_abKeyPressed[K_Z])
 		{
-			//Beep(1440, 30);
-			lastDirection = K_RIGHT;
-			g_sChar.m_cLocation.X++;
-			bSomethingHappened = true;
-			checkPlayerCollisionWithPortal(g_sChar, _portal);
+			if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
+			{
+				//Beep(1440, 30);
+				g_sChar.m_cLocation.X++;
+				checkPlayerCollisionWithPortal(g_sChar, _portal);
+			}
 		}
+		bSomethingHappened = true;
+		lastDirection = K_RIGHT;
 	}
 
     if ((g_abKeyPressed[K_SPACE]) && (canPortalGun))
@@ -406,7 +434,11 @@ void renderGame()
 		enemyMovememt(_enemy, g_Console, g_dElapsedTime, g_sChar, g_mapData, g_eGameState, _portal);
 		update_GameObject(g_mapData, g_sChar, _enemy, _portal, g_eGameState, totalNumObject);
 	}
-	
+
+	drawUI(g_Console);
+	drawEXP(g_Console);
+	drawHP(g_Console);
+	drawTextUI(g_Console);
 }
 
 void renderMap()
@@ -473,5 +505,6 @@ void resetVariables()
 	g_iKey.m_bActive = true;
 	totalNumObject = 0;
 	i = 0;
+	playerHealth = 98;
 }
 
