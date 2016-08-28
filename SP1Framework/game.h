@@ -21,7 +21,7 @@ enum EKEYS
     K_SPACE,
     K_COUNT,
 	K_SWITCH,
-	K_SHIFT
+	K_Z
 };
 
 // Enumeration for the different screen states

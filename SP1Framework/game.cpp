@@ -62,7 +62,7 @@ short totalNumObject = 0;
 short g_currLevel = 0;
 
 // Console object
-Console g_Console(120, 40, "- UNDEFINED -");
+Console g_Console(120, 49, "- UNDEFINED -");
 
 extern objectStruct _object[25];
 
@@ -133,7 +133,7 @@ void getInput( void )
     g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
     g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 	g_abKeyPressed[K_SWITCH] = isKeyPressed(0x53);
-	g_abKeyPressed[K_SHIFT] = isKeyPressed(0x5A);
+	g_abKeyPressed[K_Z] = isKeyPressed(0x5A);
 }
 
 //--------------------------------------------------------------
@@ -197,7 +197,7 @@ void render()
 			break;
 		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed);
+		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed, g_dBounceTime);
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			boxIndex = 0;
@@ -260,7 +260,7 @@ void moveCharacter()
     // providing a beep sound whenver we shift the character
 	if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
 	{
-		if (!g_abKeyPressed[K_SHIFT])
+		if (!g_abKeyPressed[K_Z])
 		{
 			if (checkPlayerCollision(g_sChar, g_mapData, K_UP, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 			{
@@ -274,7 +274,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
 	{
-		if (!g_abKeyPressed[K_SHIFT])
+		if (!g_abKeyPressed[K_Z])
 		{
 			if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 			{
@@ -289,7 +289,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
 	{
-		if (!g_abKeyPressed[K_SHIFT])
+		if (!g_abKeyPressed[K_Z])
 		{
 			if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 			{
@@ -304,7 +304,7 @@ void moveCharacter()
 	}
 	if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
 	{
-		if (!g_abKeyPressed[K_SHIFT])
+		if (!g_abKeyPressed[K_Z])
 		{
 			if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 			{
@@ -407,8 +407,10 @@ void renderGame()
 		update_GameObject(g_mapData, g_sChar, _enemy, _portal, g_eGameState, totalNumObject);
 	}
 
-	//drawUI(g_Console);
-	
+	drawUI(g_Console);
+	drawEXP(g_Console);
+	drawHP(g_Console);
+	drawTextUI(g_Console);
 }
 
 void renderMap()

@@ -2,6 +2,8 @@
 #define _TIMER_H
 
 #include <windows.h>
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 
 class CStopWatch
 {

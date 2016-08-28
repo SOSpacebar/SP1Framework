@@ -18,6 +18,7 @@ int timeOffset = 0;
 bool dmg_taken = false;
 double mushroomBounceTime;
 bool keyReleased = true;
+bool combatMenuReleased = true;
 
 int AnimationOffset = 0;
 int AnimationOffset2 = 0;
@@ -29,6 +30,7 @@ extern short    g_currLevel;
 extern SMapData g_mapData;
 extern int i;
 extern enemyStruct _enemy[20];
+extern short combatIndex;
 
 void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
@@ -454,11 +456,11 @@ void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 	}
 }
 
-void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT])
+void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT], double &g_dBounceTime)
 {
 	timeOffset++;
-
-	processUserInput();
+	bool bSomethingHappened = false;
+	//processUserInput();
 	//set screen black
 	string fillScreen;
 
@@ -473,6 +475,8 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.X = 42;
 	x.Y = 5;
 
+	//add function to check which mushroom to spawn
+	drawCombatMenu(g_Console);
 	if (AnimationOffset <= 20 && AnimationOffset2 == 0)
 	{
 		drawAnimation(0, x, g_Console);
@@ -487,47 +491,161 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		AnimationOffset = 0;
 	}
 
-	AnimationOffset++;
-
-	x.X = 10;
-	x.Y = 25;
-
-	drawAnimation(3, x, g_Console);
-
-	x.X = 10;
-	x.Y = 32;
-	drawAnimation(6, x, g_Console);
-	if (GetAsyncKeyState(VK_SPACE) < 0)
+	if (GetAsyncKeyState(VK_DOWN) < 0)
 	{
-		if (keyReleased)
+		if (combatMenuReleased)
 		{
-			hp -= 2;
-			AnimationOffset2 = 30;
-			if (hp <= 16)
+			if (combatIndex == 0)
 			{
-				playerHealth += 20;
-				hp = 98;
-				if (playerHealth > 98)
-				{
-					playerHealth = 98;
-				}
-				g_eGameState = S_GAME;
-				
+				combatIndex = 1;
+			}
+			else if (combatIndex == 2)
+			{
+				combatIndex = 3;
+			}
+			else if (combatIndex == 4)
+			{
+				combatIndex = 5;
 			}
 		}
-		keyReleased = false;
+
+		combatMenuReleased = false;
+	}
+	else
+	{
+		combatMenuReleased = true;
+	}
+
+	if (GetAsyncKeyState(VK_UP) < 0)
+	{
+		if (combatMenuReleased)
+		{
+			if (combatIndex == 1)
+			{
+				combatIndex = 0;
+			}
+			else if (combatIndex == 3)
+			{
+				combatIndex = 2;
+			}
+			else if (combatIndex == 5)
+			{
+				combatIndex = 4;
+			}
+		}
+		combatMenuReleased = false;
+	}
+	else
+	{
+		combatMenuReleased = true;
+	}
+
+	if (GetAsyncKeyState(VK_SPACE) < 0)
+	{
+		if (g_dBounceTime < g_dElapsedTime)
+		{
+			if (combatMenuReleased)
+			{
+				combatMenuReleased = false;
+				if (combatIndex == 0)
+				{
+					combatIndex = 2;
+					bSomethingHappened = true;
+				}
+				else if (combatIndex == 1)
+				{
+					combatIndex = 4;
+					bSomethingHappened = true;
+				}
+				if (keyReleased)
+				{
+					if (combatIndex == 2)
+					{
+						hp -= 10;
+						AnimationOffset2 = 30;
+						combatIndex = 0;
+						bSomethingHappened = true;
+					}
+					else if (combatIndex == 3)
+					{
+						hp -= 15;
+						AnimationOffset2 = 30;
+						combatIndex = 0;
+						bSomethingHappened = true;
+					}
+					else if (combatIndex == 4)
+					{
+						hp -= 20;
+						AnimationOffset2 = 30;
+						combatIndex = 0;
+						bSomethingHappened = true;
+					}
+					else if (combatIndex == 5)
+					{
+						hp -= 20;
+						AnimationOffset2 = 30;
+						combatIndex = 0;
+						bSomethingHappened = true;
+					}
+				}
+				keyReleased = false;
+			}
+		}
 	}
 	else
 	{
 		keyReleased = true;
+		combatMenuReleased = true;
 	}
+
+	if (GetAsyncKeyState(VK_ESCAPE) < 0)
+	{
+		if (combatMenuReleased)
+		{
+			if (combatIndex == 2 || combatIndex == 3)
+			{
+				combatIndex = 0;
+			}
+			else if (combatIndex == 4 || combatIndex == 5)
+			{
+				combatIndex = 1;
+			}
+		}
+		combatMenuReleased = false;
+	}
+	else
+	{
+		combatMenuReleased = true;
+	}
+
+	AnimationOffset++;
+
+	x.X = 10;
+	x.Y = 36;
+
+	drawAnimation(3, x, g_Console);
+
+	x.X = 10;
+	x.Y = 43;
+	drawAnimation(6, x, g_Console);
 	
+	if (hp <= 16)
+	{
+		playerHealth += 20;
+		hp = 98;
+		if (playerHealth > 98)
+		{
+			playerHealth = 98;
+		}
+		g_eGameState = S_GAME;
+	}
+
 	if (((randomhp_dmg(21) > 65 && randomhp_dmg(21) < 70) && generate_dmg() == 1) && g_dElapsedTime > mushroomBounceTime)
 	{
-		if (hp != 98)
+		if (hp != 98 && keyReleased == false)
 		{
-			mushroomBounceTime = g_dElapsedTime + 0.125;
-			playerHealth--;
+			mushroomBounceTime = g_dElapsedTime + 0.525;
+			playerHealth -= 5;
 		}
 	}
 
@@ -552,12 +670,18 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		AnimationOffset2 = 0;
 	}
 	x.X = 10;
-	x.Y = 25;
+	x.Y = 36;
 	drawHpCurr(3, x, hp, g_Console);
 
 	x.X = 10;
-	x.Y = 32;
+	x.Y = 43;
 	drawPlayerHP(6, x, playerHealth, g_Console);
+
+	if (bSomethingHappened)
+	{
+		// set the bounce time to some time in the future to prevent accidental triggers
+		g_dBounceTime = g_dElapsedTime + 0.325; // 125ms should be enough
+	}
 }
 
 void setupLevel(short &Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, objectStruct _object[], short &totalNumObject, bool &canPortalGun, enemyStruct _enemy[])
