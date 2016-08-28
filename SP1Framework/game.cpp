@@ -19,6 +19,7 @@
 #include "renderPlayerStatsScreen.h"
 #include "handleStatsScreen.h"
 #include "playerDetailsManager.h"
+#include "inventory.h"
 //Original framework stuff
 #include <iostream>
 #include <sstream>
@@ -74,6 +75,9 @@ extern objectStruct _object[25];
 //MK 2
 PlayerStats _playerStats;
 
+//inventory
+Inventory _inventory;
+
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
 //            Initialize variables, allocate memory, load data from file, etc. 
@@ -106,6 +110,11 @@ void init( void )
 
 	//Load Player Stats
 	loadFile(_playerStats);
+
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
 }
 
 //--------------------------------------------------------------
@@ -226,7 +235,7 @@ void render()
 			break;
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
 			break;
-		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats);
+		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats, _inventory);
 			break;
 		case S_DIALOG: 
 			if (g_currLevel > 3)

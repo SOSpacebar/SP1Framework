@@ -27,5 +27,6 @@ void Inventory::addItem(const Items &item)
 
 void Inventory::removeItem(int index)
 {
-
+	if (index < inventorySize)
+	delete itemsArray[index];
 }

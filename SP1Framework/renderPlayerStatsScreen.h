@@ -4,9 +4,10 @@
 #include "game.h"
 #include "Framework\console.h"
 #include "playerStats.h"
+#include "inventory.h"
 
 
-void renderPlayerStatsScreen(Console &g_Console, PlayerStats getPlayerStats);
+void renderPlayerStatsScreen(Console &g_Console, PlayerStats getPlayerStats, Inventory &_inventory);
 
 
 

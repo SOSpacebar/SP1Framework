@@ -1,6 +1,6 @@
 #include "renderPlayerStatsScreen.h"
 
-void renderPlayerStatsScreen(Console &g_Console, PlayerStats getPlayerStats)
+void renderPlayerStatsScreen(Console &g_Console, PlayerStats getPlayerStats, Inventory &_inventory)
 {
 	COORD c = g_Console.getConsoleSize();
 	c.X = c.X/2 - 9;
@@ -20,4 +20,7 @@ void renderPlayerStatsScreen(Console &g_Console, PlayerStats getPlayerStats)
 	c.Y += 1;
 	g_Console.writeToBuffer(c, "Constitution: " + std::to_string(getPlayerStats.getPlayerCon()), 0x03);
 	c.Y += 1;
+	g_Console.writeToBuffer(c, "ITEMS: ", 0x03);
+	c.Y += 1;
+	_inventory.debugPrint();
 }
