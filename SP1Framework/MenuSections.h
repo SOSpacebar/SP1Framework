@@ -1,4 +1,4 @@
-#ifndef _MENUSECTIONS.H
+#ifndef _MENUSECTIONS_H
 #define _MENUSECTIONS_H
 
 #include "Framework\console.h"

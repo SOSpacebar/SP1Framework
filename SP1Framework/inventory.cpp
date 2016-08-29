@@ -11,7 +11,7 @@ Inventory::Inventory()
 
 Inventory::~Inventory()
 {
-	for (size_t i = 0; i < numberOfItems; i++)
+	for (int i = 0; i < numberOfItems; i++)
 	{
 		delete itemsArray[i];
 	}
