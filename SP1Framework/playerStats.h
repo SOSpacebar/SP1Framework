@@ -20,7 +20,7 @@ public:
 	inline const int getPlayerStatPoints() const { return player_experience; };
 
 
-	int updatePlayerhealth(int health, int maxHealth);
+	void updatePlayerhealth(int health, int maxHealth);
 	void setPlayerStats(string name, int level, int exp, int maxExp, int health, int maxHealth, int attack, int s_str, int s_con, int s_int, int statPoint);
 	void updateExp(int exp);
 	void updateStr(int s_str);

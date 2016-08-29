@@ -675,8 +675,9 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 						combatIndex = 0;
 						bSomethingHappened = true;
 					}
-					if (hp <= 16)
+					if (hp <= 0)
 					{
+						getPlayerStats.updateExp(10);
 						PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
 						hp = 98;
 						g_eGameState = S_GAME;
@@ -718,14 +719,10 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 
 	AnimationOffset++;
 
-	x.X = 10;
-	x.Y = 36;
+	x.X = 41;
+	x.Y = 24;
 
 	drawAnimation(3, x, g_Console);
-
-	x.X = 10;
-	x.Y = 43;
-	drawAnimation(6, x, g_Console);
 
 	if (playerHealth <= 10)
 	{
@@ -777,10 +774,11 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		}
 	}
 
-	x.X = 20;
-	x.Y = 20;
+	x.X = 41;
+	x.Y = 24;
 	drawHpCurr(3, x, hp, g_Console);
-	
+	g_Console.writeToBuffer(x.X = 41, x.Y = 23, "Monster HP -", 0x0D);
+
 	drawUI(g_Console);
 	drawHP(g_Console);
 	drawEXP(g_Console, getPlayerStats);

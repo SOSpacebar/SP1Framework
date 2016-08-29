@@ -4,7 +4,7 @@
 
 FrameData frameData;
 
-int enemyHp = 98;
+float enemyHp = 98;
 int playerCurrHP = 98;
 short combatIndex = 0;
 
@@ -120,15 +120,35 @@ void drawAnimation(int keyFrame, COORD animationCoord, Console &g_Console)
 
 void drawHpCurr(int keyFrame, COORD currCoord, int &hp, Console &g_Console)
 {
-	enemyHp = (hp % 98);
-	COORD currCoord2;
+	enemyHp = hp % 99;
+	float PercentageHPDamage = (float)(((float)98.00 - enemyHp)/(float)100.00) * (float)41.00;
+	
+	int totalEnemyHpLeft = 41 - PercentageHPDamage;
+	
+	for (int y = 0; y < 2; y++)
+	{
+		for (int x = 0; x < 42; x++)
+		{
+			g_Console.writeToBuffer(currCoord.X + x, currCoord.Y + y, (char)219, 0x04);
+		}
+	}
+
+	for (short y = 0; y < 2; y++)
+	{
+		for (short x = 0; x <= totalEnemyHpLeft; x++)
+		{
+			g_Console.writeToBuffer(currCoord.X + x, currCoord.Y + y, (char)219, 0x4A);
+		}
+	}
+
+	/*COORD currCoord2;
 	int tempValue = currCoord.X;
 
 	if (hp != 98)
 	{
 		for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
 		{
-			for (currCoord2.X = 0; currCoord2.X < enemyHp - 4; currCoord2.X++)
+			for (currCoord2.X = 0; currCoord2.X < enemyHp; currCoord2.X++)
 			{
 				if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
 				{
@@ -185,7 +205,7 @@ void drawHpCurr(int keyFrame, COORD currCoord, int &hp, Console &g_Console)
 			currCoord.X = tempValue;
 			currCoord.Y++;
 		}
-	}
+	}*/
 }
 
 void drawDialogBox(int keyFrame, COORD boxCoord, Console &g_Console)

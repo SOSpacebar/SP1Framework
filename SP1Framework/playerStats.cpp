@@ -15,15 +15,15 @@ void PlayerStats::setPlayerStats(string name, int level, int exp, int maxExp, in
 	player_statPoints = statPoint;
 }
 
-/*void PlayerStats::updatePlayerhealth(int health, int maxHealth)
+void PlayerStats::updatePlayerhealth(int health, int maxHealth)
 {
-	player_health = health;
+	player_health += health;
 	player_maxHealth = maxHealth;
-}*/
+}
 
 void PlayerStats::updateExp(int exp)
 {
-	player_experience = exp;
+	player_experience += exp;
 
 	if (player_experience > (player_level * 100))
 	{
