@@ -605,11 +605,13 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 				if (combatIndex == 0)
 				{
 					combatIndex = 2;
+					keyReleased = false;
 					bSomethingHappened = true;
 				}
 				else if (combatIndex == 1)
 				{
 					combatIndex = 4;
+					keyReleased = false;
 					bSomethingHappened = true;
 				}
 				if (keyReleased)
@@ -642,8 +644,17 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 						combatIndex = 0;
 						bSomethingHappened = true;
 					}
+					if (hp <= 16)
+					{
+						hp = 98;
+						g_eGameState = S_GAME;
+						playerHealth += 20;
+						if (playerHealth > 98)
+						{
+							playerHealth = 98;
+						}
+					}
 				}
-				keyReleased = false;
 			}
 		}
 	}
