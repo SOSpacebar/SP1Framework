@@ -15,8 +15,8 @@ public:
 	inline int getReqLevel() const { return item_reqLevel; };
 	inline int getReqStr() const { return item_reqStr; };
 	inline int getReqCon() const { return item_reqCon; };
-	inline int getReqAttackValue() const { return item_attackValue; };
-	inline int getReqHealthValue() const { return item_healthValue; };
+	inline int getAttackValue() const { return item_attackValue; };
+	inline int getHealthValue() const { return item_healthValue; };
 
 	void setItemDetails(string name, string type, int level, int str, int con, int attackV, int healthV); 
 	void setName(string name);
