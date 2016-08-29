@@ -10,7 +10,7 @@ Items::~Items()
 {
 }
 
-void Items::setItemDetails(string name, string type, int level, int str, int con, int attackV, int healthV)
+void Items::setItemDetails(string name, string type, int level, int str, int con, int attackV, int healthV, bool equipSlotWeapon, bool equipSlotArmor, bool equipSlotAcc)
 {
 
 }
@@ -51,6 +51,9 @@ void Items::RNGitem()
 			item_int = rngInt;
 			item_attackValue = rngAttack;
 			item_healthValue = 0;
+			item_equipSlotWeapon = true;
+			item_equipSlotArmor = false;
+			item_equipSlotAcc = false;
 			break;
 		case 2:
 			item_name = ArmorArr[nameRand(twist)];
@@ -61,6 +64,9 @@ void Items::RNGitem()
 			item_int = rngInt;
 			item_attackValue = 0;
 			item_healthValue = rngHealth;
+			item_equipSlotWeapon = false;
+			item_equipSlotArmor = true;
+			item_equipSlotAcc = false;
 			break;
 		case 3:
 			item_name = AccArr[nameRand(twist)];
@@ -71,6 +77,9 @@ void Items::RNGitem()
 			item_int = rngInt;
 			item_attackValue = rngAttack;
 			item_healthValue = rngHealth;
+			item_equipSlotWeapon = false;
+			item_equipSlotArmor = false;
+			item_equipSlotAcc = true;
 			break;
 	}
 }

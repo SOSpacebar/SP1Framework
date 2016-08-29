@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClCompile Include="checkBulletCollision.cpp" />
     <ClCompile Include="DialogBox.cpp" />
+    <ClCompile Include="EquipHandler.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="items.cpp" />
     <ClCompile Include="loadPlayerDetails.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="collisionManager.h" />
     <ClInclude Include="DialogBox.h" />
     <ClInclude Include="enemyProperties.h" />
+    <ClInclude Include="EquipHandler.h" />
     <ClInclude Include="fieldOfView.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />

@@ -18,8 +18,11 @@ public:
 	inline int getInt() const { return item_int; };
 	inline int getAttackValue() const { return item_attackValue; };
 	inline int getHealthValue() const { return item_healthValue; };
+	inline bool getEquipSlotWeapon() { return item_equipSlotWeapon; };
+	inline bool getEquipSlotArmor() { return item_equipSlotArmor; };
+	inline bool getEquipSlotAcc() { return item_equipSlotAcc; };
 
-	void setItemDetails(string name, string type, int level, int str, int con, int attackV, int healthV); 
+	void setItemDetails(string name, string type, int level, int str, int con, int attackV, int healthV, bool equipSlotWeapon, bool equipSlotArmor, bool equipSlotAcc); 
 	void setName(string name);
 
 private:
@@ -31,9 +34,11 @@ private:
 	int item_int;
 	int item_attackValue;
 	int item_healthValue;
+	bool item_equipSlotWeapon;
+	bool item_equipSlotArmor;
+	bool item_equipSlotAcc;
 
 	void RNGitem();
 };
-
 
 #endif

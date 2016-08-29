@@ -45,6 +45,14 @@ class Inventory
 				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getCon()), 0x03);
 				c.X += 7;
 				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getInt()), 0x03);
+				//remove these lines after debugging
+				c.X += 7;
+				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getEquipSlotWeapon()), 0x03);
+				c.X += 7;
+				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getEquipSlotArmor()), 0x03);
+				c.X += 7;
+				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getEquipSlotAcc()), 0x03);
+				//end of removal
 				c.Y++;
 			}
 		}
