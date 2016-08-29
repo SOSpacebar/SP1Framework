@@ -124,6 +124,15 @@ void init( void )
 	_inventory.addItem(Items());
 	_inventory.addItem(Items());
 	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+
 }
 
 //--------------------------------------------------------------
@@ -203,6 +212,8 @@ void mouseHandler(const MOUSE_EVENT_RECORD& mouseEvent)
         break;
     case S_GAME: gameplayMouseHandler(mouseEvent); // handle gameplay mouse event
         break;
+	case S_STATSSCREEN: gameplayMouseHandler(mouseEvent); // handle gameplay mouse event
+		break;
     }
 }
 
@@ -310,7 +321,7 @@ void update(double dt)
 			break;
         case S_GAME: updateGame(); // gameplay logic when we are in the game
             break;
-		case S_STATSSCREEN: statsUserInterface(g_eGameState, g_abKeyPressed, g_dElapsedTime, g_dBounceTime);
+		case S_STATSSCREEN: statsUserInterface(g_eGameState, g_abKeyPressed, g_dElapsedTime, g_dBounceTime, _playerStats, _inventory, g_mouseEvent);
 			break;
     }
 
@@ -353,6 +364,7 @@ void render()
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
 			break;
 		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats, _inventory);
+			renderInputEvents();
 			break;
 		case S_DIALOG: 
 			if (g_currLevel > 3)

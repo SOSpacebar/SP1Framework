@@ -4,6 +4,8 @@ Player Exp
 Player NextExp
 Player Health
 Player MaxHealth
+Player Mana
+Player MaxMana
 Player Attack
 Player Strenght
 Player Constitution

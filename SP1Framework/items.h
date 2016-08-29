@@ -13,8 +13,9 @@ public:
 	inline string getName() const { return item_name; };
 	inline string getType() const { return item_type; };
 	inline int getReqLevel() const { return item_reqLevel; };
-	inline int getReqStr() const { return item_reqStr; };
-	inline int getReqCon() const { return item_reqCon; };
+	inline int getStr() const { return item_str; };
+	inline int getCon() const { return item_con; };
+	inline int getInt() const { return item_int; };
 	inline int getAttackValue() const { return item_attackValue; };
 	inline int getHealthValue() const { return item_healthValue; };
 
@@ -25,8 +26,9 @@ private:
 	string item_name;
 	string item_type;
 	int item_reqLevel;
-	int item_reqStr;
-	int item_reqCon;
+	int item_str;
+	int item_con;
+	int item_int;
 	int item_attackValue;
 	int item_healthValue;
 
