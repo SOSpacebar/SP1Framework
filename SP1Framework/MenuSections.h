@@ -26,6 +26,7 @@ void checkDialogEnd(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], int
 
 int generate_dmg();
 int randomhp_dmg(int rand_dmg_timeOffset);
+int randomTitle();
 
 void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime);
 
