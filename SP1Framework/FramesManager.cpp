@@ -52,9 +52,12 @@ void readAnimation(void)
 	chooseFrameToLoad[29] = "animation/Slime3.txt";
 	chooseFrameToLoad[30] = "animation/Title_static_1.txt";
 	chooseFrameToLoad[31] = "animation/Title_static_2.txt";
-	chooseFrameToLoad[32] = "animation/GameOver_static_1.txt";
+	chooseFrameToLoad[32] = "animation/Title_static_3.txt";
+	chooseFrameToLoad[33] = "animation/Title_static_4.txt";
+	chooseFrameToLoad[34] = "animation/GameOver_static_1.txt";
+	chooseFrameToLoad[35] = "animation/GameOver_static_2.txt";
 
-	for (int d = 0; d < 33; d++)
+	for (int d = 0; d < 36; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 
@@ -275,7 +278,20 @@ void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console)
 				break;
 			}
 
-			g_Console.writeToBuffer(T_Coord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0A);
+			if (keyFrame == 30 || keyFrame == 31 || keyFrame == 34 || keyFrame == 35)	// if KeyFrame is title_corrupt style 1 or 2 or GameOver_corrupt 1 or 2, print to buffer in Red 
+			{
+				g_Console.writeToBuffer(T_Coord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0C);
+
+			}
+			else if (keyFrame == 32 || keyFrame == 33)			//if Keyframe is title_corrupt style 3 or 4, print in White
+			{
+				g_Console.writeToBuffer(T_Coord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0F);
+			}
+			else	//Print any title and Gameover Keyframe in Green
+			{
+				g_Console.writeToBuffer(T_Coord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0A);
+			}
+
 
 			T_Coord.X++;
 		}

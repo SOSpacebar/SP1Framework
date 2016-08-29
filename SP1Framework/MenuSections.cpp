@@ -43,20 +43,34 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 	COORD title;
 	title.X = 0;
 	title.Y = 5;
-
-	if (time % 4 == 0)
+//============================= Game Title ============================
+	if (time % 4 == 0)							//function to be called multiple times in a second to create animated corrupting effect
 	{
-		drawTitle(30, title, g_Console);
+		if (randomTitle() == 1)
+		{
+			drawTitle(30, title, g_Console);
+		}
+		else
+		{
+			drawTitle(31, title, g_Console);
+		}
 	}
 	else if (time % 3 == 0)
 	{
-		drawTitle(31, title, g_Console);
+		if (randomTitle() == 1)
+		{
+			drawTitle(32, title, g_Console);
+		}
+		else
+		{
+			drawTitle(33, title, g_Console);
+		}
 	}
 	else
 	{
 		drawTitle(9, title, g_Console);
 	}
-
+//======================================================================
 	bool bSomethingHappened = false;
 	
 	g_currLevel = 0;
@@ -168,19 +182,34 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 	COORD title;
 	title.X = 0;
 	title.Y = 5;
-
-	if (time % 4 == 0)
+	//============================= Game Title ============================
+	if (time % 4 == 0)							//function to be called multiple times in a second to create animated corrupting effect
 	{
-		drawTitle(30, title, g_Console);
+		if (randomTitle() == 1)
+		{
+			drawTitle(30, title, g_Console);
+		}
+		else
+		{
+			drawTitle(31, title, g_Console);
+		}
 	}
 	else if (time % 3 == 0)
 	{
-		drawTitle(31, title, g_Console);
+		if (randomTitle() == 1)
+		{
+			drawTitle(32, title, g_Console);
+		}
+		else
+		{
+			drawTitle(33, title, g_Console);
+		}
 	}
 	else
 	{
 		drawTitle(9, title, g_Console);
 	}
+	//======================================================================
 
 
 	bool bSomethingHappened = false;
@@ -450,7 +479,14 @@ void GameOver(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g
 
 	if (time % 4 == 0)
 	{
-		drawTitle(31, G_over, g_Console);
+		if (randomTitle() == 1)
+		{
+			drawTitle(34, G_over, g_Console);
+		}
+		else
+		{
+			drawTitle(35, G_over, g_Console);
+		}
 	}
 	else
 	{
@@ -832,6 +868,15 @@ int randomhp_dmg(int rand_dmg_timeOffset)
 
 	std::uniform_int_distribution<> dmg(0, 21 - 1);
 	return (dmg(twistNew)+50);
+}
+
+int randomTitle()
+{
+	std::random_device randtitle;
+	std::mt19937 twistNew(randtitle());
+
+	std::uniform_int_distribution<> title_style(0, 2 - 1);
+	return (title_style(twistNew));
 }
 
 void checkDialogEnd(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], int &boxIndex, Console &g_Console, bool dialogend, double &g_dBounceTime, double &g_dElapsedTime, bool &canPortalGun)
