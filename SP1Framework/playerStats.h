@@ -7,7 +7,7 @@
 class PlayerStats
 {
 public:
-	inline const string getPlayerName() const { return player_name; };
+	inline string getPlayerName() const { return player_name; };
 	inline const int getPlayerLevel() const { return player_level; };
 	inline const int getPlayerExp() const { return player_experience; };
 	inline const int getPlayerNextLvlExp() const { return player_nextLvlExperience; };

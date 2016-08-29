@@ -358,7 +358,7 @@ void drawUI(Console &g_Console)
 	}
 }
 
-void drawEXP(Console &g_Console)
+void drawEXP(Console &g_Console, PlayerStats getPlayerStats)
 {
 	COORD UiLocationStart;
 	COORD UiLocationIndex;
@@ -452,18 +452,17 @@ void drawHP(Console &g_Console)
 	}
 }
 
-void drawTextUI(Console &g_Console)
+void drawTextUI(Console &g_Console, PlayerStats getPlayerStats)
 {
 	COORD UiLocationStart;
-	COORD UiLocationIndex;
-
+	
 	//Name Text
 	UiLocationStart.X = 3;
 	UiLocationStart.Y = 38;
 	g_Console.writeToBuffer(UiLocationStart,"Name:", 0x0F);
 	UiLocationStart.X = 6;
 	UiLocationStart.Y = 39;
-	g_Console.writeToBuffer(UiLocationStart, "John", 0x0F);
+	g_Console.writeToBuffer(UiLocationStart, getPlayerStats.getPlayerName(), 0x0F);
 
 	////Player Level
 	//UiLocationStart.X = 3;
@@ -475,7 +474,7 @@ void drawTextUI(Console &g_Console)
 	UiLocationStart.Y = 42;
 	g_Console.writeToBuffer(UiLocationStart, "Health:", 0x0F);
 	UiLocationStart.X = 11;
-	g_Console.writeToBuffer(UiLocationStart, "100 / 100", 0x0F);
+	g_Console.writeToBuffer(UiLocationStart, std::to_string(getPlayerStats.getPlayerHealth()) + "/" + std::to_string(getPlayerStats.getPlayerMaxHealth()), 0x0F);
 
 	//Player Mana
 	UiLocationStart.X = 60;
@@ -490,7 +489,7 @@ void drawTextUI(Console &g_Console)
 	g_Console.writeToBuffer(UiLocationStart, "Level:", 0x0F);
 	UiLocationStart.X = 10;
 	UiLocationStart.Y = 45;
-	g_Console.writeToBuffer(UiLocationStart, "01", 0x0F);
+	g_Console.writeToBuffer(UiLocationStart, std::to_string(getPlayerStats.getPlayerLevel()), 0x0F);
 
 	//EXP text
 	UiLocationStart.X = 3;
@@ -501,8 +500,6 @@ void drawTextUI(Console &g_Console)
 void drawCombatMenu(Console &g_Console)
 {
 	COORD UiLocationStart;
-	COORD UiLocationIndex;
-	
 
 	//draw combat menu box
 	UiLocationStart.X = 95;

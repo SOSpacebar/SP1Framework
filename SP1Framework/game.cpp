@@ -568,9 +568,9 @@ void renderGame()
 	}
 
 	drawUI(g_Console);
-	drawEXP(g_Console);
+	drawEXP(g_Console, _playerStats);
 	drawHP(g_Console);
-	drawTextUI(g_Console);
+	drawTextUI(g_Console, _playerStats);
 	renderInputEvents();
 }
 
