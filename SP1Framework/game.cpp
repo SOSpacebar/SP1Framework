@@ -14,6 +14,12 @@
 #include "MapGenerator.h"
 #include "fieldOfView.h"
 #include "DialogBox.h"
+//Mk 2
+#include "playerStats.h"
+#include "renderPlayerStatsScreen.h"
+#include "handleStatsScreen.h"
+#include "playerDetailsManager.h"
+#include "inventory.h"
 //Original framework stuff
 #include <iostream>
 #include <sstream>
@@ -68,6 +74,12 @@ Console g_Console(120, 49, "- UNDEFINED -");
 
 extern objectStruct _object[25];
 
+//MK 2
+PlayerStats _playerStats;
+
+//inventory
+Inventory _inventory;
+
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
 //            Initialize variables, allocate memory, load data from file, etc. 
@@ -103,6 +115,13 @@ void init( void )
    // g_Console.setKeyboardHandler(keyboardHandler);
     g_Console.setMouseHandler(mouseHandler);
 
+	//Load Player Stats
+	loadFile(_playerStats);
+
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
+	_inventory.addItem(Items());
 }
 
 //--------------------------------------------------------------
@@ -197,6 +216,7 @@ void getInput(void)
 	g_abKeyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
 	g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 	g_abKeyPressed[K_SWITCH] = isKeyPressed(0x53);
+	g_abKeyPressed[K_STATS] = isKeyPressed(0x41);
 	g_abKeyPressed[K_Z] = isKeyPressed(0x5A);
 }
 
@@ -288,6 +308,8 @@ void update(double dt)
 			break;
         case S_GAME: updateGame(); // gameplay logic when we are in the game
             break;
+		case S_STATSSCREEN: statsUserInterface(g_eGameState, g_abKeyPressed, g_dElapsedTime, g_dBounceTime);
+			break;
     }
 
 }
@@ -327,6 +349,8 @@ void render()
 		case S_PAUSE: GamePause(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
+			break;
+		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats, _inventory);
 			break;
 		case S_DIALOG: 
 			if (g_currLevel > 3)
@@ -459,6 +483,7 @@ void moveCharacter()
 
 		if (g_sChar.m_bActive == 0)
 		{
+			_playerStats.setPlayerStats(5, 100, 120, 120, 10, 10, 10);
 			g_sChar.m_bActive = 1;
 			bulletType = 0;
 		}
@@ -467,6 +492,14 @@ void moveCharacter()
 			g_sChar.m_bActive = 0;
 			bulletType = 1;
 		}
+	}
+
+
+	if (g_abKeyPressed[K_STATS])
+	{
+		bSomethingHappened = true;
+
+		g_eGameState = S_STATSSCREEN;
 	}
 
 	if (g_eGameState == S_GAME && g_abKeyPressed[K_ENTER])
@@ -487,6 +520,11 @@ void processUserInput()
     // quits the game if player hits the escape key
     //if (g_skKeyEvent[K_ESCAPE].keyReleased)
     //    g_bQuitGame = true;    
+	//if (g_abKeyPressed[K_ESCAPE])
+	//{
+	//	saveFile(_playerStats);
+	//	g_bQuitGame = true;
+	//}
 }
 
 void clearScreen()

@@ -39,6 +39,7 @@ enum EKEYS
     K_SPACE,
     K_COUNT,
 	K_SWITCH,
+	K_STATS,
 	K_Z
 };
 
@@ -55,8 +56,9 @@ enum EGAMESTATES
 	S_COMBATSCREEN,
 	S_LOADLEVEL,
 	S_TRANSITION,
+	S_STATSSCREEN,
 	S_DIALOG,
-	S_PAUSE,
+	S_PAUSE
 };
 
 // struct for the game character
