@@ -2,12 +2,15 @@
 
 void renderPlayerStatsScreen(Console &g_Console, PlayerStats getPlayerStats, Inventory &_inventory)
 {
+	_inventory.debugPrint();
+
 	COORD c = g_Console.getConsoleSize();
-	c.X = c.X/2 - 9;
-	c.Y = c.Y/3;
+	c.X = 5;
+	c.Y = 2;
 	
-	g_Console.writeToBuffer(c, "     Player Stats    ", 0x03);
+	g_Console.writeToBuffer(c, "===============Player Stats=================", 0x03);
 	c.Y += 2;
+	c.X = 20;
 	g_Console.writeToBuffer(c, "Name : " + getPlayerStats.getPlayerName(), 0x03);
 	c.Y += 1;
 	g_Console.writeToBuffer(c, "Level : " + std::to_string(getPlayerStats.getPlayerLevel()), 0x03);
@@ -25,8 +28,4 @@ void renderPlayerStatsScreen(Console &g_Console, PlayerStats getPlayerStats, Inv
 	g_Console.writeToBuffer(c, "Intelligence: " + std::to_string(getPlayerStats.getPlayerInt()), 0x03);
 	c.Y += 1;
 	g_Console.writeToBuffer(c, "Stats Point: " + std::to_string(getPlayerStats.getPlayerStatPoints()), 0x03);
-	c.Y += 1;
-	g_Console.writeToBuffer(c, "ITEMS: ", 0x03);
-	c.Y += 1;
-	_inventory.debugPrint();
 }
