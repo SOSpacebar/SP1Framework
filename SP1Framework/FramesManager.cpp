@@ -45,6 +45,8 @@ void readAnimation(void)
 	chooseFrameToLoad[21] = "animation/expui.txt";
 	chooseFrameToLoad[22] = "animation/uibox.txt";
 	chooseFrameToLoad[23] = "animation/manaui.txt";
+	chooseFrameToLoad[24] = "animation/Title_static_1.txt";
+	chooseFrameToLoad[25] = "animation/Title_static_2.txt";
 
 
 	for (int d = 0; d < 24; d++)
@@ -307,7 +309,7 @@ void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console)
 
 	for (currCoord2.Y = 0; currCoord2.Y < 8; currCoord2.Y++)
 	{
-		for (currCoord2.X = 0; currCoord2.X < 90; currCoord2.X++)
+		for (currCoord2.X = 0; currCoord2.X < 120; currCoord2.X++)
 		{
 			if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
 			{
