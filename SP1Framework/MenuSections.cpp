@@ -515,7 +515,7 @@ void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 	}
 }
 
-void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT], double &g_dBounceTime)
+void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT], double &g_dBounceTime, PlayerStats getPlayerStats)
 {
 	timeOffset++;
 	bool bSomethingHappened = false;
@@ -745,14 +745,15 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	{
 		AnimationOffset2 = 0;
 	}
-	x.X = 10;
-	x.Y = 36;
+
+	x.X = 20;
+	x.Y = 20;
 	drawHpCurr(3, x, hp, g_Console);
-
-	x.X = 10;
-	x.Y = 43;
-	drawPlayerHP(6, x, playerHealth, g_Console);
-
+	
+	drawUI(g_Console);
+	drawHP(g_Console);
+	drawEXP(g_Console, getPlayerStats);
+	drawTextUI(g_Console, getPlayerStats);
 	if (bSomethingHappened)
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
