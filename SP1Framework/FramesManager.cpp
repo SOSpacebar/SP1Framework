@@ -311,9 +311,9 @@ void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console)
 
 	int tempValue = T_Coord.X;
 
-	for (currCoord2.Y = 0; currCoord2.Y < 8; currCoord2.Y++)
+	for (currCoord2.Y = 0; currCoord2.Y <= 8; currCoord2.Y++)
 	{
-		for (currCoord2.X = 0; currCoord2.X < 120; currCoord2.X++)
+		for (currCoord2.X = 0; currCoord2.X <= 120; currCoord2.X++)
 		{
 			if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
 			{

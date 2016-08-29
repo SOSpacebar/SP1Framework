@@ -47,8 +47,10 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 	{
 		drawTitle(30, title, g_Console);
 	}
-
-	drawTitle(9, title, g_Console);
+	else
+	{
+		drawTitle(9, title, g_Console);
+	}
 
 	bool bSomethingHappened = false;
 	
@@ -156,11 +158,20 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 
 void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
+	int time = g_dElapsedTime;
+
 	COORD title;
 	title.X = 0;
 	title.Y = 5;
 
-	drawTitle(9, title, g_Console);
+	if (time % 5 == 0)
+	{
+		drawTitle(30, title, g_Console);
+	}
+	else
+	{
+		drawTitle(9, title, g_Console);
+	}
 
 	bool bSomethingHappened = false;
 	string Level[3] {"Tutorial", "Challenge", "Random Generate"}; //creating a simple level selection.
