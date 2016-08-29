@@ -19,15 +19,15 @@ public:
 	inline int getPlayerStr() const { return player_strenght; };
 	inline int getPlayerCon() const { return player_constitution; };
 	inline int getPlayerInt() const { return player_intelligence; }
-	inline int getPlayerStatPoints() const { return player_experience; };
+	inline int getPlayerStatPoints() const { return player_statPoints; };
 
 
-	int updatePlayerhealth(int health, int maxHealth);
+	void updatePlayerhealth(int health, int maxHealth);
 	void setPlayerStats(string name, int level, int exp, int maxExp, int health, int maxHealth, int mana, int maxMana, int attack, int s_str, int s_con, int s_int, int statPoint);
 	void updateExp(int exp);
-	void updateStr(int s_str);
-	void updateInt(int s_int);
-	void updateCon(int s_con);
+	void updateStr();
+	void updateInt();
+	void updateCon();
 	void levelUp();
 
 private:
