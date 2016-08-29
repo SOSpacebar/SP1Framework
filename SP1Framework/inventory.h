@@ -16,15 +16,17 @@ class Inventory
 		void addItem(const Items &item);
 		void removeItem(int index);
 
-		inline void debugPrint() const
+		inline const void debugPrint() const
 		{
 			COORD c = g_Console.getConsoleSize();;
 			c.X = c.X / 2 - 9;
-			c.Y = c.Y / 3 + 9;
+			c.Y = c.Y / 3 + 12;
 
-			for (size_t i = 0; i < numberOfItems; i++)
+			for (int i = 0; i < numberOfItems; i++)
 			{
-				g_Console.writeToBuffer(c,  itemsArray[i] -> debugPrint() , 0x03);
+				g_Console.writeToBuffer(c, "Name: " + itemsArray[i]-> getName(), 0x03);
+				c.Y++;
+				g_Console.writeToBuffer(c, "Type: " + itemsArray[i]->getType(), 0x03);
 				c.Y++;
 			}
 		}

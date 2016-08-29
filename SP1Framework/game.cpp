@@ -368,7 +368,6 @@ void moveCharacter()
 
 		if (g_sChar.m_bActive == 0)
 		{
-			_playerStats.setPlayerStats(5, 100, 120, 120, 10, 10, 10);
 			g_sChar.m_bActive = 1;
 			bulletType = 0;
 		}
