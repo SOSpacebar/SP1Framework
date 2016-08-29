@@ -16,6 +16,7 @@ int playerHealth = 98;
 
 int timeOffset = 0;
 int timeOffset_2 = 0;
+
 bool dmg_taken = false;
 double mushroomBounceTime;
 bool keyReleased = true;
@@ -43,9 +44,13 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 	title.X = 0;
 	title.Y = 5;
 
-	if (time % 5 == 0)
+	if (time % 4 == 0)
 	{
 		drawTitle(30, title, g_Console);
+	}
+	else if (time % 3 == 0)
+	{
+		drawTitle(31, title, g_Console);
 	}
 	else
 	{
@@ -164,14 +169,19 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 	title.X = 0;
 	title.Y = 5;
 
-	if (time % 5 == 0)
+	if (time % 4 == 0)
 	{
 		drawTitle(30, title, g_Console);
+	}
+	else if (time % 3 == 0)
+	{
+		drawTitle(31, title, g_Console);
 	}
 	else
 	{
 		drawTitle(9, title, g_Console);
 	}
+
 
 	bool bSomethingHappened = false;
 	string Level[3] {"Tutorial", "Challenge", "Random Generate"}; //creating a simple level selection.
@@ -432,11 +442,20 @@ void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &
 
 void GameOver(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
+	int time = g_dElapsedTime;
+
 	COORD G_over;
-	G_over.X = 15;
+	G_over.X = 0;
 	G_over.Y = 5;
 
-	drawTitle(10, G_over, g_Console);
+	if (time % 4 == 0)
+	{
+		drawTitle(31, G_over, g_Console);
+	}
+	else
+	{
+		drawTitle(10, G_over, g_Console);
+	}
 
 	bool bSomethingHappened = false;
 	string MenuSelection[1] {"> MainMenu <"};//creating a simple level selection.
