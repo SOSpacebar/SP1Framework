@@ -5,12 +5,12 @@ void renderPlayerStatsScreen(Console &g_Console, PlayerStats getPlayerStats, Inv
 	_inventory.debugPrint();
 
 	COORD c = g_Console.getConsoleSize();
-	c.X = 5;
+	c.X = 0;
 	c.Y = 2;
 	
-	g_Console.writeToBuffer(c, "===============Player Stats=================", 0x03);
+	g_Console.writeToBuffer(c, "======================================================Player Stats======================================================", 0x03);
 	c.Y += 2;
-	c.X = 20;
+	c.X = 50;
 	g_Console.writeToBuffer(c, "Name : " + getPlayerStats.getPlayerName(), 0x03);
 	c.Y += 1;
 	g_Console.writeToBuffer(c, "Level : " + std::to_string(getPlayerStats.getPlayerLevel()), 0x03);
@@ -18,6 +18,8 @@ void renderPlayerStatsScreen(Console &g_Console, PlayerStats getPlayerStats, Inv
 	g_Console.writeToBuffer(c, "Experience: " + std::to_string(getPlayerStats.getPlayerExp()) + "/" + std::to_string(getPlayerStats.getPlayerNextLvlExp()), 0x03);
 	c.Y += 1;
 	g_Console.writeToBuffer(c, "Health: " + std::to_string(getPlayerStats.getPlayerHealth()) + "/" + std::to_string(getPlayerStats.getPlayerMaxHealth()), 0x03);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Mana: " + std::to_string(getPlayerStats.getPlayerMana()) + "/" + std::to_string(getPlayerStats.getPlayerMaxMana()), 0x03);
 	c.Y += 1;
 	g_Console.writeToBuffer(c, "Attack: " + std::to_string(getPlayerStats.getPlayerAttack()), 0x03);
 	c.Y += 1;

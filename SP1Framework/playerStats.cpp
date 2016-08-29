@@ -1,6 +1,6 @@
 #include "playerStats.h"
 
-void PlayerStats::setPlayerStats(string name, int level, int exp, int maxExp, int health, int maxHealth, int attack, int s_str, int s_con, int s_int, int statPoint)
+void PlayerStats::setPlayerStats(string name, int level, int exp, int maxExp, int health, int maxHealth, int mana, int maxMana, int attack, int s_str, int s_con, int s_int, int statPoint)
 {
 	player_name = name;
 	player_level = level;
@@ -8,6 +8,8 @@ void PlayerStats::setPlayerStats(string name, int level, int exp, int maxExp, in
 	player_nextLvlExperience = maxExp;
 	player_health = health;
 	player_maxHealth = maxHealth;
+	player_mana = mana;
+	player_maxMana = maxMana;
 	player_attack = attack;
 	player_strenght = s_str;
 	player_constitution = s_con;

@@ -1,5 +1,5 @@
 #include "items.h"
-#include <ctime>
+#include <random>
 
 Items::Items()
 {
@@ -22,15 +22,19 @@ void Items::setName(string name)
 
 void Items::RNGitem()
 {
-	std::srand(time(NULL));
-	std::rand();
+	std::random_device rand;
+	std::mt19937 twist(rand());
 
-	int rngNum = rand() % 3 + 1;
-	int rngAttack = rand() % 10 + 1;
-	int rngHealth = rand() % 10 + 1;
-	int rngStr = rand() % 10 + 1;
-	int rngCon = rand() % 10 + 1;
-	int rngLevel= rand() % 10 + 1;
+	std::uniform_int_distribution<> num(1, 3);
+	std::uniform_int_distribution<> statsRand(1, 10);
+
+	int rngNum = num(twist);
+	int rngAttack = statsRand(twist);
+	int rngHealth = statsRand(twist);
+	int rngStr = statsRand(twist);
+	int rngCon = statsRand(twist);
+	int rngInt = statsRand(twist);
+	int rngLevel = statsRand(twist);
 
 	switch(rngNum)
 	{
@@ -38,8 +42,9 @@ void Items::RNGitem()
 			item_name = "g_Sword";
 			item_type = "Weapon";
 			item_reqLevel = rngLevel;
-			item_reqStr = rngStr;
-			item_reqCon = rngCon;
+			item_str = rngStr;
+			item_con = rngCon;
+			item_int = rngInt;
 			item_attackValue = rngAttack;
 			item_healthValue = 0;
 			break;
@@ -47,19 +52,21 @@ void Items::RNGitem()
 			item_name = "g_Armor";
 			item_type = "Armor";
 			item_reqLevel = rngLevel;
-			item_reqStr = rngStr;
-			item_reqCon = rngCon;
-			item_attackValue = rngAttack;
-			item_healthValue = 0;
+			item_str = rngStr;
+			item_con = rngCon;
+			item_int = rngInt;
+			item_attackValue = 0;
+			item_healthValue = rngHealth;
 			break;
 		case 3:
 			item_name = "g_Ring";
 			item_type = "Others";
 			item_reqLevel = rngLevel;
-			item_reqStr = rngStr;
-			item_reqCon = rngCon;
+			item_str = rngStr;
+			item_con = rngCon;
+			item_int = rngInt;
 			item_attackValue = rngAttack;
-			item_healthValue = 0;
+			item_healthValue = rngHealth;
 			break;
 	}
 }

@@ -3,7 +3,7 @@
 
 Inventory::Inventory()
 {
-	inventorySize = 5;
+	inventorySize = 15;
 	numberOfItems = 0;
 	itemsArray = new Items*[inventorySize];
 }
