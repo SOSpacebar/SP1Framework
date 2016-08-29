@@ -1,4 +1,4 @@
-#ifndef _COLLISIONMANAGER.H
+#ifndef _COLLISIONMANAGER_H
 #define _COLLISIONMANAGER_H
 
 #include "game.h"
