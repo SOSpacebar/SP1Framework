@@ -348,7 +348,7 @@ void render()
 			break;
 		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
-		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed, g_dBounceTime, _playerStats);
+		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed, g_dBounceTime, _playerStats, _inventory);
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			boxIndex = 0;
@@ -581,7 +581,7 @@ void renderGame()
 
 	drawUI(g_Console);
 	drawEXP(g_Console, _playerStats);
-	drawHP(g_Console);
+	drawHP(g_Console, _playerStats);
 	drawTextUI(g_Console, _playerStats);
 	renderInputEvents();
 }

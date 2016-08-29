@@ -24,14 +24,14 @@ class Inventory
 
 			g_Console.writeToBuffer(c, "=======================================================Inventory========================================================", 0x03);
 			c.Y += 2;
-			c.X = 24;
-			g_Console.writeToBuffer(c, "|Name|==|Type|==|Level|==|Attack|==|Health|==|Str|==|Con|==|Int|", 0x03);
+			c.X = 19;
+			g_Console.writeToBuffer(c, "|Name|===============|Type|==|Level|==|Attack|==|Health|==|Str|==|Con|==|Int|", 0x03);
 			c.Y++;
 			for (int i = 0; i < numberOfItems; i++)
 			{
-				c.X = 23;
+				c.X = 18;
 				g_Console.writeToBuffer(c, itemsArray[i]-> getName(), 0x03);
-				c.X += 10 ;
+				c.X += 23 ;
 				g_Console.writeToBuffer(c, itemsArray[i]-> getType(), 0x03);
 				c.X += 10;
 				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getReqLevel()), 0x03);

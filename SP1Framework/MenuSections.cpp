@@ -311,21 +311,21 @@ void Credits(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT])
 	g_Console.writeToBuffer(c, "Done By,", 0x02);
 	c.Y += 1;
 	c.X -= 3;
-	g_Console.writeToBuffer(c, "Ng JingJie <MechanicsManager>", 0x02);
+	g_Console.writeToBuffer(c, "Ng JingJie", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Zi Sheng <CombatManager>", 0x02);
+	g_Console.writeToBuffer(c, "Lim Zi Sheng", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Pei Sheng <Map&Pathfinding>", 0x02);
+	g_Console.writeToBuffer(c, "Lim Pei Sheng", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Yi Chun <UI&Music>", 0x02);
+	g_Console.writeToBuffer(c, "Lim Yi Chun", 0x02);
 	c.Y += 4;
-	g_Console.writeToBuffer(c, "Lecturer,", 0x02);
+	g_Console.writeToBuffer(c, "Special Thanks -", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "Mr Sim <Lead>", 0x02);
+	g_Console.writeToBuffer(c, "Mr Sim <Framework>", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "Mr Hong <Helping>", 0x02);
+	g_Console.writeToBuffer(c, "Mr Chris Hong", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "All Music <Eric Skiff>", 0x02);
+	g_Console.writeToBuffer(c, "Eric Skiff <Music>", 0x02);
 	c.Y += 1;
 
 	if (g_abKeyPressed[K_ESCAPE])
@@ -516,7 +516,7 @@ void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 	}
 }
 
-void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT], double &g_dBounceTime, PlayerStats getPlayerStats)
+void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT], double &g_dBounceTime, PlayerStats &getPlayerStats, Inventory &inventory)
 {
 	timeOffset++;
 	bool bSomethingHappened = false;
@@ -649,42 +649,51 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 				{
 					if (combatIndex == 2)
 					{
-						hp -= 10;
+						hp -= getPlayerStats.getPlayerAttack();
 						AnimationOffset2 = 30;
 						combatIndex = 0;
 						bSomethingHappened = true;
 					}
 					else if (combatIndex == 3)
 					{
-						hp -= 15;
+						hp -= getPlayerStats.getPlayerAttack() + 5;
 						AnimationOffset2 = 30;
 						combatIndex = 0;
 						bSomethingHappened = true;
 					}
 					else if (combatIndex == 4)
 					{
-						hp -= 20;
-						AnimationOffset2 = 30;
+						if ((getPlayerStats.getPlayerMana() - 20) >= 0)
+						{
+							hp -= 20 + (getPlayerStats.getPlayerInt() * (float)0.5);
+							getPlayerStats.updatePlayermana(-20);
+							AnimationOffset2 = 30;
+						}
 						combatIndex = 0;
 						bSomethingHappened = true;
 					}
 					else if (combatIndex == 5)
 					{
-						hp -= 20;
-						AnimationOffset2 = 30;
+						if ((getPlayerStats.getPlayerMana() - 20) >= 0)
+						{
+							hp -= 20 + (getPlayerStats.getPlayerInt() * (float)0.5);
+							getPlayerStats.updatePlayermana(-20);
+							AnimationOffset2 = 30;
+						}
 						combatIndex = 0;
 						bSomethingHappened = true;
 					}
 					if (hp <= 0)
 					{
+						inventory.addItem(Items());
 						getPlayerStats.updateExp(10);
 						PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
 						hp = 98;
 						g_eGameState = S_GAME;
-						playerHealth += 20;
-						if (playerHealth > 98)
+						getPlayerStats.updatePlayerhealth(20);
+						if (getPlayerStats.getPlayerHealth() > getPlayerStats.getPlayerMaxHealth())
 						{
-							playerHealth = 98;
+							getPlayerStats.updatePlayerhealth(-(getPlayerStats.getPlayerHealth() - getPlayerStats.getPlayerMaxHealth()));
 						}
 					}
 				}
@@ -780,7 +789,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	g_Console.writeToBuffer(x.X = 41, x.Y = 23, "Monster HP -", 0x0D);
 
 	drawUI(g_Console);
-	drawHP(g_Console);
+	drawHP(g_Console, getPlayerStats);
 	drawEXP(g_Console, getPlayerStats);
 	drawTextUI(g_Console, getPlayerStats);
 	if (bSomethingHappened)

@@ -27,7 +27,7 @@ void drawPlayerHP(int keyFrame, COORD playerCoord, int &playerHealth, Console &g
 void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console);
 void drawUI(Console &g_Console);
 void drawEXP(Console &g_Console, PlayerStats getPlayerStats);
-void drawHP(Console &g_Console);
+void drawHP(Console &g_Console, PlayerStats getPlayerStats);
 void drawTextUI(Console &g_Console, PlayerStats playerStats);
 void drawCombatMenu(Console &g_Console);
 

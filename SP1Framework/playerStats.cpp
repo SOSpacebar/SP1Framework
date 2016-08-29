@@ -17,10 +17,14 @@ void PlayerStats::setPlayerStats(string name, int level, int exp, int maxExp, in
 	player_statPoints = statPoint;
 }
 
-void PlayerStats::updatePlayerhealth(int health, int maxHealth)
+void PlayerStats::updatePlayerhealth(int health)
 {
 	player_health += health;
-	player_maxHealth = maxHealth;
+}
+
+void PlayerStats::updatePlayermana(int mana)
+{
+	player_mana += mana;
 }
 
 void PlayerStats::updateExp(int exp)
@@ -57,4 +61,7 @@ void PlayerStats::levelUp()
 	player_level++;
 	player_nextLvlExperience = player_level * 100;
 	player_statPoints += 2;
+	player_experience = 0;
+	player_health = player_maxHealth;
+	player_mana = player_maxMana;
 }

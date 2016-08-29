@@ -140,72 +140,6 @@ void drawHpCurr(int keyFrame, COORD currCoord, int &hp, Console &g_Console)
 			g_Console.writeToBuffer(currCoord.X + x, currCoord.Y + y, (char)219, 0x4A);
 		}
 	}
-
-	/*COORD currCoord2;
-	int tempValue = currCoord.X;
-
-	if (hp != 98)
-	{
-		for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
-		{
-			for (currCoord2.X = 0; currCoord2.X < enemyHp; currCoord2.X++)
-			{
-				if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
-				{
-					break;
-				}
-				if (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '&' && keyFrame == 3)
-				{
-					g_Console.writeToBuffer(currCoord, (char)219, 0x4A);
-				}
-				else
-				{
-					g_Console.writeToBuffer(currCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0D);
-				}
-				if (hp <= 16)
-				{
-					hp = 0;
-				}
-				currCoord.X++;
-			}
-			currCoord.X = tempValue;
-			currCoord.Y++;
-		}
-	}
-	else if (hp == 98)
-	{
-		for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
-		{
-			for (currCoord2.X = 0; currCoord2.X < 150; currCoord2.X++)
-			{
-				if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\0') || (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '\n'))
-				{
-					break;
-				}
-				if (AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '&' && (keyFrame == 3 || keyFrame == 6))
-				{
-					if (hp == 98)
-					{
-						g_Console.writeToBuffer(currCoord, (char)219, 0x4A);
-					}
-					else
-					{
-						g_Console.writeToBuffer(currCoord, (char)219, 0x04);
-					}
-
-				}
-				else
-				{
-					g_Console.writeToBuffer(currCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0D);
-				}
-
-				currCoord.X++;
-
-			}
-			currCoord.X = tempValue;
-			currCoord.Y++;
-		}
-	}*/
 }
 
 void drawDialogBox(int keyFrame, COORD boxCoord, Console &g_Console)
@@ -257,72 +191,72 @@ void damagePopUp(int keyFrame, COORD Pop, Console &g_Console)
 }
 
 //Already Set a Different Value appart from the origin... but the image still called from the same one
-void drawPlayerHP(int keyFrame, COORD playerCoord, int &playerHealth, Console &g_Console)
-{
-	playerCurrHP = (playerHealth % 98);
-
-	COORD playerCoord2;
-	int tempValue = playerCoord.X;
-
-	if (playerHealth != 98)
-	{
-		for (playerCoord2.Y = 0; playerCoord2.Y < 150; playerCoord2.Y++)
-		{
-			for (playerCoord2.X = 0; playerCoord2.X < playerCurrHP; playerCoord2.X++)
-			{
-				if ((AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\0') || (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\n'))
-				{
-					break;
-				}
-				if (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '&' && keyFrame == 6)
-				{
-					g_Console.writeToBuffer(playerCoord, (char)219, 0x4A);
-				}
-				else
-				{
-					g_Console.writeToBuffer(playerCoord, AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X], 0x0D);
-				}
-				playerCoord.X++;
-			}
-			playerCoord.X = tempValue;
-			playerCoord.Y++;
-		}
-	}
-	else if (playerHealth = 98)
-	{
- 		for (playerCoord2.Y = 0; playerCoord2.Y < 150; playerCoord2.Y++)
-		{
-			for (playerCoord2.X = 0; playerCoord2.X < 150; playerCoord2.X++)
-			{
-				if ((AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\0') || (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\n'))
-				{
-					break;
-				}
-				if (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '&' && (keyFrame == 3 || keyFrame == 6))
-				{
-					if (playerHealth == 98)
-					{
-						g_Console.writeToBuffer(playerCoord, (char)219, 0x4A);
-					}
-					else
-					{
-						g_Console.writeToBuffer(playerCoord, (char)219, 0x04);
-					}
-
-				}
-				else
-				{
-					g_Console.writeToBuffer(playerCoord, AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X], 0x0D);
-				}
-
-				playerCoord.X++;
-
-			}
-			playerCoord.X = tempValue;
-			playerCoord.Y++;
-		}
-	}
-}
+//void drawPlayerHP(int keyFrame, COORD playerCoord, int &playerHealth, Console &g_Console)
+//{
+//	playerCurrHP = (playerHealth % 98);
+//
+//	COORD playerCoord2;
+//	int tempValue = playerCoord.X;
+//
+//	if (playerHealth != 98)
+//	{
+//		for (playerCoord2.Y = 0; playerCoord2.Y < 150; playerCoord2.Y++)
+//		{
+//			for (playerCoord2.X = 0; playerCoord2.X < playerCurrHP; playerCoord2.X++)
+//			{
+//				if ((AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\0') || (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\n'))
+//				{
+//					break;
+//				}
+//				if (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '&' && keyFrame == 6)
+//				{
+//					g_Console.writeToBuffer(playerCoord, (char)219, 0x4A);
+//				}
+//				else
+//				{
+//					g_Console.writeToBuffer(playerCoord, AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X], 0x0D);
+//				}
+//				playerCoord.X++;
+//			}
+//			playerCoord.X = tempValue;
+//			playerCoord.Y++;
+//		}
+//	}
+//	else if (playerHealth = 98)
+//	{
+// 		for (playerCoord2.Y = 0; playerCoord2.Y < 150; playerCoord2.Y++)
+//		{
+//			for (playerCoord2.X = 0; playerCoord2.X < 150; playerCoord2.X++)
+//			{
+//				if ((AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\0') || (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '\n'))
+//				{
+//					break;
+//				}
+//				if (AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X] == '&' && (keyFrame == 3 || keyFrame == 6))
+//				{
+//					if (playerHealth == 98)
+//					{
+//						g_Console.writeToBuffer(playerCoord, (char)219, 0x4A);
+//					}
+//					else
+//					{
+//						g_Console.writeToBuffer(playerCoord, (char)219, 0x04);
+//					}
+//
+//				}
+//				else
+//				{
+//					g_Console.writeToBuffer(playerCoord, AnimationArray[keyFrame][playerCoord2.Y][playerCoord2.X], 0x0D);
+//				}
+//
+//				playerCoord.X++;
+//
+//			}
+//			playerCoord.X = tempValue;
+//			playerCoord.Y++;
+//		}
+//	}
+//}
 
 void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console)
 {
@@ -415,19 +349,32 @@ void drawEXP(Console &g_Console, PlayerStats getPlayerStats)
 
 }
 
-void drawHP(Console &g_Console)
+void drawHP(Console &g_Console, PlayerStats getPlayerStats)
 {
 	COORD UiLocationStart;
 	COORD UiLocationIndex;
 
+	string MaxValueMarker;
+
+	for (int x = 0; x < 54; x++)
+	{
+		MaxValueMarker.push_back((char)178);
+	}
+	//max hp is 54
 	UiLocationStart.X = 4;
 	UiLocationStart.Y = 43;
 
+	g_Console.writeToBuffer(UiLocationStart, MaxValueMarker, 0x08);
+
+	int currentHP = getPlayerStats.getPlayerHealth() % (getPlayerStats.getPlayerMaxHealth() + 1);
+	float PercentageHPMissing = ((float)(getPlayerStats.getPlayerMaxHealth() - getPlayerStats.getPlayerHealth()) / (float)100.00) * (float)54.00;
+	int PercentageHealthLeft = 54 - PercentageHPMissing;
+
 	int tempValue = UiLocationStart.X;
 
-	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 50; UiLocationIndex.Y++)
+	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 1; UiLocationIndex.Y++)
 	{
-		for (UiLocationIndex.X = 0; UiLocationIndex.X < 150; UiLocationIndex.X++)
+		for (UiLocationIndex.X = 0; UiLocationIndex.X < PercentageHealthLeft; UiLocationIndex.X++)
 		{
 			if ((AnimationArray[20][UiLocationIndex.Y][UiLocationIndex.X] == '\0') || (AnimationArray[20][UiLocationIndex.Y][UiLocationIndex.X] == '\n'))
 			{
@@ -447,11 +394,18 @@ void drawHP(Console &g_Console)
 		UiLocationStart.X = tempValue;
 	}
 
+	//Mana Bar
 	UiLocationStart.X = 61;
+	g_Console.writeToBuffer(UiLocationStart, MaxValueMarker, 0x08);
 	tempValue = UiLocationStart.X;
-	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 50; UiLocationIndex.Y++)
+
+	int currentMP = getPlayerStats.getPlayerMana() % (getPlayerStats.getPlayerMaxMana() + 1);
+	float PercentageMPMissing = ((float)(getPlayerStats.getPlayerMaxMana() - getPlayerStats.getPlayerMana()) / (float)100.00) * (float)54.00;
+	int PercentageManaLeft = 54 - PercentageMPMissing;
+
+	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 1; UiLocationIndex.Y++)
 	{
-		for (UiLocationIndex.X = 0; UiLocationIndex.X < 150; UiLocationIndex.X++)
+		for (UiLocationIndex.X = 0; UiLocationIndex.X < PercentageManaLeft; UiLocationIndex.X++)
 		{
 			if ((AnimationArray[23][UiLocationIndex.Y][UiLocationIndex.X] == '\0') || (AnimationArray[23][UiLocationIndex.Y][UiLocationIndex.X] == '\n'))
 			{
@@ -502,7 +456,7 @@ void drawTextUI(Console &g_Console, PlayerStats getPlayerStats)
 	UiLocationStart.Y = 42;
 	g_Console.writeToBuffer(UiLocationStart, "Energy:", 0x0F);
 	UiLocationStart.X = 68;
-	g_Console.writeToBuffer(UiLocationStart, "100 / 100", 0x0F);
+	g_Console.writeToBuffer(UiLocationStart, std::to_string(getPlayerStats.getPlayerMana()) + "/" + std::to_string(getPlayerStats.getPlayerMaxMana()), 0x0F);
 
 	//Maze Level
 	UiLocationStart.X = 3;
