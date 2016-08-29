@@ -255,7 +255,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		//Pressing ENTER will go into the game
 		if (g_abKeyPressed[K_ENTER])
 		{
-			PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_LOOP | SND_ASYNC | SND_SYNC);
+			PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
 			bSomethingHappened = true;
 			SetLevel = 0;
 			g_currLevel = 0;
@@ -284,8 +284,8 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
-			PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_LOOP | SND_ASYNC | SND_SYNC);
-			bSomethingHappened = true;	
+			PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
+			bSomethingHappened = true;
 			SetLevel = 0;
 			g_currLevel = 3;
 			g_eGameState = S_LOADLEVEL;
@@ -314,7 +314,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
-			PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_LOOP | SND_ASYNC | SND_SYNC);
+			PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
 			bSomethingHappened = true;
 			SetLevel = 0;
 			g_currLevel = 4;
@@ -545,13 +545,14 @@ void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 	}
 	if (SplashCol > 240)
 	{
+		PlaySound(TEXT("Sound/Defense.wav"), NULL, SND_LOOP | SND_ASYNC);
 		SplashCol = 0;
 		AnimationString = "";
 		g_eGameState = S_COMBATSCREEN;
 	}
 }
 
-void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT], double &g_dBounceTime)
+void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT], double &g_dBounceTime, PlayerStats getPlayerStats)
 {
 	timeOffset++;
 	bool bSomethingHappened = false;
@@ -577,186 +578,41 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 
 	//add function to check which mushroom to spawn
 	drawCombatMenu(g_Console);
-	if (AnimationOffset <= 20 && AnimationOffset2 == 0)
-	{
-		drawAnimation(0, x, g_Console);
+	if (all_Monster == orangeMush){
+		if (AnimationOffset <= 20 && AnimationOffset2 == 0)
+		{
+			drawAnimation(0, x, g_Console);
+		}
+		else if (AnimationOffset > 20 && AnimationOffset2 == 0)
+		{
+			drawAnimation(1, x, g_Console);
+		}
 	}
-	else if (AnimationOffset > 20 && AnimationOffset2 == 0)
+	//Appearance of HornMushroom
+	else if (all_Monster == hornMush)
 	{
-		drawAnimation(1, x, g_Console);
+		if (AnimationOffset <= 20 && AnimationOffset2 == 0)
+		{
+			drawAnimation(24, x, g_Console);
+		}
+		else if (AnimationOffset > 20 && AnimationOffset2 == 0)
+		{
+			drawAnimation(25, x, g_Console);
+		}
+	}
+	//Appearance of Slime
+	else if (all_Monster == Slime)
+	{
+		if (AnimationOffset <= 20 && AnimationOffset2 == 0)
+		{
+			drawAnimation(27, x, g_Console);
+		}
+		else if (AnimationOffset > 20 && AnimationOffset2 == 0)
+		{
+			drawAnimation(28, x, g_Console);
+		}
 	}
 
-	////Fight Orange Mushroom
-	//if (all_Monster == orangeMush){
-	//	if (AnimationOffset <= 20 && AnimationOffset2 == 0)
-	//	{
-	//		drawAnimation(0, x, g_Console);
-	//	}
-	//	else if (AnimationOffset > 20 && AnimationOffset2 == 0)
-	//	{
-	//		drawAnimation(1, x, g_Console);
-	//	}
-
-	//	if (AnimationOffset >= 40)
-	//	{
-	//		AnimationOffset = 0;
-	//	}
-
-	//	AnimationOffset++;
-
-	//	x.X = 10;
-	//	x.Y = 25;
-
-	//	drawAnimation(3, x, g_Console);
-
-	//	x.X = 10;
-	//	x.Y = 32;
-	//	drawAnimation(6, x, g_Console);
-	//	if (GetAsyncKeyState(VK_SPACE) < 0)
-	//	{
-	//		keyReleased = false;
-	//	}
-	//	else
-	//	{
-	//		keyReleased = true;
-	//	}
-
-	//	if (g_abKeyPressed[K_SPACE] && keyReleased)
-	//	{
-	//		hp -= 2;
-	//		AnimationOffset2 = 30;
-	//		if (hp <= 16)
-	//		{
-	//			playerHealth += 20;
-	//			if (playerHealth > 98)
-	//			{
-	//				playerHealth = 98;
-	//			}
-	//			hp = 98;
-	//			g_eGameState = S_GAME;
-	//		}
-	//	}
-
-	//	if (((randomhp_dmg(21) > 65 && randomhp_dmg(21) < 70) && generate_dmg() == 1) && g_dElapsedTime > mushroomBounceTime)
-	//	{
-	//		if (hp != 98)
-	//		{
-	//			mushroomBounceTime = g_dElapsedTime + 0.125;
-	//			playerHealth--;
-	//		}
-	//	}
-
-	//	if (playerHealth <= 10)
-	//	{
-	//		g_eGameState = S_GAMEOVER;
-	//	}
-	//	x.X = 46;
-	//	x.Y = 4;
-
-	//	if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
-	//	{
-	//		drawAnimation(2, x, g_Console);
-	//		damagePopUp(5, x, g_Console);
-	//		AnimationOffset2++;
-	//	}
-	//	else if (AnimationOffset2 > 45)
-	//	{
-	//		AnimationOffset2 = 0;
-	//	}
-	//	x.X = 10;
-	//	x.Y = 25;
-	//	drawHpCurr(3, x, hp, g_Console);
-
-	//	x.X = 10;
-	//	x.Y = 32;
-	//	drawPlayerHP(6, x, playerHealth, g_Console);
-	//}
-
-	////HORN MUSHROOM
-	//if (all_Monster == hornMush){
-	//	if (AnimationOffset <= 20 && AnimationOffset2 == 0)
-	//	{
-	//		drawAnimation(16, x, g_Console);
-	//	}
-	//	else if (AnimationOffset > 20 && AnimationOffset2 == 0)
-	//	{
-	//		drawAnimation(17, x, g_Console);
-	//	}
-
-	//	if (AnimationOffset >= 40)
-	//	{
-	//		AnimationOffset = 0;
-	//	}
-
-	//	AnimationOffset++;
-
-	//	x.X = 10;
-	//	x.Y = 25;
-
-	//	drawAnimation(3, x, g_Console);
-
-	//	x.X = 10;
-	//	x.Y = 32;
-	//	drawAnimation(6, x, g_Console);
-	//	if (GetAsyncKeyState(VK_SPACE) < 0)
-	//	{
-	//		keyReleased = false;
-	//	}
-	//	else
-	//	{
-	//		keyReleased = true;
-	//	}
-
-	//	if (g_abKeyPressed[K_SPACE] && keyReleased)
-	//	{
-	//		hp -= 3;
-	//		AnimationOffset2 = 30;
-	//		if (hp <= 16)
-	//		{
-	//			playerHealth += 10;
-	//			if (playerHealth > 98)
-	//			{
-	//				playerHealth = 98;
-	//			}
-	//			hp = 98;
-	//			g_eGameState = S_GAME;
-//	//		}
-//	//	}
-//
-//		if (((randomhp_dmg(21) > 65 && randomhp_dmg(21) < 70) && generate_dmg() == 2) && g_dElapsedTime > mushroomBounceTime)
-//		{
-//			if (hp != 98)
-//			{
-//				mushroomBounceTime = g_dElapsedTime + 0.125;
-//				playerHealth--;
-//			}
-//		}
-//
-//		if (playerHealth <= 10)
-//		{
-//			g_eGameState = S_GAMEOVER;
-//		}
-//		x.X = 46;
-//		x.Y = 4;
-//
-//		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
-//		{
-//			drawAnimation(18 , x, g_Console);
-//			damagePopUp(5, x, g_Console);
-//			AnimationOffset2++;
-//		}
-//		else if (AnimationOffset2 > 45)
-//		{
-//			AnimationOffset2 = 0;
-//		}
-//		x.X = 10;
-//		x.Y = 25;
-//		drawHpCurr(3, x, hp, g_Console);
-//
-//		x.X = 10;
-//		x.Y = 32;
-//		drawPlayerHP(6, x, playerHealth, g_Console);
-//=======
 	if (GetAsyncKeyState(VK_DOWN) < 0)
 	{
 		if (combatMenuReleased)
@@ -816,11 +672,13 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 				if (combatIndex == 0)
 				{
 					combatIndex = 2;
+					keyReleased = false;
 					bSomethingHappened = true;
 				}
 				else if (combatIndex == 1)
 				{
 					combatIndex = 4;
+					keyReleased = false;
 					bSomethingHappened = true;
 				}
 				if (keyReleased)
@@ -853,8 +711,19 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 						combatIndex = 0;
 						bSomethingHappened = true;
 					}
+					if (hp <= 0)
+					{
+						getPlayerStats.updateExp(10);
+						PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
+						hp = 98;
+						g_eGameState = S_GAME;
+						playerHealth += 20;
+						if (playerHealth > 98)
+						{
+							playerHealth = 98;
+						}
+					}
 				}
-				keyReleased = false;
 			}
 		}
 	}
@@ -886,150 +755,70 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 
 	AnimationOffset++;
 
-	x.X = 10;
-	x.Y = 36;
+	x.X = 41;
+	x.Y = 24;
 
 	drawAnimation(3, x, g_Console);
 
-	x.X = 10;
-	x.Y = 43;
-	drawAnimation(6, x, g_Console);
-	
-//	//SLIME ENEMY
-//	if (all_Monster == Slime){
-//		if (AnimationOffset <= 20 && AnimationOffset2 == 0)
-//		{
-//			drawAnimation(19, x, g_Console);
-//	if (hp <= 16)
-//	{
-//		playerHealth += 20;
-//		hp = 98;
-//		if (playerHealth > 98)
-//		{
-//			playerHealth = 98;
-//		}
-//		g_eGameState = S_GAME;
-//	}
-//
-//	if (((randomhp_dmg(21) > 65 && randomhp_dmg(21) < 70) && generate_dmg() == 1) && g_dElapsedTime > mushroomBounceTime)
-//	{
-//		if (hp != 98 && keyReleased == false)
-//		{
-//			mushroomBounceTime = g_dElapsedTime + 0.525;
-//			playerHealth -= 5;
-////>>>>>>> 256583681787a538bc872f889b2e2acd610ecff6
-////		}
-////		else if (AnimationOffset > 20 && AnimationOffset2 == 0)
-////		{
-////			drawAnimation(20, x, g_Console);
-////		}
-////
-//
-//		if (AnimationOffset >= 40)
-//		{
-//			AnimationOffset = 0;
-//		}
-//
-//		AnimationOffset++;
-//
-	if (playerHealth <= 11)
+	if (playerHealth <= 10)
 	{
-		PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Sound/GameOver.wav"), NULL, SND_LOOP | SND_ASYNC);
 		g_eGameState = S_GAMEOVER;
 		playerHealth = 98;
 		hp = 98;
 	}
-//
-//	x.X = 46;
-//	x.Y = 4;
-//
-////<<<<<<< HEAD
-//
-//		x.X = 10;
-//		x.Y = 25;
-//
-//		drawAnimation(3, x, g_Console);
-//
-//		x.X = 10;
-//		x.Y = 32;
-//		drawAnimation(6, x, g_Console);
-//		if (GetAsyncKeyState(VK_SPACE) < 0)
-//		{
-//			keyReleased = false;
-//		}
-//		else
-//		{
-//			keyReleased = true;
-//		}
-//
-//		if (g_abKeyPressed[K_SPACE] && keyReleased)
-//		{
-//			hp -= 2;
-//			AnimationOffset2 = 30;
-//			if (hp <= 16)
-//			{
-//				playerHealth += 20;
-//				if (playerHealth > 98)
-//				{
-//					playerHealth = 98;
-//				}
-//				hp = 98;
-//				g_eGameState = S_GAME;
-//			}
-//		}
-//
-//		if (((randomhp_dmg(21) > 65 && randomhp_dmg(21) < 70) && generate_dmg() == 1) && g_dElapsedTime > mushroomBounceTime)
-//		{
-//			if (hp != 98)
-//			{
-//				mushroomBounceTime = g_dElapsedTime + 0.125;
-//				playerHealth--;
-//			}
-//		}
-//
-//		if (playerHealth <= 10)
-//		{
-//			g_eGameState = S_GAMEOVER;
-//		}
-//		x.X = 46;
-//		x.Y = 4;
-//
-//		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
-//		{
-//			drawAnimation(21, x, g_Console);
-//			damagePopUp(5, x, g_Console);
-//			AnimationOffset2++;
-//		}
-//		else if (AnimationOffset2 > 45)
-//		{
-//			AnimationOffset2 = 0;
-//		}
-//		x.X = 10;
-//		x.Y = 25;
-//		drawHpCurr(3, x, hp, g_Console);
-//
-//		x.X = 10;
-//		x.Y = 32;
-//		drawPlayerHP(6, x, playerHealth, g_Console);
-//=======
-	if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
+	x.X = 46;
+	x.Y = 4;
+
+	if (all_Monster == orangeMush)
 	{
-		drawAnimation(2, x, g_Console);
-		damagePopUp(5, x, g_Console);
-		AnimationOffset2++;
+		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
+		{
+			drawAnimation(2, x, g_Console);
+			damagePopUp(5, x, g_Console);
+			AnimationOffset2++;
+		}
+		else if (AnimationOffset2 > 45)
+		{
+			AnimationOffset2 = 0;
+		}
 	}
-	else if (AnimationOffset2 > 45)
+	else if (all_Monster == hornMush)
 	{
-		AnimationOffset2 = 0;
+		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
+		{
+			drawAnimation(26, x, g_Console);
+			damagePopUp(5, x, g_Console);
+			AnimationOffset2++;
+		}
+		else if (AnimationOffset2 > 45)
+		{
+			AnimationOffset2 = 0;
+		}
 	}
-	x.X = 10;
-	x.Y = 36;
+	else if (all_Monster == Slime)
+	{
+		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
+		{
+			drawAnimation(29, x, g_Console);
+			damagePopUp(5, x, g_Console);
+			AnimationOffset2++;
+		}	
+		else if (AnimationOffset2 > 45)
+		{
+			AnimationOffset2 = 0;
+		}
+	}
+
+	x.X = 41;
+	x.Y = 24;
 	drawHpCurr(3, x, hp, g_Console);
+	g_Console.writeToBuffer(x.X = 41, x.Y = 23, "Monster HP -", 0x0D);
 
-	x.X = 10;
-	x.Y = 43;
-	drawPlayerHP(6, x, playerHealth, g_Console);
-
+	drawUI(g_Console);
+	drawHP(g_Console);
+	drawEXP(g_Console, getPlayerStats);
+	drawTextUI(g_Console, getPlayerStats);
 	if (bSomethingHappened)
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
