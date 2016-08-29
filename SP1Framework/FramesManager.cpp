@@ -344,16 +344,16 @@ void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console)
 				break;
 			}
 
-			if (keyFrame == 30 || keyFrame == 31 || keyFrame == 34 || keyFrame == 35)
+			if (keyFrame == 30 || keyFrame == 31 || keyFrame == 34 || keyFrame == 35)	// if KeyFrame is title_corrupt style 1 or 2 or GameOver_corrupt 1 or 2, print to buffer in Red 
 			{
 				g_Console.writeToBuffer(T_Coord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0C);
 
 			}
-			else if (keyFrame == 32 || keyFrame == 33)
+			else if (keyFrame == 32 || keyFrame == 33)			//if Keyframe is title_corrupt style 3 or 4, print in White
 			{
 				g_Console.writeToBuffer(T_Coord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0F);
 			}
-			else
+			else	//Print any title and Gameover Keyframe in Green
 			{
 				g_Console.writeToBuffer(T_Coord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0A);
 			}
