@@ -105,6 +105,7 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
+			PlaySound(TEXT("Sound/Prologue.wav"), NULL, SND_LOOP | SND_ASYNC);
 			bSomethingHappened = true;
 			MenuSelect = 0;
 			g_eGameState = S_CREDITS;
@@ -167,6 +168,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 	//By Pressing Escaped will Return back to main menu
 	if (g_abKeyPressed[K_ESCAPE])
 	{
+		PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
 		g_eGameState = S_MAINMENU;
 	}
 	//Switching case of Level 1,2,3
@@ -195,6 +197,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		//Pressing ENTER will go into the game
 		if (g_abKeyPressed[K_ENTER])
 		{
+			PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_LOOP | SND_ASYNC | SND_SYNC);
 			bSomethingHappened = true;
 			SetLevel = 0;
 			g_currLevel = 0;
@@ -223,6 +226,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
+			PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_LOOP | SND_ASYNC | SND_SYNC);
 			bSomethingHappened = true;	
 			SetLevel = 0;
 			g_currLevel = 3;
@@ -252,6 +256,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
+			PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_LOOP | SND_ASYNC | SND_SYNC);
 			bSomethingHappened = true;
 			SetLevel = 0;
 			g_currLevel = 4;
@@ -277,17 +282,26 @@ void Credits(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT])
 	g_Console.writeToBuffer(c, "Done By,", 0x02);
 	c.Y += 1;
 	c.X -= 3;
-	g_Console.writeToBuffer(c, "Ng JingJie <>", 0x02);
+	g_Console.writeToBuffer(c, "Ng JingJie <MechanicsManager>", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Zi Sheng <>", 0x02);
+	g_Console.writeToBuffer(c, "Lim Zi Sheng <CombatManager>", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Pei Sheng", 0x02);
+	g_Console.writeToBuffer(c, "Lim Pei Sheng <Map&Pathfinding>", 0x02);
 	c.Y += 1;
-	g_Console.writeToBuffer(c, "Lim Yi Chun <UI>", 0x02);
+	g_Console.writeToBuffer(c, "Lim Yi Chun <UI&Music>", 0x02);
+	c.Y += 4;
+	g_Console.writeToBuffer(c, "Lecturer,", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Mr Sim <Lead>", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "Mr Hong <Helping>", 0x02);
+	c.Y += 1;
+	g_Console.writeToBuffer(c, "All Music <Eric Skiff>", 0x02);
 	c.Y += 1;
 
 	if (g_abKeyPressed[K_ESCAPE])
 	{
+		PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
 		g_eGameState = S_MAINMENU;
 	}
 }
@@ -356,6 +370,7 @@ void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
+			PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
 			bSomethingHappened = true;
 			SetLevel = 0;
 			g_eGameState = S_MAINMENU;
@@ -423,6 +438,7 @@ void GameOver(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g
 			return;
 		if (g_abKeyPressed[K_ENTER])
 		{
+			PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
 			bSomethingHappened = true;
 			SetLevel = 0;
 			g_eGameState = S_MAINMENU;
@@ -842,12 +858,13 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 //
 //		AnimationOffset++;
 //
-//	if (playerHealth <= 11)
-//	{
-//		g_eGameState = S_GAMEOVER;
-//		playerHealth = 98;
-//		hp = 98;
-//	}
+	if (playerHealth <= 11)
+	{
+		PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
+		g_eGameState = S_GAMEOVER;
+		playerHealth = 98;
+		hp = 98;
+	}
 //
 //	x.X = 46;
 //	x.Y = 4;
@@ -982,20 +999,6 @@ int randomhp_dmg(int rand_dmg_timeOffset)
 	return (dmg(twistNew)+50);
 }
 
-void initalizeSound(EGAMESTATES &g_eGameState)
-{
-	//PlaySound(NULL, 0, 0);
-	/*if (g_eGameState == S_MAINMENU)
-	{
-		//PlaySound(NULL, NULL, 0);
-		PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
-	}
-	if (g_eGameState == S_GAME)
-	{
-		//PlaySound(NULL, NULL, 0);
-		PlaySound(TEXT("Sound/JumpShot.wav"),NULL , SND_ASYNC | SND_LOOP);
-	}*/
-}
 void checkDialogEnd(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], int &boxIndex, Console &g_Console, bool dialogend, double &g_dBounceTime, double &g_dElapsedTime, bool &canPortalGun)
 {
 	COORD boxStart;

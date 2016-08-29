@@ -91,6 +91,8 @@ void init( void )
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
 	
+	PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
+
 	readAnimation();
 	g_iKey.m_bActive = true;
 	g_dDoor.m_bActive = true;
@@ -251,7 +253,6 @@ void render()
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
-	initalizeSound(g_eGameState);
 }
 
 void splashScreenWait()    // waits for time to pass in splash screen
