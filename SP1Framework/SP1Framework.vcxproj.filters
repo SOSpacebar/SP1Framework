@@ -1,177 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Framework">
-      <UniqueIdentifier>{07667b27-3d02-4514-a465-3fd8b26758ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Framework">
-      <UniqueIdentifier>{37c19c94-9502-4b2b-b3f1-70fa908b49af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Enemy">
-      <UniqueIdentifier>{17604256-c09b-419e-85b4-7d3fed8116bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Portal Gun">
-      <UniqueIdentifier>{cf6f6633-9e4f-4879-9122-6b9ce0ea4ed1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Rendering">
-      <UniqueIdentifier>{029aa560-a662-4361-8fda-0fa20fa22526}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game Screens">
-      <UniqueIdentifier>{29c917d0-bf89-4986-bcf8-5926a2767b0b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\OtherFunctions">
-      <UniqueIdentifier>{d50658f8-386f-45cd-8e6f-bc6256c98411}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Rendering Headers">
-      <UniqueIdentifier>{d1244a69-a62b-432a-8fac-de10a5fcc6aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Monster Header">
-      <UniqueIdentifier>{e8088598-d1d6-4664-9e33-d7e54b49f624}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Other Headers">
-      <UniqueIdentifier>{fa7508e8-72df-422c-9774-6e92554dff82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Game Screens Headers">
-      <UniqueIdentifier>{774bcd90-e3e0-4c0b-94e5-ad5a387de38c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Portal Gun Headers">
-      <UniqueIdentifier>{05e3e5b1-f4cd-46e7-84a0-c9d087665593}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="checkBulletCollision.cpp" />
+    <ClCompile Include="DialogBox.cpp" />
+    <ClCompile Include="loadPlayerDetails.cpp" />
+    <ClCompile Include="playerStats.cpp" />
+    <ClCompile Include="portalCollision.cpp" />
+    <ClCompile Include="collisionManager.cpp" />
+    <ClCompile Include="createBullet.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="fieldOfView.cpp" />
+    <ClCompile Include="fireGun.cpp" />
+    <ClCompile Include="Framework\console.cpp" />
+    <ClCompile Include="Framework\timer.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="handleBulletProjectile.cpp" />
+    <ClCompile Include="handleEnemyMovement.cpp" />
+    <ClCompile Include="lockandUnlock.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapGenerator.cpp" />
+    <ClCompile Include="MenuSections.cpp" />
+    <ClCompile Include="FramesManager.cpp" />
+    <ClCompile Include="PathfindingAI.cpp" />
+    <ClCompile Include="ReadMap.cpp" />
+    <ClCompile Include="renderPlayerStatsScreen.cpp" />
+    <ClCompile Include="renderPortal.cpp" />
+    <ClCompile Include="spawnPortal.cpp" />
+    <ClCompile Include="handleStatsScreen.cpp" />
+    <ClCompile Include="savePlayerDetails.cpp" />
+    <ClCompile Include="items.cpp" />
+    <ClCompile Include="inventory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\console.cpp">
-      <Filter>Source Files\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\timer.cpp">
-      <Filter>Source Files\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="enemy.cpp">
-      <Filter>Source Files\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="handleEnemyMovement.cpp">
-      <Filter>Source Files\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="checkBulletCollision.cpp">
-      <Filter>Source Files\Portal Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="createBullet.cpp">
-      <Filter>Source Files\Portal Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="renderPortal.cpp">
-      <Filter>Source Files\Portal Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="spawnPortal.cpp">
-      <Filter>Source Files\Portal Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="fireGun.cpp">
-      <Filter>Source Files\Portal Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="handleBulletProjectile.cpp">
-      <Filter>Source Files\Portal Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="ReadMap.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MapGenerator.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="FramesManager.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="fieldOfView.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuSections.cpp">
-      <Filter>Source Files\Game Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="collisionManager.cpp">
-      <Filter>Source Files\OtherFunctions</Filter>
-    </ClCompile>
-    <ClCompile Include="gameObject.cpp">
-      <Filter>Source Files\OtherFunctions</Filter>
-    </ClCompile>
-    <ClCompile Include="lockandUnlock.cpp">
-      <Filter>Source Files\OtherFunctions</Filter>
-    </ClCompile>
-    <ClCompile Include="PathfindingAI.cpp">
-      <Filter>Source Files\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="DialogBox.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="portalCollision.cpp">
-      <Filter>Source Files\Portal Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="collisionManager.cpp">
-      <Filter>Source Files\OtherFunctions</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Framework\console.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\timer.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationManager.h">
-      <Filter>Header Files\Rendering Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="fieldOfView.h">
-      <Filter>Header Files\Rendering Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ReadMap.h">
-      <Filter>Header Files\Rendering Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MapGenerator.h">
-      <Filter>Header Files\Rendering Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="portalGun.h">
-      <Filter>Header Files\Portal Gun Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuSections.h">
-      <Filter>Header Files\Game Screens Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="PathfindingAI.h">
-      <Filter>Header Files\Monster Header</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyProperties.h">
-      <Filter>Header Files\Monster Header</Filter>
-    </ClInclude>
-    <ClInclude Include="lockandUnlock.h">
-      <Filter>Header Files\Other Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="gameObject.h">
-      <Filter>Header Files\Other Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="collisionManager.h">
-      <Filter>Header Files\Other Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogBox.h">
-      <Filter>Header Files\Rendering Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="HeaderIncludes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="collisionManager.h" />
+    <ClInclude Include="DialogBox.h" />
+    <ClInclude Include="enemyProperties.h" />
+    <ClInclude Include="fieldOfView.h" />
+    <ClInclude Include="Framework\console.h" />
+    <ClInclude Include="Framework\timer.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="gameObject.h" />
+    <ClInclude Include="handleStatsScreen.h" />
+    <ClInclude Include="HeaderIncludes.h" />
+    <ClInclude Include="lockandUnlock.h" />
+    <ClInclude Include="MapGenerator.h" />
+    <ClInclude Include="MenuSections.h" />
+    <ClInclude Include="PathfindingAI.h" />
+    <ClInclude Include="playerStats.h" />
+    <ClInclude Include="portalGun.h" />
+    <ClInclude Include="ReadMap.h" />
+    <ClInclude Include="renderPlayerStatsScreen.h" />
+    <ClInclude Include="playerDetailsManager.h" />
+    <ClInclude Include="items.h" />
+    <ClInclude Include="inventory.h" />
   </ItemGroup>
 </Project>

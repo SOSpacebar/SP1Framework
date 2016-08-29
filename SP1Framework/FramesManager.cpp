@@ -8,8 +8,7 @@ int enemyHp = 98;
 int playerCurrHP = 98;
 short combatIndex = 0;
 
-char AnimationArray[24][150][150];
-
+char AnimationArray[31][150][150];
 char indexChar;
 
 void readAnimation(void)
@@ -45,11 +44,16 @@ void readAnimation(void)
 	chooseFrameToLoad[21] = "animation/expui.txt";
 	chooseFrameToLoad[22] = "animation/uibox.txt";
 	chooseFrameToLoad[23] = "animation/manaui.txt";
-	chooseFrameToLoad[24] = "animation/Title_static_1.txt";
-	chooseFrameToLoad[25] = "animation/Title_static_2.txt";
+	chooseFrameToLoad[24] = "animation/MushroomH1.txt";
+	chooseFrameToLoad[25] = "animation/MushroomH2.txt";
+	chooseFrameToLoad[26] = "animation/MushroomH3.txt";
+	chooseFrameToLoad[27] = "animation/Slime.txt";
+	chooseFrameToLoad[28] = "animation/Slime2.txt";
+	chooseFrameToLoad[29] = "animation/Slime3.txt";
+	chooseFrameToLoad[30] = "animation/Title_static_1.txt";
+	chooseFrameToLoad[31] = "animation/Title_static_2.txt";
 
-
-	for (int d = 0; d < 24; d++)
+	for (int d = 0; d < 31; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 

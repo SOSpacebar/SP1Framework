@@ -1,0 +1,11 @@
+Player Name
+Player Level
+Player Exp
+Player NextExp
+Player Health
+Player MaxHealth
+Player Attack
+Player Strenght
+Player Constitution
+Player Intelligence
+Player Stats Point
