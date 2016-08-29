@@ -5,6 +5,7 @@
 #include <fstream>
 #include "game.h"
 #include "Framework\console.h"
+#include "playerStats.h"
 
 struct FrameData
 {
@@ -25,9 +26,9 @@ void damagePopUp(int keyFrame, COORD Pop, Console &g_Console);
 void drawPlayerHP(int keyFrame, COORD playerCoord, int &playerHealth, Console &g_Console);
 void drawTitle(int keyFrame, COORD T_Coord, Console &g_Console);
 void drawUI(Console &g_Console);
-void drawEXP(Console &g_Console);
+void drawEXP(Console &g_Console, PlayerStats getPlayerStats);
 void drawHP(Console &g_Console);
-void drawTextUI(Console &g_Console);
+void drawTextUI(Console &g_Console, PlayerStats playerStats);
 void drawCombatMenu(Console &g_Console);
 
 #endif

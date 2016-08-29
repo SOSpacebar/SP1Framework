@@ -358,10 +358,11 @@ void drawUI(Console &g_Console)
 	}
 }
 
-void drawEXP(Console &g_Console)
+void drawEXP(Console &g_Console, PlayerStats getPlayerStats)
 {
 	COORD UiLocationStart;
 	COORD UiLocationIndex;
+	int GetEXP = getPlayerStats.getPlayerExp() % getPlayerStats.getPlayerNextLvlExp();
 
 	UiLocationStart.X = 4;
 	UiLocationStart.Y = 47;
@@ -370,7 +371,7 @@ void drawEXP(Console &g_Console)
 
 	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 50; UiLocationIndex.Y++)
 	{
-		for (UiLocationIndex.X = 0; UiLocationIndex.X < 150; UiLocationIndex.X++)
+		for (UiLocationIndex.X = 0; UiLocationIndex.X < GetEXP; UiLocationIndex.X++)
 		{
 			if ((AnimationArray[21][UiLocationIndex.Y][UiLocationIndex.X] == '\0') || (AnimationArray[21][UiLocationIndex.Y][UiLocationIndex.X] == '\n'))
 			{
@@ -452,18 +453,17 @@ void drawHP(Console &g_Console)
 	}
 }
 
-void drawTextUI(Console &g_Console)
+void drawTextUI(Console &g_Console, PlayerStats getPlayerStats)
 {
 	COORD UiLocationStart;
-	COORD UiLocationIndex;
-
+	
 	//Name Text
 	UiLocationStart.X = 3;
 	UiLocationStart.Y = 38;
 	g_Console.writeToBuffer(UiLocationStart,"Name:", 0x0F);
 	UiLocationStart.X = 6;
 	UiLocationStart.Y = 39;
-	g_Console.writeToBuffer(UiLocationStart, "John", 0x0F);
+	g_Console.writeToBuffer(UiLocationStart, getPlayerStats.getPlayerName(), 0x0F);
 
 	////Player Level
 	//UiLocationStart.X = 3;
@@ -475,7 +475,7 @@ void drawTextUI(Console &g_Console)
 	UiLocationStart.Y = 42;
 	g_Console.writeToBuffer(UiLocationStart, "Health:", 0x0F);
 	UiLocationStart.X = 11;
-	g_Console.writeToBuffer(UiLocationStart, "100 / 100", 0x0F);
+	g_Console.writeToBuffer(UiLocationStart, std::to_string(getPlayerStats.getPlayerHealth()) + "/" + std::to_string(getPlayerStats.getPlayerMaxHealth()), 0x0F);
 
 	//Player Mana
 	UiLocationStart.X = 60;
@@ -490,19 +490,17 @@ void drawTextUI(Console &g_Console)
 	g_Console.writeToBuffer(UiLocationStart, "Level:", 0x0F);
 	UiLocationStart.X = 10;
 	UiLocationStart.Y = 45;
-	g_Console.writeToBuffer(UiLocationStart, "01", 0x0F);
+	g_Console.writeToBuffer(UiLocationStart, std::to_string(getPlayerStats.getPlayerLevel()), 0x0F);
 
 	//EXP text
 	UiLocationStart.X = 3;
 	UiLocationStart.Y = 46;
-	g_Console.writeToBuffer(UiLocationStart, "Experience:", 0x0F);
+	g_Console.writeToBuffer(UiLocationStart, "Experience: " + std::to_string(getPlayerStats.getPlayerExp()) + "/" + std::to_string(getPlayerStats.getPlayerNextLvlExp()), 0x0F);
 }
 
 void drawCombatMenu(Console &g_Console)
 {
 	COORD UiLocationStart;
-	COORD UiLocationIndex;
-	
 
 	//draw combat menu box
 	UiLocationStart.X = 95;
@@ -521,13 +519,13 @@ void drawCombatMenu(Console &g_Console)
 				}
 				else
 				{
-					g_Console.writeToBuffer(UiLocationStart, (char)219, 0x0D);
+					g_Console.writeToBuffer(UiLocationStart, (char)219, 0x0B);
 					UiLocationStart.X++;
 				}
 			}
 			else
 			{
-				g_Console.writeToBuffer(UiLocationStart, (char)219, 0x0D);
+				g_Console.writeToBuffer(UiLocationStart, (char)219, 0x0B);
 				UiLocationStart.X++;
 			}
 			
@@ -540,58 +538,58 @@ void drawCombatMenu(Console &g_Console)
 	{
 		UiLocationStart.X = 102;
 		UiLocationStart.Y = 31;
-		g_Console.writeToBuffer(UiLocationStart, " > FIGHT < ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " > FIGHT < ", 0x0B);
 		UiLocationStart.X = 104;
 		UiLocationStart.Y = 33;
-		g_Console.writeToBuffer(UiLocationStart, " MAGIC ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " MAGIC ", 0x0B);
 	}
 	else if (combatIndex == 1)
 	{
 		UiLocationStart.X = 104;
 		UiLocationStart.Y = 31;
-		g_Console.writeToBuffer(UiLocationStart, " FIGHT ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " FIGHT ", 0x0B);
 		UiLocationStart.X = 102;
 		UiLocationStart.Y = 33;
-		g_Console.writeToBuffer(UiLocationStart, " > MAGIC < ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " > MAGIC < ", 0x0B);
 	}
 
 	else if (combatIndex == 2)
 	{
 		UiLocationStart.X = 102;
 		UiLocationStart.Y = 31;
-		g_Console.writeToBuffer(UiLocationStart, " > SLASH < ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " > SLASH < ", 0x0B);
 		UiLocationStart.X = 104;
 		UiLocationStart.Y = 33;
-		g_Console.writeToBuffer(UiLocationStart, " SMASH ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " SMASH ", 0x0B);
 	}
 	
 	else if (combatIndex == 3)
 	{
 		UiLocationStart.X = 104;
 		UiLocationStart.Y = 31;
-		g_Console.writeToBuffer(UiLocationStart, " SLASH ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " SLASH ", 0x0B);
 		UiLocationStart.X = 102;
 		UiLocationStart.Y = 33;
-		g_Console.writeToBuffer(UiLocationStart, " > SMASH < ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " > SMASH < ", 0x0B);
 	}
 
 	else if (combatIndex == 4)
 	{
 		UiLocationStart.X = 102;
 		UiLocationStart.Y = 31;
-		g_Console.writeToBuffer(UiLocationStart, " > FLARE < ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " > FLARE < ", 0x0B);
 		UiLocationStart.X = 104;
 		UiLocationStart.Y = 33;
-		g_Console.writeToBuffer(UiLocationStart, " BURST ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " BURST ", 0x0B);
 	}
 
 	else if (combatIndex == 5)
 	{
 		UiLocationStart.X = 104;
 		UiLocationStart.Y = 31;
-		g_Console.writeToBuffer(UiLocationStart, " FLARE ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " FLARE ", 0x0B);
 		UiLocationStart.X = 102;
 		UiLocationStart.Y = 33;
-		g_Console.writeToBuffer(UiLocationStart, " > BURST < ", 0x0D);
+		g_Console.writeToBuffer(UiLocationStart, " > BURST < ", 0x0B);
 	}
 }

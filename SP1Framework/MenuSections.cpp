@@ -226,7 +226,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		//Pressing ENTER will go into the game
 		if (g_abKeyPressed[K_ENTER])
 		{
-			PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_LOOP | SND_ASYNC | SND_SYNC);
+			PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
 			bSomethingHappened = true;
 			SetLevel = 0;
 			g_currLevel = 0;
@@ -255,8 +255,8 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
-			PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_LOOP | SND_ASYNC | SND_SYNC);
-			bSomethingHappened = true;	
+			PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
+			bSomethingHappened = true;
 			SetLevel = 0;
 			g_currLevel = 3;
 			g_eGameState = S_LOADLEVEL;
@@ -285,7 +285,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
-			PlaySound(TEXT("Sound/JumpShot.wav"), NULL, SND_LOOP | SND_ASYNC | SND_SYNC);
+			PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
 			bSomethingHappened = true;
 			SetLevel = 0;
 			g_currLevel = 4;
@@ -509,13 +509,14 @@ void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 	}
 	if (SplashCol > 240)
 	{
+		PlaySound(TEXT("Sound/Defense.wav"), NULL, SND_LOOP | SND_ASYNC);
 		SplashCol = 0;
 		AnimationString = "";
 		g_eGameState = S_COMBATSCREEN;
 	}
 }
 
-void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT], double &g_dBounceTime)
+void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool g_abKeyPressed[K_COUNT], double &g_dBounceTime, PlayerStats getPlayerStats)
 {
 	timeOffset++;
 	bool bSomethingHappened = false;
@@ -676,6 +677,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 					}
 					if (hp <= 16)
 					{
+						PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
 						hp = 98;
 						g_eGameState = S_GAME;
 						playerHealth += 20;
@@ -727,7 +729,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 
 	if (playerHealth <= 10)
 	{
-		PlaySound(TEXT("Sound/Detective.wav"), NULL, SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Sound/GameOver.wav"), NULL, SND_LOOP | SND_ASYNC);
 		g_eGameState = S_GAMEOVER;
 		playerHealth = 98;
 		hp = 98;
@@ -735,24 +737,54 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.X = 46;
 	x.Y = 4;
 
-	if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
+	if (all_Monster == orangeMush)
 	{
-		drawAnimation(2, x, g_Console);
-		damagePopUp(5, x, g_Console);
-		AnimationOffset2++;
+		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
+		{
+			drawAnimation(2, x, g_Console);
+			damagePopUp(5, x, g_Console);
+			AnimationOffset2++;
+		}
+		else if (AnimationOffset2 > 45)
+		{
+			AnimationOffset2 = 0;
+		}
 	}
-	else if (AnimationOffset2 > 45)
+	else if (all_Monster == hornMush)
 	{
-		AnimationOffset2 = 0;
+		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
+		{
+			drawAnimation(26, x, g_Console);
+			damagePopUp(5, x, g_Console);
+			AnimationOffset2++;
+		}
+		else if (AnimationOffset2 > 45)
+		{
+			AnimationOffset2 = 0;
+		}
 	}
-	x.X = 10;
-	x.Y = 36;
+	else if (all_Monster == Slime)
+	{
+		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
+		{
+			drawAnimation(29, x, g_Console);
+			damagePopUp(5, x, g_Console);
+			AnimationOffset2++;
+		}	
+		else if (AnimationOffset2 > 45)
+		{
+			AnimationOffset2 = 0;
+		}
+	}
+
+	x.X = 20;
+	x.Y = 20;
 	drawHpCurr(3, x, hp, g_Console);
-
-	x.X = 10;
-	x.Y = 43;
-	drawPlayerHP(6, x, playerHealth, g_Console);
-
+	
+	drawUI(g_Console);
+	drawHP(g_Console);
+	drawEXP(g_Console, getPlayerStats);
+	drawTextUI(g_Console, getPlayerStats);
 	if (bSomethingHappened)
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
