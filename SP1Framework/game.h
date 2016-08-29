@@ -21,10 +21,11 @@ struct SKeyEvent
 // a small subset of MOUSE_EVENT_RECORD
 struct SMouseEvent
 {
-	COORD Memoryfiller;
+	//COORD Memoryfiller;
+	COORD mousePosition;
     DWORD buttonState;
     DWORD eventFlags;
-	COORD mousePosition;
+	
 };
 
 // Enumeration to store the control keys that your game will have
@@ -37,10 +38,10 @@ enum EKEYS
 	K_ENTER,
     K_ESCAPE,
     K_SPACE,
-    K_COUNT,
+	K_Z,
 	K_SWITCH,
 	K_STATS,
-	K_Z
+	K_COUNT
 };
 
 // Enumeration for the different screen states
@@ -52,13 +53,13 @@ enum EGAMESTATES
 	S_GAME,
 	S_GAMEOVER,
 	S_CREDITS,
-    S_COUNT,
+	S_PAUSE,
 	S_COMBATSCREEN,
 	S_LOADLEVEL,
 	S_TRANSITION,
 	S_STATSSCREEN,
 	S_DIALOG,
-	S_PAUSE
+	S_COUNT
 };
 
 // struct for the game character
