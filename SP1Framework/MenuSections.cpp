@@ -55,7 +55,7 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 			drawTitle(31, title, g_Console);
 		}
 	}
-	else if (time % 3 == 0)
+	else if (time % 5 == 0)
 	{
 		if (randomTitle() == 1)
 		{
@@ -194,7 +194,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 			drawTitle(31, title, g_Console);
 		}
 	}
-	else if (time % 3 == 0)
+	else if (time % 5 == 0)
 	{
 		if (randomTitle() == 1)
 		{

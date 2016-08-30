@@ -631,7 +631,6 @@ void renderFramerate()
     g_Console.writeToBuffer(c, ss.str(), 0x59);
 }
 
-
  //this is an example of how you would use the input events
 void renderInputEvents()
 {
@@ -677,6 +676,7 @@ void renderInputEvents()
     }
     
 }
+
 void resetVariables()
 {
 	COORD C;
@@ -691,4 +691,6 @@ void resetVariables()
 	totalNumObject = 0;
 	i = 0;
 	playerHealth = 98;
+	maxBox = 0;
+	boxIndex = 0;
 }
