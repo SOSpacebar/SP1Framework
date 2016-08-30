@@ -3,10 +3,14 @@
 #include "Framework\console.h"
 
 FrameData frameData;
-
+COORD drawLocation;
+int matrixOffset = 0;
 float enemyHp = 98;
 int playerCurrHP = 98;
 short combatIndex = 0;
+
+int MatrixY = 0;
+string RandString[48][120];
 
 char AnimationArray[50][150][150];
 char indexChar;
@@ -516,5 +520,65 @@ void drawCombatMenu(Console &g_Console)
 		UiLocationStart.X = 102;
 		UiLocationStart.Y = 33;
 		g_Console.writeToBuffer(UiLocationStart, " > BURST < ", 0x0B);
+	}
+}
+
+void drawMatrixRain(Console &g_Console)
+{
+	string RandChar[20] = { "0", "1", "2", "T", "4", " ", "6", "B", "8", "9", "<", "?", ">", "@", "#", "$", "&", "%", "E", "G" };
+
+	string StringFiller;
+	//global y, if hit max, reset to 0.
+
+	int f = 0;
+
+	for (int f = 0; f < 120; f++)
+	{
+		RandString[MatrixY][f] = (RandChar[rand() % 20]);
+
+		if (f == 119)
+		{
+			f = 0;
+			MatrixY++;
+		}
+
+		if (MatrixY == 48)
+		{
+			break;
+		}
+	}
+
+	if (f < 120)
+	{
+
+	}
+
+	//draw at random x.
+
+	for (int y = 0; y < 120; y++)
+	{
+		for (int x = 0; x < 49; x++)
+		{
+			if (matrixOffset < 30)
+			{
+				if (drawLocation.Y < 49)
+				{
+					g_Console.writeToBuffer(drawLocation, RandString[y][x], 0x0A);
+					drawLocation.X++;
+				}
+				matrixOffset++;
+			}
+		}
+		drawLocation.Y++;
+	}
+	
+
+	if (matrixOffset >= 30)
+	{
+		matrixOffset = 0;
+	}
+	if (drawLocation.Y == 48)
+	{
+		drawLocation.Y = 0;
 	}
 }

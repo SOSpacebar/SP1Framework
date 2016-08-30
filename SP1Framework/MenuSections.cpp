@@ -42,6 +42,7 @@ bool loadedMenu = false;
 
 void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
+	drawMatrixRain(g_Console);
 	int time = g_dElapsedTime;
 
 	COORD title;
