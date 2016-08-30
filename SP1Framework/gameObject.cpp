@@ -143,7 +143,7 @@ void updateLR_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 		ID = "<";
 	}
 
-	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 7) ||
 		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
 		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
 	{
@@ -168,12 +168,12 @@ void updateRL_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 		xy.X--;
 	}
 
-	if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219 || g_mapData.mapGrid[xy.Y + 1][xy.X - 1] == '-')
+	if (g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == (char)219 || g_mapData.mapGrid[xy.Y - 1][xy.X - 1] == '-')
 	{
 		ID = ">";
 	}
 
-	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 7) ||
 		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
 		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
 	{
@@ -203,7 +203,7 @@ void updateUD_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 		ID = "^";
 	}
 
-	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 7) ||
 		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
 		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
 	{
@@ -233,7 +233,7 @@ void updateDU_Projectile(string &ID, COORD &xy, int &speed, bool &reset, SMapDat
 		ID = "v";
 	}
 
-	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 8) ||
+	if ((sqrt((g_sChar.m_cLocation.X - xy.X)*(g_sChar.m_cLocation.X - xy.X) + ((g_sChar.m_cLocation.Y - xy.Y)*(g_sChar.m_cLocation.Y - xy.Y))) <= 7) ||
 		(sqrt((_portal.p_pos[0].X - xy.X)*(_portal.p_pos[0].X - xy.X) + ((_portal.p_pos[0].Y - xy.Y)*(_portal.p_pos[0].Y - xy.Y))) <= 3) ||
 		(sqrt((_portal.p_pos[1].X - xy.X)*(_portal.p_pos[1].X - xy.X) + ((_portal.p_pos[1].Y - xy.Y)*(_portal.p_pos[1].Y - xy.Y))) <= 3))
 	{
