@@ -119,20 +119,6 @@ void init( void )
 
 	//Load Player Stats
 	loadFile(_playerStats);
-
-	/*_inventory.addItem(Items());
-	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-*/
 }
 
 //--------------------------------------------------------------

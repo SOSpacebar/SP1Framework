@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include "MMSystem.h"
 #include "ReadMap.h"
+#include "playerDetailsManager.h"
 
 int SplashCol = 0;
 string AnimationString;
@@ -33,8 +34,10 @@ extern SMapData g_mapData;
 extern int i;
 extern enemyStruct _enemy[20];
 extern short combatIndex;
+extern PlayerStats _playerStats;
 
 int all_Monster;
+bool loadedMenu = false;
 
 void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
@@ -74,8 +77,8 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 	bool bSomethingHappened = false;
 	
 	g_currLevel = 0;
-	string Menu[3] = { "Start Game", "Credits", "Exit Game" };//Array of Start Game and Exit
-	string Menu_selected[3] = { "> Start Game <", "> Credits <", "> Exit Game <" };
+	string Menu[4] = { "Start Game", "Save Game", "Credits", "Exit Game" };//Array of Start Game and Exit
+	string Menu_selected[4] = { "> Start Game <", "> Save Game <", "> Credits <", "> Exit Game <" };
 
 	COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
@@ -91,6 +94,8 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		g_Console.writeToBuffer(c, Menu[1], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[2], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[3], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 
@@ -110,15 +115,26 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		{
 			MenuSelect = 0;
 			bSomethingHappened = true;
+			loadedMenu = true;
 			g_eGameState = S_LEVELSELECT;
 		}
 		break;
 	case 1:
 		g_Console.writeToBuffer(c, Menu[0], 0x03);
 		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu_selected[1], 0x04);
+		if (loadedMenu == false)
+		{
+			g_Console.writeToBuffer(c, Menu_selected[1], 0x04);
+		}
+		else
+		{
+			g_Console.writeToBuffer(c, "Player Details Saved", 0x04);
+		}
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[2], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[3], 0x03);
+
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 		if (g_abKeyPressed[K_UP])
@@ -134,10 +150,9 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
-			PlaySound(TEXT("Sound/Prologue.wav"), NULL, SND_LOOP | SND_ASYNC);
+			saveFile(_playerStats);
 			bSomethingHappened = true;
-			MenuSelect = 0;
-			g_eGameState = S_CREDITS;
+			loadedMenu = true;
 		}
 		break;
 	case 2:
@@ -146,6 +161,8 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		g_Console.writeToBuffer(c, Menu[1], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu_selected[2], 0x04);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[3], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 		if (g_abKeyPressed[K_UP])
@@ -157,9 +174,39 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		if (g_abKeyPressed[K_DOWN])
 		{
 			bSomethingHappened = true;
-			MenuSelect = 2;
+			MenuSelect = 3;
 		}
 		//Press Space in Exit Menu will quit the game
+		if (g_abKeyPressed[K_ENTER])
+		{
+			loadedMenu = true;
+			PlaySound(TEXT("Sound/Prologue.wav"), NULL, SND_LOOP | SND_ASYNC);
+			bSomethingHappened = true;
+			MenuSelect = 0;
+			g_eGameState = S_CREDITS;
+		}
+		break;
+	case 3:
+		g_Console.writeToBuffer(c, Menu[0], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[1], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu[2], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, Menu_selected[3], 0x04);
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 2;
+		}
+		//From Pressing Down Player will go to the Exit Menu
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			MenuSelect = 3;
+		}
 		if (g_abKeyPressed[K_ENTER])
 		{
 			bSomethingHappened = true;
@@ -168,6 +215,7 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		}
 		break;
 	}
+	
 	if (bSomethingHappened)
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
