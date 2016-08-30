@@ -604,7 +604,6 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 {
 	timeOffset++;
 	bool bSomethingHappened = false;
-	bool bSomethingHappened2 = false;
 	//processUserInput();
 	//set screen black
 	string fillScreen;
@@ -829,7 +828,6 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
 		{
 			drawAnimation(2, x, g_Console);
-			damagePopUp(5, x, g_Console);
 			AnimationOffset2++;
 		}
 		else if (AnimationOffset2 > 45)
@@ -842,7 +840,6 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
 		{
 			drawAnimation(26, x, g_Console);
-			damagePopUp(5, x, g_Console);
 			AnimationOffset2++;
 		}
 		else if (AnimationOffset2 > 45)
@@ -855,7 +852,6 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		if (AnimationOffset2 <= 45 && AnimationOffset2 >= 30)
 		{
 			drawAnimation(29, x, g_Console);
-			damagePopUp(5, x, g_Console);
 			AnimationOffset2++;
 		}	
 		else if (AnimationOffset2 > 45)
@@ -919,20 +915,12 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.325; // 125ms should be enough
 	}
-<<<<<<< HEAD
 //=================================================================
-=======
-	if (bSomethingHappened2)
-	{
-		// set the bounce time to some time in the future to prevent accidental triggers
-		g_dBounceTime = g_dElapsedTime + 1; // 125ms should be enough
-	}
 
 	if (AnimationOffset >= 40)
 	{
 		AnimationOffset = 0;
 	}
->>>>>>> 89417d9087cc14cce8678181cca0ecad74b404c6
 }
 
 void setupLevel(short &Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, objectStruct _object[], short &totalNumObject, bool &canPortalGun, enemyStruct _enemy[])
