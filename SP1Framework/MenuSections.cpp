@@ -115,7 +115,7 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		{
 			MenuSelect = 0;
 			bSomethingHappened = true;
-			loadedMenu = true;
+			loadedMenu = false;
 			g_eGameState = S_LEVELSELECT;
 		}
 		break;
@@ -179,7 +179,7 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		//Press Space in Exit Menu will quit the game
 		if (g_abKeyPressed[K_ENTER])
 		{
-			loadedMenu = true;
+			loadedMenu = false;
 			PlaySound(TEXT("Sound/Prologue.wav"), NULL, SND_LOOP | SND_ASYNC);
 			bSomethingHappened = true;
 			MenuSelect = 0;
