@@ -117,7 +117,7 @@
     <ClInclude Include="collisionManager.h" />
     <ClInclude Include="DialogBox.h" />
     <ClInclude Include="enemyProperties.h" />
-    <ClInclude Include="EquipHandler.h" />
+    <ClInclude Include="Equipment.h" />
     <ClInclude Include="fieldOfView.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />

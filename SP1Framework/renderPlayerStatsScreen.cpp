@@ -1,8 +1,8 @@
 #include "renderPlayerStatsScreen.h"
 
-void renderPlayerStatsScreen(Console &g_Console, PlayerStats getPlayerStats, Inventory &_inventory)
+void renderPlayerStatsScreen(Console &g_Console, PlayerStats &getPlayerStats, Inventory &_inventory, Equipment &equip)
 {
-	_inventory.debugPrint();
+	_inventory.debugPrint(equip, _inventory);
 
 	COORD c = g_Console.getConsoleSize();
 	c.X = 0;

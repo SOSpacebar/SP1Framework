@@ -46,6 +46,21 @@ void PlayerStats::updateExp(int exp)
 	}
 }
 
+void PlayerStats::updateStrEquip(int value)
+{
+	player_strenght += value;
+}
+
+void PlayerStats::updateConEquip(int value)
+{
+	player_constitution += value;
+}
+
+void PlayerStats::updateIntEquip(int value)
+{
+	player_intelligence += value;
+}
+
 void PlayerStats::updateStr()
 {
 	player_strenght++;

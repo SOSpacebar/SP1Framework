@@ -3,9 +3,13 @@
 
 #include "items.h"
 #include "Framework\console.h"
-
+#include "playerStats.h"
+#include "Equipment.h"
 
 extern Console g_Console; //For testing
+extern PlayerStats _playerStats;
+
+class Equipment;
 
 class Inventory
 {
@@ -13,56 +17,26 @@ class Inventory
 		Inventory();
 		~Inventory();
 
+		inline int getSize() const { return numberOfItems; };
+
 		void addItem(const Items &item);
 		void removeItem(int index);
 
-		inline const void debugPrint() const
-		{
-			COORD c = g_Console.getConsoleSize();
-			c.X = 0;
-			c.Y = 15;
+		bool getItemArrayWeaponSlot(int arrayIndex);
+		bool getItemArrayArmorSlot(int arrayIndex);
+		bool getItemArrayAccSlot(int arrayIndex);
+		int getItemStr(int arrayIndex);
+		int getItemCon(int arrayIndex);
+		int getItemInt(int arrayIndex);
+		int getAttack(int arrayIndex);
+		int getHealth(int arrayIndex);
 
-			g_Console.writeToBuffer(c, "=======================================================Inventory========================================================", 0x03);
-			c.Y += 2;
-			c.X = 19;
-			g_Console.writeToBuffer(c, "|Name|===============|Type|==|Level|==|Attack|==|Health|==|Str|==|Con|==|Int|", 0x03);
-			c.Y++;
-			for (int i = 0; i < numberOfItems; i++)
-			{
-				c.X = 18;
-				g_Console.writeToBuffer(c, itemsArray[i]-> getName(), 0x03);
-				c.X += 23 ;
-				g_Console.writeToBuffer(c, itemsArray[i]-> getType(), 0x03);
-				c.X += 10;
-				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getReqLevel()), 0x03);
-				c.X += 10;
-				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getAttackValue()), 0x03);
-				c.X += 10;
-				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getHealthValue()), 0x03);
-				c.X += 7;
-				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getStr()), 0x03);
-				c.X += 7;
-				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getCon()), 0x03);
-				c.X += 7;
-				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getInt()), 0x03);
-				//remove these lines after debugging
-				c.X += 7;
-				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getEquipSlotWeapon()), 0x03);
-				c.X += 7;
-				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getEquipSlotArmor()), 0x03);
-				c.X += 7;
-				g_Console.writeToBuffer(c, std::to_string(itemsArray[i]->getEquipSlotAcc()), 0x03);
-				//end of removal
-				c.Y++;
-			}
-		}
+		void debugPrint(Equipment &equip, Inventory &_inventory);
 
 	private:
 		int inventorySize;
 		int numberOfItems;
-		Items **itemsArray;
+	//	Items **itemsArray;
 };
 
-
 #endif
-

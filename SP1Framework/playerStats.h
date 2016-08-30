@@ -2,7 +2,6 @@
 #define _PLAYERSTATS_H
 
 #include "game.h"
-#include "inventory.h"
 
 class PlayerStats
 {
@@ -31,7 +30,9 @@ public:
 	void updateInt();
 	void updateCon();
 	void levelUp();
-
+	void updateStrEquip(int Str);
+	void updateConEquip(int Con);
+	void updateIntEquip(int Int);
 private:
 	string player_name;
 	int player_level;

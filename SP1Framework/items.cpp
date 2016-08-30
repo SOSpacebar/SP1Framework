@@ -1,6 +1,8 @@
 #include "items.h"
 #include <random>
 
+int itemID = 0;
+
 Items::Items()
 {
 	RNGitem();
@@ -54,6 +56,8 @@ void Items::RNGitem()
 			item_equipSlotWeapon = true;
 			item_equipSlotArmor = false;
 			item_equipSlotAcc = false;
+			item_ID = itemID;
+			itemID++;
 			break;
 		case 2:
 			item_name = ArmorArr[nameRand(twist)];
@@ -67,6 +71,8 @@ void Items::RNGitem()
 			item_equipSlotWeapon = false;
 			item_equipSlotArmor = true;
 			item_equipSlotAcc = false;
+			item_ID = itemID;
+			itemID++;
 			break;
 		case 3:
 			item_name = AccArr[nameRand(twist)];
@@ -80,6 +86,8 @@ void Items::RNGitem()
 			item_equipSlotWeapon = false;
 			item_equipSlotArmor = false;
 			item_equipSlotAcc = true;
+			item_ID = itemID;
+			itemID++;
 			break;
 	}
 }

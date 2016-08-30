@@ -215,7 +215,7 @@
     <ClInclude Include="renderPlayerStatsScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EquipHandler.h">
+    <ClInclude Include="Equipment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

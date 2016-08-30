@@ -15,11 +15,10 @@
 #include "fieldOfView.h"
 #include "DialogBox.h"
 //Mk 2
-#include "playerStats.h"
 #include "renderPlayerStatsScreen.h"
 #include "handleStatsScreen.h"
 #include "playerDetailsManager.h"
-#include "inventory.h"
+
 //Original framework stuff
 #include <iostream>
 #include <sstream>
@@ -79,6 +78,12 @@ PlayerStats _playerStats;
 
 //inventory
 Inventory _inventory;
+
+//equip
+Equipment equip;
+
+//items
+Items itemsArray[15];
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -363,7 +368,7 @@ void render()
 			break;
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
 			break;
-		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats, _inventory);
+		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats, _inventory, equip);
 			renderInputEvents();
 			break;
 		case S_DIALOG: 

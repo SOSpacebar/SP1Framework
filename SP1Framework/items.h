@@ -28,6 +28,7 @@ public:
 private:
 	string item_name;
 	string item_type;
+	int item_ID;
 	int item_reqLevel;
 	int item_str;
 	int item_con;
