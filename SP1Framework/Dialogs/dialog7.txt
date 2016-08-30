@@ -5,7 +5,7 @@
 ##                                                                                                                    ##
 ##                                                                                                                    ##
 ##                                      You will encounter your first monster here                                    ##
-##                                  During combat, repeatedly press [SPACE] to attack!                                ##
+##                             During combat, choose the choice of attack! Attack and Magic.                          ##
 ##                                                                                                                    ##
 ##                                                                                                        >>[SPACE]>> ##
 ########################################################################################################################
