@@ -676,6 +676,4 @@ void resetVariables()
 	playerHealth = 98;
 	maxBox = 0;
 	boxIndex = 0;
-	_playerStats.updatePlayerHealth(_playerStats.getPlayerMaxHealth());
-	_playerStats.updatePlayerMana(_playerStats.getPlayerMaxMana());
 }

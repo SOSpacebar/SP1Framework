@@ -519,6 +519,8 @@ void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &
 
 void GameOver(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
+	_playerStats.resetStats();
+
 	int time = g_dElapsedTime;
 
 	COORD G_over;
@@ -884,11 +886,11 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 
 		if (randomhp_dmg() % 4 == 0)
 		{
-			getPlayerStats.updatePlayerhealth(-dmg);
+			getPlayerStats.updatePlayerHealth(-dmg);
 		}
 		if (randomhp_dmg() == 14)
 		{
-			getPlayerStats.updatePlayerhealth(-dmg);
+			getPlayerStats.updatePlayerHealth(-dmg);
 		}
 	}
 

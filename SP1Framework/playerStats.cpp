@@ -70,3 +70,19 @@ void PlayerStats::levelUp()
 	player_health = player_maxHealth;
 	player_mana = player_maxMana;
 }
+
+void PlayerStats::resetStats()
+{
+	player_level = 1;
+	player_experience = 0;
+	player_nextLvlExperience = 100;
+	player_health = 100;
+	player_maxHealth = 100;
+	player_mana = 100;
+	player_maxMana = 100;
+	player_attack = 10;
+	player_strenght = 5;
+	player_constitution = 5;
+	player_intelligence = 5;
+	player_statPoints = 2;
+}

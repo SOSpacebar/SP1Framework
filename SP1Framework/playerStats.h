@@ -30,6 +30,7 @@ public:
 	void updateInt();
 	void updateCon();
 	void levelUp();
+	void resetStats();
 
 private:
 	string player_name;
