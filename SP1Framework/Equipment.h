@@ -25,13 +25,14 @@ public:
 	inline int    getEquippedAcc() const { return equipped_indexAcc; };
 
 	void getEquippedStats(Items &items, PlayerStats &playerStats, Inventory &inventory, int itemArrayIndex);
-	void removeEquipments(Items &items, PlayerStats &playerStats, Inventory &inventory, int itemArrayIndex, int prevEquipIndex);
+	void removeEquipments(Items &items, PlayerStats &playerStats, Inventory &inventory, int prevEquipIndex);
 	void wearEquipment(Items &items, PlayerStats &playerStats, Inventory &inventory);
 	void setItemStr(int str);
 	void setItemCon(int con);
 	void setItemInt(int Int);
 	void setItemAtt(int Att);
 	void setItemHP(int Hp);
+	void resetDefault();
 
 
 private:

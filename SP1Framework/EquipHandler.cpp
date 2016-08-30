@@ -25,7 +25,7 @@ void Equipment::getEquippedStats(Items &items, PlayerStats &playerStats, Invento
 	playerStats.updatePlayerHealth((inventory.getHealth(itemArrayIndex)));
 }
 
-void Equipment::removeEquipments(Items &items, PlayerStats &playerStats, Inventory &inventory, int itemArrayIndex, int prevEquipIndex)
+void Equipment::removeEquipments(Items &items, PlayerStats &playerStats, Inventory &inventory, int prevEquipIndex)
 {
 	playerStats.updateStrEquip(-(inventory.getItemStr(prevEquipIndex)));
 	playerStats.updateConEquip(-(inventory.getItemCon(prevEquipIndex)));
@@ -130,7 +130,7 @@ void Equipment::wearEquipment(Items &items, PlayerStats &playerStats, Inventory 
 		}
 		else if (checkWeaponEquip == true && ((inventory.getItemArrayWeaponSlot(itemArrayIndex)) == true))
 		{
-			removeEquipments(items, playerStats, inventory, itemArrayIndex, equipped_indexWeapon);
+			removeEquipments(items, playerStats, inventory, equipped_indexWeapon);
 			equipped_indexWeapon = 30;
 			//getEquippedStats(items, playerStats, inventory, itemArrayIndex);
 			checkWeaponEquip = false;
@@ -138,7 +138,7 @@ void Equipment::wearEquipment(Items &items, PlayerStats &playerStats, Inventory 
 
 		else if (checkArmorEquip == true && ((inventory.getItemArrayArmorSlot(itemArrayIndex)) == true))
 		{
-			removeEquipments(items, playerStats, inventory, itemArrayIndex, equipped_indexArmor);
+			removeEquipments(items, playerStats, inventory, equipped_indexArmor);
 			equipped_indexArmor = 30;
 			//getEquippedStats(items, playerStats, inventory, itemArrayIndex);
 			checkArmorEquip = false;
@@ -146,7 +146,7 @@ void Equipment::wearEquipment(Items &items, PlayerStats &playerStats, Inventory 
 
 		else if (checkAccEquip == true && ((inventory.getItemArrayAccSlot(itemArrayIndex)) == true))
 		{
-			removeEquipments(items, playerStats, inventory, itemArrayIndex, equipped_indexAcc);
+			removeEquipments(items, playerStats, inventory, equipped_indexAcc);
 			equipped_indexAcc = 30;
 			//getEquippedStats(items, playerStats, inventory, itemArrayIndex);
 			checkAccEquip = false;
@@ -161,6 +161,15 @@ void Equipment::wearEquipment(Items &items, PlayerStats &playerStats, Inventory 
 
 }
 
+void Equipment::resetDefault()
+{
+	equipped_indexAcc = 30;
+	equipped_indexArmor = 30;
+	equipped_indexWeapon = 30;
+	checkAccEquip = false;
+	checkArmorEquip = false;
+	checkWeaponEquip = false;
+}
 void Equipment::setItemAtt(int Att)
 {
 	item_attackValue = Att;

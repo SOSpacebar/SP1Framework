@@ -347,6 +347,7 @@ void render()
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			statsOpened = false;
+			equip.resetDefault();
 			boxIndex = 0;
 			resetVariables();
 			break;
@@ -576,7 +577,7 @@ void renderGame()
 	drawEXP(g_Console, _playerStats);
 	drawHP(g_Console, _playerStats);
 	drawTextUI(g_Console, _playerStats);
-	renderInputEvents();
+	//renderInputEvents();
 }
 
 void renderMap()
@@ -685,5 +686,4 @@ void resetVariables()
 	i = 0;
 	playerHealth = 98;
 	maxBox = 0;
-	boxIndex = 0;
 }
