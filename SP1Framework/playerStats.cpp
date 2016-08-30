@@ -17,12 +17,12 @@ void PlayerStats::setPlayerStats(string name, int level, int exp, int maxExp, in
 	player_statPoints = statPoint;
 }
 
-void PlayerStats::updatePlayerhealth(int health)
+void PlayerStats::updatePlayerHealth(int health)
 {
 	player_health += health;
 }
 
-void PlayerStats::updatePlayermana(int mana)
+void PlayerStats::updatePlayerMana(int mana)
 {
 	player_mana += mana;
 }

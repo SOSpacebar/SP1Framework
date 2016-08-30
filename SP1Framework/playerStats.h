@@ -21,10 +21,9 @@ public:
 	inline int getPlayerInt() const { return player_intelligence; }
 	inline int getPlayerStatPoints() const { return player_statPoints; };
 
-	void updatePlayerhealth(int health);
-	void updatePlayermana(int mana);
-	void updatePlayerAttack(int attack);
 	void updatePlayerHealth(int health);
+	void updatePlayerMana(int mana);
+	void updatePlayerAttack(int attack);
 	void setPlayerStats(string name, int level, int exp, int maxExp, int health, int maxHealth, int mana, int maxMana, int attack, int s_str, int s_con, int s_int, int statPoint);
 	void updateExp(int exp);
 	void updateStr();
