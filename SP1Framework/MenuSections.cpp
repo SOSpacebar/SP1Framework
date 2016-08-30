@@ -211,7 +211,7 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		{
 			bSomethingHappened = true;
 			MenuSelect = 0;
-			g_bQuitGame = true;
+			g_bQuitGame = true; 
 		}
 		break;
 	}
@@ -751,7 +751,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 						if ((getPlayerStats.getPlayerMana() - 20) >= 0)
 						{
 							hp -= 20 + (getPlayerStats.getPlayerInt() * (float)0.5);
-							getPlayerStats.updatePlayermana(-20);
+							getPlayerStats.updatePlayerMana(-20);
 							AnimationOffset2 = 30;
 						}
 						combatIndex = 0;
@@ -762,7 +762,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 						if ((getPlayerStats.getPlayerMana() - 20) >= 0)
 						{
 							hp -= 20 + (getPlayerStats.getPlayerInt() * (float)0.5);
-							getPlayerStats.updatePlayermana(-20);
+							getPlayerStats.updatePlayerMana(-20);
 							AnimationOffset2 = 30;
 						}
 						combatIndex = 0;
@@ -775,10 +775,10 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 						PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
 						hp = 98;
 						g_eGameState = S_GAME;
-						getPlayerStats.updatePlayerhealth(20);
+						getPlayerStats.updatePlayerHealth(20);
 						if (getPlayerStats.getPlayerHealth() > getPlayerStats.getPlayerMaxHealth())
 						{
-							getPlayerStats.updatePlayerhealth(-(getPlayerStats.getPlayerHealth() - getPlayerStats.getPlayerMaxHealth()));
+							getPlayerStats.updatePlayerHealth(-(getPlayerStats.getPlayerHealth() - getPlayerStats.getPlayerMaxHealth()));
 						}
 					}
 				}
