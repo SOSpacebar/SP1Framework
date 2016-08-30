@@ -32,6 +32,8 @@ public:
 	void updateStrEquip(int Str);
 	void updateConEquip(int Con);
 	void updateIntEquip(int Int);
+	void resetStats();
+
 private:
 	string player_name;
 	int player_level;

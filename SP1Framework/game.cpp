@@ -357,7 +357,7 @@ void render()
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
 			break;
 		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats, _inventory, equip);
-			renderInputEvents();
+			//renderInputEvents();
 			break;
 		case S_DIALOG: 
 			if (g_currLevel > 3)
@@ -573,7 +573,7 @@ void renderGame()
 	drawEXP(g_Console, _playerStats);
 	drawHP(g_Console, _playerStats);
 	drawTextUI(g_Console, _playerStats);
-	renderInputEvents();
+//	renderInputEvents();
 }
 
 void renderMap()
@@ -683,6 +683,4 @@ void resetVariables()
 	playerHealth = 98;
 	maxBox = 0;
 	boxIndex = 0;
-	_playerStats.updatePlayerHealth(_playerStats.getPlayerMaxHealth());
-	_playerStats.updatePlayerMana(_playerStats.getPlayerMaxMana());
 }
