@@ -604,6 +604,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 {
 	timeOffset++;
 	bool bSomethingHappened = false;
+	bool bSomethingHappened2 = false;
 	//processUserInput();
 	//set screen black
 	string fillScreen;
@@ -871,7 +872,6 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.Y = 24;
 	drawHpCurr(3, x, hp, g_Console);
 	g_Console.writeToBuffer(x.X = 41, x.Y = 23, "Monster HP -", 0x0D);
-
 	drawUI(g_Console);
 	drawHP(g_Console, getPlayerStats);
 	drawEXP(g_Console, getPlayerStats);
@@ -880,6 +880,16 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.325; // 125ms should be enough
+	}
+	if (bSomethingHappened2)
+	{
+		// set the bounce time to some time in the future to prevent accidental triggers
+		g_dBounceTime = g_dElapsedTime + 1; // 125ms should be enough
+	}
+
+	if (AnimationOffset >= 40)
+	{
+		AnimationOffset = 0;
 	}
 }
 
