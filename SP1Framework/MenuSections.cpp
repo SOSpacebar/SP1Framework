@@ -538,12 +538,12 @@ void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 	//Randomize Enemy and decide who you will fight
 	all_Monster = rand() % 3 + 1;
 	//Printing Splash Coloring on the whole screen
-	if (SplashCol < 240)
+	if (SplashCol < 196)
 	{
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 30; i++)
 			AnimationString.push_back((char)219);
 	}
-	if (SplashCol > 240)
+	if (SplashCol > 196)
 	{
 		PlaySound(TEXT("Sound/Defense.wav"), NULL, SND_LOOP | SND_ASYNC);
 		SplashCol = 0;
