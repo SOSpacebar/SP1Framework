@@ -120,6 +120,7 @@ void init( void )
 	//Load Player Stats
 	loadFile(_playerStats);
 
+	/*_inventory.addItem(Items());
 	_inventory.addItem(Items());
 	_inventory.addItem(Items());
 	_inventory.addItem(Items());
@@ -131,8 +132,7 @@ void init( void )
 	_inventory.addItem(Items());
 	_inventory.addItem(Items());
 	_inventory.addItem(Items());
-	_inventory.addItem(Items());
-
+*/
 }
 
 //--------------------------------------------------------------
@@ -431,7 +431,6 @@ void moveCharacter()
 		{
 			if (checkPlayerCollision(g_sChar, g_mapData, K_LEFT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 			{
-				//Beep(1440, 30);
 				g_sChar.m_cLocation.X--;
 				bSomethingHappened = true;
 				checkPlayerCollisionWithPortal(g_sChar, _portal);
@@ -446,7 +445,6 @@ void moveCharacter()
 		{
 			if (checkPlayerCollision(g_sChar, g_mapData, K_DOWN, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 			{
-				//Beep(1440, 30);
 				g_sChar.m_cLocation.Y++;
 				bSomethingHappened = true;
 				checkPlayerCollisionWithPortal(g_sChar, _portal);
@@ -461,7 +459,6 @@ void moveCharacter()
 		{
 			if (checkPlayerCollision(g_sChar, g_mapData, K_RIGHT, g_eGameState, g_currLevel, g_iKey, g_dDoor, i, _enemy) == true)
 			{
-				//Beep(1440, 30);
 				g_sChar.m_cLocation.X++;
 				checkPlayerCollisionWithPortal(g_sChar, _portal);
 			}
