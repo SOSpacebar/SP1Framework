@@ -23,6 +23,8 @@ public:
 
 	void updatePlayerhealth(int health);
 	void updatePlayermana(int mana);
+	void updatePlayerAttack(int attack);
+	void updatePlayerHealth(int health);
 	void setPlayerStats(string name, int level, int exp, int maxExp, int health, int maxHealth, int mana, int maxMana, int attack, int s_str, int s_con, int s_int, int statPoint);
 	void updateExp(int exp);
 	void updateStr();

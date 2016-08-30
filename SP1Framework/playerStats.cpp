@@ -27,6 +27,15 @@ void PlayerStats::updatePlayermana(int mana)
 	player_mana += mana;
 }
 
+void PlayerStats::updatePlayerAttack(int attack)
+{
+	player_attack += attack;
+}
+void PlayerStats::updatePlayerHealth(int health)
+{
+	player_health += health;
+}
+
 void PlayerStats::updateExp(int exp)
 {
 	player_experience += exp;
