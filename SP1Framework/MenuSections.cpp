@@ -884,11 +884,11 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 
 		if (randomhp_dmg() % 4 == 0)
 		{
-			getPlayerStats.updatePlayerhealth(-dmg);
+			getPlayerStats.updatePlayerHealth(-dmg);
 		}
 		if (randomhp_dmg() == 14)
 		{
-			getPlayerStats.updatePlayerhealth(-dmg);
+			getPlayerStats.updatePlayerHealth(-dmg);
 		}
 	}
 
