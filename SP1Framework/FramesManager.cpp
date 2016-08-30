@@ -56,8 +56,11 @@ void readAnimation(void)
 	chooseFrameToLoad[33] = "animation/Title_static_4.txt";
 	chooseFrameToLoad[34] = "animation/GameOver_static_1.txt";
 	chooseFrameToLoad[35] = "animation/GameOver_static_2.txt";
+	chooseFrameToLoad[36] = "dialogs/dialog2-5.txt";
+	chooseFrameToLoad[37] = "dialogs/dialog2-7.txt";
+	chooseFrameToLoad[38] = "dialogs/dialogStat.txt";
 
-	for (int d = 0; d < 36; d++)
+	for (int d = 0; d < 39; d++)
 	{
 		fstream fin(chooseFrameToLoad[d], fstream::in);
 

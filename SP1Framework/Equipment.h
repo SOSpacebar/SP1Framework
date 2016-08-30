@@ -47,9 +47,9 @@ private:
 	int item_attackValue;
 	int item_healthValue;
 
-	int equipped_indexWeapon;
-	int equipped_indexArmor;
-	int equipped_indexAcc;
+	int equipped_indexWeapon = 30;
+	int equipped_indexArmor = 30;
+	int equipped_indexAcc = 30;
 
 	bool checkWeaponEquip;
 	bool checkArmorEquip;

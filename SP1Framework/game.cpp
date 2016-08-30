@@ -85,6 +85,8 @@ Equipment equip;
 //items
 Items itemsArray[15];
 
+bool statsOpened = false;
+
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
 //            Initialize variables, allocate memory, load data from file, etc. 
@@ -344,6 +346,7 @@ void render()
 		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed, g_dBounceTime, _playerStats, _inventory);
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			statsOpened = false;
 			boxIndex = 0;
 			resetVariables();
 			break;
@@ -573,7 +576,7 @@ void renderGame()
 	drawEXP(g_Console, _playerStats);
 	drawHP(g_Console, _playerStats);
 	drawTextUI(g_Console, _playerStats);
-//	renderInputEvents();
+	renderInputEvents();
 }
 
 void renderMap()

@@ -87,7 +87,14 @@ void Inventory::debugPrint(Equipment &equip, Inventory &_inventory)
 	for (int i = 0; i < numberOfItems; i++)
 	{
 		c.X = 16;
-		g_Console.writeToBuffer(c, "E", 0x0A);
+		if ((equip.getEquippedWeap() == i) || (equip.getEquippedArmor() == i) || (equip.getEquippedAcc() == i))
+		{
+			g_Console.writeToBuffer(c, "U", 0x04);
+		}
+		else
+		{
+			g_Console.writeToBuffer(c, "E", 0x0A);
+		}
 		c.X = 18;
 		g_Console.writeToBuffer(c, itemsArray[i].getName(), 0x03);		
 		c.X += 23;

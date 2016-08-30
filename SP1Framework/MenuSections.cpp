@@ -35,6 +35,7 @@ extern int i;
 extern enemyStruct _enemy[20];
 extern short combatIndex;
 extern PlayerStats _playerStats;
+extern bool statsOpened;
 
 int all_Monster;
 bool loadedMenu = false;
@@ -967,7 +968,31 @@ void checkDialogEnd(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], int
 	boxStart.Y = 15;
 
 	renderGame();
-	drawDialogBox((boxIndex + 10), boxStart, g_Console);
+
+
+	if (boxIndex == 3)
+	{
+		drawDialogBox(36, boxStart, g_Console);
+	}
+	else if (boxIndex == 4)
+	{
+		drawDialogBox(37, boxStart, g_Console);
+	}
+	else
+	{
+		if (boxIndex >= 5)
+		{
+			drawDialogBox((boxIndex + 8), boxStart, g_Console);
+
+		}
+		else
+		{
+			drawDialogBox((boxIndex + 10), boxStart, g_Console);
+
+		}
+	}
+
+
 	dialogend = false;
 
 	if (g_abKeyPressed[K_SPACE])

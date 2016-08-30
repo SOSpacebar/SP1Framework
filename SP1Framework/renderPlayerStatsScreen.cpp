@@ -1,8 +1,15 @@
 #include "renderPlayerStatsScreen.h"
 
+extern bool statsOpened;
+extern int boxIndex;
+
 void renderPlayerStatsScreen(Console &g_Console, PlayerStats &getPlayerStats, Inventory &_inventory, Equipment &equip)
 {
 	_inventory.debugPrint(equip, _inventory);
+	if (boxIndex == 4 && statsOpened == false)
+	{
+		statsOpened = true;
+	}
 
 	COORD c = g_Console.getConsoleSize();
 	c.X = 0;
