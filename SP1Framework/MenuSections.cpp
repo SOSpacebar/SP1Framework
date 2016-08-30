@@ -583,7 +583,7 @@ void DrawAnimationSplashScreen(EGAMESTATES &g_eGameState)
 
 void SetAnimationSplashScreen(EGAMESTATES &g_eGameState)
 {
-	//Randomize Enemy and decide who you will fight
+	//Randomize Enemy and decide who you will fight during loading screen
 	all_Monster = rand() % 3 + 1;
 	//Printing Splash Coloring on the whole screen
 	if (SplashCol < 196)
@@ -619,14 +619,17 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	x.X = 42;
 	x.Y = 5;
 
-	//types of enemy
+	//types of Monster
 	int orangeMush = 1;
 	int hornMush = 2; 
 	int Slime = 3;
 
-	//add function to check which mushroom to spawn
 	drawCombatMenu(g_Console);
-	if (all_Monster == orangeMush){
+
+//======= add function to check which monster was randomized to spawn ===========
+
+	if (all_Monster == orangeMush)		//Appearance of Normal Mushroom
+	{
 		if (AnimationOffset <= 20 && AnimationOffset2 == 0)
 		{
 			drawAnimation(0, x, g_Console);
@@ -636,8 +639,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 			drawAnimation(1, x, g_Console);
 		}
 	}
-	//Appearance of HornMushroom
-	else if (all_Monster == hornMush)
+	else if (all_Monster == hornMush) 	//Appearance of HornMushroom
 	{
 		if (AnimationOffset <= 20 && AnimationOffset2 == 0)
 		{
@@ -648,8 +650,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 			drawAnimation(25, x, g_Console);
 		}
 	}
-	//Appearance of Slime
-	else if (all_Monster == Slime)
+	else if (all_Monster == Slime)		//Appearance of Slime
 	{
 		if (AnimationOffset <= 20 && AnimationOffset2 == 0)
 		{
@@ -661,6 +662,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		}
 	}
 
+//===================== Check Combat Menu Control ========================== Battle Choice 
 	if (GetAsyncKeyState(VK_DOWN) < 0)
 	{
 		if (combatMenuReleased)
@@ -811,19 +813,13 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	}
 
 	AnimationOffset++;
-
+//=============== Draw Monster HP HUD =================
 	x.X = 41;
 	x.Y = 24;
 
 	drawAnimation(3, x, g_Console);
 
-	if (playerHealth <= 10)
-	{
-		PlaySound(TEXT("Sound/GameOver.wav"), NULL, SND_LOOP | SND_ASYNC);
-		g_eGameState = S_GAMEOVER;
-		playerHealth = 98;
-		hp = 98;
-	}
+//=============== Draw Mob Animation ==================
 	x.X = 46;
 	x.Y = 4;
 
@@ -867,6 +863,47 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 		}
 	}
 
+//==================== Monster Damage to Player =========================
+	int dmg = 0;
+
+	if (timeOffset % 30 == 0)
+	{
+		if (all_Monster == orangeMush)
+		{
+			dmg = 3 * getPlayerStats.getPlayerLevel();
+		}
+		else if (all_Monster == hornMush)
+		{
+			dmg = 5 * getPlayerStats.getPlayerLevel();
+		}
+		else if (all_Monster == Slime)
+		{
+			dmg = 2 * getPlayerStats.getPlayerLevel();
+		}
+		else
+		{
+			dmg = 1;
+		}
+
+		if (randomhp_dmg() % 4 == 0)
+		{
+			getPlayerStats.updatePlayerhealth(-dmg);
+		}
+		if (randomhp_dmg() == 14)
+		{
+			getPlayerStats.updatePlayerhealth(-dmg);
+		}
+	}
+
+	if (getPlayerStats.getPlayerHealth() <= 0)
+	{
+		PlaySound(TEXT("Sound/GameOver.wav"), NULL, SND_LOOP | SND_ASYNC);
+		g_eGameState = S_GAMEOVER;
+		playerHealth = 98;
+		hp = 98;
+	}
+//======================== Draw UI ================================
+
 	x.X = 41;
 	x.Y = 24;
 	drawHpCurr(3, x, hp, g_Console);
@@ -876,11 +913,13 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	drawHP(g_Console, getPlayerStats);
 	drawEXP(g_Console, getPlayerStats);
 	drawTextUI(g_Console, getPlayerStats);
+
 	if (bSomethingHappened)
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.325; // 125ms should be enough
 	}
+//=================================================================
 }
 
 void setupLevel(short &Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, DialogStruct boxArr[], int &maxBox, SGameKey &g_iKey, SGameKey &g_dDoor, objectStruct _object[], short &totalNumObject, bool &canPortalGun, enemyStruct _enemy[])
@@ -900,22 +939,13 @@ void setupLevel(short &Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, Dial
 	g_eGameState = S_GAME;
 }
 
-int generate_dmg()
-{
-	std::random_device randtrue;
-	std::mt19937 twistNew(randtrue());
-
-	std::uniform_int_distribution<> dmgtaken(0, 2 - 1);
-	return (dmgtaken(twistNew));
-}
-
-int randomhp_dmg(int rand_dmg_timeOffset)
+int randomhp_dmg()
 {
 	std::random_device randDMG;
 	std::mt19937 twistNew(randDMG());
 
-	std::uniform_int_distribution<> dmg(0, 21 - 1);
-	return (dmg(twistNew)+50);
+	std::uniform_int_distribution<> dmg(0, 20 - 1);
+	return (dmg(twistNew));
 }
 
 int randomTitle()

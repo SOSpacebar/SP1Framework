@@ -26,8 +26,7 @@ void setupLevel(short &Level, EGAMESTATES &g_eGameState, SGameChar &_sChar, Dial
 
 void checkDialogEnd(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], int &boxIndex, Console &g_Console, bool dialogend, double &g_dBounceTime, double &g_dElapsedTime, bool &canPortalGun);
 
-int generate_dmg();
-int randomhp_dmg(int rand_dmg_timeOffset);
+int randomhp_dmg();
 int randomTitle();
 
 void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime);
