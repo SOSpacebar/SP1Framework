@@ -763,6 +763,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 					if (combatIndex == 2)
 					{
 						hp -= getPlayerStats.getPlayerAttack();
+						getPlayerStats.updatePlayerHealth(-(rand() % (getPlayerStats.getPlayerLevel() + (rand() % 8)) + 1));
 						AnimationOffset2 = 30;
 						combatIndex = 0;
 						bSomethingHappened = true;
@@ -770,6 +771,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 					else if (combatIndex == 3)
 					{
 						hp -= getPlayerStats.getPlayerAttack() + 5;
+						getPlayerStats.updatePlayerHealth(-(rand() % (getPlayerStats.getPlayerLevel() + (rand() % 8)) + 1));
 						AnimationOffset2 = 30;
 						combatIndex = 0;
 						bSomethingHappened = true;
@@ -779,6 +781,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 						if ((getPlayerStats.getPlayerMana() - 20) >= 0)
 						{
 							hp -= 20 + (getPlayerStats.getPlayerInt() * (float)0.5);
+							getPlayerStats.updatePlayerHealth(-(rand() % (getPlayerStats.getPlayerLevel() + (rand() % 8)) + 1));
 							getPlayerStats.updatePlayerMana(-20);
 							AnimationOffset2 = 30;
 						}
@@ -790,6 +793,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 						if ((getPlayerStats.getPlayerMana() - 20) >= 0)
 						{
 							hp -= 20 + (getPlayerStats.getPlayerInt() * (float)0.5);
+							getPlayerStats.updatePlayerHealth(-(rand() % (getPlayerStats.getPlayerLevel() + (rand() % 8)) + 1));
 							getPlayerStats.updatePlayerMana(-20);
 							AnimationOffset2 = 30;
 						}
@@ -891,42 +895,39 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 	}
 
 //==================== Monster Damage to Player =========================
-	int dmg = 0;
-
-	if (timeOffset % 30 == 0)
-	{
-		if (all_Monster == orangeMush)
-		{
-			dmg = 3 * getPlayerStats.getPlayerLevel();
-		}
-		else if (all_Monster == hornMush)
-		{
-			dmg = 5 * getPlayerStats.getPlayerLevel();
-		}
-		else if (all_Monster == Slime)
-		{
-			dmg = 2 * getPlayerStats.getPlayerLevel();
-		}
-		else
-		{
-			dmg = 1;
-		}
-
-		if (randomhp_dmg() % 4 == 0)
-		{
-			getPlayerStats.updatePlayerHealth(-dmg);
-		}
-		if (randomhp_dmg() == 14)
-		{
-			getPlayerStats.updatePlayerHealth(-dmg);
-		}
-	}
+	//int dmg = 0;
+	//if (timeOffset % 30 == 0)
+	//{
+	//	if (all_Monster == orangeMush)
+	//	{
+	//		dmg = 3 * getPlayerStats.getPlayerLevel();
+	//	}
+	//	else if (all_Monster == hornMush)
+	//	{
+	//		dmg = 5 * getPlayerStats.getPlayerLevel();
+	//	}
+	//	else if (all_Monster == Slime)
+	//	{
+	//		dmg = 2 * getPlayerStats.getPlayerLevel();
+	//	}
+	//	else
+	//	{
+	//		dmg = 1;
+	//	}
+	//	if (randomhp_dmg() % 4 == 0)
+	//	{
+	//		getPlayerStats.updatePlayerHealth(-dmg);
+	//	}
+	//	if (randomhp_dmg() == 14)
+	//	{
+	//		getPlayerStats.updatePlayerHealth(-dmg);
+	//	}
+	//}
 
 	if (getPlayerStats.getPlayerHealth() <= 0)
 	{
 		PlaySound(TEXT("Sound/GameOver.wav"), NULL, SND_LOOP | SND_ASYNC);
 		g_eGameState = S_GAMEOVER;
-		playerHealth = 98;
 		hp = 98;
 	}
 //======================== Draw UI ================================

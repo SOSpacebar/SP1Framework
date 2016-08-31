@@ -29,6 +29,6 @@ void drawEXP(Console &g_Console, PlayerStats getPlayerStats);
 void drawHP(Console &g_Console, PlayerStats getPlayerStats);
 void drawTextUI(Console &g_Console, PlayerStats playerStats);
 void drawCombatMenu(Console &g_Console);
-void drawMatrixRain(Console &g_Console);
+void drawQuickHelp(Console &g_Console, short g_currLevel);
 
 #endif

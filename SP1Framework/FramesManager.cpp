@@ -180,6 +180,49 @@ void drawDialogBox(int keyFrame, COORD boxCoord, Console &g_Console)
 	}
 }
 
+void drawQuickHelp(Console &g_Console, short g_currLevel)
+{
+	COORD drawLocationHelp;
+	drawLocationHelp.X = 7;
+	drawLocationHelp.Y = 5;
+
+	if (g_currLevel == 0)
+	{
+		g_Console.writeToBuffer(drawLocationHelp, "                                            Quick Help Page!", 0x0A);
+		drawLocationHelp.Y+=2;
+		g_Console.writeToBuffer(drawLocationHelp, "Move = Arrow Keys", 0x0A);
+		drawLocationHelp.Y += 2;
+		g_Console.writeToBuffer(drawLocationHelp, "Fire Portal Gun = [ Space ]", 0x0A);
+		drawLocationHelp.Y += 2;
+		g_Console.writeToBuffer(drawLocationHelp, "Switch Portals = [ S ]", 0x0A);
+		drawLocationHelp.Y += 2;
+		g_Console.writeToBuffer(drawLocationHelp, "Hold Position = [ Z ]", 0x0A);
+		drawLocationHelp.Y += 2;
+		g_Console.writeToBuffer(drawLocationHelp, "Inventory & Stats = [ A ]", 0x0A);
+		drawLocationHelp.Y += 2;
+		g_Console.writeToBuffer(drawLocationHelp, "Interaction / Action = [ Space ]", 0x0A);
+		drawLocationHelp.Y += 2;
+		g_Console.writeToBuffer(drawLocationHelp, "Pause Game = [ Enter ]", 0x0A);
+		drawLocationHelp.Y += 4;
+		g_Console.writeToBuffer(drawLocationHelp, "In Stats & Inventory, Press '+' or 'E' with the mouse to add stats or equip!", 0x0A);
+		drawLocationHelp.Y += 2;
+		g_Console.writeToBuffer(drawLocationHelp, "In Combat, Magic deals most damage but takes up Energy, Attack deals damage relevant to your Attack stats", 0x0A);
+		drawLocationHelp.Y += 2;
+		g_Console.writeToBuffer(drawLocationHelp, "Strength adds attack, Constitution adds HP, Intel adds Magic Damage and Max Energy", 0x0A);
+		drawLocationHelp.Y += 2;
+		g_Console.writeToBuffer(drawLocationHelp, "Saved game loads on startup. Upon death, it resets all your stats. If you wish to start fresh, please suicide.", 0x0A);
+		drawLocationHelp.Y += 4;
+		g_Console.writeToBuffer(drawLocationHelp, "The short story of this game is you are stuck in a Memory Corruption zone in the Random Access Memory", 0x0A);
+		drawLocationHelp.Y += 2;
+		g_Console.writeToBuffer(drawLocationHelp, "This Quick Help only appear in tutorial, Press SPACE to continue;", 0x0A);
+		//the ' ; ' is on purpose in the string print out.
+	}
+	else
+	{
+		return;
+	}
+}
+
 void damagePopUp(int keyFrame, COORD Pop, Console &g_Console)
 {
 	COORD PopCoord2;
