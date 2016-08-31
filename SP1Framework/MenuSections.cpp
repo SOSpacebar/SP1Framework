@@ -798,7 +798,10 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 					}
 					if (hp <= 0)
 					{
-						inventory.addItem(Items());
+						if (inventory.getSize() != 15)
+						{
+							inventory.addItem(Items());
+						}
 						getPlayerStats.updateExp(10);
 						PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
 						hp = 98;
