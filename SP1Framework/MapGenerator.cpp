@@ -85,7 +85,7 @@ public:
 			return;
 		}
 
-		for (int x = 1; x < 9; ++x)
+		for (int x = 1; x < 15; ++x)
 		{
 			if (!placeObject(EnergyBall))
 			{
@@ -94,7 +94,7 @@ public:
 			}
 		}
 
-		for (int x = 1; x < 9; ++x)
+		for (int x = 1; x < 15; ++x)
 		{
 			if (!placeObject(Monster))
 			{
@@ -102,15 +102,6 @@ public:
 				break;
 			}
 		}
-		//
-		//for (int x = 1; x < 0; ++x)
-		//{
-		//	if (!placeObject(Key))
-		//	{
-		//		//std::cout << "Unable to place down stairs.\n";
-		//		break;
-		//	}
-		//}
 
 		for (char& tile : _tiles)
 		{

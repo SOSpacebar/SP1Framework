@@ -41,12 +41,25 @@ void renderPlayerStatsScreen(Console &g_Console, PlayerStats &getPlayerStats, In
 	}
 	else
 	{
-		g_Console.writeToBuffer(c, "Strenght: " + std::to_string(getPlayerStats.getPlayerStr()) + "+", 0x03);
+
+		c.X -= 2;
+		g_Console.writeToBuffer(c, "+", 0x0A);
+		c.X += 2;
+		g_Console.writeToBuffer(c, "Strenght: " + std::to_string(getPlayerStats.getPlayerStr()), 0x03);
 		c.Y += 1;
-		g_Console.writeToBuffer(c, "Constitution: " + std::to_string(getPlayerStats.getPlayerCon()) + "+", 0x03);
+		c.X -= 2;
+		g_Console.writeToBuffer(c, "+", 0x0A);
+		c.X += 2;
+		g_Console.writeToBuffer(c, "Constitution: " + std::to_string(getPlayerStats.getPlayerCon()), 0x03);
 		c.Y += 1;
-		g_Console.writeToBuffer(c, "Intelligence: " + std::to_string(getPlayerStats.getPlayerInt()) + "+", 0x03);
+		c.X -= 2;
+		g_Console.writeToBuffer(c, "+", 0x0A);
+		c.X += 2;
+		g_Console.writeToBuffer(c, "Intelligence: " + std::to_string(getPlayerStats.getPlayerInt()), 0x03);
 		c.Y += 1;
+		
+		g_Console.writeToBuffer(c, "+", 0x0A);
+		g_Console.writeToBuffer(c, "+", 0x0A);
 	}
 	g_Console.writeToBuffer(c, "Stats Point: " + std::to_string(getPlayerStats.getPlayerStatPoints()), 0x03);
 }

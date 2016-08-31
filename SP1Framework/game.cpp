@@ -365,7 +365,7 @@ void render()
 		case S_TRANSITION: DrawAnimationSplashScreen(g_eGameState);
 			break;
 		case S_STATSSCREEN: renderPlayerStatsScreen(g_Console, _playerStats, _inventory, equip);
-			//renderInputEvents();
+			renderInputEvents();
 			break;
 		case S_DIALOG: 
 			if (g_currLevel > 3)
