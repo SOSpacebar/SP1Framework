@@ -155,8 +155,8 @@ void drawHpCurr(int keyFrame, COORD currCoord, int &hp, Console &g_Console)
 void drawDialogBox(int keyFrame, COORD boxCoord, Console &g_Console)
 {
 	COORD currCoord2;
-	boxCoord.X = 0;
-	boxCoord.Y = 25;
+	boxCoord.X = 1;
+	boxCoord.Y = 24;
 	int tempValue = boxCoord.X;
 
 	for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
@@ -168,8 +168,14 @@ void drawDialogBox(int keyFrame, COORD boxCoord, Console &g_Console)
 				break;
 			}
 
-			g_Console.writeToBuffer(boxCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0A);
-
+			if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '%'))
+			{
+				g_Console.writeToBuffer(boxCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x02);
+			}
+			else
+			{
+				g_Console.writeToBuffer(boxCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0A);
+			}
 			boxCoord.X++;
 		}
 		boxCoord.X = tempValue;
