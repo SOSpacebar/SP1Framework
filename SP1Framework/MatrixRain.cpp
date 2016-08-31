@@ -140,30 +140,28 @@ void Matrix::display() {
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0F);
 			drawLocationMatrix.Y-=2;
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0F);
-			drawLocationMatrix.Y--;
+			drawLocationMatrix.Y -= (rand() % 3 + 1);
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0F);
-			drawLocationMatrix.Y--;
+			drawLocationMatrix.Y -= (rand() % 3 + 1);
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0F);
-			drawLocationMatrix.Y -= 2;
+			drawLocationMatrix.Y -= (rand() % 3 + 1);
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0F);
-			drawLocationMatrix.Y-=6;
-			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0F);
+			//drawLocationMatrix.Y -= (rand() % 3 + 1);
+			//g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0F);
 		}
 		else
 		{
 			CharValue = (char)(rand() % 121 + 34);
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-			drawLocationMatrix.Y--;
+			drawLocationMatrix.Y -= 2;
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
 			drawLocationMatrix.Y-=2;
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-			drawLocationMatrix.Y--;
-			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-			drawLocationMatrix.Y--;
+			drawLocationMatrix.Y -= 4;
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
 			drawLocationMatrix.Y -= 2;
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-			drawLocationMatrix.Y-=6;
+			drawLocationMatrix.Y --;
 			g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
 		}
 
@@ -181,30 +179,28 @@ void Matrix::display() {
 				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0A);
 				drawLocationMatrix.Y-=2;
 				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0A);
-				drawLocationMatrix.Y-=4;
+				drawLocationMatrix.Y -= (rand() % 3 + 1);
+				//g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0A);
+				//drawLocationMatrix.Y -= (rand() % 3 + 1);
+				//g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0A);
+				//drawLocationMatrix.Y -= (rand() % 3 + 1);
 				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0A);
-				drawLocationMatrix.Y--;
-				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0A);
-				drawLocationMatrix.Y -= 7;
-				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0A);
-				drawLocationMatrix.Y -= 4;
+				drawLocationMatrix.Y -= (rand() % 3 + 1);
 				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x0A);
 			}
 			else
 			{
 				CharValue = (char)(rand() % 121 + 34);
 				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-				drawLocationMatrix.Y--;
+				drawLocationMatrix.Y -= 2;
 				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-				drawLocationMatrix.Y-=2;
-				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-				drawLocationMatrix.Y-=4;
-				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-				drawLocationMatrix.Y--;
-				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-				drawLocationMatrix.Y -= 7;
+				drawLocationMatrix.Y -= 2;
 				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
 				drawLocationMatrix.Y -= 4;
+				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
+				drawLocationMatrix.Y -= 2;
+				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
+				drawLocationMatrix.Y--;
 				g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
 			}
 
@@ -225,31 +221,30 @@ void Matrix::display() {
 						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x02);
 						drawLocationMatrix.Y-=2;
 						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x02);
-						drawLocationMatrix.Y--;
+						drawLocationMatrix.Y -= (rand() % 3 + 1);
 						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x02);
-						drawLocationMatrix.Y--;
+						drawLocationMatrix.Y -= (rand() % 3 + 1);
 						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x02);
-						drawLocationMatrix.Y -= 6;
+						drawLocationMatrix.Y -= (rand() % 3 + 1);
 						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x02);
-						drawLocationMatrix.Y--;
+						drawLocationMatrix.Y -= (rand() % 3 + 1);
 						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x02);
 					}
 					else
 					{
 						CharValue = (char)(rand() % 121 + 34);
 						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-						drawLocationMatrix.Y--;
-						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-						drawLocationMatrix.Y-=2;
-						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-						drawLocationMatrix.Y-=2;
-						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-						drawLocationMatrix.Y-=9;
+						drawLocationMatrix.Y -= 2;
 						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
 						drawLocationMatrix.Y -= 2;
 						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
-						drawLocationMatrix.Y -= 7;
+						drawLocationMatrix.Y -= 4;
 						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
+						drawLocationMatrix.Y -= 2;
+						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
+						drawLocationMatrix.Y--;
+						g_Console.writeToBuffer(drawLocationMatrix, CharValue, 0x00);
+
 					}
 				}
 

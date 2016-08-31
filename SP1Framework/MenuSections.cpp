@@ -186,7 +186,6 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
 	int time = g_dElapsedTime;
-
 	COORD title;
 	title.X = 0;
 	title.Y = 5;
@@ -219,7 +218,7 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 	}
 	//======================================================================
 
-
+	drawMatrix();
 	bool bSomethingHappened = false;
 	string Level[3] {"Tutorial", "Challenge", "Random Generate"}; //creating a simple level selection.
 	string Level_selected[3] {"> Tutorial <", "> Challenge <", "> Random Generate <"};
