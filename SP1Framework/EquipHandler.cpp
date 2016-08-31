@@ -23,6 +23,7 @@ void Equipment::getEquippedStats(Items &items, PlayerStats &playerStats, Invento
 	playerStats.updateIntEquip((inventory.getItemInt(itemArrayIndex)));
 	playerStats.updatePlayerAttack((inventory.getAttack(itemArrayIndex)));
 	playerStats.updatePlayerHealth((inventory.getHealth(itemArrayIndex)));
+	playerStats.updatePlayerHealthMaxHealth((inventory.getHealth(itemArrayIndex)));
 }
 
 void Equipment::removeEquipments(Items &items, PlayerStats &playerStats, Inventory &inventory, int prevEquipIndex)
@@ -32,6 +33,7 @@ void Equipment::removeEquipments(Items &items, PlayerStats &playerStats, Invento
 	playerStats.updateIntEquip(-(inventory.getItemInt(prevEquipIndex)));
 	playerStats.updatePlayerAttack(-(inventory.getAttack(prevEquipIndex)));
 	playerStats.updatePlayerHealth(-(inventory.getHealth(prevEquipIndex)));
+	playerStats.updatePlayerHealthMaxHealth(-(inventory.getHealth(prevEquipIndex)));
 }
 
 void Equipment::wearEquipment(Items &items, PlayerStats &playerStats, Inventory &inventory)

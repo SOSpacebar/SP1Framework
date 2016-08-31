@@ -21,6 +21,7 @@ public:
 	inline int getPlayerStatPoints() const { return player_statPoints; };
 
 	void updatePlayerHealth(int health);
+	void updatePlayerHealthMaxHealth(int health);
 	void updatePlayerMana(int mana);
 	void updatePlayerAttack(int attack);
 	void setPlayerStats(string name, int level, int exp, int maxExp, int health, int maxHealth, int mana, int maxMana, int attack, int s_str, int s_con, int s_int, int statPoint);

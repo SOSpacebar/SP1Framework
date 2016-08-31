@@ -22,6 +22,11 @@ void PlayerStats::updatePlayerHealth(int health)
 	player_health += health;
 }
 
+void PlayerStats::updatePlayerHealthMaxHealth(int health)
+{
+	player_maxHealth += health;
+}
+
 void PlayerStats::updatePlayerMana(int mana)
 {
 	player_mana += mana;

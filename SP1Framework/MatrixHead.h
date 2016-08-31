@@ -5,17 +5,12 @@
 #include <iostream>
 #include "game.h"
 
-class Matrix {
+class Matrix 
+{
 private:
 	bool isDefault_; // Flag to signal using default "0 to 80" width, and "0 to 25" height
 	bool erase_; // Flag to signal erasing of text (black matrix lines)
 
-	// Timers for each color (no alternative)
-	unsigned int loopWhite_;
-	unsigned int loopLgreen_;
-	unsigned int loopDgreen_;
-
-	unsigned int speed_[3]; // Delay between printing a new line
 	unsigned int length_; // Max. length before it quits
 	unsigned int lenCnt_; // Counter for length
 
@@ -33,12 +28,8 @@ public:
 	void setErase(const bool);
 	bool getErase();
 
-	void setSpeed(const unsigned int16, const unsigned int, const unsigned int);
-	unsigned int getSpeed(const unsigned int);
-
 private:
 	void randLength();
-	void randSpeed();
 	void randPos();
 
 	void setDefault(const bool);

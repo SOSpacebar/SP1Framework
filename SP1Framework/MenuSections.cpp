@@ -91,9 +91,13 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 	switch (MenuSelect)//Main Menu Selections
 	{
 	case 0:
+		c.X -= 2;
 		g_Console.writeToBuffer(c, Menu_selected[0], 0x04);
+		c.X += 2;
 		c.Y += 1;
+		c.X += 1;
 		g_Console.writeToBuffer(c, Menu[1], 0x03);
+		c.X -= 1;
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[2], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
@@ -122,7 +126,9 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 	case 1:
 		g_Console.writeToBuffer(c, Menu[0], 0x03);
 		c.Y += 1;
+		c.X--;
 		g_Console.writeToBuffer(c, Menu_selected[1], 0x04);
+		c.X++;
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[2], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
@@ -151,9 +157,13 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 	case 2:
 		g_Console.writeToBuffer(c, Menu[0], 0x03);
 		c.Y += 1;
+		c.X++;
 		g_Console.writeToBuffer(c, Menu[1], 0x03);
+		c.X--;
 		c.Y += 1;
+		c.X -= 2;
 		g_Console.writeToBuffer(c, Menu_selected[2], 0x04);
+		c.X += 2;
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 		if (g_abKeyPressed[K_UP])
@@ -240,9 +250,13 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 	switch (SetLevel)
 	{
 	case 0:
+		c.X++;
 		g_Console.writeToBuffer(c, Level_selected[0], 0x04);
+		c.X--;
 		c.Y += 1;
+		c.X += 3;
 		g_Console.writeToBuffer(c, Level[1], 0x03);
+		c.X -= 3;
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Level[2], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
@@ -270,9 +284,13 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		}
 		break;
 	case 1:
+		c.X+=3;
 		g_Console.writeToBuffer(c, Level[0], 0x03);
+		c.X-=3;
 		c.Y += 1;
+		c.X++;
 		g_Console.writeToBuffer(c, Level_selected[1], 0x04);
+		c.X--;
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Level[2], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
@@ -300,11 +318,17 @@ void LevelSelect(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double
 		}
 		break;
 	case 2:
+		c.X += 3;
 		g_Console.writeToBuffer(c, Level[0], 0x03);
+		c.X -= 3;
 		c.Y += 1;
+		c.X += 3;
 		g_Console.writeToBuffer(c, Level[1], 0x03);
+		c.X -= 3;
 		c.Y += 1;
+		c.X -= 2;
 		g_Console.writeToBuffer(c, Level_selected[2], 0x04);
+		c.X += 2;
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 		//Goes back to case 1
