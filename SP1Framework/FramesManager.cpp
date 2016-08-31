@@ -2,6 +2,8 @@
 #include "game.h"
 #include "Framework\console.h"
 
+int f = 0;
+
 FrameData frameData;
 COORD drawLocation;
 int matrixOffset = 0;
@@ -528,31 +530,18 @@ void drawMatrixRain(Console &g_Console)
 	string RandChar[20] = { "0", "1", "2", "T", "4", " ", "6", "B", "8", "9", "<", "?", ">", "@", "#", "$", "&", "%", "E", "G" };
 
 	string StringFiller;
-	//global y, if hit max, reset to 0.
-
-	int f = 0;
-
-	for (int f = 0; f < 120; f++)
-	{
-		RandString[MatrixY][f] = (RandChar[rand() % 20]);
-
-		if (f == 119)
-		{
-			f = 0;
-			MatrixY++;
-		}
-
-		if (MatrixY == 48)
-		{
-			break;
-		}
-	}
 
 	if (f < 120)
 	{
-
+		RandString[MatrixY][f] = (RandChar[rand() % 20]);
+		f++;
 	}
 
+	if (f >= 119)
+	{
+		MatrixY++;
+		f = 0;
+	}
 	//draw at random x.
 
 	for (int y = 0; y < 120; y++)
@@ -577,8 +566,12 @@ void drawMatrixRain(Console &g_Console)
 	{
 		matrixOffset = 0;
 	}
-	if (drawLocation.Y == 48)
+	if (drawLocation.Y >= 48)
 	{
 		drawLocation.Y = 0;
+	}
+	if (drawLocation.X >= 119)
+	{
+		drawLocation.X = 0;
 	}
 }
