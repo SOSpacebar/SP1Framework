@@ -18,6 +18,7 @@
 #include "renderPlayerStatsScreen.h"
 #include "handleStatsScreen.h"
 #include "playerDetailsManager.h"
+#include "MatrixHead.h"
 
 //Original framework stuff
 #include <iostream>
@@ -85,6 +86,8 @@ Equipment equip;
 //items
 Items itemsArray[15];
 
+std::vector<Matrix>matrix;
+
 bool statsOpened = false;
 
 //--------------------------------------------------------------
@@ -96,6 +99,7 @@ bool statsOpened = false;
 //--------------------------------------------------------------
 void init( void )
 {
+	initMatrix();
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
@@ -382,7 +386,7 @@ void render()
 void splashScreenWait()    // waits for time to pass in splash screen
 {
 
-	if (g_dElapsedTime > 1.5) // wait for 1 seconds to switch to game mode, else do nothing
+	if (g_dElapsedTime > 2) // wait for 1 seconds to switch to game mode, else do nothing
 		g_eGameState = S_MAINMENU;
 }
 

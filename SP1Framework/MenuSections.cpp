@@ -6,6 +6,7 @@
 #include "MMSystem.h"
 #include "ReadMap.h"
 #include "playerDetailsManager.h"
+#include "MatrixHead.h"
 
 int SplashCol = 0;
 string AnimationString;
@@ -42,7 +43,6 @@ bool loadedMenu = false;
 
 void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
-	drawMatrixRain(g_Console);
 	int time = g_dElapsedTime;
 
 	COORD title;
@@ -77,10 +77,10 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 	}
 //======================================================================
 	bool bSomethingHappened = false;
-	
+	drawMatrix();
 	g_currLevel = 0;
-	string Menu[4] = { "Start Game", "Save Game", "Credits", "Exit Game" };//Array of Start Game and Exit
-	string Menu_selected[4] = { "> Start Game <", "> Save Game <", "> Credits <", "> Exit Game <" };
+	string Menu[3] = { "Start Game", "Credits", "Exit Game" };//Array of Start Game and Exit
+	string Menu_selected[3] = { "> Start Game <", "> Credits <", "> Exit Game <" };
 
 	COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
@@ -96,8 +96,6 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		g_Console.writeToBuffer(c, Menu[1], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[2], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[3], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 
@@ -124,19 +122,9 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 	case 1:
 		g_Console.writeToBuffer(c, Menu[0], 0x03);
 		c.Y += 1;
-		if (loadedMenu == false)
-		{
-			g_Console.writeToBuffer(c, Menu_selected[1], 0x04);
-		}
-		else
-		{
-			g_Console.writeToBuffer(c, "Player Details Saved", 0x04);
-		}
+		g_Console.writeToBuffer(c, Menu_selected[1], 0x04);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[2], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[3], 0x03);
-
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 		if (g_abKeyPressed[K_UP])
@@ -149,34 +137,6 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 		{
 			bSomethingHappened = true;
 			MenuSelect = 2;
-		}
-		if (g_abKeyPressed[K_ENTER])
-		{
-			saveFile(_playerStats);
-			bSomethingHappened = true;
-			loadedMenu = true;
-		}
-		break;
-	case 2:
-		g_Console.writeToBuffer(c, Menu[0], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[1], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu_selected[2], 0x04);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[3], 0x03);
-		if (g_dBounceTime > g_dElapsedTime)
-			return;
-		if (g_abKeyPressed[K_UP])
-		{
-			bSomethingHappened = true;
-			MenuSelect = 1;
-		}
-		//From Pressing Down Player will go to the Exit Menu
-		if (g_abKeyPressed[K_DOWN])
-		{
-			bSomethingHappened = true;
-			MenuSelect = 3;
 		}
 		//Press Space in Exit Menu will quit the game
 		if (g_abKeyPressed[K_ENTER])
@@ -188,26 +148,24 @@ void renderMainMenu(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], dou
 			g_eGameState = S_CREDITS;
 		}
 		break;
-	case 3:
+	case 2:
 		g_Console.writeToBuffer(c, Menu[0], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, Menu[1], 0x03);
 		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu[2], 0x03);
-		c.Y += 1;
-		g_Console.writeToBuffer(c, Menu_selected[3], 0x04);
+		g_Console.writeToBuffer(c, Menu_selected[2], 0x04);
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 		if (g_abKeyPressed[K_UP])
 		{
 			bSomethingHappened = true;
-			MenuSelect = 2;
+			MenuSelect = 1;
 		}
 		//From Pressing Down Player will go to the Exit Menu
 		if (g_abKeyPressed[K_DOWN])
 		{
 			bSomethingHappened = true;
-			MenuSelect = 3;
+			MenuSelect = 2;
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
@@ -417,8 +375,8 @@ void Credits(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT])
 void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &g_dDeltaTime, double &g_dElapsedTime, double &g_dBounceTime)
 {
 	bool bSomethingHappened = false;
-	string MenuSelection[3] {"Resume","MainMenu","Exit Game"};//creating a simple level selection.
-	string MenuSelection_selected[3] {"> Resume <", "> MainMenu <", "> Exit Game <"};
+	string MenuSelection[4] {"Resume","Save Game", "MainMenu","Exit Game"};//creating a simple level selection.
+	string MenuSelection_selected[4] {"> Resume <", "> Save Game <","> MainMenu <", "> Exit Game <"};
 
 	COORD c = g_Console.getConsoleSize();
 	c.Y /= 3;
@@ -435,6 +393,8 @@ void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &
 		g_Console.writeToBuffer(c, MenuSelection[1], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, MenuSelection[2], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, MenuSelection[3], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 		if (g_abKeyPressed[K_UP])
@@ -459,22 +419,60 @@ void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &
 	case 1:
 		g_Console.writeToBuffer(c, MenuSelection[0], 0x03);
 		c.Y += 1;
-		g_Console.writeToBuffer(c, MenuSelection_selected[1], 0x04);
+		if (loadedMenu == false)
+		{
+			g_Console.writeToBuffer(c, MenuSelection_selected[1], 0x04);
+		}
+		else
+		{
+			g_Console.writeToBuffer(c, "Player Details Saved", 0x04);
+		}
 		c.Y += 1;
 		g_Console.writeToBuffer(c, MenuSelection[2], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, MenuSelection[3], 0x03);
+
+		if (g_dBounceTime > g_dElapsedTime)
+			return;
+		if (g_abKeyPressed[K_UP])
+		{
+			bSomethingHappened = true;
+			SetLevel = 0;
+		}
+		//From Pressing Down Player will go to the Exit Menu
+		if (g_abKeyPressed[K_DOWN])
+		{
+			bSomethingHappened = true;
+			SetLevel = 2;
+		}
+		if (g_abKeyPressed[K_ENTER])
+		{
+			saveFile(_playerStats);
+			bSomethingHappened = true; 
+			loadedMenu = true;
+		}
+		break;
+	case 2:
+		g_Console.writeToBuffer(c, MenuSelection[0], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, MenuSelection[1], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, MenuSelection_selected[2], 0x04);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, MenuSelection[3], 0x03);
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 		//Pressing up will move back to case 0
 		if (g_abKeyPressed[K_UP])
 		{
 			bSomethingHappened = true;
-			SetLevel = 0;
+			SetLevel = 1;
 		}
 		//Pressing Down will move to 2nd case
 		if (g_abKeyPressed[K_DOWN])
 		{
 			bSomethingHappened = true;
-			SetLevel = 2;
+			SetLevel = 3;
 		}
 		if (g_abKeyPressed[K_ENTER])
 		{
@@ -484,24 +482,26 @@ void GamePause(EGAMESTATES &g_eGameState, bool g_abKeyPressed[K_COUNT], double &
 			g_eGameState = S_MAINMENU;
 		}
 		break;
-	case 2:
+	case 3:
 		g_Console.writeToBuffer(c, MenuSelection[0], 0x03);
 		c.Y += 1;
 		g_Console.writeToBuffer(c, MenuSelection[1], 0x03);
 		c.Y += 1;
-		g_Console.writeToBuffer(c, MenuSelection_selected[2], 0x04);
+		g_Console.writeToBuffer(c, MenuSelection[2], 0x03);
+		c.Y += 1;
+		g_Console.writeToBuffer(c, MenuSelection_selected[3], 0x04);
 		if (g_dBounceTime > g_dElapsedTime)
 			return;
 		if (g_abKeyPressed[K_UP])
 		{
 			bSomethingHappened = true;
-			SetLevel = 1;
+			SetLevel = 2;
 		}
 		//From Pressing Down Player will go to the Exit Menu
 		if (g_abKeyPressed[K_DOWN])
 		{
 			bSomethingHappened = true;
-			SetLevel = 2;
+			SetLevel = 3;
 		}
 		//Press Space in Exit Menu will quit the game
 		if (g_abKeyPressed[K_ENTER])

@@ -2,17 +2,12 @@
 #include "game.h"
 #include "Framework\console.h"
 
-int f = 0;
-
 FrameData frameData;
 COORD drawLocation;
 int matrixOffset = 0;
 float enemyHp = 98;
 int playerCurrHP = 98;
 short combatIndex = 0;
-
-int MatrixY = 0;
-string RandString[48][120];
 
 char AnimationArray[50][150][150];
 char indexChar;
@@ -157,8 +152,8 @@ void drawHpCurr(int keyFrame, COORD currCoord, int &hp, Console &g_Console)
 void drawDialogBox(int keyFrame, COORD boxCoord, Console &g_Console)
 {
 	COORD currCoord2;
-	boxCoord.X = 0;
-	boxCoord.Y = 25;
+	boxCoord.X = 1;
+	boxCoord.Y = 24;
 	int tempValue = boxCoord.X;
 
 	for (currCoord2.Y = 0; currCoord2.Y < 150; currCoord2.Y++)
@@ -170,8 +165,14 @@ void drawDialogBox(int keyFrame, COORD boxCoord, Console &g_Console)
 				break;
 			}
 
-			g_Console.writeToBuffer(boxCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0A);
-
+			if ((AnimationArray[keyFrame][currCoord2.Y][currCoord2.X] == '%'))
+			{
+				g_Console.writeToBuffer(boxCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x02);
+			}
+			else
+			{
+				g_Console.writeToBuffer(boxCoord, AnimationArray[keyFrame][currCoord2.Y][currCoord2.X], 0x0A);
+			}
 			boxCoord.X++;
 		}
 		boxCoord.X = tempValue;
@@ -522,56 +523,5 @@ void drawCombatMenu(Console &g_Console)
 		UiLocationStart.X = 102;
 		UiLocationStart.Y = 33;
 		g_Console.writeToBuffer(UiLocationStart, " > BURST < ", 0x0B);
-	}
-}
-
-void drawMatrixRain(Console &g_Console)
-{
-	string RandChar[20] = { "0", "1", "2", "T", "4", " ", "6", "B", "8", "9", "<", "?", ">", "@", "#", "$", "&", "%", "E", "G" };
-
-	string StringFiller;
-
-	if (f < 120)
-	{
-		RandString[MatrixY][f] = (RandChar[rand() % 20]);
-		f++;
-	}
-
-	if (f >= 119)
-	{
-		MatrixY++;
-		f = 0;
-	}
-	//draw at random x.
-
-	for (int y = 0; y < 120; y++)
-	{
-		for (int x = 0; x < 49; x++)
-		{
-			if (matrixOffset < 30)
-			{
-				if (drawLocation.Y < 49)
-				{
-					g_Console.writeToBuffer(drawLocation, RandString[y][x], 0x0A);
-					drawLocation.X++;
-				}
-				matrixOffset++;
-			}
-		}
-		drawLocation.Y++;
-	}
-	
-
-	if (matrixOffset >= 30)
-	{
-		matrixOffset = 0;
-	}
-	if (drawLocation.Y >= 48)
-	{
-		drawLocation.Y = 0;
-	}
-	if (drawLocation.X >= 119)
-	{
-		drawLocation.X = 0;
 	}
 }

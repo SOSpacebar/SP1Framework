@@ -1,11 +1,11 @@
-########################################################################################################################
-##                                                                                                                    ##
-##                                                                                                                    ##
-##                                   Welcome to the next level of the tutorial stage!                                 ##
-##                                                                                                                    ##
-##                                                                                                                    ##
-##                                      You will encounter your first monster here                                    ##
-##                             During combat, choose the choice of attack! Attack and Magic.                          ##
-##                 When you level up, you get stat points, remember to add your stats in the stats menu!              ##
-##                                                                                                        >>[SPACE]>> ##
-########################################################################################################################
+#####################################################################################################################
+##                              Welcome to the next level of the tutorial stage!                                   ##%
+##                                                                                                                 ##%
+##                                                                                                                 ##%
+##                                 You will encounter your first monster here                                      ##%
+##                        During combat, choose the choice of attack! Attack and Magic.                            ##%
+##            When you level up, you get stat points, remember to add your stats in the stats menu!                ##%
+##                                                                                                                 ##%
+##                                                                                                     >>[SPACE]>> ##%
+#####################################################################################################################%
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -86,6 +86,7 @@
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="items.cpp" />
     <ClCompile Include="loadPlayerDetails.cpp" />
+    <ClCompile Include="MatrixRain.cpp" />
     <ClCompile Include="playerStats.cpp" />
     <ClCompile Include="portalCollision.cpp" />
     <ClCompile Include="collisionManager.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="handleStatsScreen.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="items.h" />
+    <ClInclude Include="MatrixHead.h" />
     <ClInclude Include="playerDetailsManager.h" />
     <ClInclude Include="HeaderIncludes.h" />
     <ClInclude Include="lockandUnlock.h" />
