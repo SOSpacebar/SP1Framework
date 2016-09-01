@@ -310,10 +310,12 @@ void update(double dt)
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
 		case S_MAINMENU: renderMainMenu(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			canPortalGun = false;
 			break;
 		case S_CREDITS: Credits(g_eGameState, g_abKeyPressed);
 			break;
 		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			canPortalGun = false;
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			_inventory.setNumberOfItems(2);
