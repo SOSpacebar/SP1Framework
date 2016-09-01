@@ -33,7 +33,14 @@ void renderFogOfWarAndMap(SMapData &g_mapData, SGameChar player, Console &g_Cons
 				continue;
 			}
 
-			fogMap[y][x] = g_mapData.mapGrid[y][x];
+			if (g_mapData.mapGrid[y][x] == '\0')
+			{
+				fogMap[y][x] = (char)219;
+			}
+			else
+			{
+				fogMap[y][x] = g_mapData.mapGrid[y][x];
+			}
 			fogMap2[y][x] = fogMap[y][x];
 		}
 	}
@@ -54,7 +61,14 @@ void renderFogOfWarAndMap(SMapData &g_mapData, SGameChar player, Console &g_Cons
 					continue;
 				}
 
-				fogMap[p_y][p_x] = g_mapData.mapGrid[p_y][p_x];
+				if (g_mapData.mapGrid[p_y][p_x] == '\0')
+				{
+					fogMap[p_y][p_x] = (char)219;
+				}
+				else
+				{
+					fogMap[p_y][p_x] = g_mapData.mapGrid[p_y][p_x];
+				}
 				fogMap2[p_y][p_x] = fogMap[p_y][p_x];
 			}
 		}
@@ -76,7 +90,14 @@ void renderFogOfWarAndMap(SMapData &g_mapData, SGameChar player, Console &g_Cons
 					continue;
 				}
 
-				fogMap[p_y][p_x] = g_mapData.mapGrid[p_y][p_x];
+				if (g_mapData.mapGrid[p_y][p_x] == '\0')
+				{
+					fogMap[p_y][p_x] = (char)219;
+				}
+				else
+				{
+					fogMap[p_y][p_x] = g_mapData.mapGrid[p_y][p_x];
+				}
 				fogMap2[p_y][p_x] = fogMap[p_y][p_x];
 			}
 		}
@@ -98,7 +119,14 @@ void renderFogOfWarAndMap(SMapData &g_mapData, SGameChar player, Console &g_Cons
 					continue;
 				}
 
-				fogMap[b_y][b_x] = g_mapData.mapGrid[b_y][b_x];
+				if (g_mapData.mapGrid[b_y][b_x] == '\0')
+				{
+					fogMap[b_y][b_x] = (char)219;
+				}
+				else
+				{
+					fogMap[b_y][b_x] = g_mapData.mapGrid[b_y][b_x];
+				}
 				fogMap2[b_y][b_x] = fogMap[b_y][b_x];
 			}
 		}
@@ -111,7 +139,7 @@ void renderFogOfWarAndMap(SMapData &g_mapData, SGameChar player, Console &g_Cons
 		{
 			if (fogMap[row][col] == '\0' || fogMap[row][col] == '\n')
 			{
-				break;
+				g_Console.writeToBuffer(c, (char)219, 0x0d);
 			}
 
 			g_Console.writeToBuffer(c, fogMap[row][col], 0x08);

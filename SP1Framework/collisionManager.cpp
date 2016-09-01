@@ -15,7 +15,9 @@ bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAME
 		{
 			return false;
 		}
-			
+
+		if (map.mapGrid[player.m_cLocation.Y - 2][player.m_cLocation.X] == '\0')
+			return false;
 		if (player.m_cLocation.X == g_dDoor.m_cLocation.X && player.m_cLocation.Y - 1 == g_dDoor.m_cLocation.Y && g_iKey.m_bActive == true)
 			return false;
 	}
@@ -28,7 +30,8 @@ bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAME
 		{
 			return false;
 		}
-			
+		if (map.mapGrid[player.m_cLocation.Y][player.m_cLocation.X] == '\0')
+			return false;
 		if (player.m_cLocation.X == g_dDoor.m_cLocation.X && player.m_cLocation.Y == g_dDoor.m_cLocation.Y - 1 && g_iKey.m_bActive == true)
 			return false;
 	}
@@ -42,7 +45,8 @@ bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAME
 			return false;
 
 		}
-			
+		if (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X + 1] == '\0')
+			return false;
 		if (player.m_cLocation.X == g_dDoor.m_cLocation.X - 1 && player.m_cLocation.Y == g_dDoor.m_cLocation.Y && g_iKey.m_bActive == true)
 			return false;
 	}
@@ -55,7 +59,8 @@ bool checkPlayerCollision(SGameChar player, SMapData map, EKEYS direction, EGAME
 		{
 			return false;
 		}
-			
+		if (map.mapGrid[player.m_cLocation.Y - 1][player.m_cLocation.X - 1] == '\0')
+			return false;
 		if (player.m_cLocation.X == g_dDoor.m_cLocation.X + 1 && player.m_cLocation.Y == g_dDoor.m_cLocation.Y && g_iKey.m_bActive == true)
 			return false;
 	}	

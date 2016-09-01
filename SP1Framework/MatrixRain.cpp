@@ -13,7 +13,7 @@ Matrix::Matrix()
 {
 
 	// The initial seed value of the object
-	srand(static_cast<unsigned int>(getpid()) ^ static_cast<unsigned int>(clock()) ^ static_cast<unsigned int>(time(NULL)));
+	srand(static_cast<unsigned int>(_getpid()) ^ static_cast<unsigned int>(clock()) ^ static_cast<unsigned int>(time(NULL)));
 
 	// Default constructor (no arguments)
 	setDefault(true);
@@ -35,7 +35,7 @@ Matrix::Matrix(const SMALL_RECT box)
 {
 
 	// The initial seed value of the object
-	srand(static_cast<unsigned int>(getpid()) ^ static_cast<unsigned int>(clock()) ^ static_cast<unsigned int>(time(NULL)));
+	srand(static_cast<unsigned int>(_getpid()) ^ static_cast<unsigned int>(clock()) ^ static_cast<unsigned int>(time(NULL)));
 
 	// Copy the argument to class member attribute
 	setMatrixBox(box);
@@ -60,7 +60,7 @@ Matrix::Matrix(const unsigned int left, const unsigned int top, const unsigned i
 {
 
 	// The initial seed value of the object
-	srand(static_cast<unsigned int>(getpid()) ^ static_cast<unsigned int>(clock()) ^ static_cast<unsigned int>(time(NULL)));
+	srand(static_cast<unsigned int>(_getpid()) ^ static_cast<unsigned int>(clock()) ^ static_cast<unsigned int>(time(NULL)));
 
 	// Copy the argument to class member attribute
 	setMatrixBox(top, bottom, left, right);
