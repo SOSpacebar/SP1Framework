@@ -806,7 +806,7 @@ void renderCombatScreen(EGAMESTATES &g_eGameState, double &g_dElapsedTime, bool 
 						{
 							inventory.addItem(Items());
 						}
-						getPlayerStats.updateExp(10);
+						getPlayerStats.updateExp(50);
 						PlaySound(TEXT("Sound/Searching.wav"), NULL, SND_LOOP | SND_ASYNC);
 						hp = 98;
 						g_eGameState = S_GAME;

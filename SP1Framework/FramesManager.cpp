@@ -317,16 +317,19 @@ void drawEXP(Console &g_Console, PlayerStats getPlayerStats)
 {
 	COORD UiLocationStart;
 	COORD UiLocationIndex;
-	int GetEXP = getPlayerStats.getPlayerExp() % getPlayerStats.getPlayerNextLvlExp();
 
 	UiLocationStart.X = 4;
 	UiLocationStart.Y = 47;
 
+	int currentEXP = (float)(getPlayerStats.getPlayerExp() / (float)(getPlayerStats.getPlayerNextLvlExp())) * (float)112.00;
+	//float PercentageEXPmissing = ((float)(currentEXP) / (float)100.00) * (float)112.00;
+	//int PercentageEXPLeft = PercentageEXPmissing;
+
 	int tempValue = UiLocationStart.X;
 
-	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 50; UiLocationIndex.Y++)
+	for (UiLocationIndex.Y = 0; UiLocationIndex.Y < 1; UiLocationIndex.Y++)
 	{
-		for (UiLocationIndex.X = 0; UiLocationIndex.X < GetEXP; UiLocationIndex.X++)
+		for (UiLocationIndex.X = 0; UiLocationIndex.X < currentEXP; UiLocationIndex.X++)
 		{
 			if ((AnimationArray[21][UiLocationIndex.Y][UiLocationIndex.X] == '\0') || (AnimationArray[21][UiLocationIndex.Y][UiLocationIndex.X] == '\n'))
 			{
