@@ -31,6 +31,8 @@ class Inventory
 		int getAttack(int arrayIndex);
 		int getHealth(int arrayIndex);
 
+		void setNumberOfItems(int num);
+
 		void debugPrint(Equipment &equip, Inventory &_inventory);
 
 	private:
