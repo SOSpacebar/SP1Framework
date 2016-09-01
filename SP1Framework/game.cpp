@@ -569,8 +569,10 @@ void renderGame()
 	if (g_currLevel == 0 && quickHelpBox == false)
 	{
 		drawQuickHelp(g_Console, g_currLevel);
+		dialogend = false;
 		if (g_abKeyPressed[K_SPACE])
 		{
+			dialogend = true;
 			quickHelpBox = true;
 		}
 		return;
