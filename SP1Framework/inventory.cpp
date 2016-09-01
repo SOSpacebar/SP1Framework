@@ -71,6 +71,11 @@ void Inventory::removeItem(int index)
 	//delete itemsArray[index];
 }
 
+void Inventory::setNumberOfItems(int num)
+{
+	numberOfItems = num;
+}
+
 void Inventory::debugPrint(Equipment &equip, Inventory &_inventory)
 {
 	equip.wearEquipment(*itemsArray, _playerStats, _inventory);

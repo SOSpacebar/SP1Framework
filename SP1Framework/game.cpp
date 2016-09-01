@@ -316,6 +316,11 @@ void update(double dt)
 		case S_LEVELSELECT: LevelSelect(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
+			_inventory.setNumberOfItems(2);
+			statsOpened = false;
+			equip.resetDefault();
+			boxIndex = 0;
+			resetVariables();
 			break;
 		case S_PAUSE: GamePause(g_eGameState, g_abKeyPressed, g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
 			break;
@@ -352,10 +357,6 @@ void render()
 		case S_COMBATSCREEN: renderCombatScreen(g_eGameState, g_dElapsedTime, g_abKeyPressed, g_dBounceTime, _playerStats, _inventory);
 			break;
 		case S_GAMEOVER: GameOver(g_eGameState ,g_abKeyPressed ,g_dDeltaTime, g_dElapsedTime, g_dBounceTime);
-			statsOpened = false;
-			equip.resetDefault();
-			boxIndex = 0;
-			resetVariables();
 			break;
         case S_GAME: renderGame();
             break;
@@ -381,7 +382,6 @@ void render()
 			else
 			{
 				checkDialogEnd(g_eGameState, g_abKeyPressed, boxIndex, g_Console, dialogend, g_dBounceTime, g_dElapsedTime, canPortalGun);
-
 			}
 			break;
     }
