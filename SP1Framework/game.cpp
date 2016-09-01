@@ -47,7 +47,7 @@ SGameKey g_dDoor;
 Portal _portal;
 
 //dialog box
-DialogStruct boxArr[20];
+DialogStruct boxArr[30];
 int maxBox = 0;
 int boxIndex = 0;
 
